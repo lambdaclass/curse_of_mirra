@@ -1,9 +1,9 @@
+using CandyCoded.HapticFeedback;
 using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 using UnityEngine.UI;
-using CandyCoded.HapticFeedback;
 
 public class CustomMMTouchJoystick : MMTouchJoystick
 {
@@ -14,8 +14,9 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     const float CANCEL_AREA_VALUE = 0.15f;
     bool dragged = false;
     bool cancelable = false;
-    float frameCounter;
     private CustomInputManager inputManager;
+
+    bool didHapticFeedback = false;
 
     public override void Initialize()
     {
@@ -68,9 +69,12 @@ public class CustomMMTouchJoystick : MMTouchJoystick
         // What makes this responsive is taking into account the canvas scaling
         float scaleCanvas = GetComponentInParent<Canvas>().transform.localScale.x;
 
-        float knobBackgroundRadius = gameObject.transform.parent
+        float knobBackgroundRadius = gameObject
+            .transform
+            .parent
             .GetComponent<RectTransform>()
-            .rect.width;
+            .rect
+            .width;
         float knobRadius = GetComponent<RectTransform>().rect.width;
         MaxRange = (knobBackgroundRadius - knobRadius) * scaleCanvas;
         base.RefreshMaxRangeDistance();
@@ -104,10 +108,14 @@ public class CustomMMTouchJoystick : MMTouchJoystick
         )
         {
             inputManager.SetCanceled(cancelable, dragged, skill.GetIndicatorType());
-            HapticFeedback.MediumFeedback();
+            if(!didHapticFeedback && cancelable == true){
+                HapticFeedback.MediumFeedback();
+                didHapticFeedback = true;
+            }
         }
         else
         {
+            didHapticFeedback = false;
             inputManager.SetCanceled(cancelable, dragged, skill.GetIndicatorType());
         }
     }

@@ -14,23 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Uma
   description: Wrath of vengeance
-  characterSprite: {fileID: 21300000, guid: d8da1ffce372849c680660fc4ce0c42a, type: 3}
-  characterIcon: {fileID: 21300000, guid: d733a67725d5d47c5bc73099d6c350fb, type: 3}
+  characterSprite: {fileID: 21300000, guid: 16b019d65fc3d4c63814fb3364463014, type: 3}
+  characterIcon: {fileID: 21300000, guid: 18ab5749b11e345f8b9057a8bd7ec8d9, type: 3}
   artWork: {fileID: 21300000, guid: c822c7d5c79d340c78de341ab277dc34, type: 3}
   selectedArtwork: {fileID: 21300000, guid: a1437621e6e31420581434f1405b4f74, type: 3}
   blockArtwork: {fileID: 21300000, guid: 3144019d1288c4de9851065f05a1cbc5, type: 3}
   characterPlayer: {fileID: 21300000, guid: 7deff0598157c43dda66d16460fe341b, type: 3}
-  classImage: {fileID: 21300000, guid: 70b6dcf41afc3498585bf28de48bfe45, type: 3}
-  UIIcon: {fileID: 21300000, guid: d9ffe1282266942eeb1daa2ae2811cc4, type: 3}
+  classImage: {fileID: 21300000, guid: 962e5a9f43ced47b6816270a262febdf, type: 3}
+  UIIcon: {fileID: 21300000, guid: 789e5811ba2c14730a2807050b00ee58, type: 3}
   prefab: {fileID: 1787465996332106805, guid: ed2f9d09eb48e4bfea96370afd8336ef, type: 3}
-  skillBackground: {fileID: 21300000, guid: a3a6ee393ec9f494bb2b2f4aea4a12de, type: 3}
   InputFeedbackColor:
     serializedVersion: 2
-    rgba: 4278234390
+    rgba: 4288916761
   skillsInfo:
-  - {fileID: 11400000, guid: ee20a1cfb77b14f73b4ded5ec082cc61, type: 2}
   - {fileID: 11400000, guid: 1794f232504ea4f70882e62643ba4f27, type: 2}
-  skillBasicInfo: {fileID: 11400000, guid: ee20a1cfb77b14f73b4ded5ec082cc61, type: 2}
+  - {fileID: 11400000, guid: ee20a1cfb77b14f73b4ded5ec082cc61, type: 2}
+  - {fileID: 11400000, guid: 01fab1ad3b5ce4c4c8138838a49c5182, type: 2}
+  skillBasicInfo: {fileID: 11400000, guid: 1794f232504ea4f70882e62643ba4f27, type: 2}
   UIModel: {fileID: 5819572997624566537, guid: a58f36917e06d4ce4998ca8c1b64415e, type: 3}
-  battleCharacterCard: {fileID: 21300000, guid: e2fcf543ad8b547ec96e8284774749ac,
+  shadowScaleValues: {x: 1, y: 1.1, z: 1}
+  battleCharacterCard: {fileID: 21300000, guid: 3eb3b8d50c6bf496bbb4f9e2ba0509ae,
     type: 3}

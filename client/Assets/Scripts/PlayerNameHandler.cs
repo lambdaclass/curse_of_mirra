@@ -1,5 +1,7 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerNameHandler : MonoBehaviour
 {
@@ -21,13 +23,24 @@ public class PlayerNameHandler : MonoBehaviour
     [SerializeField]
     InputField placeholder;
 
+    [SerializeField]
+    TextMeshProUGUI topLeftPlayerName;
+
+    [SerializeField]
+    TextMeshProUGUI currentPlayerName;
+
     private string playerName;
+
+    const string NAME_LENGHT_MESSAGE = "Player Name should contain more than 3 characters.";
+
+    const string EMPTY_NAME_MESSAGE = "Player name cannot be empty.";
 
     public void SetPlayerName()
     {
-        this.playerName = playerNameInput.text.Trim().ToUpper();
-        if (this.playerName == "")
+        this.playerName = playerNameInput.text.Trim();
+        if (this.playerName == "" || this.playerName.Length <= 3)
         {
+            HandleErrorMessage();
             this.errorMessage.SetActive(true);
             return;
         }
@@ -35,6 +48,29 @@ public class PlayerNameHandler : MonoBehaviour
         GetComponent<Image>().sprite = selectedButtonSprite;
         PlayerPrefs.SetString(PLAYER_NAME_KEY, this.playerName);
         this.Hide();
+    }
+
+    private void HandleErrorMessage(){
+        TextMeshProUGUI textMesh = this.errorMessage.GetComponent<TextMeshProUGUI>();
+        if(this.playerName.Length <= 3){
+            textMesh.text = NAME_LENGHT_MESSAGE;
+        } 
+
+        if(this.playerName == ""){
+            textMesh.text = EMPTY_NAME_MESSAGE;
+        }
+
+    }
+
+    public void ChangePlayersName()
+    {
+        SetPlayerName();
+        if (!this.errorMessage.activeSelf) 
+        {
+            topLeftPlayerName.text = PlayerPrefs.GetString("playerName");  
+            currentPlayerName.text = "Current name: " + PlayerPrefs.GetString("playerName"); 
+            Hide();
+        }
     }
 
     public string GetPlayerName()
@@ -48,10 +84,6 @@ public class PlayerNameHandler : MonoBehaviour
         {
             this.playerName = PlayerPrefs.GetString(PLAYER_NAME_KEY);
             this.placeholder.text = this.playerName.ToUpper();
-        }
-        else
-        {
-            this.placeholder.text = PLAYER_NAME_PLACEHOLDER;
         }
         this.playerNameHandler.SetActive(true);
         this.playerNameHandler.GetComponent<CanvasGroup>().alpha = 1;

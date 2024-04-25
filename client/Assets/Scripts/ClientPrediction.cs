@@ -1,93 +1,148 @@
 using System;
 using System.Collections.Generic;
-using Communication.Protobuf;
 using UnityEngine;
 
 public class ClientPrediction
 {
+    public bool didFirstMovement = false;
+
     public struct PlayerInput
     {
         public float joystick_x_value;
         public float joystick_y_value;
-        public long timestamp;
+        public long timestampId;
+        public long startTimestamp;
+        public long endTimestamp;
+        public long serverTimestamp;
     }
 
     public List<PlayerInput> pendingPlayerInputs = new List<PlayerInput>();
 
-    public void putPlayerInput(PlayerInput PlayerInput)
-    {
-        pendingPlayerInputs.Add(PlayerInput);
-    }
+    public Position startingPosition;
+    public float lastXSent = 0;
+    public float lastYSent = 0;
 
-    public void simulatePlayerState(OldPlayer player, long timestamp)
+    public void EnqueuePlayerInput(PlayerInput PlayerInput)
     {
-        removeServerAcknowledgedInputs(player, timestamp);
-        simulatePlayerMovement(player);
-    }
-
-    void removeServerAcknowledgedInputs(OldPlayer player, long timestamp)
-    {
-        pendingPlayerInputs.RemoveAll((input) => input.timestamp <= timestamp);
-    }
-
-    void simulatePlayerMovement(OldPlayer player)
-    {
-        var characterSpeed = player.Speed;
-
-        pendingPlayerInputs.ForEach(input =>
+        // finalize last pending input
+        PlayerInput lastPlayerInput;
+        if (pendingPlayerInputs.Count > 0)
         {
-            Vector2 movementDirection = new Vector2(
-                -input.joystick_y_value,
-                input.joystick_x_value
-            );
-
-            movementDirection.Normalize();
-            Vector2 movementVector = movementDirection * characterSpeed;
-
-            var newPositionX = (long)player.Position.X + (long)Math.Round(movementVector.x);
-            var newPositionY = (long)player.Position.Y + (long)Math.Round(movementVector.y);
-
-            OldPosition newPlayerPosition = new OldPosition();
-
-            newPlayerPosition.X = (ulong)newPositionX;
-            newPlayerPosition.Y = (ulong)newPositionY;
-
-            player.Position = newPlayerPosition;
-        });
-
-        var radius = 4900;
-        OldPosition center = new OldPosition() { X = 5000, Y = 5000 };
-
-        if (distance_between_positions(player.Position, center) > radius)
+            lastPlayerInput = pendingPlayerInputs[pendingPlayerInputs.Count - 1];
+            lastPlayerInput.endTimestamp = PlayerInput.startTimestamp;
+            pendingPlayerInputs[pendingPlayerInputs.Count - 1] = lastPlayerInput;
+        }
+        if (didFirstMovement)
         {
-            var angle = angle_between_positions(center, player.Position);
-
-            player.Position.X = (ulong)(radius * Math.Cos(angle) + 5000);
-            player.Position.Y = (ulong)(radius * Math.Sin(angle) + 5000);
+            // add the new input to the list
+            pendingPlayerInputs.Add(PlayerInput);
+            lastXSent = PlayerInput.joystick_x_value;
+            lastYSent = PlayerInput.joystick_y_value;
         }
     }
 
-    double distance_between_positions(OldPosition position_1, OldPosition position_2)
+    public void StopMovement()
     {
-        double p1_x = position_1.X;
-        double p1_y = position_1.Y;
-        double p2_x = position_2.X;
-        double p2_y = position_2.Y;
+        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        PlayerInput playerInput = new PlayerInput
+        {
+            joystick_x_value = 0,
+            joystick_y_value = 0,
+            timestampId = timestamp,
+            startTimestamp = timestamp,
+            endTimestamp = 0,
+        };
 
-        double distance_squared = Math.Pow(p1_x - p2_x, 2) + Math.Pow(p1_y - p2_y, 2);
-
-        return Math.Sqrt(distance_squared);
+        this.didFirstMovement = true;
+        EnqueuePlayerInput(playerInput);
     }
 
-    double angle_between_positions(OldPosition center, OldPosition target)
+    public void SimulatePlayerState(Entity player, long timestampId, long serverTimestamp)
     {
-        double p1_x = center.X;
-        double p1_y = center.Y;
-        double p2_x = target.X;
-        double p2_y = target.Y;
+        UpdateLastAcknowledgedInput(player, timestampId, serverTimestamp);
+        RemoveServerAcknowledgedInputs(timestampId);
+        SimulatePlayerMovement(player);
+    }
 
-        var x_diff = p2_x - p1_x;
-        var y_diff = p2_y - p1_y;
-        return Math.Atan2(y_diff, x_diff);
+    void UpdateLastAcknowledgedInput(Entity player, long timestampId, long serverTimestamp)
+    {
+        startingPosition = player.Position;
+        for (int i = 0; i < pendingPlayerInputs.Count; i++)
+        {
+            PlayerInput input = pendingPlayerInputs[i];
+            if (input.timestampId == timestampId)
+            {
+                if (input.serverTimestamp != 0)
+                {
+                    input.startTimestamp += serverTimestamp - input.serverTimestamp;
+                }
+                input.serverTimestamp = serverTimestamp;
+                pendingPlayerInputs[i] = input;
+            }
+        }
+    }
+
+    void RemoveServerAcknowledgedInputs(long timestampId)
+    {
+        pendingPlayerInputs.RemoveAll((input) => input.timestampId < timestampId);
+    }
+
+    void SimulatePlayerMovement(Entity player)
+    {
+        var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        var characterSpeed = player.Speed;
+        float tickRate = GameServerConnectionManager.Instance.serverTickRate_ms;
+
+        Position currentPosition = startingPosition;
+        Direction currentDirection = player.Direction;
+
+        pendingPlayerInputs.ForEach(input =>
+        {
+            long endTimestamp = (input.endTimestamp == 0) ? now : input.endTimestamp;
+            float ticks = (endTimestamp - input.startTimestamp) / tickRate;
+
+            Vector2 movementDirection = new Vector2(input.joystick_x_value, input.joystick_y_value);
+
+            if (movementDirection.x != 0 || movementDirection.y != 0)
+            {
+                currentDirection = new Direction
+                {
+                    X = movementDirection.x,
+                    Y = movementDirection.y
+                };
+            }
+
+            movementDirection.Normalize();
+            Vector2 movementVector = movementDirection * characterSpeed * ticks;
+
+            float positionX = currentPosition.X + (float)(movementVector.x);
+            float positionY = currentPosition.Y + (float)(movementVector.y);
+
+            Vector3 newPosition = new Vector3(positionX, 0, positionY);
+
+            newPosition = ClampIfOutOfMap(newPosition);
+
+            currentPosition = new Position { X = newPosition.x, Y = newPosition.z };
+        });
+
+        player.Position = currentPosition;
+        player.Direction = currentDirection;
+    }
+
+    private Vector3 ClampIfOutOfMap(Vector3 newPosition)
+    {
+        float mapRadius = 5520; // FIXME: This value should be fetched from the backend. Will be fixed in PR#270 (backend)
+
+        Vector3 mapCenterPosition = new Vector3(0, 0, 0);
+        float playerDistanceFromMapCenter = Vector3.Distance(newPosition, mapCenterPosition);
+
+        if (playerDistanceFromMapCenter > mapRadius)
+        {
+            Vector3 fromOriginToObject = newPosition - mapCenterPosition;
+            fromOriginToObject *= mapRadius / playerDistanceFromMapCenter;
+            newPosition = mapCenterPosition + fromOriginToObject;
+        }
+
+        return newPosition;
     }
 }

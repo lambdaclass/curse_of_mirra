@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -10,6 +12,7 @@ public class AimDirection : MonoBehaviour
 
     [SerializeField]
     public GameObject cone;
+    public SectorController cone_controller;
 
     [SerializeField]
     public GameObject arrow;
@@ -31,29 +34,38 @@ public class AimDirection : MonoBehaviour
     public float viewDistance = 50f;
     public int rayCount = 50;
     public float angleIncrease;
+    private float hitbox;
+    void Awake(){
 
-    private float scaleZ = 0.05f;
+        hitbox = (Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId).Radius / 100) * 2;
+    }
 
     public void InitIndicator(Skill skill, Color32 color)
     {
         // TODO: Add the spread area (angle) depending of the skill.json
-        viewDistance = skill.GetSkillRadius();
+        viewDistance = skill.GetSkillRange();
         skillAngle = skill.GetAngle();
         fov = skill.GetIndicatorAngle();
         activeIndicator = skill.GetIndicatorType();
         characterFeedbackColor = color;
         initialPosition = transform.localPosition;
 
+
+        float circleArea = skill.GetSkillInfo().usesHitboxAsArea ? hitbox : skill.GetSkillAreaRadius();
+
+        this.area.transform.localScale = new Vector3(circleArea, 0, circleArea);
+
         SetColor(color);
 
         if (skill.GetIndicatorType() == UIIndicatorType.Arrow)
         {
             float scaleX = skill.GetArroWidth();
-            float scaleY = skill.GetSkillRadius();
+            float scaleY = 1;
+            float scaleZ = skill.GetSkillRange();
             arrow.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
             arrow.transform.localPosition = new Vector3(0, -scaleY / 2, -0.5f);
         }
-        surface.transform.localScale = new Vector3(viewDistance * 2, viewDistance * 2, scaleZ);
+        surface.transform.localScale = new Vector3(viewDistance, viewDistance, viewDistance);
         surface.GetComponentInChildren<Renderer>().material.color = new Color32(255, 255, 255, 50);
     }
 
@@ -75,6 +87,8 @@ public class AimDirection : MonoBehaviour
 
     public void SetConeIndicator()
     {
+        cone_controller.SetSectorDegree(fov);
+
         float coneIndicatorAngle = 0;
         angleIncrease = fov / rayCount;
         Mesh mesh = new Mesh();
@@ -183,6 +197,7 @@ public class AimDirection : MonoBehaviour
         switch (indicatorType)
         {
             case UIIndicatorType.Cone:
+                cone_controller.gameObject.SetActive(true);
                 cone.SetActive(true);
                 break;
             case UIIndicatorType.Arrow:
@@ -200,6 +215,7 @@ public class AimDirection : MonoBehaviour
         switch (activeIndicator)
         {
             case UIIndicatorType.Cone:
+                cone_controller.gameObject.SetActive(false);
                 cone.SetActive(false);
                 break;
             case UIIndicatorType.Arrow:
@@ -235,14 +251,27 @@ public class AimDirection : MonoBehaviour
         {
             case UIIndicatorType.Cone:
                 color.a = 60;
+                List<Renderer> coneRenderers = cone_controller
+                    .GetComponentsInChildren<Renderer>()
+                    .ToList();
+                foreach (Renderer renderer in coneRenderers)
+                {
+                    renderer.material.SetColor("_AlphaColor", color);
+                    renderer.material.SetColor("_TintColor", color);
+                }
                 cone.GetComponent<Renderer>().material.SetColor("_TopColor", color);
                 break;
             case UIIndicatorType.Arrow:
-                arrow.GetComponent<Renderer>().material.color = color;
-                arrowHead.GetComponent<Renderer>().material.color = color;
+                arrow.GetComponent<Renderer>().material.SetColor("_AlphaColor", color);
+                arrow.GetComponent<Renderer>().material.SetColor("_TintColor", color);
+                arrowHead.GetComponent<Renderer>().material.SetColor("_AlphaColor", color);
+                arrowHead.GetComponent<Renderer>().material.SetColor("_TintColor", color);
                 break;
             case UIIndicatorType.Area:
-                area.GetComponent<Renderer>().material.color = color;
+                area.GetComponent<Renderer>().material.SetColor("_GlowColor", color);
+                area.GetComponent<Renderer>().material.SetColor("_TintColor", color);
+                surface.GetComponent<Renderer>().material.SetColor("_GlowColor", color);
+                surface.GetComponent<Renderer>().material.SetColor("_TintColor", color);
                 break;
         }
     }

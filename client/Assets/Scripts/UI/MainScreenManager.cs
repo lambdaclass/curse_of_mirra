@@ -9,33 +9,27 @@ public class MainScreenManager : MonoBehaviour
     UIModelManager modelManager;
 
     [SerializeField]
-    TextMeshProUGUI playerNameText;
+    TextMeshProUGUI playerName;
+
+    [SerializeField]
+    TextMeshProUGUI currentPlayerName;
+    
+    string sceneName = "CharacterInfo";
+    string characterNameToGo;
 
     void Start()
     {
-        modelManager.SetModel(ServerConnection.Instance.selectedCharacterName);
         CharactersManager
             .Instance
             .SetGoToCharacter(ServerConnection.Instance.selectedCharacterName);
-        StartCoroutine(GoToCharacterInfo());
-        SetPlayerNameUI();
+        characterNameToGo = ServerConnection.Instance.selectedCharacterName;
+        modelManager.SetModel(characterNameToGo);
+        playerName.text = PlayerPrefs.GetString("playerName");
+        currentPlayerName.text = "Current name: " + PlayerPrefs.GetString("playerName");
     }
 
-    private void SetPlayerNameUI()
+    public void GoToCharacteInfo()
     {
-        playerNameText.text =
-            PlayerPrefs.GetString("GoogleUserId") != ""
-                ? PlayerPrefs.GetString("GoogleUserName")
-                : "Guest";
-    }
-
-    IEnumerator GoToCharacterInfo()
-    {
-        yield return new WaitUntil(
-            () =>
-                modelManager.GetComponentInChildren<ButtonAnimationsMMTouchButton>().executeRelease
-                == true
-        );
-        modelManager.GetComponentInChildren<MMLoadScene>().LoadScene();
+        Utils.GoToCharacterInfo(characterNameToGo, sceneName);
     }
 }

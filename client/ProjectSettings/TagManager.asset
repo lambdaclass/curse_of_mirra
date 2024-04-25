@@ -11,14 +11,15 @@ TagManager:
   - NoMask
   - Hitbox
   - ZoneParticle
+  - UmaSoul1
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - NoPostProcess
   - Water
   - UI
-  - 
+  - ProjectileObstacles
   - 
   - Obstacles
   - Ground
@@ -36,7 +37,7 @@ TagManager:
   - Camera3
   - Camera4
   - ZoneParticle
-  - 
+  - NoPostProcess
   - 
   - 
   - 

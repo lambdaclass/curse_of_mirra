@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Communication.Protobuf;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,23 +15,23 @@ public class CustomLevelManager : LevelManager
     private const float DEATH_FEEDBACK_DURATION = 1.5f;
     bool paused = false;
     private GameObject mapPrefab;
+    private GameObject mapInstance;
     public GameObject quickMapPrefab;
 
     [SerializeField]
     GameObject deathSplash;
-
-    private List<OldPlayer> gamePlayers;
-    private ulong totalPlayers;
+    private ulong totalPlayers = 1;
     private ulong playerId;
-    private GameObject prefab;
+
+    // private GameObject prefab;
     public Camera UiCamera;
-    public OldPlayer playerToFollow;
+
+    public Entity playerToFollow;
 
     [SerializeField]
     public GameObject UiControls;
     public CinemachineCameraController camera;
-    private ulong playerToFollowId;
-    public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
+
     public List<GameObject> mapList = new List<GameObject>();
     private bool deathSplashIsShown = false;
     EndGameManager endGameManager;
@@ -64,25 +64,30 @@ public class CustomLevelManager : LevelManager
 
     private void InitializeMapPrefab(GameObject mapPrefab)
     {
-        GameObject map = Instantiate(mapPrefab);
+        mapInstance = Instantiate(mapPrefab);
         //Add gameobject to the scene root
-        map.transform.SetParent(
-            SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent
-        );
+        mapInstance
+            .transform
+            .SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent);
+    }
+
+    public GameObject GetMapInstance()
+    {
+        return mapInstance;
     }
 
     private IEnumerator InitializeLevel()
     {
         yield return new WaitUntil(checkPlayerHasJoined);
-        this.gamePlayers = GameServerConnectionManager.Instance.gamePlayers;
-        this.totalPlayers = (ulong)this.gamePlayers.Count();
+        this.totalPlayers = (ulong)GameServerConnectionManager.Instance.gamePlayers.Count();
         playerId = GameServerConnectionManager.Instance.playerId;
-        playerToFollowId = playerId;
         GeneratePlayers();
         SetPlayersSkills(playerId);
-        var player = Utils.GetPlayer(playerId);
-        SetPlayerHealthBar(playerId);
         SetOrientationArrow(playerId);
+
+        Entity gamePlayer = Utils.GetGamePlayer(playerId);
+        GameObject player = Utils.GetPlayer(playerId);
+        player.GetComponent<Health>().CurrentHealth = gamePlayer.Player.Health;
 
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
         endGameManager.SetDeathSplashCharacter();
@@ -90,7 +95,7 @@ public class CustomLevelManager : LevelManager
 
     void Update()
     {
-        OldPlayer gamePlayer = Utils.GetGamePlayer(playerId);
+        Entity gamePlayer = Utils.GetGamePlayer(playerId);
         GameObject player = Utils.GetPlayer(playerId);
         if (GameHasEndedOrPlayerHasDied(gamePlayer) && !deathSplashIsShown)
         {
@@ -102,7 +107,7 @@ public class CustomLevelManager : LevelManager
             // TODO: Redirect to EndGameScreen
             //SceneManager.LoadScene("EndGame");
             endGameManager.finalSplash.SetActive(true);
-            endGameManager.ShowCharacterAnimation();
+            endGameManager.modelManager.ShowEndGameCharacterAnimation();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -111,29 +116,24 @@ public class CustomLevelManager : LevelManager
             paused = !paused;
         }
 
-        if (gamePlayer != null && gamePlayer.Health <= 0)
+        if (gamePlayer != null && gamePlayer.Player.Health <= 0)
         {
             SetCameraToAlivePlayer();
         }
     }
 
-    private GameObject GetCharacterPrefab(ulong playerId)
-    {
-        GameObject prefab = null;
-
-        OldPlayer player = Utils.GetGamePlayer(playerId);
-        prefab = charactersInfo.Find(el => el.name == player.CharacterName).prefab;
-        return prefab;
-    }
-
     private void GeneratePlayers()
     {
         // prefab = prefab == null ? quickGamePrefab : prefab;
-        for (ulong i = 0; i < totalPlayers; i++)
+        foreach (Entity player in GameServerConnectionManager.Instance.gamePlayers)
         {
-            ulong playerID = gamePlayers[(int)i].Id;
-            prefab = GetCharacterPrefab(playerID);
-            if (GameServerConnectionManager.Instance.playerId == playerID)
+            GameObject prefab = CharactersManager
+                .Instance
+                .AvailableCharacters
+                .Find(el => el.name.ToLower() == player.Player.CharacterName)
+                .prefab;
+
+            if (GameServerConnectionManager.Instance.playerId == player.Id)
             {
                 // Player1 is the ID to match with the client InputManager
                 prefab.GetComponent<CustomCharacter>().PlayerID = "Player1";
@@ -142,24 +142,38 @@ public class CustomLevelManager : LevelManager
             {
                 prefab.GetComponent<CustomCharacter>().PlayerID = "";
             }
+            Vector3 backToFrontPosition = Utils.transformBackendOldPositionToFrontendPosition(
+                player.Position
+            );
             CustomCharacter newPlayer = Instantiate(
                 prefab.GetComponent<CustomCharacter>(),
-                Utils.transformBackendOldPositionToFrontendPosition(gamePlayers[(int)i].Position),
+                new Vector3(backToFrontPosition.x, 1.0f, backToFrontPosition.z),
                 Quaternion.identity
             );
-            newPlayer.name = "Player" + " " + (i + 1);
-            newPlayer.PlayerID = playerID.ToString();
-            if (GameServerConnectionManager.Instance.playerId == playerID)
-            {
-                //Add audioListener in player
-                newPlayer.characterBase.gameObject.AddComponent<AudioListener>();
-                //Disable audioListener in camera
-                this.camera.transform.parent.GetComponentInChildren<AudioListener>().enabled =
-                    false;
-            }
 
+            if (GameServerConnectionManager.Instance.playerId == player.Id)
+            {
+                Instantiate(
+                    newPlayer.characterBase.StaminaCharges,
+                    newPlayer.characterBase.CharacterCard.transform
+                );
+                GameServerConnectionManager.Instance.clientPrediction.startingPosition =
+                    player.Position;
+            }
+            newPlayer.CharacterHealth.CurrentHealth = player.Player.Health;
+            newPlayer.CharacterHealth.InitialHealth = player.Player.Health;
+            newPlayer.CharacterHealth.MaximumHealth = player.Player.Health;
+            newPlayer.name = "Player" + player.Id;
+            newPlayer.PlayerID = player.Id.ToString();
+            newPlayer.characterBase.PlayerName.GetComponent<TextMeshProUGUI>().text = player.Name;
+            SetPlayerHealthBar(
+                GameServerConnectionManager.Instance.playerId == player.Id,
+                newPlayer
+            );
             GameServerConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
+
+            newPlayer.RotatePlayer(player.Direction);
         }
         this.PlayerPrefabs = (this.Players).ToArray();
     }
@@ -184,7 +198,10 @@ public class CustomLevelManager : LevelManager
     {
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
-            if (UInt64.Parse(player.PlayerID) == playerID)
+            if (
+                UInt64.Parse(player.PlayerID) == playerID
+                && UInt64.Parse(this.camera.TargetCharacter.PlayerID) != playerID
+            )
             {
                 this.camera.SetTarget(player);
                 this.camera.StartFollowing();
@@ -192,36 +209,41 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetSkillAngles(List<SkillInfo> skillsClone)
+    // private void SetSkillAngles(List<SkillInfo> skillsClone)
+    // {
+    //     // var skills = ServerConnection.Instance.engineServerSettings.Skills;
+
+    //     // List<SkillConfigItem> jsonSkills = Utils.ToList(skills);
+
+    //     // float basicSkillInfoAngle = jsonSkills.Exists(skill => skillsClone[0].Equals(skill))
+    //     //     ? float.Parse(jsonSkills.Find(skill => skillsClone[0].Equals(skill)).Mecha.Angle)
+    //     //     : 0;
+    //     skillsClone[0].angle = 45; // basicSkillInfoAngle;
+    //     skillsClone[0].skillConeAngle = 45; // basicSkillInfoAngle;
+
+    //     // float skill1InfoAngle = jsonSkills.Exists(skill => skillsClone[1].Equals(skill))
+    //     //     ? float.Parse(jsonSkills.Find(skill => skillsClone[1].Equals(skill)).Angle)
+    //     //     : 0;
+    //     skillsClone[1].angle = 45; // skill1InfoAngle;
+    //     skillsClone[1].skillConeAngle = 45; // skill1InfoAngle;
+    // }
+
+    private List<SkillInfo> InitSkills(CoMCharacter characterInfo, string id)
     {
-        // var skills = ServerConnection.Instance.engineServerSettings.Skills;
-
-        // List<SkillConfigItem> jsonSkills = Utils.ToList(skills);
-
-        // float basicSkillInfoAngle = jsonSkills.Exists(skill => skillsClone[0].Equals(skill))
-        //     ? float.Parse(jsonSkills.Find(skill => skillsClone[0].Equals(skill)).Mecha.Angle)
-        //     : 0;
-        skillsClone[0].angle = 45; // basicSkillInfoAngle;
-        skillsClone[0].skillConeAngle = 45; // basicSkillInfoAngle;
-
-        // float skill1InfoAngle = jsonSkills.Exists(skill => skillsClone[1].Equals(skill))
-        //     ? float.Parse(jsonSkills.Find(skill => skillsClone[1].Equals(skill)).Angle)
-        //     : 0;
-        skillsClone[1].angle = 45; // skill1InfoAngle;
-        skillsClone[1].skillConeAngle = 45; // skill1InfoAngle;
-    }
-
-    private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
-    {
+        ConfigCharacter configCharacter = GameServerConnectionManager
+            .Instance
+            .config
+            .Characters
+            .ToList()
+            .Find(character => character.Name == characterInfo.name.ToLower());
         List<SkillInfo> skills = new List<SkillInfo>();
-        characterInfo
-            .skillsInfo
-            .ForEach(skill =>
-            {
-                SkillInfo skillClone = Instantiate(skill);
-                skillClone.InitWithBackend();
-                skills.Add(skillClone);
-            });
+        List<ConfigSkill> configSkills = configCharacter.Skills.Values.ToList();
+        for (int index = 0; index < characterInfo.skillsInfo.Count; index++)
+        {
+            SkillInfo skillClone = Instantiate(characterInfo.skillsInfo[index]);
+            skillClone.InitWithBackend(configSkills[index], id);
+            skills.Add(skillClone);
+        }
 
         return skills;
     }
@@ -242,49 +264,45 @@ public class CustomLevelManager : LevelManager
         List<Skill> skillList = new List<Skill>();
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
-            SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
             Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
+            Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
+            Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
 
-            skillList.Add(skillBasic);
             skillList.Add(skill1);
+            skillList.Add(skill2);
+            skillList.Add(skill3);
 
-            CoMCharacter characterInfo = charactersInfo.Find(
-                el => el.name == Utils.GetGamePlayer(UInt64.Parse(player.PlayerID)).CharacterName
-            );
+            CoMCharacter characterInfo = CharactersManager
+                .Instance
+                .AvailableCharacters
+                .Find(el => el.name.ToLower() == player.CharacterModel.name.ToLower());
 
-            List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
-            SetSkillAngles(skillInfoClone);
+            List<SkillInfo> skillInfoClone = InitSkills(characterInfo, player.PlayerID);
+            // SetSkillAngles(skillInfoClone);
 
-            skillBasic.SetSkill(Communication.Protobuf.Action.BasicAttack, skillInfoClone[0]);
-            skill1.SetSkill(Communication.Protobuf.Action.Skill1, skillInfoClone[1]);
+            skill1.SetSkill("1", skillInfoClone[0]);
+            skill2.SetSkill("2", skillInfoClone[1]);
+            skill3.SetSkill("3", skillInfoClone[2]);
 
-            var skills = ServerConnection.Instance.engineServerSettings.Skills;
-
-            // foreach (var skill in skills)
-            // {
-            //     for (int i = 0; i < skillList.Count; i++)
-            //     {
-            //         if (skill.Name.ToLower() == skillList[i].GetSkillName().ToLower())
-            //         {
-            //             // 350 in the back is equal to 12 in the front
-            //             // So this is the calculation
-            //             skillList[i].SetSkillAreaRadius(float.Parse(skill.SkillRange) / 100);
-            //         }
-            //     }
-            // }
+            // var skills = ServerConnection.Instance.engineServerSettings.Skills;
 
             if (UInt64.Parse(player.PlayerID) == clientPlayerId)
             {
                 inputManager.InitializeInputSprite(characterInfo);
                 inputManager.AssignSkillToInput(
-                    UIControls.SkillBasic,
+                    UIControls.Skill1,
                     skillInfoClone[0].inputType,
-                    skillBasic
+                    skill1
                 );
                 inputManager.AssignSkillToInput(
-                    UIControls.Skill1,
+                    UIControls.Skill2,
                     skillInfoClone[1].inputType,
-                    skill1
+                    skill2
+                );
+                inputManager.AssignSkillToInput(
+                    UIControls.Skill3,
+                    skillInfoClone[2].inputType,
+                    skill3
                 );
             }
 
@@ -292,24 +310,15 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetPlayerHealthBar(ulong playerId)
+    private void SetPlayerHealthBar(bool isClientId, Character character)
     {
-        foreach (CustomCharacter player in this.PlayerPrefabs)
-        {
-            Image healthBarFront = player
-                .GetComponent<MMHealthBar>()
-                .TargetProgressBar
-                .ForegroundBar
-                .GetComponent<Image>();
-            if (UInt64.Parse(player.PlayerID) == playerId)
-            {
-                healthBarFront.color = Utils.healthBarCyan;
-            }
-            else
-            {
-                healthBarFront.color = Utils.healthBarRed;
-            }
-        }
+        Image healthBarFront = character
+            .GetComponent<MMHealthBar>()
+            .TargetProgressBar
+            .ForegroundBar
+            .GetComponent<Image>();
+
+        healthBarFront.color = isClientId ? Utils.healthBarGreen : Utils.healthBarRed;
     }
 
     private IEnumerator ShowDeathSplash(GameObject player)
@@ -325,29 +334,34 @@ public class CustomLevelManager : LevelManager
 
     private void SetCameraToAlivePlayer()
     {
-        playerToFollow = Utils.GetGamePlayer(KillFeedManager.instance.saveKillerId);
-        if (KillFeedManager.instance.saveKillerId != 0)
+        ulong saveKillerId = KillFeedManager.instance.GetSaveKillderId();
+        ulong currentTrackedPlayer = KillFeedManager.instance.GetCurrentTrackedPlayer();
+
+        if (saveKillerId != 0)
         {
+            playerToFollow = Utils.GetGamePlayer(saveKillerId);
             StartCoroutine(WaitToChangeCamera(playerToFollow));
         }
-        else
+        else if (Utils.GetAlivePlayers().Count() > 0 && saveKillerId == currentTrackedPlayer)
         {
             playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
             SetCameraToPlayer(playerToFollow.Id);
+            KillFeedManager.instance.SetCurrentTrackedPlayer(playerToFollow.Id);
         }
     }
 
-    private IEnumerator WaitToChangeCamera(OldPlayer player)
+    private IEnumerator WaitToChangeCamera(Entity player)
     {
         yield return new WaitUntil(() => player != null);
-        SetCameraToPlayer(playerToFollow.Id);
-        KillFeedManager.instance.saveKillerId = 0;
+        SetCameraToPlayer(player.Id);
+        KillFeedManager.instance.SetSaveKillderId(0);
+        KillFeedManager.instance.SetCurrentTrackedPlayer(player.Id);
     }
 
-    private bool GameHasEndedOrPlayerHasDied(OldPlayer gamePlayer)
+    private bool GameHasEndedOrPlayerHasDied(Entity gamePlayer)
     {
         return GameServerConnectionManager.Instance.GameHasEnded()
-            || gamePlayer != null && (gamePlayer.Status == OldStatus.Dead);
+            || gamePlayer != null && (gamePlayer.Player.Health == 0);
     }
 
     private bool GameHasEnded()
@@ -358,7 +372,6 @@ public class CustomLevelManager : LevelManager
     private bool checkPlayerHasJoined()
     {
         return GameServerConnectionManager.Instance.gamePlayers != null
-            && GameServerConnectionManager.Instance.playerId != null
             && GameServerConnectionManager
                 .Instance
                 .gamePlayers

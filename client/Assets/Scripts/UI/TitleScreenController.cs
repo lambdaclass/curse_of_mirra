@@ -39,6 +39,7 @@ public class TitleScreenController : MonoBehaviour
     private Tween spinnerRotationTween;
     private List<String> avaibleCharactersNames = new List<String>();
 
+    private string selectedCharacterName;
     void Start()
     {
         avaibleCharactersNames = CharactersManager.Instance.GetAvailableCharactersNames();
@@ -54,6 +55,10 @@ public class TitleScreenController : MonoBehaviour
         {
             this.StartCoroutine(this.LoadSceneAsyncProcess(TITLE_SCENE_NAME));
         }
+
+        selectedCharacterName = PlayerPrefs.GetString("selectedCharacterName") == "" 
+            ? "Muflus" 
+            : PlayerPrefs.GetString("selectedCharacterName");
     }
 
     private IEnumerator LoadSceneAsyncProcess(string sceneName)
@@ -72,7 +77,9 @@ public class TitleScreenController : MonoBehaviour
     public void ChangeToMainscreen()
     {
         SetLoadingScreen(true);
-        SelectCharacterAndMaybeCreateUser();
+        // SelectCharacterAndMaybeCreateUser();
+        ServerConnection.Instance.selectedCharacterName = selectedCharacterName ;
+        asyncOperation.allowSceneActivation = true;
     }
 
     public void SelectCharacterAndMaybeCreateUser()

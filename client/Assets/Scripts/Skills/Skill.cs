@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Communication.Protobuf;
-using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.VFX;
 using static MoreMountains.Tools.MMSoundManager;
 
 public class Skill : CharacterAbility
@@ -16,8 +14,9 @@ public class Skill : CharacterAbility
     [SerializeField]
     public string skillId;
 
-    [SerializeField]
-    protected Communication.Protobuf.Action serverSkill;
+    // [SerializeField]
+    // protected Communication.Protobuf.Action serverSkill;
+    protected string serverSkill;
 
     [SerializeField]
     protected bool blocksMovementOnExecute = true;
@@ -25,8 +24,12 @@ public class Skill : CharacterAbility
     [SerializeField]
     protected SkillInfo skillInfo;
 
+    private List<ulong> usedPools = new List<ulong>();
+
     // feedbackRotatePosition used to track the position to look at when executing the animation feedback
     private Vector2 feedbackRotatePosition;
+
+    StaminaManager staminaManager;
 
     protected override void Start()
     {
@@ -41,9 +44,15 @@ public class Skill : CharacterAbility
         {
             _animator.SetFloat(skillId + "Speed", skillInfo.animationSpeedMultiplier);
         }
+
+        staminaManager = Utils
+            .GetCharacter(GameServerConnectionManager.Instance.playerId)
+            .characterBase
+            .CharacterCard
+            .GetComponentInChildren<StaminaManager>();
     }
 
-    public void SetSkill(Communication.Protobuf.Action serverSkill, SkillInfo skillInfo)
+    public void SetSkill(string serverSkill, SkillInfo skillInfo)
     {
         this.serverSkill = serverSkill;
         this.skillInfo = skillInfo;
@@ -68,12 +77,9 @@ public class Skill : CharacterAbility
     {
         if (AbilityAuthorized)
         {
-            Vector3 direction = this.GetComponent<Character>()
-                .GetComponent<CharacterOrientation3D>()
-                .ForcedRotationDirection;
-            RelativePosition relativePosition = new RelativePosition { X = 0, Y = 0 };
-            feedbackRotatePosition = new Vector2(direction.x, direction.z);
-            ExecuteSkill(relativePosition);
+            Direction direction = new Direction { X = 0, Y = 0 };
+            ExecuteSkill(direction);
+            CheckAvailableStamina();
         }
     }
 
@@ -81,58 +87,65 @@ public class Skill : CharacterAbility
     {
         if (AbilityAuthorized)
         {
-            RelativePosition relativePosition = new RelativePosition
-            {
-                X = position.x,
-                Y = position.y
-            };
+            Direction direction = new Direction { X = position.x, Y = position.y };
             feedbackRotatePosition = new Vector2(position.x, position.y);
-            ExecuteSkill(relativePosition);
+            ExecuteSkill(direction);
+            CheckAvailableStamina();
         }
     }
 
-    private void ExecuteSkill(RelativePosition relativePosition)
+    private void ExecuteSkill(Direction direction)
     {
-        if (AbilityAuthorized)
+        var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
+
+        if (AbilityAuthorized && player.Player.AvailableStamina >= skillInfo.staminaCost)
         {
-            SendActionToBackend(relativePosition);
+            SendActionToBackend(direction);
         }
     }
 
-    public void ExecuteFeedbacks(ulong duration, bool isStart)
+    void CheckAvailableStamina()
+    {
+        var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
+        if (
+            player.Player.AvailableStamina < skillInfo.staminaCost
+            && !staminaManager.playingFeedback && !skillInfo.useCooldown
+        )
+        {
+            staminaManager.UnavailableStaminaFeedback();
+        }
+    }
+
+    public void ExecuteFeedbacks(ulong duration, bool blockMovement, Position destination)
     {
         ClearAnimator();
 
         // Setup
-        string animation;
-        List<VfxStep> vfxList = new List<VfxStep>();
         AudioClip sfxClip;
-        if (isStart)
-        {
-            animation = $"{skillId}_start";
-            vfxList = skillInfo.startVfxList;
-            sfxClip = skillInfo.abilityStartSfx ? skillInfo.abilityStartSfx : null;
-        }
-        else
-        {
-            animation = skillId;
-            vfxList = skillInfo.vfxList;
-            sfxClip = skillInfo.sfxHasAbilityStop ? skillInfo.abilityStopSfx : null;
-        }
+
+        sfxClip = skillInfo.sfxHasAbilityStop ? skillInfo.abilityStopSfx : null;
 
         // State & animation
-        ChangeCharacterState(animation);
-        StartCoroutine(AutoEndSkillAnimation(animation, duration / 1000f));
+        ChangeCharacterState(skillId, blockMovement);
+        if (skillInfo.animationList.Count > 0)
+        {
+            List<AnimationStep> animationList = new List<AnimationStep>(skillInfo.animationList);
+            StartCoroutine(ExecuteChainedAnimation(animationList, (duration / 1000f)));
+        }
+        StartCoroutine(AutoEndSkillAnimation(skillId, duration / 1000f));
 
         // Visual effects
-        foreach (var vfxStep in vfxList)
+        foreach (var vfxStep in skillInfo.vfxList)
         {
             StartCoroutine(
                 ExecuteFeedbackVfx(
                     vfxStep.vfx,
                     vfxStep.duration,
                     vfxStep.delay,
-                    vfxStep.instantiateVfxOnModel
+                    vfxStep.instantiateVfxOnModel,
+                    this.skillInfo.hasSkillPool,
+                    vfxStep.hasDestination,
+                    destination
                 )
             );
         }
@@ -158,16 +171,65 @@ public class Skill : CharacterAbility
         _animator.SetBool(animationId, false);
     }
 
+    IEnumerator ExecuteChainedAnimation(
+        List<AnimationStep> pendingAnimations,
+        float totalDuration,
+        float previousAnimationStep = 0
+    )
+    {
+        AnimationStep nextAnimation = pendingAnimations[0];
+        pendingAnimations.RemoveAt(0);
+
+        float animationDuration = nextAnimation.durationPercent * totalDuration;
+        float animationStep = previousAnimationStep + 1;
+        string animationStepId = skillId + "_s" + animationStep;
+
+        string previousAnimationStepId = skillId + "_s" + previousAnimationStep;
+
+        SetAnimation(previousAnimationStepId, false);
+        SetAnimation(animationStepId, true);
+
+        if (nextAnimation.triggersVfx)
+        {
+            StartCoroutine(
+                ExecuteFeedbackVfx(
+                    nextAnimation.vfxStep.vfx,
+                    nextAnimation.vfxStep.duration,
+                    nextAnimation.vfxStep.delay,
+                    nextAnimation.vfxStep.instantiateVfxOnModel,
+                    this.skillInfo.hasSkillPool
+                )
+            );
+        }
+
+        yield return new WaitForSeconds(animationDuration);
+        
+        if (pendingAnimations.Count > 0)
+        {
+            StartCoroutine(
+                ExecuteChainedAnimation(pendingAnimations, totalDuration, animationStep)
+            );
+        }
+        else
+        {
+            SetAnimation(animationStepId, false);
+        }
+    }
+
     IEnumerator ExecuteFeedbackVfx(
         GameObject vfx,
         float duration,
         float delay,
-        bool instantiateVfxOnModel
+        bool instantiateVfxOnModel,
+        bool hasSkillPool,
+        bool hasDestination = false,
+        Position destinationPosition = null
     )
     {
         yield return new WaitForSeconds(delay);
 
         GameObject vfxInstance;
+
         if (instantiateVfxOnModel)
         {
             vfxInstance = Instantiate(vfx, _model.transform);
@@ -179,10 +241,49 @@ public class Skill : CharacterAbility
                 vfx.transform.position.y,
                 _model.transform.position.z
             );
+
+            if(destinationPosition != null && hasDestination){
+                vfxPosition = new Vector3(destinationPosition.X / 100, vfx.transform.position.y, destinationPosition.Y / 100);
+            }
+
+            if(hasSkillPool){
+               vfxPosition = SetPoolDiameterAndPosition(vfx);
+            }
+
             vfxInstance = Instantiate(vfx, vfxPosition, vfx.transform.rotation);
         }
+            vfxInstance
+                .GetComponent<PinnedEffectsController>()
+                ?.Setup(this.GetComponent<PinnedEffectsManager>());
+            
+            vfxInstance.GetComponent<EffectCharacterMaterialController>()
+                ?.Setup(this.GetComponent<CharacterMaterialManager>());
 
         Destroy(vfxInstance, duration);
+    }
+ 
+
+    private Vector3 SetPoolDiameterAndPosition(GameObject vfx){
+        float diameter = 0;
+        Vector3 vfxPosition = Vector3.zero;
+         GameServerConnectionManager.Instance.gamePools.ForEach(pool => {
+            if(pool.Pool.OwnerId == skillInfo.ownerId && !usedPools.Contains(pool.Id)){
+                vfxPosition =  Utils.transformBackendOldPositionToFrontendPosition(pool.Position);
+                diameter = Utils.TransformBackenUnitToClientUnit(pool.Radius) * 2;
+            }
+        });
+
+        if(vfx.transform.childCount > 0){
+            if(vfx.GetComponentInChildren<VisualEffect>()){
+               vfx.GetComponentInChildren<VisualEffect>().SetFloat("EffectDiameter", diameter);
+            } else {
+                // Placeholder, we should have the same implementation for the vfx as above
+                vfx.transform.localScale = new Vector3(diameter/10, diameter/10, diameter/10); 
+            }
+
+        }
+
+        return vfxPosition;
     }
 
     private void ClearAnimator()
@@ -195,40 +296,35 @@ public class Skill : CharacterAbility
         }
     }
 
-    private void ChangeCharacterState(string animation)
+    private void SetAnimation(string animationId, bool value)
     {
-        _movement.ChangeState(CharacterStates.MovementStates.Attacking);
+        _animator.SetBool(animationId, value);
+    }
+
+    private void ChangeCharacterState(string animation, bool blockingMovement)
+    {
+        CharacterStates.MovementStates currentState = blockingMovement
+            ? CharacterStates.MovementStates.Attacking
+            : CharacterStates.MovementStates.Dashing;
+
+        _movement.ChangeState(currentState);
         _animator.SetBool(animation, true);
     }
 
-    private void SendActionToBackend(RelativePosition relativePosition)
+    private void ChangeCharacterStateToDash(string animation)
+    {
+        _movement.ChangeState(CharacterStates.MovementStates.Dashing);
+        _animator.SetBool(animation, true);
+    }
+
+    private void SendActionToBackend(Direction direction)
     {
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-        float angle = 0f;
-        bool autoAim = true;
-        float amount = 0f;
-        if (relativePosition.X != 0 || relativePosition.Y != 0)
-        {
-            angle = Mathf.Atan2(relativePosition.Y, relativePosition.X) * Mathf.Rad2Deg;
-            autoAim = false;
-            amount = (float)
-                Math.Sqrt(
-                    Math.Pow((double)relativePosition.X, 2)
-                        + Math.Pow((double)relativePosition.Y, 2)
-                );
-        }
+        _movement.ChangeState(CharacterStates.MovementStates.Pushing);
 
-        UseSkill useSkillAction = new UseSkill
-        {
-            Skill = serverSkill.ToString(),
-            Angle = angle,
-            AutoAim = autoAim,
-            Amount = amount,
-        };
-
-        GameAction gameAction = new GameAction { UseSkill = useSkillAction, Timestamp = timestamp };
-        GameServerConnectionManager.Instance.SendGameAction(gameAction);
+        GameServerConnectionManager.Instance.clientPrediction.StopMovement();
+        GameServerConnectionManager.Instance.SendSkill(serverSkill, direction, timestamp);
     }
 
     public virtual void StopAbilityStopFeedbacks()
@@ -241,32 +337,36 @@ public class Skill : CharacterAbility
         return this.skillInfo.angle;
     }
 
-    public float GetSkillRadius()
+    public float GetSkillRange()
     {
-        float radius;
-        switch (skillInfo.skillCircleRadius)
+        float range;
+        switch (skillInfo.skillCircleRange)
         {
             case 0:
-                radius = MAX_RANGE;
+                range = MAX_RANGE;
                 break;
             case -1:
-                radius = INNER_RANGE;
+                range = INNER_RANGE;
                 break;
             default:
-                radius = skillInfo.skillCircleRadius;
+                range = skillInfo.skillCircleRange;
                 break;
         }
-        return radius;
+        return range;
     }
 
-    public void SetSkillRadius(float radius)
+    public void SetSkillRange(float range)
     {
-        skillInfo.skillCircleRadius = radius;
+        skillInfo.skillCircleRange = range;
     }
 
     public void SetSkillAreaRadius(float radius)
     {
         skillInfo.skillAreaRadius = radius;
+    }
+
+    public float GetSkillAreaRadius(){
+        return skillInfo.skillAreaRadius;
     }
 
     public float GetIndicatorAngle()
@@ -289,13 +389,8 @@ public class Skill : CharacterAbility
         return skillInfo.name;
     }
 
-    public bool ExecutesOnQuickTap()
-    {
-        return skillInfo.executeOnQuickTap;
-    }
-
     public bool IsSelfTargeted()
     {
-        return skillInfo.skillCircleRadius == -1;
+        return skillInfo.skillCircleRange == -1;
     }
 }

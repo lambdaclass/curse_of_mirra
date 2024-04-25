@@ -4,6 +4,7 @@ using System.Timers;
 using MoreMountains.Tools;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MatchStatsController : MonoBehaviour
 {
@@ -15,11 +16,20 @@ public class MatchStatsController : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI killCount;
+
+    [SerializeField] Image zoneTimerImage;
+
+    [SerializeField]
+    Sprite shrinkingSprite;
+
+    [SerializeField]
+    Sprite waitingSprite;
     public float period = 1f;
 
     public float time = 0f;
 
     ulong seconds = 0;
+    bool isShrinking = false;
 
     void Awake()
     {
@@ -33,19 +43,28 @@ public class MatchStatsController : MonoBehaviour
 
     void FixedUpdate()
     {
-        alivePlayers.text = GameServerConnectionManager.Instance.alivePlayers.Count().ToString();
+        if(isShrinking != GameServerConnectionManager.Instance.shrinking){
+            zoneTimerImage.sprite = isShrinking ? shrinkingSprite : waitingSprite;
+            isShrinking = GameServerConnectionManager.Instance.shrinking;
+        }
+
+        if (GameServerConnectionManager.Instance.gamePlayers != null)
+        {
+            alivePlayers.text = GameServerConnectionManager
+                .Instance
+                .gamePlayers
+                .Sum(playerEntity => Convert.ToInt32(playerEntity.Player.Health > 0))
+                .ToString();
+        }
+
         killCount.text = Utils
             .GetGamePlayer(GameServerConnectionManager.Instance.playerId)
-            ?.KillCount
+            ?.Player
+            .KillCount
             .ToString();
 
-        time += Time.deltaTime;
+        var time = GameServerConnectionManager.Instance.zoneShrinkTime / 1000;
 
-        if (time >= period && seconds > 0)
-        {
-            time = time - period;
-            seconds--;
-            zoneTimer.text = seconds.ToString();
-        }
+        zoneTimer.text = time.ToString();
     }
 }

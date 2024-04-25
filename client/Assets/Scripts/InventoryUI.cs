@@ -1,20 +1,18 @@
 using System;
 using System.Collections;
-using Communication.Protobuf;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-    private const string MYRRAS_BLESSING = "loot_health";
-
     // This is the base duration
     // The animations use this as a base for all the animation durations
     // If the goal is to change an entire animation duration, this is the value to change
     const float BASE_DURATION = 0.5f;
-    private OldPlayer player;
-    private GameLoot activeItem;
+    private Entity playerEntity;
+    private CharacterFeedbacks characterFeedbacks;
+    private Item activeItem;
 
     [SerializeField]
     public GameObject inventoryContainer,
@@ -22,6 +20,8 @@ public class InventoryUI : MonoBehaviour
 
     [SerializeField]
     public Sprite myrrasBlessing;
+    public Sprite goldenClock;
+    public Sprite magicBoots;
 
     [SerializeField]
     Image inventoryImage;
@@ -31,6 +31,8 @@ public class InventoryUI : MonoBehaviour
         useItemAnimation;
     Sequence pickSequenceAnimation,
         useSequenceAnimation;
+
+    string currentItem;
 
     private void Start()
     {
@@ -79,7 +81,6 @@ public class InventoryUI : MonoBehaviour
             )
             .Append(inventoryImage.transform.DOScale(imageInitialScale, 0));
         yield return new WaitForSeconds(0.1f);
-        PlayerFeedback(player, true);
 
         yield return new WaitForSeconds(BASE_DURATION);
         sparkleEffect.SetActive(false);
@@ -87,15 +88,21 @@ public class InventoryUI : MonoBehaviour
         inventoryImage.sprite = null;
 
         yield return new WaitForSeconds(1f);
-        PlayerFeedback(player, false);
     }
 
     private void Update()
     {
-        player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
-        if (PlayerPickedUpItem(player))
+        if (GameServerConnectionManager.Instance.players.Count > 0 && characterFeedbacks == null)
         {
-            activeItem = player.Inventory[0];
+            characterFeedbacks = Utils
+                .GetCharacter(GameServerConnectionManager.Instance.playerId)
+                .GetComponent<CharacterFeedbacks>();
+        }
+        playerEntity = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
+        if (PlayerHasItem(playerEntity))
+        {
+            activeItem = playerEntity.Player.Inventory;
+            currentItem = activeItem.Name;
         }
         else
         {
@@ -111,10 +118,15 @@ public class InventoryUI : MonoBehaviour
 
     private Sprite GetInventoryItemSprite()
     {
+        // TODO: Change to List
         switch (activeItem.Name)
         {
-            case MYRRAS_BLESSING:
+            case "mirra_blessing":
                 return myrrasBlessing;
+            case "golden_clock":
+                return goldenClock;
+            case "magic_boots":
+                return magicBoots;
             default:
                 return null;
         }
@@ -125,33 +137,21 @@ public class InventoryUI : MonoBehaviour
         return activeItem != null && inventoryImage.sprite == null;
     }
 
-    private bool PlayerPickedUpItem(OldPlayer player)
+    private bool PlayerHasItem(Entity playerEntity)
     {
-        return player != null && player.Inventory.Count > 0;
+        return playerEntity != null && playerEntity.Player.Inventory != null;
     }
 
     public void UseItem()
     {
-        if (PlayerPickedUpItem(player))
+        if (PlayerHasItem(playerEntity))
         {
             var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            UseInventory useInventoryAction = new UseInventory { InventoryAt = 0 };
-            GameAction gameAction = new GameAction
-            {
-                UseInventory = useInventoryAction,
-                Timestamp = timestamp
-            };
-            GameServerConnectionManager.Instance.SendGameAction(gameAction);
+            GameServerConnectionManager.Instance.SendUseItem(timestamp);
         }
         if (activeItem != null && inventoryImage.sprite != null)
         {
             useItemAnimation = StartCoroutine(AnimateUseItem(pickItemAnimation));
         }
-    }
-
-    void PlayerFeedback(OldPlayer player, bool state)
-    {
-        GameObject playerToExecuteFeedback = Utils.GetPlayer(player.Id);
-        playerToExecuteFeedback.GetComponent<CharacterInventory>().ExecuteFeedback(state);
     }
 }

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Communication.Protobuf;
 using Google.Protobuf;
 using Google.Protobuf.Collections;
 using NativeWebSocket;
@@ -21,31 +20,46 @@ public class GameServerConnectionManager : MonoBehaviour
     public string serverIp = "localhost";
 
     public static GameServerConnectionManager Instance;
-    public List<OldPlayer> gamePlayers;
-    public OldGameEvent gameEvent;
-    public List<OldProjectile> gameProjectiles;
+
+    public Dictionary<ulong, Position> playersIdPosition = new Dictionary<ulong, Position>();
+
+    public List<Entity> gamePlayers;
+    public List<Entity> gameProjectiles;
+    public List<Entity> gamePowerUps;
+    public List<Entity> gamePools;
+    public List<Entity> gameLoots;
+    public Dictionary<ulong, ulong> damageDone = new Dictionary<ulong, ulong>();
     public ulong playerId;
     public uint currentPing;
-    public uint serverTickRate_ms;
+
+    public float serverTickRate_ms;
     public string serverHash;
-    public (OldPlayer, ulong) winnerPlayer = (null, 0);
+    public GameStatus gameStatus;
+    public float gameCountdown;
+
+    public (Entity, ulong) winnerPlayer = (null, 0);
     public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
     public ClientPrediction clientPrediction = new ClientPrediction();
     public EventsBuffer eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
     public bool allSelected = false;
     public float playableRadius;
-    public OldPosition shrinkingCenter;
-    public List<OldPlayer> alivePlayers = new List<OldPlayer>();
+    public long zoneShrinkTime;
+
+    public bool zoneEnabled = false;
     public bool cinematicDone;
     public bool connected = false;
-    public Game.GameState gameState;
     private string clientId;
     private bool reconnect;
+
+    public bool shrinking;
     WebSocket ws;
+
+    public Configuration config;
 
     void Start()
     {
         Init();
+        StartCoroutine(IsGameCreated());
     }
 
     public void Init()
@@ -63,8 +77,6 @@ public class GameServerConnectionManager : MonoBehaviour
             Instance = this;
             this.sessionId = ServerConnection.Instance.GameSession;
             this.serverIp = ServerConnection.Instance.serverIp;
-            this.serverTickRate_ms = ServerConnection.Instance.serverTickRate_ms;
-            this.serverHash = ServerConnection.Instance.serverHash;
             this.clientId = ServerConnection.Instance.clientId;
             this.reconnect = ServerConnection.Instance.reconnect;
             this.playersIdName = ServerConnection.Instance.playersIdName;
@@ -80,24 +92,20 @@ public class GameServerConnectionManager : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
-        StartCoroutine(IsGameCreated());
     }
 
     private IEnumerator IsGameCreated()
     {
-        yield return new WaitUntil(
-            () =>
-                ServerConnection.Instance.GameSession != ""
-                && ServerConnection.Instance.GameSession != null
-        );
-        this.sessionId = ServerConnection.Instance.GameSession;
-        this.serverIp = ServerConnection.Instance.serverIp;
-        this.serverTickRate_ms = ServerConnection.Instance.serverTickRate_ms;
-        this.serverHash = ServerConnection.Instance.serverHash;
-        this.clientId = ServerConnection.Instance.clientId;
-        this.reconnect = ServerConnection.Instance.reconnect;
+        yield return new WaitUntil(() => !String.IsNullOrEmpty(SessionParameters.GameId));
 
-        if (!connected && this.sessionId != "")
+        // this.sessionId = ServerConnection.Instance.GameSession;
+        // this.serverIp = ServerConnection.Instance.serverIp;
+        // this.serverTickRate_ms = ServerConnection.Instance.serverTickRate_ms;
+        // this.serverHash = ServerConnection.Instance.serverHash;
+        // this.clientId = ServerConnection.Instance.clientId;
+        // this.reconnect = ServerConnection.Instance.reconnect;
+
+        if (!connected)
         {
             connected = true;
             ConnectToSession(this.sessionId);
@@ -107,96 +115,85 @@ public class GameServerConnectionManager : MonoBehaviour
     private void ConnectToSession(string sessionId)
     {
         string url = makeWebsocketUrl(
-            "/play/"
-                + sessionId
-                + "/"
-                + this.clientId
-                + "/"
-                + ServerConnection.Instance.selectedCharacterName
+            "/play/" + SessionParameters.GameId + "/" + SessionParameters.PlayerId
         );
         print(url);
-        Dictionary<string, string> headers = new Dictionary<string, string>();
-        headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
-        ws = new WebSocket(url, headers);
+        ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
-        ws.OnClose += onWebsocketClose;
+        ws.OnClose += OnWebsocketClose;
         ws.OnError += (e) =>
         {
             Debug.Log("Received error: " + e);
         };
+        ws.OnOpen += () =>
+        {
+            // Once the connection is established we reset so when we try to load the scenes again
+            // it waits to fetch it from the Lobby websocket and not reuse
+            SessionParameters.GameId = null;
+        };
         ws.Connect();
+    }
+
+    private void OnWebsocketClose(WebSocketCloseCode closeCode)
+    {
+        if (closeCode != WebSocketCloseCode.Normal)
+        {
+            // TODO: Add some error handle for when websocket closes unexpectedly
+        }
+        else
+        {
+            Debug.Log("Game websocket closed normally");
+        }
     }
 
     private void OnWebSocketMessage(byte[] data)
     {
         try
         {
-            TransitionGameEvent gameEvent = TransitionGameEvent.Parser.ParseFrom(data);
+            GameEvent gameEvent = GameEvent.Parser.ParseFrom(data);
 
-            // TODO: Fix missing NewGameEvent, current missing are
-            //      - PING_UPDATE
-            //      - PLAYER_JOINED
-            if (
-                gameEvent.OldGameEvent.Type != GameEventType.PingUpdate
-                && gameEvent.OldGameEvent.Type != GameEventType.PlayerJoined
-            )
+            switch (gameEvent.EventCase)
             {
-                try
-                {
-                    switch (gameEvent.NewGameEvent.EventCase)
+                case GameEvent.EventOneofCase.Joined:
+                    this.serverTickRate_ms = gameEvent.Joined.Config.Game.TickRateMs;
+                    this.playerId = gameEvent.Joined.PlayerId;
+                    this.config = gameEvent.Joined.Config;
+                    break;
+                case GameEvent.EventOneofCase.Ping:
+                    currentPing = (uint)gameEvent.Ping.Latency;
+                    break;
+                case GameEvent.EventOneofCase.Update:
+                    GameState gameState = gameEvent.Update;
+
+                    eventsBuffer.AddEvent(gameState);
+
+                    KillFeedManager.instance.putEvents(gameState.Killfeed.ToList());
+                    this.playableRadius = gameState.Zone.Radius;
+                    this.zoneShrinkTime =
+                        gameState.Zone.NextZoneChangeTimestamp - gameState.ServerTimestamp;
+                    this.zoneEnabled = gameState.Zone.Enabled;
+                    this.gameStatus = gameState.Status;
+                    this.gameCountdown = gameState.StartGameTimestamp - gameState.ServerTimestamp;
+                    var position = gameState.Players[this.playerId].Position;
+                    this.gamePlayers = gameState.Players.Values.ToList();
+                    this.gameProjectiles = gameState.Projectiles.Values.ToList();
+                    this.gamePowerUps = gameState.PowerUps.Values.ToList();
+                    this.gamePools = gameState.Pools.Values.ToList();
+                    this.gameLoots = gameState.Items.Values.ToList();
+                    this.damageDone = gameState.DamageDone.ToDictionary(x => x.Key, x => x.Value);
+                    this.shrinking = gameState.Zone.Shrinking;
+                    this.playersIdPosition = new Dictionary<ulong, Position>
                     {
-                        case GameEvent.EventOneofCase.GameState:
-                            gameState = new Game.GameState(gameEvent.NewGameEvent.GameState);
-                            break;
-                        default:
-                            print("Unexpected message: " + gameEvent.NewGameEvent.EventCase);
-                            break;
-                    }
-                }
-                catch (Exception e)
-                {
-                    Debug.Log(gameEvent);
-                    Debug.Log(e);
-                    throw e;
-                }
-            }
-
-            switch (gameEvent.OldGameEvent.Type)
-            {
-                case GameEventType.StateUpdate:
-                    this.playableRadius = gameEvent.OldGameEvent.PlayableRadius;
-                    this.shrinkingCenter = gameEvent.OldGameEvent.ShrinkingCenter;
-                    eventsBuffer.AddEvent(gameEvent.OldGameEvent);
-                    this.gamePlayers = gameEvent.OldGameEvent.Players.ToList();
-                    this.gameProjectiles = gameEvent.OldGameEvent.Projectiles.ToList();
-                    alivePlayers = gameEvent
-                        .OldGameEvent
-                        .Players
-                        .ToList()
-                        .FindAll(el => el.Health > 0);
-                    KillFeedManager.instance.putEvents(gameEvent.OldGameEvent.Killfeed.ToList());
+                        [this.playerId] = position
+                    };
                     break;
-                case GameEventType.PingUpdate:
-                    currentPing = (uint)gameEvent.OldGameEvent.Latency;
-                    break;
-                case GameEventType.GameFinished:
-                    winnerPlayer.Item1 = gameEvent.OldGameEvent.WinnerPlayer;
-                    winnerPlayer.Item2 = gameEvent.OldGameEvent.WinnerPlayer.KillCount;
-                    this.gamePlayers = gameEvent.OldGameEvent.Players.ToList();
-                    break;
-                case GameEventType.PlayerJoined:
-                    this.playerId = gameEvent.OldGameEvent.PlayerJoinedId;
-                    break;
-                case GameEventType.GameStarted:
-                    this.playableRadius = gameEvent.OldGameEvent.PlayableRadius;
-                    this.shrinkingCenter = gameEvent.OldGameEvent.ShrinkingCenter;
-                    eventsBuffer.AddEvent(gameEvent.OldGameEvent);
-                    this.gamePlayers = gameEvent.OldGameEvent.Players.ToList();
-                    this.gameProjectiles = gameEvent.OldGameEvent.Projectiles.ToList();
-                    ServerConnection.Instance.gameStarted = true;
+                case GameEvent.EventOneofCase.Finished:
+                    winnerPlayer.Item1 = gameEvent.Finished.Winner;
+                    winnerPlayer.Item2 = gameEvent.Finished.Winner.Player.KillCount;
+                    this.gamePlayers = gameEvent.Finished.Players.Values.ToList();
                     break;
                 default:
-                    print("Message received is: " + gameEvent.OldGameEvent.Type);
+                    print("Message received is: " + gameEvent.EventCase);
                     break;
             }
         }
@@ -206,33 +203,35 @@ public class GameServerConnectionManager : MonoBehaviour
         }
     }
 
-    private void onWebsocketClose(WebSocketCloseCode closeCode)
+    public void SendMove(float x, float y, long timestamp)
     {
-        Debug.Log("closeCode:" + closeCode);
-        if (closeCode != WebSocketCloseCode.Normal)
-        {
-            ServerConnection.Instance.errorConnection = true;
-            this.Init();
-            ServerConnection.Instance.Init();
-        }
+        Direction direction = new Direction { X = x, Y = y };
+        Move moveAction = new Move { Direction = direction };
+        GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
+        SendGameAction(gameAction);
     }
 
-    public static OldPlayer GetPlayer(ulong id, List<OldPlayer> playerList)
+    public void SendSkill(string skill, Direction direction, long timestamp)
     {
-        return playerList.Find(el => el.Id == id);
+        // TODO: This function should receive they type of aiming the skill is using and assign it to a different
+        //      field in AttackParameters based on it. For now we hardcode to `target` field and also always hardcode if null
+        Direction target = direction == null ? new Direction { X = 0.0f, Y = 0.0f } : direction;
+        AttackParameters parameters = new AttackParameters { Target = target };
+        Attack attackAction = new Attack { Skill = skill, Parameters = parameters };
+        GameAction gameAction = new GameAction { Attack = attackAction, Timestamp = timestamp };
+        SendGameAction(gameAction);
     }
 
-    public void SendAction(ClientAction action)
+    public void SendUseItem(long timestamp)
     {
-        using (var stream = new MemoryStream())
-        {
-            action.WriteTo(stream);
-            var msg = stream.ToArray();
-            ws.Send(msg);
-        }
+        // TODO: Hardcode this to 0 because for now we don't have a configurable inventory
+        //      Once that is a reality we should receive as part of the parameters
+        UseItem useItem = new UseItem { Item = 0 };
+        GameAction gameAction = new GameAction { UseItem = useItem, Timestamp = timestamp };
+        SendGameAction(gameAction);
     }
 
-    public void SendGameAction<T>(IMessage<T> action)
+    private void SendGameAction<T>(IMessage<T> action)
         where T : IMessage<T>
     {
         using (var stream = new MemoryStream())
@@ -248,20 +247,6 @@ public class GameServerConnectionManager : MonoBehaviour
         int port = 4000;
 
         if (serverIp.Contains("localhost"))
-        {
-            return "ws://" + serverIp + ":" + port + path;
-        }
-        else if (serverIp.Contains("10.150.20.186"))
-        {
-            return "ws://" + serverIp + ":" + port + path;
-        }
-        // Load test server
-        else if (serverIp.Contains("168.119.71.104"))
-        {
-            return "ws://" + serverIp + ":" + port + path;
-        }
-        // Load test runner server
-        else if (serverIp.Contains("176.9.26.172"))
         {
             return "ws://" + serverIp + ":" + port + path;
         }

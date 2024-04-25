@@ -1,33 +1,56 @@
 using System;
 using System.Collections.Generic;
-using Communication.Protobuf;
 using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
     public void SendJoystickValues(float x, float y)
     {
-        if (x != 0 || y != 0)
+        if (
+            ShouldSendMovement(
+                x,
+                y,
+                GameServerConnectionManager.Instance.clientPrediction.lastXSent,
+                GameServerConnectionManager.Instance.clientPrediction.lastYSent
+            ) 
+        )
         {
-            var valuesToSend = new RelativePosition { X = x, Y = y };
+            var valuesToSend = new Direction { X = x, Y = y };
             var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-            Move moveAction = new Move { Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg };
-            GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
-
-            GameServerConnectionManager.Instance.SendGameAction(gameAction);
+            GameServerConnectionManager.Instance.SendMove(x, y, timestamp);
 
             ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
             {
                 joystick_x_value = x,
                 joystick_y_value = y,
-                timestamp = timestamp,
+                timestampId = timestamp,
+                startTimestamp = timestamp,
+                endTimestamp = 0,
             };
-            GameServerConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+            GameServerConnectionManager.Instance.clientPrediction.EnqueuePlayerInput(playerInput);
         }
     }
 
-    public (float, float) SendAction()
+    bool ShouldSendMovement(float x, float y, float lastXSent, float lastYSent)
+    {
+        float movementThreshold = 1f;
+        //Fetch the first GameObject's position
+        Vector2 currentDirection = new Vector2(x, y);
+        //Fetch the second GameObject's position
+        Vector2 lastDirection = new Vector2(lastXSent, lastYSent);
+        //Find the angle for the two Vectors
+        float angleBetweenDirections = Vector2.Angle(currentDirection, lastDirection);
+
+        bool movedFromStatic = (lastXSent == 0 && lastYSent == 0 && (x != 0 || y != 0));
+        bool stoppedMoving = (x == 0 && y == 0 && (lastXSent != 0 || lastYSent != 0));
+        bool changedDirection = (angleBetweenDirections > movementThreshold);
+        // Here we can add a validaion to check if
+        // the movement is significant enough to be sent to the server
+        return (movedFromStatic || stoppedMoving || changedDirection);
+    }
+
+    public (float, float) SendAction(bool forceSend = false)
     {
         float x = 0;
         float y = 0;
@@ -47,29 +70,22 @@ public class PlayerControls : MonoBehaviour
         {
             y += -1f;
         }
-        if (x != 0 || y != 0)
-        {
-            SendJoystickValues(x, y);
-        }
+
+        SendJoystickValues(x, y);
+
         return (x, y);
     }
 
-    public static float getBackendCharacterSpeed(ulong playerId)
+    public bool KeysPressed()
     {
-        string charName = Utils.GetGamePlayer(playerId).CharacterName;
-        // if (GameServerConnectionManager.Instance.selectedCharacters.ContainsKey(playerId))
-        // {
-        // var charName = GameServerConnectionManager.Instance.selectedCharacters[playerId];
-        var chars = ServerConnection.Instance.engineServerSettings.Characters;
+        return Input.GetKey(KeyCode.W)
+            || Input.GetKey(KeyCode.A)
+            || Input.GetKey(KeyCode.D)
+            || Input.GetKey(KeyCode.S);
+    }
 
-        foreach (var character in chars)
-        {
-            if (charName.ToLower() == character.Name.ToLower())
-            {
-                return character.BaseSpeed;
-            }
-        }
-        // }
-        return 0f;
+    public bool JoytickUsed(float x, float y)
+    {
+        return x != 0 || y != 0;
     }
 }

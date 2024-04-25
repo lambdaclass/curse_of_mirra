@@ -32,65 +32,78 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: 57af50b84b8b94ff4a5d546de3d3f0ae, type: 3}
+    - {fileID: 102900000, guid: 53324d01144aa4cbaa917672f35c976e, type: 3}
+    - {fileID: 102900000, guid: 3eb91073e7abd4ee89716ac8bd44f111, type: 3}
+    - {fileID: 102900000, guid: c1bcbbf7e31a7485f83227210a9b74ad, type: 3}
+    - {fileID: 102900000, guid: 5effd8490589240e3bbad8566470b70b, type: 3}
+    - {fileID: 102900000, guid: 6545209b0db61400fb4e8aa30b296c72, type: 3}
+    - {fileID: 102900000, guid: 82d20931720ea4232a65434518238c6a, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: c7d94a50e55ca40c4a5c1af048d97f0a, type: 3}
-  - {fileID: 21300000, guid: b86c0fd1f68564d2ab777fbbb2cd2743, type: 3}
-  - {fileID: 21300000, guid: da68f552af66c4e40bca75d39177b6a9, type: 3}
-  - {fileID: 21300000, guid: 19f9f182b767c47b6967032f2a58811d, type: 3}
-  - {fileID: 21300000, guid: fa27f582a1b7c4389afb4991a735007e, type: 3}
-  - {fileID: 21300000, guid: 2d340d82e49a14bbf83d262c48718d35, type: 3}
-  - {fileID: 21300000, guid: db6604c28f6654cc8a9d499eb016fedd, type: 3}
-  - {fileID: 21300000, guid: e2fcf543ad8b547ec96e8284774749ac, type: 3}
-  - {fileID: 21300000, guid: cecebc6322d064fc5af558ab0650d167, type: 3}
-  - {fileID: 21300000, guid: de6249676d3a64ff6bc3511b49a2da40, type: 3}
-  - {fileID: 21300000, guid: 56a6de87ac01343649411377c504d93e, type: 3}
-  - {fileID: 21300000, guid: 99b14097a8e1e48ebb667ec381c0ca6a, type: 3}
-  - {fileID: 21300000, guid: 31f5d1c8ecfd64044b2c0e700c09af7d, type: 3}
-  - {fileID: 21300000, guid: 47a69d19b6bd3411dbe084cfbb7cec19, type: 3}
-  - {fileID: 21300000, guid: 823ed63ac257f45ea95ff2ed33c677b3, type: 3}
-  - {fileID: 21300000, guid: f8c3865a96b604b81aad5959769c5e6e, type: 3}
-  - {fileID: 21300000, guid: f654400b4adab418cab9ecd8fe1e9693, type: 3}
-  - {fileID: 21300000, guid: 0e115e4be163f4cda8ad7b318ca82f72, type: 3}
-  - {fileID: 21300000, guid: 32f96a4ccf0ee4e82ac7bb7bf988e5ef, type: 3}
-  - {fileID: 21300000, guid: 5858709d7e65547a790f82b5eab4cd22, type: 3}
-  - {fileID: 21300000, guid: fe47c5ad8dd9d4a54b9f274447e27717, type: 3}
-  - {fileID: 21300000, guid: fe77c7adf01bc4b1990894e4594f4125, type: 3}
-  - {fileID: 21300000, guid: ac8229bd02da44ef9a9ea325bdd91cf4, type: 3}
-  - {fileID: 21300000, guid: 790b13ddb1435423989fde5f5a321942, type: 3}
-  - {fileID: 21300000, guid: 2723ab2f058bf468988f0c089ec4ea5b, type: 3}
-  - {fileID: 21300000, guid: 18aefdcf1a99b40f9b4f1b82648dabff, type: 3}
+  - {fileID: 21300000, guid: 36e7e03074043410198227140f9037f2, type: 3}
+  - {fileID: 21300000, guid: 41e07560bd98147d4af35b42349e9655, type: 3}
+  - {fileID: 21300000, guid: 3694aa60b97fe444b91afbc6b5d25c68, type: 3}
+  - {fileID: 21300000, guid: 789e5811ba2c14730a2807050b00ee58, type: 3}
+  - {fileID: 21300000, guid: 1ed4f781217ee4d7ba2c7578db4c0fb1, type: 3}
+  - {fileID: 21300000, guid: 131b69f1990da47ef9696423773bb153, type: 3}
+  - {fileID: 21300000, guid: e4a23452b0a894b228ffc65f8f4b2c33, type: 3}
+  - {fileID: 21300000, guid: b133ce62e7f374246899951a0f032e35, type: 3}
+  - {fileID: 21300000, guid: 77e42d722086f443b9f0a004431a46a1, type: 3}
+  - {fileID: 21300000, guid: 7a457ad213602408fa9c8b626b1e509b, type: 3}
+  - {fileID: 21300000, guid: ce72fde2956b145a5b6ffecced3eafe2, type: 3}
+  - {fileID: 21300000, guid: e802e653be6f545aa96092866ab8f767, type: 3}
+  - {fileID: 21300000, guid: bbc83e73a539e48f2a49cdd4169b997f, type: 3}
+  - {fileID: 21300000, guid: df64a9447a18b4291b85eb515c74ebd2, type: 3}
+  - {fileID: 21300000, guid: d72ff864afdb848fe8bc6f20a0679065, type: 3}
+  - {fileID: 21300000, guid: 66144cf4e79df431d8177b93860e941c, type: 3}
+  - {fileID: 21300000, guid: afe27ab68106c410daff1344be11a63c, type: 3}
+  - {fileID: 21300000, guid: d5672d38fc9404bfbb60a99a8cbcf1b7, type: 3}
+  - {fileID: 21300000, guid: 9e72e2f87cf144d319f745a802ec3c41, type: 3}
+  - {fileID: 21300000, guid: 25c6ba19deae14da8a58d506552bf1fe, type: 3}
+  - {fileID: 21300000, guid: dc480059705a34887912b8aa9e5db7c5, type: 3}
+  - {fileID: 21300000, guid: 8598d97aa78864f24b5635cabc949f81, type: 3}
+  - {fileID: 21300000, guid: d5f280ba182e544b4b3d2b2b67ba3173, type: 3}
+  - {fileID: 21300000, guid: 58c5b2ba7289848799e486a6d866171a, type: 3}
+  - {fileID: 21300000, guid: be74397bea6cf445f94a4906f318baad, type: 3}
+  - {fileID: 21300000, guid: 19ab588b5db054bfbad31e56c4ea1440, type: 3}
+  - {fileID: 21300000, guid: 0d5da8ab1670f437e8d9d1bda2b88792, type: 3}
+  - {fileID: 21300000, guid: 0c73ab9c47b36493b8966b0a813f41f6, type: 3}
+  - {fileID: 21300000, guid: 098120dd7167e4221b9f8510402e20fa, type: 3}
+  - {fileID: 21300000, guid: 04ae07dd9905f49c0b70082fc6f75dcd, type: 3}
   m_PackedSpriteNamesToIndex:
-  - CurseOfMirra-Uma
-  - mirras_blessing
-  - icon
-  - D_agna
   - container
-  - Players-icon
-  - basic
+  - setting_firstTab_selected
+  - code
   - Uma
-  - H4ck
+  - glow
+  - Hack
   - Underline
-  - CurseOfMirra-Background
-  - metrics-container
-  - fade
-  - kills
-  - background-gradient
-  - CurseOfMirra-Muflus
-  - item
-  - container name player
+  - players
+  - toggle_on
   - icon
-  - container-player
-  - border-item
-  - Settings
-  - badge-you
-  - Muflus
-  - CurseOfMirra-H4ck
-  - time
+  - orientation-indicator
+  - 0
+  - stamina-empty
+  - muflus
+  - settings_bg
+  - zone
+  - setting_tab_selected
+  - underline
+  - container
+  - zone-icon
+  - toggle_off
+  - slider-handle
+  - stamina
+  - 1
+  - timer
+  - setings
+  - kills
+  - background(2)
+  - sidebar
+  - dev
   m_RenderDataMap: {}
-  m_Tag: BattleUI
+  m_Tag: InGameUI
   m_IsVariant: 0

@@ -147,6 +147,7 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   isBackButton: 1
+  executeRelease: 0
 --- !u!114 &1454606252819559102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,7 +228,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 899d263ebc2a348cd8151658c6e35877, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f1be41a1d2c1548e2ababf0983817f1a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

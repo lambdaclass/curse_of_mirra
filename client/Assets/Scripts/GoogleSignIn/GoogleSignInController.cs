@@ -12,8 +12,8 @@ public class GoogleSignInController : MonoBehaviour
 {
     public TextMeshProUGUI statusText;
 
-    [SerializeField]
-    private GameObject signOutButton;
+    // [SerializeField]
+    // private GameObject signOutButton;
 
     [SerializeField]
     private GameObject signInButton;
@@ -129,8 +129,8 @@ public class GoogleSignInController : MonoBehaviour
         PlayerPrefs.SetString("GoogleUserName", "");
         PlayerPrefs.SetString("GoogleUserId", "");
         PlayerPrefs.SetString("GoogleIdToke", "");
-        signOutButton.SetActive(false);
-        signInButton.SetActive(true);
+        // signOutButton.SetActive(false);
+        // signInButton.SetActive(true);
     }
 
     internal void OnAuthenticationFinished(Task<GoogleSignInUser> task)
@@ -170,8 +170,8 @@ public class GoogleSignInController : MonoBehaviour
                     PlayerPrefs.SetString("GoogleUserId", task.Result.UserId);
                     PlayerPrefs.SetString("GoogleIdToke", task.Result.IdToken);
                 }
-                signInButton.SetActive(false);
-                signOutButton.SetActive(true);
+                // signInButton.SetActive(false);
+                // signOutButton.SetActive(true);
                 AddStatusText("Welcome: " + task.Result.DisplayName + "!");
                 break;
             default:

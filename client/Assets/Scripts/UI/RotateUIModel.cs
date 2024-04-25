@@ -5,8 +5,7 @@ using UnityEngine.EventSystems;
 
 public class RotateUIModel : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 {
-    [SerializeField]
-    float rotationSpeed = 1f;
+    const float ROTATION_SPEED = .25f;
 
     [SerializeField]
     GameObject modelContainer;
@@ -31,7 +30,7 @@ public class RotateUIModel : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
         touch = Input.GetTouch(0);
         if (touch.phase == TouchPhase.Moved)
         {
-            rotationX = Quaternion.Euler(0f, -touch.deltaPosition.x * rotationSpeed, 0f);
+            rotationX = Quaternion.Euler(0f, -touch.deltaPosition.x * ROTATION_SPEED, 0f);
             model.rotation *= rotationX;
         }
     }

@@ -36,8 +36,7 @@ public class PingCounter : MonoBehaviour
         if (_timeLeftToUpdate <= 0.0)
         {
             _timeLeftToUpdate = updateInterval;
-            _pingText.text =
-                "PING " + GameServerConnectionManager.Instance.currentPing.ToString() + " ms";
+            _pingText.text = "PING " + GameServerConnectionManager.Instance.currentPing.ToString();
         }
     }
 }

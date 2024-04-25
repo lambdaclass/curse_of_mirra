@@ -11,26 +11,21 @@ public class EndGameManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI rankingText,
         rankingTextShadow,
-        amountOfKillsText;
+        amountOfKillsText,
+        defeaterPlayerName;
 
     [SerializeField]
-    GameObject defeatedByContainer,
-        characterModelContainer;
-
-    // Data to be added from front and back
-
-    [SerializeField]
-    TextMeshProUGUI defeaterPlayerName,
-        defeaterCharacterName;
+    GameObject defeatedByContainer;
 
     [SerializeField]
     Image defeaterImage;
 
+    [SerializeField]
+    public UIModelManager modelManager;
     private const int WINNER_POS = 1;
     private const int SECOND_PLACE_POS = 2;
-    private const string ZONE_ID = "9999";
+    private const string ZONE_ID = "0";
     CustomCharacter player;
-    GameObject modelClone;
 
     void OnEnable()
     {
@@ -41,14 +36,15 @@ public class EndGameManager : MonoBehaviour
     public void SetDeathSplashCharacter()
     {
         player = Utils.GetCharacter(GameServerConnectionManager.Instance.playerId);
-        CoMCharacter character = KillFeedManager
-            .instance
-            .charactersScriptableObjects
+
+        CoMCharacter character = CharactersManager
+            .Instance
+            .AllCharacters
             .Single(characterSO => characterSO.name.Contains(player.CharacterModel.name));
+
         if (character)
         {
-            GameObject characterModel = character.UIModel;
-            modelClone = Instantiate(characterModel, characterModelContainer.transform);
+            modelManager.SetModel(character.name);
         }
     }
 
@@ -81,8 +77,11 @@ public class EndGameManager : MonoBehaviour
     void ShowMatchInfo()
     {
         // Kill count
-        var killCount = GetKillCount();
-        amountOfKillsText.text = killCount.ToString();
+        amountOfKillsText.text = Utils
+            .GetGamePlayer(GameServerConnectionManager.Instance.playerId)
+            ?.Player
+            .KillCount
+            .ToString();
 
         // Defeated By
         if (
@@ -96,45 +95,50 @@ public class EndGameManager : MonoBehaviour
         }
         else
         {
-            //defeaterPlayerName.text = GetDefeaterPlayerName();
+            MaybeShowDefeaterName();
             // Defeated By Image
             defeaterImage.sprite = GetDefeaterSprite();
-            // Defeated By Name
-            //defeaterCharacterName.text = GetDefeaterCharacterName();
         }
     }
 
     private ulong GetKillCount()
     {
-        var playerId = GameServerConnectionManager.Instance.playerId;
-        var gamePlayer = Utils.GetGamePlayer(playerId);
-        return gamePlayer.KillCount;
+        // var playerId = GameServerConnectionManager.Instance.playerId;
+        // var gamePlayer = Utils.GetGamePlayer(playerId);
+        // return gamePlayer.KillCount;
+        return 77;
     }
 
-    private string GetDefeaterPlayerName()
+    void MaybeShowDefeaterName()
     {
-        // TODO: get Defeater player name
-        return "-";
+        if (KillFeedManager.instance.GetMyKillerId().ToString() == ZONE_ID)
+        {
+            defeaterPlayerName.gameObject.SetActive(false);
+        }
+        else
+        {
+            defeaterPlayerName.text = GetDefeaterPlayerName();
+        }
     }
 
     private Sprite GetDefeaterSprite()
     {
-        if (KillFeedManager.instance.myKillerId.ToString() == ZONE_ID)
+        if (KillFeedManager.instance.GetMyKillerId().ToString() == ZONE_ID)
         {
             return KillFeedManager.instance.zoneIcon;
         }
         else
         {
-            CoMCharacter killerCharacter = KillFeedManager
-                .instance
-                .charactersScriptableObjects
+            CoMCharacter killerCharacter = CharactersManager
+                .Instance
+                .AvailableCharacters
                 .Single(
                     characterSO =>
                         characterSO
                             .name
                             .Contains(
                                 Utils
-                                    .GetPlayer(KillFeedManager.instance.myKillerId)
+                                    .GetPlayer(KillFeedManager.instance.GetMyKillerId())
                                     .GetComponent<CustomCharacter>()
                                     .CharacterModel
                                     .name
@@ -144,28 +148,8 @@ public class EndGameManager : MonoBehaviour
         }
     }
 
-    private string GetDefeaterCharacterName()
+    private string GetDefeaterPlayerName()
     {
-        // TODO: get defeater character name
-        return "-";
-    }
-
-    public void ShowCharacterAnimation()
-    {
-        if (player)
-        {
-            if (
-                GameServerConnectionManager
-                    .Instance
-                    .PlayerIsWinner(GameServerConnectionManager.Instance.playerId)
-            )
-            {
-                modelClone.GetComponentInChildren<Animator>().SetBool("Victory", true);
-            }
-            else
-            {
-                modelClone.GetComponentInChildren<Animator>().SetBool("Defeat", true);
-            }
-        }
+        return Utils.GetGamePlayer(KillFeedManager.instance.GetMyKillerId()).Name;
     }
 }
