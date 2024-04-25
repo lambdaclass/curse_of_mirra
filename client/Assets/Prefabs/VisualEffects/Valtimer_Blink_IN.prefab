@@ -49,13 +49,22 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0.5
+        m_Name: Duration
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
       m_Array: []
     m_Vector4f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 0.3372549, y: 0.17254902, z: 0.38039216, w: 0}
+        m_Name: Color A
+        m_Overridden: 1
+      - m_Value: {x: 0.8784314, y: 1.4980392, z: 1.7019608, w: 0}
+        m_Name: Color B
+        m_Overridden: 1
     m_Uint:
       m_Array: []
     m_Int:
