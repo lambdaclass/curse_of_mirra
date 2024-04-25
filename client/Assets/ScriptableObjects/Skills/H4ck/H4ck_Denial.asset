@@ -33,11 +33,18 @@ MonoBehaviour:
   skillConeAngle: 80
   arrowWidth: 1
   skillAreaRadius: 0
+  usesHitboxAsArea: 0
   useCooldown: 1
   skillSprite: {fileID: 21300000, guid: daf86c1bf02ee4d75bdc9fa8cc394bab, type: 3}
   vfxList:
-  - vfx: {fileID: 3130931354078819328, guid: f3ee610f4d6c84efe9b3ab44b40ae057, type: 3}
+  - vfx: {fileID: 6624918053612209743, guid: 0d71e8a80f85b3945972bd44070507ba, type: 3}
+    duration: 1
+    delay: 0
+    instantiateVfxOnModel: 1
+    hasDestination: 0
+  - vfx: {fileID: 9197403966285785662, guid: 732fdbae74040b44f9c6d1195edfe069, type: 3}
     duration: 2.5
     delay: 0.6
     instantiateVfxOnModel: 0
+    hasDestination: 0
   animationList: []
