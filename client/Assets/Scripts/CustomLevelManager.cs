@@ -14,9 +14,6 @@ public class CustomLevelManager : LevelManager
 {
     private const float DEATH_FEEDBACK_DURATION = 1.5f;
     bool paused = false;
-    private GameObject mapPrefab;
-    private GameObject mapInstance;
-    public GameObject quickMapPrefab;
 
     [SerializeField]
     GameObject deathSplash;
@@ -32,48 +29,18 @@ public class CustomLevelManager : LevelManager
     public GameObject UiControls;
     public CinemachineCameraController camera;
 
-    public List<GameObject> mapList = new List<GameObject>();
     private bool deathSplashIsShown = false;
     EndGameManager endGameManager;
 
     protected override void Awake()
     {
         base.Awake();
-        // this.totalPlayers = (ulong)ServerConnection.Instance.playerCount;
-        InitializeMap();
     }
 
     protected override void Start()
     {
         base.Start();
         StartCoroutine(InitializeLevel());
-    }
-
-    private void InitializeMap()
-    {
-        if (LobbyManager.LevelSelected == null)
-        {
-            InitializeMapPrefab(quickMapPrefab);
-        }
-        else
-        {
-            mapPrefab = mapList.Find(map => map.name == LobbyManager.LevelSelected);
-            InitializeMapPrefab(mapPrefab);
-        }
-    }
-
-    private void InitializeMapPrefab(GameObject mapPrefab)
-    {
-        mapInstance = Instantiate(mapPrefab);
-        //Add gameobject to the scene root
-        mapInstance
-            .transform
-            .SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent);
-    }
-
-    public GameObject GetMapInstance()
-    {
-        return mapInstance;
     }
 
     private IEnumerator InitializeLevel()

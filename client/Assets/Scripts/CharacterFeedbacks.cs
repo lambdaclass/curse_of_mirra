@@ -30,12 +30,10 @@ public class CharacterFeedbacks : MonoBehaviour
         pickUpFeedback,
         useItemFeedback;
 
-
-    [SerializeField] 
-        GameObject
-            goldenClockVFX,
-            magicBootsVFX,
-            myrrasBlessingVFX;
+    [SerializeField]
+    GameObject goldenClockVFX,
+        magicBootsVFX,
+        myrrasBlessingVFX;
 
     [SerializeField]
     MMProgressBar healthBar;
@@ -63,9 +61,10 @@ public class CharacterFeedbacks : MonoBehaviour
     void Start()
     {
         playerID = GameServerConnectionManager.Instance.playerId;
-        damageOverlayColor = new Color(255, 0, 0, 1);
-        baseOverlayColor = new Color(255, 255, 255, 1);
-        healOverlayColor = new Color(68, 173, 68, 1);
+        damageOverlayColor = new Color(1, 0, 0, 1);
+        currentOverlayColor = new Color(1, 1, 1, 1);
+        baseOverlayColor = new Color(1, 1, 1, 1);
+        healOverlayColor = new Color(0.4f, .8f, .4f, 1);
     }
 
     void Update()
@@ -76,7 +75,7 @@ public class CharacterFeedbacks : MonoBehaviour
             {
                 overlayTime += (Time.deltaTime / overlayDuration);
             }
-            Color32 nextColor = Color.Lerp(currentOverlayColor, baseOverlayColor, overlayTime);
+            Color nextColor = Color.Lerp(currentOverlayColor, baseOverlayColor, overlayTime);
 
             ChangeModelsOverlayColor(currentOverlayColor);
             currentOverlayColor = nextColor;
@@ -85,18 +84,23 @@ public class CharacterFeedbacks : MonoBehaviour
         PlayHapticDamageFeedback();
     }
 
-    private void PlayHapticDamageFeedback(){
+    private void PlayHapticDamageFeedback()
+    {
         ulong damage;
-        if(GameServerConnectionManager.Instance.damageDone.TryGetValue(playerID, out damage)) {
+        if (GameServerConnectionManager.Instance.damageDone.TryGetValue(playerID, out damage))
+        {
             HapticFeedbackType hapticFeedbackType = GetHapticTypeByDamage(damage);
             TriggerHapticFeedback(hapticFeedbackType);
-        };
+        }
+        ;
     }
 
-    private HapticFeedbackType GetHapticTypeByDamage(ulong damage) => damage switch{
-        < 70 => HapticFeedbackType.Light,
-        >= 70 => HapticFeedbackType.Heavy,
-    };
+    private HapticFeedbackType GetHapticTypeByDamage(ulong damage) =>
+        damage switch
+        {
+            < 70 => HapticFeedbackType.Light,
+            >= 70 => HapticFeedbackType.Heavy,
+        };
 
     public void SetColorOverlayAlpha(float currentAlpha)
     {
@@ -104,6 +108,7 @@ public class CharacterFeedbacks : MonoBehaviour
         currentOverlayColor.a = currentAlpha;
         baseOverlayColor.a = currentAlpha;
     }
+
     public void SetActiveStateFeedback(string name, bool active)
     {
         GameObject feedbackToActivate = feedbacksStatesPrefabs.Find(el => el.name == name);
@@ -127,9 +132,10 @@ public class CharacterFeedbacks : MonoBehaviour
             deathFeedback.SetActive(true);
         }
     }
-    
-    public GameObject SelectGO(string name){
-          switch (name)
+
+    public GameObject SelectGO(string name)
+    {
+        switch (name)
         {
             case "mirra_blessing_effect":
                 return myrrasBlessingVFX;
@@ -138,7 +144,7 @@ public class CharacterFeedbacks : MonoBehaviour
             case "golden_clock_effect":
                 return goldenClockVFX;
             default:
-                return null; 
+                return null;
         }
     }
 
@@ -155,7 +161,9 @@ public class CharacterFeedbacks : MonoBehaviour
             if (playerId == GameServerConnectionManager.Instance.playerId)
             {
                 damageFeedback.GetComponent<MMF_Player>().PlayFeedbacks();
-                HapticFeedbackType feedbackType = GetHapticTypeByDamage((ulong)(clientHealth - serverPlayerHealth));
+                HapticFeedbackType feedbackType = GetHapticTypeByDamage(
+                    (ulong)(clientHealth - serverPlayerHealth)
+                );
                 TriggerHapticFeedback(feedbackType);
             }
             this.ChangePlayerTextureOnDamage(clientHealth, serverPlayerHealth);
@@ -205,7 +213,7 @@ public class CharacterFeedbacks : MonoBehaviour
         currentOverlayColor = damageOverlayColor;
     }
 
-    private void ApplyColorFeedback(Color32 color)
+    private void ApplyColorFeedback(Color color)
     {
         ChangeModelsOverlayColor(color);
         currentOverlayColor = color;
@@ -219,7 +227,7 @@ public class CharacterFeedbacks : MonoBehaviour
         StartCoroutine(RemoveModelFeedback());
     }
 
-    public void ChangeModelsOverlayColor(Color32 color)
+    public void ChangeModelsOverlayColor(Color color)
     {
         SkinnedMeshRenderer[] skinnedMeshFilter =
             characterModel.GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -228,6 +236,7 @@ public class CharacterFeedbacks : MonoBehaviour
             foreach (var material in meshFilter.materials)
             {
                 material.color = color;
+                material.SetColor("_TintColor", color);
             }
         }
     }

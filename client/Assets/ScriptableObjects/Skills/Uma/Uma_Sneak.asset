@@ -36,8 +36,8 @@ MonoBehaviour:
   skillSprite: {fileID: 21300000, guid: 4f36c5ef9696e46ee8b67b161bcea987, type: 3}
   vfxList:
   - vfx: {fileID: 1371067997947001578, guid: 31cd86e2ec9638145a9cf5f4567e213d, type: 3}
-    duration: 1
-    delay: 0.15
+    duration: 0.3
+    delay: 0
     instantiateVfxOnModel: 0
     hasDestination: 0
   animationList: []
