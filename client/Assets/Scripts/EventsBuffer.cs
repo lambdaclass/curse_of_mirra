@@ -71,7 +71,6 @@ public class EventsBuffer
     // */
     public bool playerIsMoving(ulong playerId, long pastTime)
     {
-        var count = 0;
         Tuple<GameState, int> currentEventToRender = this.getNextEventToRender(pastTime);
         var index = currentEventToRender.Item2;
         int previousIndex;
@@ -96,7 +95,6 @@ public class EventsBuffer
         }
 
         GameState previousRenderedEvent = updatesBuffer[previousIndex];
-        GameState followingEventToRender = updatesBuffer[nextIndex];
 
         // There are a few frames during which this is outdated and produces an error
         if (
@@ -114,6 +112,8 @@ public class EventsBuffer
             {
                 return true;
             }
+
+            GameState followingEventToRender = updatesBuffer[nextIndex];
             serverPlayerUpdate = new Entity(followingEventToRender.Players[playerId]);
             if (serverPlayerUpdate.IsMoving)
             {
@@ -121,7 +121,7 @@ public class EventsBuffer
             }
         }
 
-        return count >= 1;
+        return false;
     }
 
     public void setLastTimestampSeen(ulong playerId, long serverTimestamp)
