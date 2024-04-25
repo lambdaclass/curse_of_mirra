@@ -62,7 +62,7 @@ VisualEffect:
       - m_Value: {x: 0.3372549, y: 0.17254902, z: 0.38039216, w: 0}
         m_Name: Color A
         m_Overridden: 1
-      - m_Value: {x: 0.8784314, y: 1.4980392, z: 1.7019608, w: 0}
+      - m_Value: {x: 1.3490196, y: 0.6901961, z: 1.5215687, w: 0}
         m_Name: Color B
         m_Overridden: 1
     m_Uint:

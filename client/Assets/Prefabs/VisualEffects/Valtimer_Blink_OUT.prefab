@@ -59,10 +59,10 @@ VisualEffect:
       m_Array: []
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 0.3372549, y: 0.17254902, z: 0.38039216, w: 0}
+      - m_Value: {x: 0.6745098, y: 0.34509805, z: 0.7607843, w: 0}
         m_Name: Color A
         m_Overridden: 1
-      - m_Value: {x: 2.9960785, y: 1.9921569, z: 0.65882355, w: 0}
+      - m_Value: {x: 2, y: 1.6078432, z: 1.0901961, w: 0}
         m_Name: Color B
         m_Overridden: 1
     m_Uint:
