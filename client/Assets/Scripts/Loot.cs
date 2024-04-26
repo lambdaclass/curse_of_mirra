@@ -55,15 +55,16 @@ public class Loot : MonoBehaviour
 
     private void RemoveLoots(List<Entity> updatedLoots)
     {
-        loots
-            .ToList()
-            .ForEach(loot =>
+        // Create a copy of the loots list to avoid modifying it while iterating
+        List<LootItem> lootsCopy = new List<LootItem>(loots);
+
+        foreach (var loot in lootsCopy)
+        {
+            if (!updatedLoots.Exists(lootPackage => lootPackage.Id == loot.id))
             {
-                if (!updatedLoots.Exists(lootPackage => lootPackage.Id == loot.id))
-                {
-                    RemoveLoot(loot.id);
-                }
-            });
+                RemoveLoot(loot.id);
+            }
+        }
     }
 
     private void RemoveLoot(ulong id)
