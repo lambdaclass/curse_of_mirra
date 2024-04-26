@@ -2,6 +2,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class EndGameManager : MonoBehaviour
 {
@@ -22,6 +23,16 @@ public class EndGameManager : MonoBehaviour
 
     [SerializeField]
     public UIModelManager modelManager;
+
+    [SerializeField]
+    GameObject winnerContainer;
+
+    [SerializeField]
+    TextMeshProUGUI winnerNameText;
+
+    [SerializeField]
+    TextMeshProUGUI winnerCharacterText;
+
     private const int WINNER_POS = 1;
     private const int SECOND_PLACE_POS = 2;
     private const string ZONE_ID = "0";
@@ -46,6 +57,14 @@ public class EndGameManager : MonoBehaviour
         {
             modelManager.SetModel(character.name);
         }
+    }
+
+    public void ShowWinner() 
+    {
+        winnerContainer.SetActive(true);
+        winnerContainer.GetComponent<CanvasGroup>().DOFade(1, 1f);
+        winnerNameText.text = GameServerConnectionManager.Instance.winnerPlayer.Item1.Name;
+        winnerCharacterText.text = GameServerConnectionManager.Instance.winnerPlayer.Item1.Player.CharacterName;
     }
 
     void ShowRankingDisplay()
