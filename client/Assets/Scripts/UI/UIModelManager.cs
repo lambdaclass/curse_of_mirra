@@ -24,7 +24,7 @@ public class UIModelManager : MonoBehaviour
     const float ANIMATION_INTERVAL = 20f;
     float animationClipDuration;
     Coroutine characterAnimation;
-    Animator modelAnimator;
+    public Animator modelAnimator;
 
     void Start()
     {
@@ -71,7 +71,6 @@ public class UIModelManager : MonoBehaviour
         if(modelClone.name.Contains("Uma") && parameterName == "Victory"){
             animationClipTime =  clips.Single(clip => clip.name == "Victory_aux").length / 2;
         } else {
-            print(parameterName);
             animationClipTime =  clips.Single(clip => clip.name.ToLower() == parameterName.ToLower()).length;
         }
        

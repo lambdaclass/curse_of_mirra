@@ -88,6 +88,8 @@ public class CharacterInfoManager : MonoBehaviour
     }
 
     public void PlaySkillAnimation(string parameterName){
-        StartCoroutine(modelManager.AnimateCharacterSkill(parameterName.ToUpper()));
+        if(modelManager.modelAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle") == true){
+            StartCoroutine(modelManager.AnimateCharacterSkill(parameterName.ToUpper()));
+        }
     }
 }
