@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Google.Protobuf;
@@ -119,7 +120,13 @@ public class ServerConnection : MonoBehaviour
 
     public void LeaveLobby()
     {
-        ws.SendText("leave_lobby");
+        using (var stream = new MemoryStream())
+        {
+            var action = new LobbyEvent {Leave = new LeaveLobby {}};
+            action.WriteTo(stream);
+            var msg = stream.ToArray();
+            ws.Send(msg);
+        }
     }
 
     public void RefreshServerInfo()
