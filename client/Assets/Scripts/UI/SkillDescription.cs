@@ -14,6 +14,8 @@ public class SkillDescription : MonoBehaviour, IPointerDownHandler
     [SerializeField]
     SkillsDetailHandler skillsDetailHandler;
 
+    bool isAnimating = false;
+
     public void SetSkillDescription(SkillInfo skillInfo)
     {
         skillData = skillInfo;

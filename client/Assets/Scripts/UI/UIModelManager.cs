@@ -47,7 +47,7 @@ public class UIModelManager : MonoBehaviour
         GameObject modelClone = Instantiate(playerModel, playerModelContainer.transform);
         animate = true;
         modelAnimator = modelClone.GetComponentInChildren<Animator>();
-        if (SceneManager.GetActiveScene().name != "Battle")
+        if (SceneManager.GetActiveScene().name == "MainScreen")
         {
             animationClipDuration = AnimationClipTime(modelAnimator, "Victory");
             characterAnimation = StartCoroutine(AnimateCharacter("Victory"));
@@ -69,7 +69,7 @@ public class UIModelManager : MonoBehaviour
         float animationClipTime = 0;     
     
         if(modelClone.name.Contains("Uma") && parameterName == "Victory"){
-            animationClipTime =  clips.Single(clip => clip.name == "GR_VeilOfRadiance").length / 2;
+            animationClipTime =  clips.Single(clip => clip.name == "Victory_aux").length / 2;
         } else {
             print(parameterName);
             animationClipTime =  clips.Single(clip => clip.name.ToLower() == parameterName.ToLower()).length;
@@ -87,17 +87,16 @@ public class UIModelManager : MonoBehaviour
 
 
         if(modelClone.name.Contains("Uma") && parameterName == "Victory"){
-            parameterName = "Radiance";
+            parameterName = "Victory_aux";
         }
 
         while (animate)
         {
-            print("Executing " + parameterName);
             yield return new WaitForSeconds(1f);
             modelClone.GetComponentInChildren<Animator>().SetBool(parameterName, true);
             yield return new WaitForSeconds(animationClipDuration);
             modelClone.GetComponentInChildren<Animator>().SetBool(parameterName, false);
-            yield return new WaitForSeconds(parameterName == "Victory" ?  ANIMATION_INTERVAL : 0);
+            yield return new WaitForSeconds(ANIMATION_INTERVAL);
         }
     }
 
