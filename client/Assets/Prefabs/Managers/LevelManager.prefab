@@ -44,7 +44,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 100, y: 30, z: 140}
+  m_Size: {x: 100, y: 100, z: 140}
   m_Center: {x: 0, y: 0, z: -17.9}
 --- !u!114 &4421236017082313433
 MonoBehaviour:
@@ -138,21 +138,10 @@ MonoBehaviour:
   SetPlayerAsFeedbackRangeCenter: 0
   quickMapPrefab: {fileID: 8260821150174466730, guid: 6c52df159d5dc499aaa0bd06adc934c9,
     type: 3}
-  roundSplash: {fileID: 0}
   deathSplash: {fileID: 0}
-  roundText: {fileID: 0}
-  totalKillsText: {fileID: 0}
-  backToLobbyButton: {fileID: 0}
   UiCamera: {fileID: 0}
   UiControls: {fileID: 0}
   camera: {fileID: 0}
-  charactersInfo:
-  - {fileID: 11400000, guid: 1d794a6d1ea684021a3342f238fab245, type: 2}
-  - {fileID: 11400000, guid: 6ba8cabf9e156422c908495e30aca8ce, type: 2}
-  - {fileID: 11400000, guid: 819290ac4d9da42f1b6db11f8ca17307, type: 2}
-  - {fileID: 11400000, guid: 49f1e22bf30394970a6da77c66930595, type: 2}
   mapList:
   - {fileID: 8260821150174466730, guid: f5b5452532bd24f7c94de87391698d07, type: 3}
   - {fileID: 3856665203278081415, guid: 49d35586eb6b54147a958245fc3ab7ad, type: 3}
-  loadingScreen: {fileID: 0}
-  battleScreen: {fileID: 0}

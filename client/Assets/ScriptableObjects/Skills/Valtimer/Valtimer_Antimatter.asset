@@ -19,7 +19,7 @@ MonoBehaviour:
   skillSetType: 0
   angle: 45
   staminaCost: 0
-  indicatorType: 0
+  indicatorType: 2
   hasProjectile: 1
   hasSkillPool: 0
   projectilePrefab: {fileID: 4688357669528238486, guid: a16caed76454c314792694be1ab6b4dc,
@@ -29,9 +29,9 @@ MonoBehaviour:
   abilityStartSfx: {fileID: 8300000, guid: 78f6b0c75348944ff8108d0fcec7c81d, type: 3}
   sfxHasAbilityStop: 0
   abilityStopSfx: {fileID: 0}
-  skillCircleRange: 0
+  skillCircleRange: 12
   skillConeAngle: 45
-  arrowWidth: 0
+  arrowWidth: 1
   skillAreaRadius: 0
   usesHitboxAsArea: 0
   useCooldown: 0
