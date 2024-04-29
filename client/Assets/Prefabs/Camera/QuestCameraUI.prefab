@@ -155,8 +155,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4288848546
+  m_fontColor: {r: 0.63529414, g: 0.63529414, b: 0.63529414, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -958,8 +958,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294241196
+  m_fontColor: {r: 0.6745098, g: 0.92156863, b: 0.95686275, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1151,8 +1151,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 120
+  m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2197,10 +2197,10 @@ RectTransform:
   m_Father: {fileID: 4321024124092525655}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 515.7, y: 146.3}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.00012207031, y: 3.5}
+  m_SizeDelta: {x: 0, y: -7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5562153086054456405
 CanvasRenderer:
@@ -2266,7 +2266,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 16
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -2437,6 +2437,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: Defeat 28 enemies with Uma
+      objectReference: {fileID: 0}
+    - target: {fileID: 6393475772273047345, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -44.900085
       objectReference: {fileID: 0}
     - target: {fileID: 6543373234331074590, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
@@ -2610,6 +2615,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: Defeat 8 enemies with H4ck
+      objectReference: {fileID: 0}
+    - target: {fileID: 6393475772273047345, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -44.900085
       objectReference: {fileID: 0}
     - target: {fileID: 6543373234331074590, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
@@ -2908,6 +2918,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6393475772273047345, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -44.900085
+      objectReference: {fileID: 0}
     - target: {fileID: 6858520479588775500, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -3074,6 +3089,11 @@ PrefabInstance:
       propertyPath: m_text
       value: Win 50 battle with Muflus
       objectReference: {fileID: 0}
+    - target: {fileID: 6393475772273047345, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -44.900085
+      objectReference: {fileID: 0}
     - target: {fileID: 6543373234331074590, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
       propertyPath: m_text
@@ -3239,6 +3259,11 @@ PrefabInstance:
       propertyPath: m_text
       value: Defeat 50 enemies
       objectReference: {fileID: 0}
+    - target: {fileID: 6393475772273047345, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -44.900085
+      objectReference: {fileID: 0}
     - target: {fileID: 6543373234331074590, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
       propertyPath: m_text
@@ -3403,6 +3428,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: Play your first 5 battles
+      objectReference: {fileID: 0}
+    - target: {fileID: 6393475772273047345, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -44.900085
       objectReference: {fileID: 0}
     - target: {fileID: 6543373234331074590, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
