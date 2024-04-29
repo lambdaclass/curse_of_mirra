@@ -643,6 +643,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lights
       objectReference: {fileID: 0}
+    - target: {fileID: 1940841849993329752, guid: 026aa55e891e14fc391df2fe1cece077,
+        type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2616071612502774421, guid: 026aa55e891e14fc391df2fe1cece077,
         type: 3}
       propertyPath: m_RootOrder
@@ -697,6 +702,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856206030273388740, guid: 026aa55e891e14fc391df2fe1cece077,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.706732
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856206030273388740, guid: 026aa55e891e14fc391df2fe1cece077,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.3295545
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856206030273388740, guid: 026aa55e891e14fc391df2fe1cece077,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.60379666
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856206030273388740, guid: 026aa55e891e14fc391df2fe1cece077,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.16538854
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 026aa55e891e14fc391df2fe1cece077, type: 3}
