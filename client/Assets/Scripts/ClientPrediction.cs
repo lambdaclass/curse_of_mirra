@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ClientPrediction
 {
+    public bool didFirstMovement = false;
+
     public struct PlayerInput
     {
         public float joystick_x_value;
@@ -30,10 +32,13 @@ public class ClientPrediction
             lastPlayerInput.endTimestamp = PlayerInput.startTimestamp;
             pendingPlayerInputs[pendingPlayerInputs.Count - 1] = lastPlayerInput;
         }
-        // add the new one
-        pendingPlayerInputs.Add(PlayerInput);
-        lastXSent = PlayerInput.joystick_x_value;
-        lastYSent = PlayerInput.joystick_y_value;
+        if (didFirstMovement)
+        {
+            // add the new input to the list
+            pendingPlayerInputs.Add(PlayerInput);
+            lastXSent = PlayerInput.joystick_x_value;
+            lastYSent = PlayerInput.joystick_y_value;
+        }
     }
 
     public void StopMovement()
@@ -48,6 +53,7 @@ public class ClientPrediction
             endTimestamp = 0,
         };
 
+        this.didFirstMovement = true;
         EnqueuePlayerInput(playerInput);
     }
 
@@ -60,6 +66,7 @@ public class ClientPrediction
 
     void UpdateLastAcknowledgedInput(Entity player, long timestampId, long serverTimestamp)
     {
+        startingPosition = player.Position;
         for (int i = 0; i < pendingPlayerInputs.Count; i++)
         {
             PlayerInput input = pendingPlayerInputs[i];
@@ -69,7 +76,6 @@ public class ClientPrediction
                 {
                     input.startTimestamp += serverTimestamp - input.serverTimestamp;
                 }
-                startingPosition = player.Position;
                 input.serverTimestamp = serverTimestamp;
                 pendingPlayerInputs[i] = input;
             }
@@ -125,7 +131,7 @@ public class ClientPrediction
 
     private Vector3 ClampIfOutOfMap(Vector3 newPosition)
     {
-        float mapRadius = 4800; // FIXME: This value should be fetched from the backend. Will be fixed in PR#270 (backend)
+        float mapRadius = 5520; // FIXME: This value should be fetched from the backend. Will be fixed in PR#270 (backend)
 
         Vector3 mapCenterPosition = new Vector3(0, 0, 0);
         float playerDistanceFromMapCenter = Vector3.Distance(newPosition, mapCenterPosition);

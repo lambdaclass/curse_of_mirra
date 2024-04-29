@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6179811949821279423}
   - component: {fileID: 2389554993147671194}
   - component: {fileID: 3943917182123841741}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fall 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,9 +26,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672921574907355671}
   m_LocalRotation: {x: -0, y: 0.05249935, z: -0, w: 0.998621}
-  m_LocalPosition: {x: -2.5, y: -11.3, z: 3.7}
-  m_LocalScale: {x: 0.7227374, y: 0.7227374, z: 0.7227374}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -3.7, y: -9.6, z: 2.8}
+  m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1005581698051692224}
   m_RootOrder: 2
@@ -4881,7 +4881,7 @@ GameObject:
   - component: {fileID: 2198676341275593864}
   - component: {fileID: 4012067821345863420}
   - component: {fileID: 6668678601134401063}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fall 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4896,9 +4896,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3123506835865574374}
   m_LocalRotation: {x: -0, y: 0.049532548, z: -0, w: 0.99877256}
-  m_LocalPosition: {x: -4.6, y: -11.4, z: -0.2}
-  m_LocalScale: {x: 0.7606639, y: 0.7606639, z: 0.7606639}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -4, y: -10.1, z: 2.3}
+  m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1005581698051692224}
   m_RootOrder: 1
@@ -9749,13 +9749,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1005581698051692224}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Vfx Sand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1005581698051692224
 Transform:
   m_ObjectHideFlags: 0
@@ -9763,7 +9763,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5766941422946347384}
-  m_LocalRotation: {x: -0, y: -0.9992214, z: -0, w: -0.039454103}
+  m_LocalRotation: {x: -0, y: -0.9992215, z: 0, w: -0.039451562}
   m_LocalPosition: {x: -2.4, y: 17.5, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9785,7 +9785,7 @@ GameObject:
   - component: {fileID: 1588484781627966024}
   - component: {fileID: 4294111247563326659}
   - component: {fileID: 2199971588405193459}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9800,9 +9800,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7963044075649019288}
   m_LocalRotation: {x: -0, y: 0.038135257, z: -0, w: 0.99927264}
-  m_LocalPosition: {x: -2.9, y: -11.4, z: 2}
-  m_LocalScale: {x: 0.7274173, y: 0.7274173, z: 0.7274173}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -4.3, y: -11.1, z: 3.7}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1005581698051692224}
   m_RootOrder: 0

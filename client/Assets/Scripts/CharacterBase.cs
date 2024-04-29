@@ -19,7 +19,8 @@ public class CharacterBase : MonoBehaviour
         CharacterCard,
         CanvasHolder,
         StaminaCharges,
-        powerUps;
+        powerUps,
+        characterShadow;
 
     [SerializeField]
     public AudioClip spawnSfx;

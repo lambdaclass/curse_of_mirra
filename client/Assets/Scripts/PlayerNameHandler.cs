@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerNameHandler : MonoBehaviour
 {
@@ -21,6 +22,12 @@ public class PlayerNameHandler : MonoBehaviour
 
     [SerializeField]
     InputField placeholder;
+
+    [SerializeField]
+    TextMeshProUGUI topLeftPlayerName;
+
+    [SerializeField]
+    TextMeshProUGUI currentPlayerName;
 
     private string playerName;
 
@@ -53,6 +60,17 @@ public class PlayerNameHandler : MonoBehaviour
             textMesh.text = EMPTY_NAME_MESSAGE;
         }
 
+    }
+
+    public void ChangePlayersName()
+    {
+        SetPlayerName();
+        if (!this.errorMessage.activeSelf) 
+        {
+            topLeftPlayerName.text = PlayerPrefs.GetString("playerName");  
+            currentPlayerName.text = "Current name: " + PlayerPrefs.GetString("playerName"); 
+            Hide();
+        }
     }
 
     public string GetPlayerName()

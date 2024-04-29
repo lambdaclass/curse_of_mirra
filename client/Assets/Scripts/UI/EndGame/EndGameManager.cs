@@ -15,19 +15,17 @@ public class EndGameManager : MonoBehaviour
         defeaterPlayerName;
 
     [SerializeField]
-    GameObject defeatedByContainer,
-        characterModelContainer;
+    GameObject defeatedByContainer;
 
     [SerializeField]
     Image defeaterImage;
 
+    [SerializeField]
+    public UIModelManager modelManager;
     private const int WINNER_POS = 1;
     private const int SECOND_PLACE_POS = 2;
     private const string ZONE_ID = "0";
     CustomCharacter player;
-    GameObject modelClone;
-
-    Animator modelAnimator;
 
     void OnEnable()
     {
@@ -46,9 +44,7 @@ public class EndGameManager : MonoBehaviour
 
         if (character)
         {
-            GameObject characterModel = character.UIModel;
-            modelClone = Instantiate(characterModel, characterModelContainer.transform);
-            modelAnimator = modelClone.GetComponentInChildren<Animator>();
+            modelManager.SetModel(character.name);
         }
     }
 
@@ -83,7 +79,8 @@ public class EndGameManager : MonoBehaviour
         // Kill count
         amountOfKillsText.text = Utils
             .GetGamePlayer(GameServerConnectionManager.Instance.playerId)
-            ?.Player.KillCount
+            ?.Player
+            .KillCount
             .ToString();
 
         // Defeated By
@@ -112,10 +109,14 @@ public class EndGameManager : MonoBehaviour
         return 77;
     }
 
-    void MaybeShowDefeaterName(){
-        if(KillFeedManager.instance.GetMyKillerId().ToString() == ZONE_ID){
+    void MaybeShowDefeaterName()
+    {
+        if (KillFeedManager.instance.GetMyKillerId().ToString() == ZONE_ID)
+        {
             defeaterPlayerName.gameObject.SetActive(false);
-        } else {
+        }
+        else
+        {
             defeaterPlayerName.text = GetDefeaterPlayerName();
         }
     }
@@ -147,34 +148,8 @@ public class EndGameManager : MonoBehaviour
         }
     }
 
-    private string GetDefeaterPlayerName(){
-        return Utils.GetGamePlayer(KillFeedManager.instance.GetMyKillerId()).Name;
-    }
-
-    public void ShowCharacterAnimation()
+    private string GetDefeaterPlayerName()
     {
-        if(player){
-            bool isWinner = GameServerConnectionManager.Instance.PlayerIsWinner(GameServerConnectionManager.Instance.playerId);
-            string animationName = isWinner ? "Victory" : "Defeat";
-            if(modelAnimator.parameterCount > 0){
-                bool hasAnimationParameter = AnimationHasParameter(animationName);
-                HandleAnimation(animationName, hasAnimationParameter);
-            }   
-        }
-    }
-
-    private bool AnimationHasParameter(string parameterName){
-        AnimatorControllerParameter param = modelAnimator.parameters.ToList()
-            .Find(p => p.name == parameterName);
-
-        return param != null;
-    }
-
-    public void HandleAnimation(string animationName, bool hasAnimationParameter){
-        if(hasAnimationParameter){
-            modelAnimator.SetBool(animationName, true);
-        } else {
-            modelAnimator.Play(animationName);
-        }
+        return Utils.GetGamePlayer(KillFeedManager.instance.GetMyKillerId()).Name;
     }
 }

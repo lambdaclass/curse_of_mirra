@@ -178,7 +178,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Multi
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -3590029385350354878}
@@ -192,7 +192,8 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 3dda7b983ae5849b3ba3b25a57a70560, type: 2}
+  m_Motion: {fileID: 1827226128182048838, guid: 16780a70ce978d443b0644f62e182599,
+    type: 3}
   m_Tag: 
   m_SpeedParameter: Skill1Speed
   m_MirrorParameter: 
@@ -290,7 +291,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Slingshot
-  m_Speed: 1.2
+  m_Speed: 1.8
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 6643888575161106771}
@@ -561,7 +562,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Take 001
+  m_Name: Dash
   m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:

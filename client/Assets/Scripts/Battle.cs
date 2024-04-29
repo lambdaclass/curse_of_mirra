@@ -27,12 +27,14 @@ public class Battle : MonoBehaviour
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
     public long accumulatedTime;
     public long firstTimestamp;
+    public GameObject mapGrid;
 
     private Loot loot;
     private bool playerMaterialColorChanged;
     private bool sendMovementStarted = false;
     private long lastMovementUpdate;
     private long lastForcedMovementUpdate;
+    private bool playersSetupCompleted = false;
 
     [SerializeField]
     private CustomLevelManager levelManager;
@@ -40,11 +42,24 @@ public class Battle : MonoBehaviour
     private PowerUpsManager powerUpsManager;
     private CustomCharacter myClientCharacter = null;
 
+    public Dictionary<ulong, PlayerReferences> playersReferences =
+        new Dictionary<ulong, PlayerReferences>();
+
+    public struct PlayerReferences
+    {
+        public GameObject player;
+        public CustomCharacter character;
+        public CharacterFeedbacks characterFeedbacks;
+        public CharacterFeedbackManager feedbackManager;
+        public Animator modelAnimator;
+    }
+
     void Start()
     {
         InitBlockingStates();
         SetupInitialState();
         StartCoroutine(InitializeProjectiles());
+        StartCoroutine(SetupPlayersReferences());
         loot = GetComponent<Loot>();
         playerMaterialColorChanged = false;
         playerControls = GetComponent<PlayerControls>();
@@ -67,6 +82,29 @@ public class Battle : MonoBehaviour
         accumulatedTime = 0;
         showClientPredictionGhost = false;
         showInterpolationGhosts = false;
+    }
+
+    private IEnumerator SetupPlayersReferences()
+    {
+        yield return new WaitUntil(() => GameServerConnectionManager.Instance.players.Count > 0);
+        foreach (Entity serverPlayer in GameServerConnectionManager.Instance.gamePlayers)
+        {
+            GameObject player = Utils.GetPlayer(serverPlayer.Id);
+            PlayerReferences playerReference = new PlayerReferences();
+            playerReference.player = player;
+            playerReference.character = player.GetComponent<CustomCharacter>();
+            playerReference.characterFeedbacks = player.GetComponent<CharacterFeedbacks>();
+            playerReference.feedbackManager = playerReference
+                .character
+                .characterBase
+                .GetComponent<CharacterFeedbackManager>();
+            playerReference.modelAnimator = playerReference
+                .character
+                .CharacterModel
+                .GetComponent<Animator>();
+            playersReferences.Add(serverPlayer.Id, playerReference);
+        }
+        playersSetupCompleted = true;
     }
 
     private IEnumerator InitializeProjectiles()
@@ -94,7 +132,8 @@ public class Battle : MonoBehaviour
     {
         // MoveEntities();
         if (
-            GameServerConnectionManager.Instance.gamePlayers != null
+            playersSetupCompleted
+            && GameServerConnectionManager.Instance.gamePlayers != null
             && GameServerConnectionManager.Instance.players.Count > 0
             && GameServerConnectionManager.Instance.gamePlayers.Count > 0
         )
@@ -112,13 +151,7 @@ public class Battle : MonoBehaviour
             long nowMiliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms;
 
-            long forcedMovementMessageInterval = 500;
-            if ((nowMiliseconds - lastForcedMovementUpdate) >= forcedMovementMessageInterval)
-            {
-                SendPlayerMovement(true);
-                lastForcedMovementUpdate = nowMiliseconds;
-            }
-            else if ((nowMiliseconds - lastMovementUpdate) >= clientActionRate)
+            if ((nowMiliseconds - lastMovementUpdate) >= clientActionRate)
             {
                 SendPlayerMovement();
                 lastMovementUpdate = nowMiliseconds;
@@ -179,7 +212,7 @@ public class Battle : MonoBehaviour
         return true;
     }
 
-    public void SendPlayerMovement(bool forceSend = false)
+    public void SendPlayerMovement()
     {
         Entity entity = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
 
@@ -200,21 +233,19 @@ public class Battle : MonoBehaviour
                 )
                 {
                     // Using joysticks
-                    playerControls.SendJoystickValues(
-                        joystickL.RawValue.x,
-                        joystickL.RawValue.y,
-                        forceSend
-                    );
+                    playerControls.SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
+                    GameServerConnectionManager.Instance.clientPrediction.didFirstMovement = true;
                 }
                 else if (playerControls.KeysPressed())
                 {
                     // Using keyboard
-                    playerControls.SendAction(forceSend);
+                    playerControls.SendAction();
+                    GameServerConnectionManager.Instance.clientPrediction.didFirstMovement = true;
                 }
                 else
                 {
                     // Not pressing anything
-                    playerControls.SendJoystickValues(0, 0, forceSend);
+                    playerControls.SendJoystickValues(0, 0);
                 }
             }
         }
@@ -251,7 +282,7 @@ public class Battle : MonoBehaviour
                 )
             )
             {
-                gameEvent = buffer.getNextEventToRender(pastTime);
+                gameEvent = buffer.getNextEventToRender(pastTime).Item1;
             }
             else
             {
@@ -276,6 +307,7 @@ public class Battle : MonoBehaviour
                     {
                         UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
                     }
+
                     GameServerConnectionManager
                         .Instance
                         .clientPrediction
@@ -295,10 +327,12 @@ public class Battle : MonoBehaviour
                     );
                 }
 
-                GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
+                GameObject currentPlayer = playersReferences[serverPlayerUpdate.Id].player;
                 // TODO: try to optimize GetComponent calls
-                CustomCharacter playerCharacter = currentPlayer.GetComponent<CustomCharacter>();
-                
+                CustomCharacter playerCharacter = playersReferences[
+                    serverPlayerUpdate.Id
+                ].character;
+
                 if (currentPlayer.activeSelf)
                 {
                     UpdatePlayer(currentPlayer, serverPlayerUpdate, pastTime);
@@ -321,9 +355,16 @@ public class Battle : MonoBehaviour
                                 ExecuteSkillFeedback(
                                     currentPlayer,
                                     playerAction.Action,
-                                    serverPlayerUpdate.Direction,
-                                    playerAction.Duration
+                                    serverPlayerUpdate,
+                                    playerAction.Duration,
+                                    playerAction.Destination
                                 );
+                            }
+
+                            if (playerAction.Destination != null) // Maybe add playerAction key to differentiate ?
+                            {
+                                playerCharacter.IsTeleporting = true;
+                                playerCharacter.TeleportingDestination = playerAction.Destination;
                             }
                         }
 
@@ -339,6 +380,8 @@ public class Battle : MonoBehaviour
 
                         buffer.setLastTimestampSeen(player.Id, gameEvent.ServerTimestamp);
                     }
+
+                    playerCharacter.HandleTeleport(serverPlayerUpdate.Position);
                 }
 
                 playerCharacter.UpdatePowerUpsCount(serverPlayerUpdate.Player.PowerUps);
@@ -360,24 +403,32 @@ public class Battle : MonoBehaviour
     private void ExecuteSkillFeedback(
         GameObject currentPlayer,
         PlayerActionType playerAction,
-        Direction direction,
-        ulong skillDuration
+        Entity entity,
+        ulong skillDuration,
+        Position destination
     )
     {
         CustomCharacter character = currentPlayer.GetComponent<CustomCharacter>();
+        Direction direction = entity.Direction;
         // TODO: Refactor
         switch (playerAction)
         {
             case PlayerActionType.ExecutingSkill1:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
+                currentPlayer
+                    .GetComponent<Skill1>()
+                    .ExecuteFeedbacks(skillDuration, true, destination);
                 character.RotatePlayer(direction);
                 break;
             case PlayerActionType.ExecutingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
+                currentPlayer
+                    .GetComponent<Skill2>()
+                    .ExecuteFeedbacks(skillDuration, true, destination);
                 character.RotatePlayer(direction);
                 break;
             case PlayerActionType.ExecutingSkill3:
-                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
+                currentPlayer
+                    .GetComponent<Skill3>()
+                    .ExecuteFeedbacks(skillDuration, true, destination);
                 character.RotatePlayer(direction);
                 break;
         }
@@ -500,14 +551,17 @@ public class Battle : MonoBehaviour
         is the direction of deltaX, which we can calculate (assumming we haven't lost socket
         frames, but that's fine).
         */
-        CharacterFeedbacks characterFeedbacks = player.GetComponent<CharacterFeedbacks>();
-        CustomCharacter character = player.GetComponent<CustomCharacter>();
-        CharacterFeedbackManager feedbackManager = character
-            .characterBase
-            .GetComponent<CharacterFeedbackManager>();
-        var characterSpeed = playerUpdate.Speed / 100f;
 
-        Animator modelAnimator = character.CharacterModel.GetComponent<Animator>();
+        CharacterFeedbacks characterFeedbacks = playersReferences[
+            playerUpdate.Id
+        ].characterFeedbacks;
+        CustomCharacter character = playersReferences[playerUpdate.Id].character;
+        CharacterFeedbackManager feedbackManager = playersReferences[
+            playerUpdate.Id
+        ].feedbackManager;
+        Animator modelAnimator = playersReferences[playerUpdate.Id].modelAnimator;
+
+        var characterSpeed = playerUpdate.Speed / 100f;
 
         feedbackManager.ManageStateFeedbacks(playerUpdate, character);
         feedbackManager.HandlePickUpItemFeedback(playerUpdate, characterFeedbacks);
@@ -540,10 +594,13 @@ public class Battle : MonoBehaviour
                 - If you need to use remaining time in milliseconds, you can use only low field
                 - because high field will be 0
             */
-            
-            float skill2Cooldown = playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "2").Value / 1000.0f;
-            float skill3Cooldown = playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "3").Value / 1000.0f;
 
+            float skill2Cooldown =
+                playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "2").Value
+                / 1000.0f;
+            float skill3Cooldown =
+                playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "3").Value
+                / 1000.0f;
 
             InputManager.CheckSkillCooldown(
                 UIControls.Skill1,
@@ -585,9 +642,9 @@ public class Battle : MonoBehaviour
         float xChange = frontendPosition.x - player.transform.position.x;
         float yChange = frontendPosition.z - player.transform.position.z;
 
-        CustomCharacter character = player.GetComponent<CustomCharacter>();
+        CustomCharacter character = playersReferences[playerUpdate.Id].character;
 
-        Animator modelAnimator = character.CharacterModel.GetComponent<Animator>();
+        Animator modelAnimator = playersReferences[playerUpdate.Id].modelAnimator;
 
         bool walking = false;
 
@@ -661,7 +718,7 @@ public class Battle : MonoBehaviour
             // if the player is in attacking state, movement rotation from movement should be ignored
             Direction direction = GetPlayerDirection(playerUpdate);
 
-            if (PlayerMovementAuthorized(player.GetComponent<CustomCharacter>()))
+            if (PlayerMovementAuthorized(character))
             {
                 character.RotatePlayer(direction);
             }
@@ -697,7 +754,7 @@ public class Battle : MonoBehaviour
 
     private void SpawnClientPredictionGhost()
     {
-        GameObject player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
+        GameObject player = playersReferences[GameServerConnectionManager.Instance.playerId].player;
         clientPredictionGhost = Instantiate(player, player.transform.position, Quaternion.identity);
         clientPredictionGhost.GetComponent<CustomCharacter>().PlayerID = GameServerConnectionManager
             .Instance
@@ -798,6 +855,6 @@ public class Battle : MonoBehaviour
 
     public GameObject GetMapGrid()
     {
-        return levelManager.GetMapInstance().GetComponent<MapGrid>().mapGrid;
+        return mapGrid;
     }
 }
