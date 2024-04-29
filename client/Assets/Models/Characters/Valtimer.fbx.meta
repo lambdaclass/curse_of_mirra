@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 03ddd2bbc2b6e4760a0cbfaa0a1162db
+guid: 229af38c1b5d84986b523df36e2b7502
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,7 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Valtimer
+      name: pasted__Valtimer
     second: {fileID: 2100000, guid: 036e5c7ccc3fc4b2cbcb2fff5e210956, type: 2}
   materials:
     materialImportMode: 2

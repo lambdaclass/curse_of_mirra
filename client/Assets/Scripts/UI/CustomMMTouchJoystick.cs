@@ -16,6 +16,8 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     bool cancelable = false;
     private CustomInputManager inputManager;
 
+    bool didHapticFeedback = false;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -106,10 +108,14 @@ public class CustomMMTouchJoystick : MMTouchJoystick
         )
         {
             inputManager.SetCanceled(cancelable, dragged, skill.GetIndicatorType());
-            HapticFeedback.MediumFeedback();
+            if(!didHapticFeedback && cancelable == true){
+                HapticFeedback.MediumFeedback();
+                didHapticFeedback = true;
+            }
         }
         else
         {
+            didHapticFeedback = false;
             inputManager.SetCanceled(cancelable, dragged, skill.GetIndicatorType());
         }
     }

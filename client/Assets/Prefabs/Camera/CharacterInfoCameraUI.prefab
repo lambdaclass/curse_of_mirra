@@ -1665,6 +1665,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerModelContainer: {fileID: 5555014344781973701}
+  responsiveRawImage: 0
+  rawImage: {fileID: 0}
+  hasCharacterShadow: 1
+  characterShadow: {fileID: 1290644239772541293}
 --- !u!1 &1177290041688610676
 GameObject:
   m_ObjectHideFlags: 0
@@ -2681,7 +2685,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7026306946303740732}
   m_RootOrder: 2
@@ -2689,7 +2693,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 30}
-  m_SizeDelta: {x: 800, y: 200}
+  m_SizeDelta: {x: 850, y: 200}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &3585409399041751119
 CanvasRenderer:
@@ -3144,7 +3148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab179447092404adba6901ab201212a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ModelManager: {fileID: 6622316602921967670}
+  modelManager: {fileID: 6622316602921967670}
   nameText: {fileID: 5169547839653138468}
   classImage: {fileID: 5668147510337598438}
   subTitle: {fileID: 7697002149869885537}

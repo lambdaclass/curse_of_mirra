@@ -2,10 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CharacterFeedbackManager : MonoBehaviour
 {
     public bool hasTransparentMaterial;
+
+    [SerializeField]
+    GameObject feedbacksContainer;
 
     [SerializeField]
     SkinnedMeshRenderer skinnedMeshRenderer;
@@ -18,6 +22,8 @@ public class CharacterFeedbackManager : MonoBehaviour
     List<GameObject> vfxList;
     private Material initialMaterial;
 
+    private Dictionary<int, GameObject> InstantiateItems = new Dictionary<int, GameObject>();
+
     void Awake()
     {
         initialMaterial = skinnedMeshRenderer?.material;
@@ -25,22 +31,67 @@ public class CharacterFeedbackManager : MonoBehaviour
 
     public void ManageStateFeedbacks(Entity playerUpdate, CustomCharacter character)
     {
+        if (playerUpdate.Player.Effects.Count > 0)
+        {
+            CharacterFeedbacks feedback = character.GetComponent<CharacterFeedbacks>(); // maybe cache this? We can optimize this later.
+            for (int i = 0; i < playerUpdate.Player.Effects.Count; i++)
+            {
+                var effect = playerUpdate.Player.Effects[i];
+                var name = effect.Name;
+                var duration = effect.DurationMs / 1000;
+                var item = feedback.SelectGO(name);
+                if (!InstantiateItems.ContainsKey(i) && item != null)
+                {
+                    var vfx = Instantiate(item, feedbacksContainer.transform);
+                    vfx.name = name + "ID " + i;
+                    InstantiateItems.Add(i, vfx);
+
+                    vfx.GetComponent<PinnedEffectsController>()
+                        ?.Setup(character.GetComponent<PinnedEffectsManager>());
+                    StartCoroutine(
+                        character
+                            .GetComponent<CharacterMaterialManager>()
+                            .ResetEffects(
+                                duration,
+                                vfx,
+                                vfx.GetComponent<PinnedEffectsController>(),
+                                InstantiateItems,
+                                i
+                            )
+                    );
+                }
+            }
+            ;
+        }
+
+        // Refacor this to a single metho to handle effects.
+
         if (skinnedMeshRenderer != null && transparentMaterial != null)
         {
-            if (playerUpdate.Player.Effects.Values.Any(effect => effect.Name == "invisible"))
+            if (hasEffect(playerUpdate.Player.Effects, "invisible"))
             {
-                if(skinnedMeshRenderer.material.color.a == 1){
+                if (skinnedMeshRenderer.sharedMaterial.HasProperty("_ISTRANSPARENT"))
+                {
                     HandleInvisible(playerUpdate.Id, character);
                 }
             }
             else
             {
-                skinnedMeshRenderer.material = initialMaterial;
-                var canvasHolder = character.characterBase.CanvasHolder;
-                canvasHolder.GetComponent<CanvasGroup>().alpha = 1;
-                SetMeshes(true, character);
-                vfxList.ForEach(el => el.SetActive(true));
-                character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(1);
+                if (skinnedMeshRenderer.sharedMaterial.HasProperty("_ISTRANSPARENT"))
+                {
+                    if (skinnedMeshRenderer.sharedMaterial.GetInt("_ISTRANSPARENT") == 1)
+                    {
+                        skinnedMeshRenderer.material = initialMaterial;
+                        var canvasHolder = character.characterBase.CanvasHolder;
+                        canvasHolder.GetComponent<CanvasGroup>().alpha = 1;
+                        SetMeshes(true, character);
+                        vfxList.ForEach(el => el.SetActive(true));
+                        feedbacksContainer.SetActive(true);
+                        character.characterBase.characterShadow.SetActive(true);
+                        character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(1);
+                        skinnedMeshRenderer.shadowCastingMode = ShadowCastingMode.On;
+                    }
+                }
             }
         }
     }
@@ -50,8 +101,7 @@ public class CharacterFeedbackManager : MonoBehaviour
         bool isClient = GameServerConnectionManager.Instance.playerId == id;
         float alpha = isClient ? 0.5f : 0;
         skinnedMeshRenderer.material = transparentMaterial;
-        Color color = skinnedMeshRenderer.material.color;
-        skinnedMeshRenderer.material.color = new Color(color.r, color.g, color.b, alpha);
+        skinnedMeshRenderer.sharedMaterial.SetFloat("_AlphaValue", alpha);
         character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(alpha);
 
         if (!isClient)
@@ -60,6 +110,9 @@ public class CharacterFeedbackManager : MonoBehaviour
             canvasHolder.GetComponent<CanvasGroup>().alpha = 0;
             SetMeshes(false, character);
             vfxList.ForEach(el => el.SetActive(false));
+            feedbacksContainer.SetActive(false);
+            character.characterBase.characterShadow.SetActive(false);
+            skinnedMeshRenderer.shadowCastingMode = ShadowCastingMode.Off;
         }
     }
 
@@ -78,7 +131,18 @@ public class CharacterFeedbackManager : MonoBehaviour
             .CharacterCard
             .GetComponentsInChildren<MeshRenderer>()
             .ToList();
-        meshes.ForEach(mesh => mesh.enabled = isActive);
+    }
+
+    private bool hasEffect(ICollection<Effect> effects, string effectName)
+    {
+        foreach (var effect in effects)
+        {
+            if (effect.Name == effectName)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void HandlePickUpItemFeedback(Entity playerUpdate, CharacterFeedbacks characterFeedbacks)

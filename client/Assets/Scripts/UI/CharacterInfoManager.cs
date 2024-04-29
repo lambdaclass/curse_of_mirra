@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class CharacterInfoManager : MonoBehaviour
 {
     [SerializeField]
-    private UIModelManager ModelManager;
+    private UIModelManager modelManager;
 
     [Header("Character info")]
     [SerializeField]
@@ -46,8 +46,8 @@ public class CharacterInfoManager : MonoBehaviour
 
     public void SetCharacterInfo(CoMCharacter comCharacter)
     {
-        ModelManager.RemoveCurrentModel();
-        ModelManager.SetModel(comCharacter.name);
+        modelManager.RemoveCurrentModel();
+        modelManager.SetModel(comCharacter.name);
         nameText.text = comCharacter.name;
         subTitle.text = comCharacter.description;
         classImage.sprite = comCharacter.classImage;
@@ -62,6 +62,8 @@ public class CharacterInfoManager : MonoBehaviour
         ServerConnection.Instance.selectedCharacterName = CharactersManager
             .Instance
             .GetGoToCharacter();
+
+        PlayerPrefs.SetString("selectedCharacterName",  ServerConnection.Instance.selectedCharacterName);
         this.GetComponent<MMLoadScene>().LoadScene();
         // CharactersManager.Instance.SetGoToCharacter()
         // StartCoroutine(SetCharacter());
