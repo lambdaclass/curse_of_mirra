@@ -61,7 +61,6 @@ public class EndGameManager : MonoBehaviour
 
     public void ShowWinner() 
     {
-        winnerContainer.SetActive(true);
         winnerContainer.GetComponent<CanvasGroup>().DOFade(1, 1f);
         winnerNameText.text = GameServerConnectionManager.Instance.winnerPlayer.Item1.Name;
         winnerCharacterText.text = GameServerConnectionManager.Instance.winnerPlayer.Item1.Player.CharacterName;
