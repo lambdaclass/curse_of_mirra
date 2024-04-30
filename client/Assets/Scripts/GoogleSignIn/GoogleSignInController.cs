@@ -164,25 +164,26 @@ public class GoogleSignInController : MonoBehaviour
                 AddStatusText("Waiting for activation");
                 break;
             case TaskStatus.RanToCompletion:
-                var token = task.Result.IdToken;  
-                StartCoroutine(ServerUtils.GetTokenIdValidation(token)); 
-                if (PlayerPrefs.GetString("GoogleUserId") == "")
-                {
-                    PlayerPrefs.SetString("GoogleUserName", task.Result.DisplayName);
-                    PlayerPrefs.SetString("GoogleUserId", task.Result.UserId);
-                    PlayerPrefs.SetString("GoogleIdToke", task.Result.IdToken);
-
-                    var s = task.Result.IdToken;
-                    var firstHalf = s.Substring(0, s.Length / 2);
-                    var secondHalf = s.Substring(s.Length/2);
-
-                    print(firstHalf);
-                    print(secondHalf);
-
-                }
-                // signInButton.SetActive(false);
-                // signOutButton.SetActive(true);
-                AddStatusText("Welcome: " + task.Result.DisplayName + "!");
+                StartCoroutine(
+                    ServerUtils.GetTokenIdValidation(
+                        task.Result.IdToken,
+                        response =>
+                        {
+                            if (PlayerPrefs.GetString("GoogleUserId") == "")
+                            {
+                                PlayerPrefs.SetString("GoogleUserName", task.Result.DisplayName);
+                                PlayerPrefs.SetString("GoogleUserId", task.Result.UserId);
+                            }
+                            // signInButton.SetActive(false);
+                            // signOutButton.SetActive(true);
+                            AddStatusText("Welcome: " + task.Result.DisplayName + "!");
+                        },
+                        error =>
+                        {
+                            AddStatusText(error);
+                        }
+                    )
+                );
                 break;
             default:
                 AddStatusText(task.Status.ToString());

@@ -216,7 +216,9 @@ public static class ServerUtils
     }
 
      public static IEnumerator GetTokenIdValidation(
-        string tokenID
+        string tokenID,
+        Action<string> successCallback,
+        Action<string> errorCallback
     )
     {
         // You can replace central-europe-testing.curseofmirra.com with some ngrok for
@@ -226,38 +228,18 @@ public static class ServerUtils
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.SetRequestHeader("Content-Type", "application/json");
-
             yield return webRequest.SendWebRequest();
             if (webRequest.result == UnityWebRequest.Result.Success)
             {
                 // Successfully logged in
                 Debug.Log("RESPOND"  + webRequest.downloadHandler.text);
+                var response = webRequest.downloadHandler.text;
+                successCallback?.Invoke(response);
+                webRequest.Dispose();
             }
             else
             {
-                // Error, prevent user to sign in no matter the reason.
-                string errorDescription;
-                switch (webRequest.result)
-                {
-                    case UnityWebRequest.Result.ProtocolError:
-                        errorDescription = "Something unexpected happened";
-                        // errorCallback.Invoke(errorDescription);
-                        break;
-                    case UnityWebRequest.Result.ConnectionError:
-                        errorDescription = "Connection Error";
-                        // errorCallback.Invoke(errorDescription);
-                        break;
-                    case UnityWebRequest.Result.DataProcessingError:
-                        errorDescription = "Data processing error.";
-                        // errorCallback.Invoke(errorDescription);
-                        break;
-                    default:
-                        errorDescription = "Unhandled error.";
-                        // errorCallback.Invoke(errorDescription);
-                        break;
-                }
-
-                // errorCallback?.Invoke(errorDescription);
+                errorCallback?.Invoke(webRequest.error);
             }
         }
     }
