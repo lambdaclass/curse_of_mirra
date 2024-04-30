@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: H4ck_Denial
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: DENIAL OF SERVICE
-  description: "Throws 15 projectiles \u201Cmachine-gun\u201D style, in a cone with
-    randomized direction."
+  description: Target your enemies from far away and make it rain
   inputType: 1
   skillSetType: 1
   angle: 0
