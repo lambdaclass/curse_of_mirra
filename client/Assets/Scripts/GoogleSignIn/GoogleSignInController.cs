@@ -164,6 +164,8 @@ public class GoogleSignInController : MonoBehaviour
                 AddStatusText("Waiting for activation");
                 break;
             case TaskStatus.RanToCompletion:
+                var token = task.Result.IdToken;  
+                StartCoroutine(ServerUtils.GetTokenIdValidation(token)); 
                 if (PlayerPrefs.GetString("GoogleUserId") == "")
                 {
                     PlayerPrefs.SetString("GoogleUserName", task.Result.DisplayName);
