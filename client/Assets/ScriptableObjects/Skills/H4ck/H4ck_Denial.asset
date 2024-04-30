@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: H4ck_Denial
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: DENIAL OF SERVICE
-  description: Target your enemies from far away and make it rain
+  description: Target your enemies from far away and make it rain.
   inputType: 1
   skillSetType: 1
   angle: 0
