@@ -75,6 +75,7 @@ public class CustomLevelManager : LevelManager
             //SceneManager.LoadScene("EndGame");
             endGameManager.finalSplash.SetActive(true);
             endGameManager.modelManager.ShowEndGameCharacterAnimation();
+            endGameManager.ShowWinner();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
