@@ -25,5 +25,6 @@ public class LineRendererCollider : MonoBehaviour
        }
         collider.sharedMesh = mesh;
         collider.convex = true;
+        this.GetComponent<LineRenderer>().enabled = false;
     }
 }
