@@ -436,6 +436,7 @@ GameObject:
   - component: {fileID: 1561509092144777472}
   - component: {fileID: 5649279936463408876}
   - component: {fileID: 7861226940066808108}
+  - component: {fileID: 487894420578191785}
   m_Layer: 5
   m_Name: Quest
   m_TagString: Untagged
@@ -522,6 +523,18 @@ MonoBehaviour:
   title: 
   progress: 0
   reroll: 0
+--- !u!225 &487894420578191785
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4754606052568809105}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5884958102154434833
 GameObject:
   m_ObjectHideFlags: 0
@@ -763,8 +776,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -1.1749878, y: 0.63999915}
-  m_SizeDelta: {x: -3.6899667, y: -5.2799983}
+  m_AnchoredPosition: {x: -1.1749878, y: 1.5}
+  m_SizeDelta: {x: -3.6899667, y: -7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3136950566629604687
 CanvasRenderer:

@@ -11,6 +11,14 @@ public class QuestsManager : MonoBehaviour
     public TMP_FontAsset claimFont;
     public Sprite rerollImage;
     public List<Quest> quests;
+    public TextMeshProUGUI rerollAvailable;
+    public Sprite glowContainer;
+
+    void Start()
+    {
+        int rerollAmount = GetRerollAmount();
+        rerollAvailable.text = rerollAmount + "/6 reroll available";
+    }
 
     void Update()
     {
@@ -24,7 +32,33 @@ public class QuestsManager : MonoBehaviour
         // IsReadyToReroll()
     }
 
-    public void SetReadyToClaim(Quest q) 
+    public void ShowReroll() 
+    {
+        Debug.Log("Entro ShowReroll");
+
+        foreach (Quest q in quests) 
+        {
+            if (q.reroll) 
+            {
+                ChangeToReroll(q);
+            } else 
+            {
+                q.gameObject.GetComponent<CanvasGroup>().alpha = 0.4f;
+            }
+        }
+    }
+
+    public void ChangeToOriginal() 
+    {
+        foreach (Quest q in quests) 
+        {
+            q.gameObject.transform.Find("Logo").GetComponent<Image>().sprite = q.logo;
+            q.gameObject.transform.Find("Logo").GetComponent<Image>().SetNativeSize();
+            q.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
+        }
+    }
+
+    private void SetReadyToClaim(Quest q) 
     {
         q.gameObject.transform.Find("Logo").GetComponent<Image>().sprite = claimImage;
         q.gameObject.transform.Find("Logo").GetComponent<Image>().SetNativeSize();
@@ -34,7 +68,32 @@ public class QuestsManager : MonoBehaviour
         q.gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>().font = claimFont;
     }
 
-    // ChangeToReroll()
+    private void ChangeToReroll(Quest q) 
+    {
+        q.gameObject.transform.Find("Logo").GetComponent<Image>().sprite = rerollImage;
+        q.gameObject.transform.Find("Logo").GetComponent<Image>().SetNativeSize();
+    }
+
+    private int GetRerollAmount()
+    {
+        int amount = 0;
+
+        foreach (Quest q in quests) 
+        {
+            if (q.reroll) 
+            {
+                amount ++;
+            }
+        }
+
+        return amount;
+    }
+
+    // public void SetAsInactive(q)
+    // {
+    //     null;
+    // }
+
     // Claim()
     // Reroll()
 }
