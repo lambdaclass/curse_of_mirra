@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Valtimer_Antimatter
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: ANTIMATTER
-  description: Mid-range projectile attack with acceptable damage and splash damage
-    on hi.
+  description: Mid-range projectile attack with noticeable splash damage on hit.
   inputType: 2
   skillSetType: 0
   angle: 45

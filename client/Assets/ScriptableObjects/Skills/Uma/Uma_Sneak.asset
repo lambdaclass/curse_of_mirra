@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Uma_Sneak
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: SNEAK
-  description: 'Uma performs a quick dash becoming invisible. '
+  description: Uma swiftly dashes forward in her soul form.
   inputType: 2
   skillSetType: 2
   angle: 0

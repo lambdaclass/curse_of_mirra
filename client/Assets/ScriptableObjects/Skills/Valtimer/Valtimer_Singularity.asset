@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Valtimer_Singularity
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: SINGULARITY
-  description: Create a black hole in a specific location for 5 seconds which attracts
-    enemy players and deals damage.
+  description: Create a black hole that pulls enemies into it while dealing damage.
   inputType: 1
   skillSetType: 1
   angle: 0

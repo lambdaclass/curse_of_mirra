@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Uma_Veil
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: VEIL OF RADIANCE
-  description: "Channels her lamp becoming invisible, emits 360\xB0 magic nova that
-    damages and blinds opponents."
+  description: "Channels her lamp becoming invisible, emmiting a 360\xB0 magic nova
+    that damages opponents nearby."
   inputType: 0
   skillSetType: 1
   angle: 0

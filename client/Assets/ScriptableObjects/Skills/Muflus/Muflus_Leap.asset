@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Muflus_Leap
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: LEAP
-  description: Leaps to a target, stomping the ground dealing damage to nearby targets
-    and leaving a slowing field.
+  description: Leaps to a target, stomping the ground and dealing damage to nearby
+    enemies upon landing.
   inputType: 1
   skillSetType: 1
   angle: 0
