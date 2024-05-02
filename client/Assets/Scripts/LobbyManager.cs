@@ -60,8 +60,5 @@ public class LobbyManager : LevelSelector
 
     public void LeaveLobby(){
         ServerConnection.Instance.LeaveLobby();
-        if(System.String.IsNullOrEmpty(ServerConnection.Instance.GameSession)){
-            SceneManager.LoadScene("MainScreen");
-        }
     }
 }

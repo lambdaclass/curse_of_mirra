@@ -180,12 +180,21 @@ public class ServerConnection : MonoBehaviour
     {
         try
         {
-            GameState gameState = GameState.Parser.ParseFrom(data);
-            this.lobbyCapacity = 2;
-            if (!String.IsNullOrEmpty(gameState.GameId) && SessionParameters.GameId == null)
+            LobbyEvent lobbyEvent = LobbyEvent.Parser.ParseFrom(data);
+            switch (lobbyEvent.EventCase)
             {
-                SessionParameters.GameId = gameState.GameId;
-                GameSession = gameState.GameId;
+                case LobbyEvent.EventOneofCase.Left:
+                    SceneManager.LoadScene("MainScreen");
+                    break;
+                case LobbyEvent.EventOneofCase.Game:
+                    GameState gameState = lobbyEvent.Game;
+                    this.lobbyCapacity = 2;
+                    if (!String.IsNullOrEmpty(gameState.GameId) && SessionParameters.GameId == null)
+                    {
+                        SessionParameters.GameId = gameState.GameId;
+                        GameSession = gameState.GameId;
+                    }
+                    break;
             }
         }
         catch (Exception e)
