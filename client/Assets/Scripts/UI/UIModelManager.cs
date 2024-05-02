@@ -99,12 +99,43 @@ public class UIModelManager : MonoBehaviour
         }
     }
 
-    public IEnumerator AnimateCharacterSkill(string parameterName)
+
+    // public IEnumerator AnimateChainedCharacterSkill(List<string> animationsList, string currentParameterName)
+    // {
+
+    //     print("cURRENT: " + currentParameterName);
+    //     string nextAnimationParameterName = "";
+    //     float animationDuration = 0;
+    //     modelAnimator.SetBool(currentParameterName, false);
+
+    //     if(animationsList.Count > 1){
+    //         nextAnimationParameterName = animationsList[1].ToUpper();
+    //         animationDuration = AnimationClipTime(modelAnimator, nextAnimationParameterName);
+    //     }
+
+    //     animationsList.RemoveAt(0);
+    //     modelAnimator.SetBool(nextAnimationParameterName, true);
+    //     yield return new WaitForSeconds(animationDuration);
+
+    //     if(animationsList.Count > 0){
+    //         print("Next will be " + nextAnimationParameterName);
+    //         StartCoroutine(AnimateChainedCharacterSkill(animationsList, nextAnimationParameterName));
+    //     }
+    // }
+
+    public IEnumerator AnimateChainedCharacterSkill(List<string> animationsList, string currentParameterName)
     {
-        float animationDuration = AnimationClipTime(modelAnimator, parameterName);
-        modelAnimator.SetBool(parameterName, true);
+        animationsList.RemoveAt(0);
+        
+        modelAnimator.SetBool(currentParameterName, true);
+        float animationDuration = AnimationClipTime(modelAnimator, currentParameterName);
         yield return new WaitForSeconds(animationDuration);
-        modelAnimator.SetBool(parameterName, false);
+        modelAnimator.SetBool(currentParameterName, false);
+
+        if(animationsList.Count > 0) {
+            StartCoroutine(AnimateChainedCharacterSkill(animationsList, animationsList[0].ToUpper()));
+        }
+      
     }
 
     public void ShowEndGameCharacterAnimation()
