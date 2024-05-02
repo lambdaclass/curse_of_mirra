@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Muflus_Rampage
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: RAMPAGE
-  description: Muflus dashes in a rolling-boulder fashion, dealing damage to enemies
-    in its path.
+  description: Muflus dashes fiercely in a rolling-boulder fashion.
   inputType: 2
   skillSetType: 2
   angle: 0
