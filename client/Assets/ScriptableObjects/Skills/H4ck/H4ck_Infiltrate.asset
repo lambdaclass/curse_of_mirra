@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: H4ck_Infiltrate
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: INFILTRATE
+  name: FLASH
   description: Perform a quick dash avoiding enemies along the way.
   inputType: 2
   skillSetType: 2
