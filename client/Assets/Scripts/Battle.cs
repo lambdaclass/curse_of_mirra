@@ -45,6 +45,9 @@ public class Battle : MonoBehaviour
     public Dictionary<ulong, PlayerReferences> playersReferences =
         new Dictionary<ulong, PlayerReferences>();
 
+
+    [SerializeField] MeshFilter mesh;
+
     public struct PlayerReferences
     {
         public GameObject player;
@@ -128,7 +131,7 @@ public class Battle : MonoBehaviour
         GetComponent<ProjectileHandler>().CreateProjectilesPoolers(skillInfoSet);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // MoveEntities();
         if (
@@ -173,6 +176,25 @@ public class Battle : MonoBehaviour
         UpdateProjectileActions();
         loot.UpdateLoots();
         powerUpsManager.UpdatePowerUps();
+        // CreateMesh();
+        // Sat.IntersectCirclePolygon(playersReferences.First().Value.character, mesh);
+    }
+
+    public void CreateMesh(){
+        var triangles = GameServerConnectionManager.Instance.obstacles[3].Vertices;
+        Vector3[] vertices = new Vector3[triangles.Count];
+        foreach(var triangle in triangles){
+            int i = triangles.IndexOf(triangle);
+            vertices[i].x = triangle.X / 100;
+            vertices[i].y = 3;
+            vertices[i].z = triangle.Y / 100; 
+        }
+        var go = new GameObject();
+        go.AddComponent<MeshFilter>();
+        Instantiate(go);
+        Mesh mesh = new Mesh();
+        go.GetComponent<MeshFilter>().mesh = mesh;
+        mesh.vertices = vertices;
     }
 
     private void SetAccumulatedTime()
@@ -392,7 +414,7 @@ public class Battle : MonoBehaviour
                 }
 
                 Transform hitbox = playerCharacter.characterBase.Hitbox.transform;
-
+                playerCharacter.GetComponent<CharacterController>().radius = serverPlayerUpdate.Radius/100;
                 float hitboxSize =
                     Utils.TransformBackenUnitToClientUnit(serverPlayerUpdate.Radius) * 2;
                 hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
@@ -712,7 +734,8 @@ public class Battle : MonoBehaviour
                 newPosition.z = Math.Max(frontendPosition.z, newPosition.z);
             }
 
-            player.transform.position = newPosition;
+            player.transform.position = new Vector3(newPosition.x, 0, newPosition.z);
+            // player.GetComponent<Rigidbody>().AddForce(newPosition);
 
             // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
             // if the player is in attacking state, movement rotation from movement should be ignored
@@ -725,7 +748,8 @@ public class Battle : MonoBehaviour
         }
 
         character.RotateCharacterOrientation();
-
+        character.GetComponent<CharacterController>().Move(Vector3.up * 0);
+        
         modelAnimator.SetBool("Walking", walking);
     }
 
