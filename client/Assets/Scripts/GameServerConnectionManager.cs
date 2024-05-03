@@ -244,7 +244,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
     private string makeWebsocketUrl(string path)
     {
-        int port = 4000;
+        int port = 5000;
 
         if (serverIp.Contains("localhost"))
         {
