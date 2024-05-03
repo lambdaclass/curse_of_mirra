@@ -169,8 +169,10 @@ public class Battle : MonoBehaviour
 
     void UpdateBattleState()
     {
-        UpdatePlayerActions();
-        UpdateProjectileActions();
+        if(!PingAnalyzer.Instance.unstableConnection){
+            UpdatePlayerActions();
+            UpdateProjectileActions();
+        }
         loot.UpdateLoots();
         powerUpsManager.UpdatePowerUps();
     }
@@ -577,7 +579,7 @@ public class Battle : MonoBehaviour
 
         character.HandlePlayerHealth(playerUpdate);
 
-        if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
+        if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId )
         {
             if (GameServerConnectionManager.Instance.damageDone.ContainsKey(playerUpdate.Id))
             {
