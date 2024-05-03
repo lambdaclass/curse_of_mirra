@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.Tools;
 using TMPro;
 using UnityEngine;
@@ -30,6 +31,8 @@ public class CharacterInfoManager : MonoBehaviour
 
     List<string> animationsList = new List<string>();
     int maxSize = 3;
+
+    string lastSkill;
 
     void Start()
     {
@@ -92,9 +95,20 @@ public class CharacterInfoManager : MonoBehaviour
 
     public void PlaySkillAnimation(string parameterName){
         if(animationsList.Count < maxSize){
-            animationsList.Add(parameterName);
+
+            if(lastSkill != parameterName){
+                animationsList.Add(parameterName);
+            }
+
+            foreach(AnimatorControllerParameter param in modelManager.modelAnimator.parameters){
+                if(param.name.ToUpper() == parameterName.ToUpper() + "_END" 
+                    || param.name.ToUpper() == parameterName.ToUpper() + "_MIDDLE"){
+                    animationsList.Add(param.name);
+                }
+            }
         }
         if(animationsList.Count > 0 && modelManager.modelAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle") == true){
+            lastSkill = animationsList[0];
             StartCoroutine(modelManager.AnimateChainedCharacterSkill(animationsList,animationsList[0].ToUpper()));
         }
     }

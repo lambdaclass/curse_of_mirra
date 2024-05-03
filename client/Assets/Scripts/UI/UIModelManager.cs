@@ -99,30 +99,6 @@ public class UIModelManager : MonoBehaviour
         }
     }
 
-
-    // public IEnumerator AnimateChainedCharacterSkill(List<string> animationsList, string currentParameterName)
-    // {
-
-    //     print("cURRENT: " + currentParameterName);
-    //     string nextAnimationParameterName = "";
-    //     float animationDuration = 0;
-    //     modelAnimator.SetBool(currentParameterName, false);
-
-    //     if(animationsList.Count > 1){
-    //         nextAnimationParameterName = animationsList[1].ToUpper();
-    //         animationDuration = AnimationClipTime(modelAnimator, nextAnimationParameterName);
-    //     }
-
-    //     animationsList.RemoveAt(0);
-    //     modelAnimator.SetBool(nextAnimationParameterName, true);
-    //     yield return new WaitForSeconds(animationDuration);
-
-    //     if(animationsList.Count > 0){
-    //         print("Next will be " + nextAnimationParameterName);
-    //         StartCoroutine(AnimateChainedCharacterSkill(animationsList, nextAnimationParameterName));
-    //     }
-    // }
-
     public IEnumerator AnimateChainedCharacterSkill(List<string> animationsList, string currentParameterName)
     {
         animationsList.RemoveAt(0);
