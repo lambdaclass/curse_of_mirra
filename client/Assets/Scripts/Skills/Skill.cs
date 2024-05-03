@@ -98,7 +98,7 @@ public class Skill : CharacterAbility
     {
         var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
 
-        if (AbilityAuthorized && player.Player.AvailableStamina >= skillInfo.staminaCost)
+        if (AbilityAuthorized && !PingAnalyzer.Instance.unstableConnection && player.Player.AvailableStamina >= skillInfo.staminaCost)
         {
             SendActionToBackend(direction);
         }
