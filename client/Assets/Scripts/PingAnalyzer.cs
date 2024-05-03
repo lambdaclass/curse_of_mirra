@@ -6,9 +6,7 @@ using System.Linq;
 
 public class PingAnalyzer : MonoBehaviour
 {
-    // SPIKES_LIST_MAX_LENGTH has the las value updated each updateInterval
-    // The way we determine connectivity issues is when the spikes counter is greater or equal than the spikesAmountThreshold
-    // TODO: adjust values so the feedback given is representative of a true connection issue 
+    // The way we determine connectivity stability issues is when the spikes counter is greater or equal than the spikesAmountThreshold
     // spikeValueThreshold: what is consider a standard spike?
     // SPIKES_LIST_MAX_LENGTH: what should the list length be?
     // updateInterval: how requent should the update be?
@@ -17,9 +15,9 @@ public class PingAnalyzer : MonoBehaviour
     public bool unstableConnection;
     public string pingValue;
     /// the frequency at which the PING counter should update
-    float updateInterval = .75f;
+    float updateInterval = 1f;
     protected float _timeLeftToUpdate;
-    float spikeValueThreshold = 10f;
+    float spikeValueThreshold = 150f;
     int spikesAmountThreshold = 4;
     List<float> pingValues = new List<float>();
     const int SPIKES_LIST_MAX_LENGTH = 10;
@@ -77,7 +75,7 @@ public class PingAnalyzer : MonoBehaviour
                 if (Mathf.Abs(list[i] - list[i + 1]) >= spikeValueThreshold)
                 {
                     spikesCounter += 1;
-                    print("spike: " + Mathf.Abs(list[i] - list[i + 1]));
+                    //print("spike: " + Mathf.Abs(list[i] - list[i + 1]));
                 }
             }
         }
