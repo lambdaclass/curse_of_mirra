@@ -167,7 +167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787a84722d1f84aa6ab1a3668798e7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userName: {fileID: 1516450510}
   statusText: {fileID: 445723375}
+  signOutButton: {fileID: 1365717059}
   signInButton: {fileID: 1100061445}
   webClientIdGoogle: 529212382177-822ukg0eeufi7pivtk1dpatqveqlqord.apps.googleusercontent.com
   titleScreenController: {fileID: 1365717057}
@@ -254,7 +256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &445723373
 RectTransform:
   m_ObjectHideFlags: 0
@@ -903,6 +905,46 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2818122731326591939, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2818122731326591939, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2818122731326591939, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2818122731326591939, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -190
+      objectReference: {fileID: 0}
+    - target: {fileID: 3388620271801624170, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 78456883}
+    - target: {fileID: 3388620271801624170, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSignOut
+      objectReference: {fileID: 0}
+    - target: {fileID: 3388620271801624170, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GoogleSignInController, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 3388620271801624170, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3981586368016215060, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.size
@@ -937,6 +979,11 @@ PrefabInstance:
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4054935532645032546, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4796522133429006954, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
@@ -1025,6 +1072,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7337300064976493759, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: m_text
+      value: Guest
+      objectReference: {fileID: 0}
+    - target: {fileID: 7337300064976493759, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: m_margin.z
+      value: -94.824585
+      objectReference: {fileID: 0}
     - target: {fileID: 8596238037512918453, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1075,3 +1132,21 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1365717056}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1365717059 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4054935532645032546, guid: d126b369faf0c43198f047c8765666f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1365717056}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1516450510 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7337300064976493759, guid: d126b369faf0c43198f047c8765666f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1365717056}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -10,10 +10,14 @@ using UnityEngine;
 
 public class GoogleSignInController : MonoBehaviour
 {
-    public TextMeshProUGUI statusText;
 
-    // [SerializeField]
-    // private GameObject signOutButton;
+    [SerializeField] private TextMeshProUGUI userName;
+
+    [SerializeField]
+    private TextMeshProUGUI statusText;
+
+    [SerializeField]
+    private GameObject signOutButton;
 
     [SerializeField]
     private GameObject signInButton;
@@ -128,9 +132,8 @@ public class GoogleSignInController : MonoBehaviour
         AddStatusText("SingOut");
         PlayerPrefs.SetString("GoogleUserName", "");
         PlayerPrefs.SetString("GoogleUserId", "");
-        PlayerPrefs.SetString("GoogleIdToke", "");
-        // signOutButton.SetActive(false);
-        // signInButton.SetActive(true);
+        signOutButton.SetActive(false);
+        signInButton.SetActive(true);
     }
 
     internal void OnAuthenticationFinished(Task<GoogleSignInUser> task)
@@ -149,11 +152,12 @@ public class GoogleSignInController : MonoBehaviour
                     {
                         GoogleSignIn.SignInException error = (GoogleSignIn.SignInException)
                             enumerator.Current;
+                        print("Got Error: " + error.Status + " " + error.Message);
                         AddStatusText("Got Error: " + error.Status + " " + error.Message);
                     }
                     else
                     {
-                        AddStatusText("Got Unexpected Exception?!?" + task.Exception);
+                        print("Got Unexpected Exception?!?" + task.Exception);
                     }
                 }
                 break;
@@ -174,19 +178,20 @@ public class GoogleSignInController : MonoBehaviour
                                 PlayerPrefs.SetString("GoogleUserName", task.Result.DisplayName);
                                 PlayerPrefs.SetString("GoogleUserId", task.Result.UserId);
                             }
-                            // signInButton.SetActive(false);
-                            // signOutButton.SetActive(true);
-                            AddStatusText("Welcome: " + task.Result.DisplayName + "!");
+                            userName.text = task.Result.DisplayName;
+                            signInButton.SetActive(false);
+                            signOutButton.SetActive(true);
                         },
                         error =>
                         {
+                            print(error);
                             AddStatusText(error);
                         }
                     )
                 );
                 break;
             default:
-                AddStatusText(task.Status.ToString());
+                print(task.Status.ToString());
                 break;
         }
     }
