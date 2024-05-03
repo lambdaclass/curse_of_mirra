@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4421236017967322550}
   - component: {fileID: 4421236017082313434}
   - component: {fileID: 4421236017082313433}
+  - component: {fileID: 7321562038568735760}
   m_Layer: 14
   m_Name: LevelManager
   m_TagString: Untagged
@@ -136,12 +137,23 @@ MonoBehaviour:
     UnloadMethod: 2
     AntiSpillSceneName: 
   SetPlayerAsFeedbackRangeCenter: 0
-  quickMapPrefab: {fileID: 8260821150174466730, guid: 6c52df159d5dc499aaa0bd06adc934c9,
-    type: 3}
   deathSplash: {fileID: 0}
   UiCamera: {fileID: 0}
   UiControls: {fileID: 0}
   camera: {fileID: 0}
-  mapList:
-  - {fileID: 8260821150174466730, guid: f5b5452532bd24f7c94de87391698d07, type: 3}
-  - {fileID: 3856665203278081415, guid: 49d35586eb6b54147a958245fc3ab7ad, type: 3}
+--- !u!114 &7321562038568735760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4421236017967322551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b56053c0bf34f4dd3b727de954b7d822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unstableConnection: 0
+  pingValue: 
+  spikeValueThreshold: 150
+  spikesAmountThreshold: 4
