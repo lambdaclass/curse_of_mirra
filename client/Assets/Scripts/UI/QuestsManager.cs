@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class QuestsManager : MonoBehaviour
 {
@@ -24,18 +25,16 @@ public class QuestsManager : MonoBehaviour
     {
         foreach (Quest q in quests) 
         {
-            if (q.progress == 100) 
+            if (q.progress == 1f) 
             {
                 SetReadyToClaim(q);
-            }
+            } 
         }
         // IsReadyToReroll()
     }
 
     public void ShowReroll() 
     {
-        Debug.Log("Entro ShowReroll");
-
         foreach (Quest q in quests) 
         {
             if (q.reroll) 
@@ -44,6 +43,7 @@ public class QuestsManager : MonoBehaviour
             } else 
             {
                 q.gameObject.GetComponent<CanvasGroup>().alpha = 0.4f;
+                q.gameObject.GetComponent<EventTrigger>().enabled = false;
             }
         }
     }
@@ -63,13 +63,15 @@ public class QuestsManager : MonoBehaviour
         q.gameObject.transform.Find("Logo").GetComponent<Image>().sprite = claimImage;
         q.gameObject.transform.Find("Logo").GetComponent<Image>().SetNativeSize();
         q.gameObject.transform.Find("ProgressBar").Find("Completed").GetComponent<Image>().sprite = claimCompleted;
-        q.gameObject.transform.Find("ProgressBar").GetComponent<Slider>().value = 1;
+        // q.gameObject.transform.Find("ProgressBar").GetComponent<Slider>().value = 1;
         q.gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>().text = "READY TO CLAIM";
         q.gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>().font = claimFont;
+        q.gameObject.GetComponent<EventTrigger>().enabled = true;
     }
 
     private void ChangeToReroll(Quest q) 
     {
+        q.gameObject.GetComponent<EventTrigger>().enabled = true;
         q.gameObject.transform.Find("Logo").GetComponent<Image>().sprite = rerollImage;
         q.gameObject.transform.Find("Logo").GetComponent<Image>().SetNativeSize();
     }

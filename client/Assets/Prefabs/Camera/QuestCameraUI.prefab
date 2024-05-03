@@ -834,7 +834,7 @@ RectTransform:
   - {fileID: 8991512276421696409}
   - {fileID: 4384788538892555238}
   m_Father: {fileID: 6696580834476582437}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1593,10 +1593,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1618070111623433090}
   - {fileID: 1446475967353699885}
   - {fileID: 4753477697022731015}
   - {fileID: 563299399211861709}
-  - {fileID: 1618070111623433090}
   m_Father: {fileID: 8319608084818667133}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2062,7 +2062,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6696580834476582437}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2198,7 +2198,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6696580834476582437}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2227,9 +2227,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2448,7 +2448,7 @@ RectTransform:
   - {fileID: 2095356682432368073}
   - {fileID: 1763049084453404795}
   m_Father: {fileID: 6696580834476582437}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -2706,6 +2706,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: e69d162a2c210496a8682c7cdad7c558,
         type: 3}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4346752819451963338}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Claim
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: QuestsManager, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3433263209759121639, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
       propertyPath: m_text
@@ -2715,6 +2750,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Value
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4166278860732063963, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4346752819451963338}
+    - target: {fileID: 4166278860732063963, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Claim
+      objectReference: {fileID: 0}
+    - target: {fileID: 4166278860732063963, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: QuestsManager, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 4166278860732063963, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4754606052568809105, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
@@ -2882,8 +2937,13 @@ PrefabInstance:
     - target: {fileID: 7861226940066808108, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
       propertyPath: progress
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7861226940066808108, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: totalTrophies
+      value: 
+      objectReference: {fileID: 5930572660009948343}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f482b960c7e24d11aa196541997902e, type: 3}
 --- !u!224 &5313138580993559230 stripped
@@ -2917,6 +2977,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: ada0b4e86c0f74cb7aaee24ea3577a7b,
         type: 3}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4346752819451963338}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Claim
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: QuestsManager, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3433263209759121639, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
       propertyPath: m_text
@@ -3093,6 +3188,11 @@ PrefabInstance:
       propertyPath: reward
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 7861226940066808108, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: totalTrophies
+      value: 
+      objectReference: {fileID: 5930572660009948343}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f482b960c7e24d11aa196541997902e, type: 3}
 --- !u!224 &6819962363002635129 stripped
@@ -3267,6 +3367,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 3e2d986d5f2a844df9de4e7d9df391cb,
         type: 3}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4346752819451963338}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Claim
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: QuestsManager, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4754606052568809105, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
       propertyPath: m_Name
@@ -3421,8 +3556,13 @@ PrefabInstance:
     - target: {fileID: 7861226940066808108, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
       propertyPath: progress
-      value: 50
+      value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7861226940066808108, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: totalTrophies
+      value: 
+      objectReference: {fileID: 5930572660009948343}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f482b960c7e24d11aa196541997902e, type: 3}
 --- !u!114 &6725082284508496731 stripped
@@ -3456,6 +3596,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 99a881c6474d548c4af3d4b68c5b0f3e,
         type: 3}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4346752819451963338}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Claim
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: QuestsManager, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3433263209759121639, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
       propertyPath: m_text
@@ -3632,6 +3807,11 @@ PrefabInstance:
       propertyPath: reward
       value: 800
       objectReference: {fileID: 0}
+    - target: {fileID: 7861226940066808108, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: totalTrophies
+      value: 
+      objectReference: {fileID: 5930572660009948343}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f482b960c7e24d11aa196541997902e, type: 3}
 --- !u!224 &724946438957549221 stripped
@@ -3659,6 +3839,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1618070111623433090}
     m_Modifications:
+    - target: {fileID: 361914162439770953, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectQuest
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4346752819451963338}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Claim
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: QuestsManager, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3433263209759121639, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
       propertyPath: m_text
@@ -3833,8 +4053,13 @@ PrefabInstance:
     - target: {fileID: 7861226940066808108, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
       propertyPath: progress
-      value: 20
+      value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 7861226940066808108, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: totalTrophies
+      value: 
+      objectReference: {fileID: 5930572660009948343}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f482b960c7e24d11aa196541997902e, type: 3}
 --- !u!114 &2109350950969674532 stripped
@@ -3873,6 +4098,106 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 3e2d986d5f2a844df9de4e7d9df391cb,
         type: 3}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: MouseMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4346752819451963338}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Claim
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: QuestsManager, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 478201663281092091, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 487894420578191785, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114351905873002483, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114351905873002483, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1643050570793844983, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1643050570793844983, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1643050570793844983, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1643050570793844983, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4346752819451963338}
+    - target: {fileID: 1643050570793844983, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1643050570793844983, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Claim
+      objectReference: {fileID: 0}
+    - target: {fileID: 1643050570793844983, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: QuestsManager, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 1643050570793844983, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3433263209759121639, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
       propertyPath: m_text
@@ -3899,6 +4224,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Value
       value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4166278860732063963, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4346752819451963338}
+    - target: {fileID: 4166278860732063963, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Claim
+      objectReference: {fileID: 0}
+    - target: {fileID: 4166278860732063963, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: QuestsManager, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 4166278860732063963, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4190147067150713504, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
@@ -4021,10 +4366,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5554871145605138711, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4346752819451963338}
+    - target: {fileID: 5554871145605138711, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Claim
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554871145605138711, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: QuestsManager, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554871145605138711, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649279936463408876, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_Maskable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649279936463408876, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5831349139495116041, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
       propertyPath: m_text
       value: Play your first 5 battles
+      objectReference: {fileID: 0}
+    - target: {fileID: 6150135927190046428, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6393475772273047345, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
@@ -4082,8 +4462,13 @@ PrefabInstance:
     - target: {fileID: 7861226940066808108, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
       propertyPath: progress
-      value: 60
+      value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: 7861226940066808108, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: totalTrophies
+      value: 
+      objectReference: {fileID: 5930572660009948343}
     - target: {fileID: 8863358985657328624, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
       propertyPath: m_LocalScale.x
