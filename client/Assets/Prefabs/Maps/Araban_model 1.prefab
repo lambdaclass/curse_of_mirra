@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 7839205847627675521}
   - component: {fileID: 5110414055569388111}
   - component: {fileID: 1854951566714709809}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock_7_Low2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7839205847627675521
 Transform:
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -92,12 +92,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3626958792303044953}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cueva_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3626958792303044953
 Transform:
@@ -107,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100759305474432923}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: -0.019, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -144,12 +144,12 @@ GameObject:
   - component: {fileID: 3995113876386032927}
   - component: {fileID: 4940085732965102079}
   - component: {fileID: 3911445615565526822}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cueva_piso_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3995113876386032927
 Transform:
@@ -182,7 +182,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244172137301801980}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -194,7 +194,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -227,12 +227,12 @@ GameObject:
   - component: {fileID: 3933987745830940983}
   - component: {fileID: 9039316382552154886}
   - component: {fileID: 73680526723531184}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Piso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3933987745830940983
 Transform:
@@ -241,14 +241,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 313928119406369776}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: -0.09284325, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1617894741675693491}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &9039316382552154886
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -265,7 +265,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 313928119406369776}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -277,7 +277,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6540510348727320487, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: 1a9bddb5d1250435fab5bfd8e67911e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -310,12 +310,12 @@ GameObject:
   - component: {fileID: 2239461670124186968}
   - component: {fileID: 1269792299398651599}
   - component: {fileID: 6076086560182513351}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cueva_arco_5_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2239461670124186968
 Transform:
@@ -348,7 +348,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425168516938531748}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -360,7 +360,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -393,12 +393,12 @@ GameObject:
   - component: {fileID: 7043537806000850038}
   - component: {fileID: 6003452962220789258}
   - component: {fileID: 4087581573646729529}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cueva_arco_2_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7043537806000850038
 Transform:
@@ -431,7 +431,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 492729007218591925}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -443,7 +443,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -476,12 +476,12 @@ GameObject:
   - component: {fileID: 3298847201540137573}
   - component: {fileID: 1623945779663986014}
   - component: {fileID: 8198508739870591473}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Reja_5_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3298847201540137573
 Transform:
@@ -514,7 +514,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 627284848294061176}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -526,7 +526,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -559,12 +559,12 @@ GameObject:
   - component: {fileID: 6318738545691415316}
   - component: {fileID: 9126663907274965957}
   - component: {fileID: 4359491887065083422}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6318738545691415316
 Transform:
@@ -574,7 +574,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 651528887935895205}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.193592, y: -0.70074594, z: -75.55589}
+  m_LocalPosition: {x: -15.52, y: -2.75, z: -75.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -609,7 +609,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -642,12 +642,12 @@ GameObject:
   - component: {fileID: 4706075629192889589}
   - component: {fileID: 466361367794441223}
   - component: {fileID: 6743977421726215892}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock_5_Low1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4706075629192889589
 Transform:
@@ -692,7 +692,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -725,12 +725,12 @@ GameObject:
   - component: {fileID: 3819440934993579511}
   - component: {fileID: 929106743358365008}
   - component: {fileID: 3373311437194444475}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Reja_7_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3819440934993579511
 Transform:
@@ -763,7 +763,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1369925119756941015}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -775,7 +775,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -808,12 +808,12 @@ GameObject:
   - component: {fileID: 3837999897145033994}
   - component: {fileID: 8722071083576781378}
   - component: {fileID: 8474497797059518586}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock_7_Low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3837999897145033994
 Transform:
@@ -858,7 +858,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -889,12 +889,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1617894741675693491}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Araban_model 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1617894741675693491
 Transform:
@@ -905,7 +905,7 @@ Transform:
   m_GameObject: {fileID: 2105496728655171337}
   m_LocalRotation: {x: 0, y: 0.9999856, z: 0, w: 0.0053756475}
   m_LocalPosition: {x: 0.2, y: 6.8, z: 0.1}
-  m_LocalScale: {x: 73.44704, y: 73.44704, z: 73.44704}
+  m_LocalScale: {x: 73.44705, y: 73.44702, z: 73.44705}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3213523163252000693}
@@ -926,12 +926,12 @@ GameObject:
   - component: {fileID: 9114575222874618885}
   - component: {fileID: 186444328743038831}
   - component: {fileID: 8856901340713309012}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Finger_2_Low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &9114575222874618885
 Transform:
@@ -964,7 +964,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2386229901375697274}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -976,7 +976,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1688546432855893233, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: 3121642e96da54dc5a6a600be3306e4e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1007,12 +1007,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5643192374764808227}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Piedras_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5643192374764808227
 Transform:
@@ -1061,12 +1061,12 @@ GameObject:
   - component: {fileID: 4666319425275404984}
   - component: {fileID: 9177912234993227035}
   - component: {fileID: 5082757755716956794}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Araban_piedra_2_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4666319425275404984
 Transform:
@@ -1076,7 +1076,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2669091550675304403}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -62.770844, y: 1.6354296, z: -76.44647}
+  m_LocalPosition: {x: -68.67, y: -2.04, z: -54.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1111,7 +1111,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1144,12 +1144,12 @@ GameObject:
   - component: {fileID: 2407189686204961603}
   - component: {fileID: 8909100624492826508}
   - component: {fileID: 9108043578432108913}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: P_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2407189686204961603
 Transform:
@@ -1159,7 +1159,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2882147520543231492}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.39806, y: -3.5460167, z: -73.172714}
+  m_LocalPosition: {x: -1.67, y: -3.5, z: -76.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1194,7 +1194,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1227,12 +1227,12 @@ GameObject:
   - component: {fileID: 2158883433863740250}
   - component: {fileID: 1135157848774342395}
   - component: {fileID: 8728765525304362629}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Reja_3_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2158883433863740250
 Transform:
@@ -1265,7 +1265,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2907172005794689067}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1277,7 +1277,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1310,12 +1310,12 @@ GameObject:
   - component: {fileID: 2976067559268152536}
   - component: {fileID: 6910384812944307738}
   - component: {fileID: 2534696177334446117}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cueva_arco_6_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2976067559268152536
 Transform:
@@ -1348,7 +1348,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3098751770205731308}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1360,7 +1360,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1393,12 +1393,12 @@ GameObject:
   - component: {fileID: 1388964446152493157}
   - component: {fileID: 8852882083750716976}
   - component: {fileID: 5093880360366532687}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Reja_4_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1388964446152493157
 Transform:
@@ -1431,7 +1431,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3135439265051954384}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1476,12 +1476,12 @@ GameObject:
   - component: {fileID: 3211806094849988290}
   - component: {fileID: 8784584744749666606}
   - component: {fileID: 528778927435731009}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cuevas_rocas_1_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3211806094849988290
 Transform:
@@ -1514,7 +1514,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4000504972139386729}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1526,7 +1526,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1559,12 +1559,12 @@ GameObject:
   - component: {fileID: 2750630258299840421}
   - component: {fileID: 7176719683121515152}
   - component: {fileID: 8013346296805785065}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Araban_piedra_3_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2750630258299840421
 Transform:
@@ -1609,7 +1609,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1642,12 +1642,12 @@ GameObject:
   - component: {fileID: 6367014246654105746}
   - component: {fileID: 5058879765837816420}
   - component: {fileID: 625617492071092531}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6367014246654105746
 Transform:
@@ -1692,7 +1692,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1725,12 +1725,12 @@ GameObject:
   - component: {fileID: 1085728478696300832}
   - component: {fileID: 7548048403858993965}
   - component: {fileID: 1580888363973021764}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cueva_rocas_3_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1085728478696300832
 Transform:
@@ -1763,7 +1763,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4215625713675514938}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1775,7 +1775,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1808,12 +1808,12 @@ GameObject:
   - component: {fileID: 7873631520951879195}
   - component: {fileID: 1943090565564534790}
   - component: {fileID: 1053237037801702380}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7873631520951879195
 Transform:
@@ -1858,7 +1858,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1891,12 +1891,12 @@ GameObject:
   - component: {fileID: 2248177139361873446}
   - component: {fileID: 2997746576035278581}
   - component: {fileID: 4522493976655639922}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cueva_rocas_4_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2248177139361873446
 Transform:
@@ -1929,7 +1929,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5418655564326231554}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1941,7 +1941,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1974,12 +1974,12 @@ GameObject:
   - component: {fileID: 3975501861347488991}
   - component: {fileID: 1249037045106475607}
   - component: {fileID: 4277119330551435742}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base_Low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3975501861347488991
 Transform:
@@ -2012,7 +2012,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5555632822021945433}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2024,7 +2024,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1688546432855893233, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: 3121642e96da54dc5a6a600be3306e4e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2057,12 +2057,12 @@ GameObject:
   - component: {fileID: 5054346168698563127}
   - component: {fileID: 2427280969276121331}
   - component: {fileID: 5778744962092385647}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cueva_rocas_2_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5054346168698563127
 Transform:
@@ -2095,7 +2095,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5582989455401655166}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2107,7 +2107,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2140,12 +2140,12 @@ GameObject:
   - component: {fileID: 8775036949612128356}
   - component: {fileID: 4141793577693853340}
   - component: {fileID: 569732576682813021}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock_7_Low1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8775036949612128356
 Transform:
@@ -2190,7 +2190,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2223,12 +2223,12 @@ GameObject:
   - component: {fileID: 7565153210520152981}
   - component: {fileID: 6366450072251372424}
   - component: {fileID: 680205466831374237}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cueva_arco_1_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7565153210520152981
 Transform:
@@ -2261,7 +2261,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5753073948182335779}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2273,7 +2273,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2306,12 +2306,12 @@ GameObject:
   - component: {fileID: 7106432460935473148}
   - component: {fileID: 554048673652214245}
   - component: {fileID: 7264536293593462269}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7106432460935473148
 Transform:
@@ -2356,7 +2356,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2389,12 +2389,12 @@ GameObject:
   - component: {fileID: 2382857293942268662}
   - component: {fileID: 812718016284372472}
   - component: {fileID: 6452714880971270106}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2382857293942268662
 Transform:
@@ -2439,7 +2439,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2472,12 +2472,12 @@ GameObject:
   - component: {fileID: 8935670090435841174}
   - component: {fileID: 9166778019384606802}
   - component: {fileID: 1572946900369843789}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Finger_1_Low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8935670090435841174
 Transform:
@@ -2510,7 +2510,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6367736306066599300}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2522,7 +2522,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1688546432855893233, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: 3121642e96da54dc5a6a600be3306e4e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2555,12 +2555,12 @@ GameObject:
   - component: {fileID: 4748809782970208797}
   - component: {fileID: 4736463744696400793}
   - component: {fileID: 2048500040033535018}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cueva_arco_3_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4748809782970208797
 Transform:
@@ -2593,7 +2593,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6722188893120024119}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2605,7 +2605,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2638,12 +2638,12 @@ GameObject:
   - component: {fileID: 6539105873137578229}
   - component: {fileID: 6461183006237769967}
   - component: {fileID: 4028609533391171178}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Finger_3_Low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6539105873137578229
 Transform:
@@ -2676,7 +2676,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6987112973076971447}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2688,7 +2688,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1688546432855893233, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: 3121642e96da54dc5a6a600be3306e4e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2721,12 +2721,12 @@ GameObject:
   - component: {fileID: 8319756886694283268}
   - component: {fileID: 4397563991562318735}
   - component: {fileID: 3771258441089705752}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock_6_Low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8319756886694283268
 Transform:
@@ -2771,7 +2771,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2804,12 +2804,12 @@ GameObject:
   - component: {fileID: 7430223334754218246}
   - component: {fileID: 9133633349952400577}
   - component: {fileID: 657236986932664066}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock_2_Low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7430223334754218246
 Transform:
@@ -2854,7 +2854,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2887,12 +2887,12 @@ GameObject:
   - component: {fileID: 5464803332221971110}
   - component: {fileID: 9065582753299808370}
   - component: {fileID: 4637802240889399232}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Reja_2_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5464803332221971110
 Transform:
@@ -2925,7 +2925,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7385211184460380303}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2937,7 +2937,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2970,12 +2970,12 @@ GameObject:
   - component: {fileID: 3341615397759585932}
   - component: {fileID: 2309205007205576155}
   - component: {fileID: 7948414316644002436}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Reja_1_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3341615397759585932
 Transform:
@@ -3008,7 +3008,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7392729619534852827}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -3020,7 +3020,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3053,12 +3053,12 @@ GameObject:
   - component: {fileID: 6308015183243942145}
   - component: {fileID: 7339755016787461801}
   - component: {fileID: 387353781448382001}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6308015183243942145
 Transform:
@@ -3068,7 +3068,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7473015881378445626}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.7915139, y: 8.460394, z: -96.69342}
+  m_LocalPosition: {x: 1.7915139, y: 4.8, z: -96.69342}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3103,7 +3103,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3136,12 +3136,12 @@ GameObject:
   - component: {fileID: 599288221714000131}
   - component: {fileID: 4713995616303450236}
   - component: {fileID: 2650854947507435584}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Araban_piedra_5_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &599288221714000131
 Transform:
@@ -3186,7 +3186,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3219,12 +3219,12 @@ GameObject:
   - component: {fileID: 3426323718023630468}
   - component: {fileID: 4671138766168873251}
   - component: {fileID: 7914772893952528209}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock_5_Low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3426323718023630468
 Transform:
@@ -3269,7 +3269,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3302,12 +3302,12 @@ GameObject:
   - component: {fileID: 5169527920822724073}
   - component: {fileID: 3208181766391951207}
   - component: {fileID: 6303805138784294679}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cueva_arco_4_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5169527920822724073
 Transform:
@@ -3340,7 +3340,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7797084490999290543}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -3352,7 +3352,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3383,12 +3383,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3213523163252000693}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3213523163252000693
 Transform:
@@ -3420,12 +3420,12 @@ GameObject:
   - component: {fileID: 3598267996440057277}
   - component: {fileID: 7192911793389503083}
   - component: {fileID: 5477637102180505797}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cueva_interior_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3598267996440057277
 Transform:
@@ -3458,7 +3458,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7829520906807715405}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -3470,7 +3470,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3503,12 +3503,12 @@ GameObject:
   - component: {fileID: 123360994605087558}
   - component: {fileID: 1900689371936353170}
   - component: {fileID: 1794441770074483171}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Reja_6_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &123360994605087558
 Transform:
@@ -3541,7 +3541,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7889591090467121653}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -3553,7 +3553,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: b0e43e80510d7464595d58e737afa33d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3586,12 +3586,12 @@ GameObject:
   - component: {fileID: 922398685706315848}
   - component: {fileID: 9154424959694244580}
   - component: {fileID: 3922931839806108639}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Araban_piedra_1_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &922398685706315848
 Transform:
@@ -3636,7 +3636,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3669,12 +3669,12 @@ GameObject:
   - component: {fileID: 7123222741208915010}
   - component: {fileID: 5654133540825062665}
   - component: {fileID: 6017221786235943583}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Araban_piedra_4_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7123222741208915010
 Transform:
@@ -3719,7 +3719,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3752,12 +3752,12 @@ GameObject:
   - component: {fileID: 5335296495638204259}
   - component: {fileID: 1156809425334514316}
   - component: {fileID: 3009815943354205246}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5335296495638204259
 Transform:
@@ -3802,7 +3802,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3835,12 +3835,12 @@ GameObject:
   - component: {fileID: 5704594376573512487}
   - component: {fileID: 946625279736809067}
   - component: {fileID: 2259132845783686975}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: P_low1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5704594376573512487
 Transform:
@@ -3850,7 +3850,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8776417576904856952}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.0008907, y: -4.266171, z: -73.4306}
+  m_LocalPosition: {x: -1.66, y: -4.7, z: -74.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3885,7 +3885,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4004840480434020059, guid: 657646931997040e3b1f062212a19950, type: 3}
+  - {fileID: 2100000, guid: f40843d89c98f4071b5485260b3f8a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

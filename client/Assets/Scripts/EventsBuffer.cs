@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,20 +33,30 @@ public class EventsBuffer
         return updatesBuffer[lastIndex];
     }
 
-    public GameState getNextEventToRender(long pastTime)
+    public Tuple<GameState, int> getNextEventToRender(long pastTime)
     {
-        GameState nextGameEvent = updatesBuffer
-            .Where(ge => ge.ServerTimestamp > pastTime)
-            .OrderBy(ge => ge.ServerTimestamp)
-            .FirstOrDefault();
+        GameState nextGameEvent = null;
+        int nextGameEventIndex = 0;
+        for (int i = 0; i < updatesBuffer.Count; i++)
+        {
+            GameState update = updatesBuffer[i];
+            if (update.ServerTimestamp > pastTime)
+            {
+                if (nextGameEvent == null || update.ServerTimestamp < nextGameEvent.ServerTimestamp)
+                {
+                    nextGameEvent = update;
+                    nextGameEventIndex = i;
+                }
+            }
+        }
 
         if (nextGameEvent == null)
         {
-            return this.lastEvent();
+            return new Tuple<GameState, int>(this.lastEvent(), updatesBuffer.Count - 1);
         }
         else
         {
-            return nextGameEvent;
+            return new Tuple<GameState, int>(nextGameEvent, nextGameEventIndex);
         }
     }
 
@@ -60,9 +71,8 @@ public class EventsBuffer
     // */
     public bool playerIsMoving(ulong playerId, long pastTime)
     {
-        var count = 0;
-        GameState currentEventToRender = this.getNextEventToRender(pastTime);
-        var index = updatesBuffer.IndexOf(currentEventToRender);
+        Tuple<GameState, int> currentEventToRender = this.getNextEventToRender(pastTime);
+        var index = currentEventToRender.Item2;
         int previousIndex;
         int nextIndex;
 
@@ -85,7 +95,6 @@ public class EventsBuffer
         }
 
         GameState previousRenderedEvent = updatesBuffer[previousIndex];
-        GameState followingEventToRender = updatesBuffer[nextIndex];
 
         // There are a few frames during which this is outdated and produces an error
         if (
@@ -93,27 +102,26 @@ public class EventsBuffer
             == GameServerConnectionManager.Instance.gamePlayers.Count
         )
         {
-            count += (previousRenderedEvent.Players.Values.ToList().Find(p => p.Id == playerId))
-                .Player
-                .CurrentActions
-                .Any(currentAction => currentAction.Action == PlayerActionType.Moving)
-                ? 1
-                : 0;
-            count += (currentEventToRender.Players.Values.ToList().Find(p => p.Id == playerId))
-                .Player
-                .CurrentActions
-                .Any(currentAction => currentAction.Action == PlayerActionType.Moving)
-                ? 1
-                : 0;
-            count += (followingEventToRender.Players.Values.ToList().Find(p => p.Id == playerId))
-                .Player
-                .CurrentActions
-                .Any(currentAction => currentAction.Action == PlayerActionType.Moving)
-                ? 1
-                : 0;
+            Entity serverPlayerUpdate = new Entity(previousRenderedEvent.Players[playerId]);
+            if (serverPlayerUpdate.IsMoving)
+            {
+                return true;
+            }
+            serverPlayerUpdate = new Entity(currentEventToRender.Item1.Players[playerId]);
+            if (serverPlayerUpdate.IsMoving)
+            {
+                return true;
+            }
+
+            GameState followingEventToRender = updatesBuffer[nextIndex];
+            serverPlayerUpdate = new Entity(followingEventToRender.Players[playerId]);
+            if (serverPlayerUpdate.IsMoving)
+            {
+                return true;
+            }
         }
 
-        return count >= 1;
+        return false;
     }
 
     public void setLastTimestampSeen(ulong playerId, long serverTimestamp)
@@ -128,5 +136,10 @@ public class EventsBuffer
             return false;
         }
         return lastTimestampsSeen[playerId] == serverTimestamp;
+    }
+
+    private List<Entity> ConvertToList(ICollection<Entity> collection)
+    {
+        return new List<Entity>(collection);
     }
 }

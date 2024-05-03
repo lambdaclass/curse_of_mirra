@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6179811949821279423}
   - component: {fileID: 2389554993147671194}
   - component: {fileID: 3943917182123841741}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fall 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4881,7 +4881,7 @@ GameObject:
   - component: {fileID: 2198676341275593864}
   - component: {fileID: 4012067821345863420}
   - component: {fileID: 6668678601134401063}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fall 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9749,13 +9749,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1005581698051692224}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Vfx Sand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1005581698051692224
 Transform:
   m_ObjectHideFlags: 0
@@ -9785,7 +9785,7 @@ GameObject:
   - component: {fileID: 1588484781627966024}
   - component: {fileID: 4294111247563326659}
   - component: {fileID: 2199971588405193459}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

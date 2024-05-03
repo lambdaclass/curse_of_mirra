@@ -12,16 +12,13 @@ List changes in code.
 
 Describe the steps you performed to test this PR.
 
-## Test additions / changes
-
-List tests added/updated.
-
 ## Checklist
 - [ ] I have tested the changes locally.
+- [ ] I have tested the whole game after applying the changes, not only the affected areas.
 - [ ] I self-reviewed the changes on GitHub, line by line.
-- [ ] Tests have been added/updated.
-- [ ] This change requires new documentation.
-  - [ ] Documentation has been added/updated.
 - [ ] I have tested the changes in another devices.
   - [ ] Tested in iOS.
   - [ ] Tested in Android.
+- [ ] This change requires new documentation.
+  - [ ] Documentation has been added/updated.
+
