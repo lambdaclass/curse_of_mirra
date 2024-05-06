@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class MainScreenManager : MonoBehaviour
 {
+    private const string BATTLE_SCENE_NAME = "Battle";
+    private const string MAIN_SCENE_NAME = "MainScreen";
+
     [SerializeField]
     UIModelManager modelManager;
 
@@ -19,7 +22,6 @@ public class MainScreenManager : MonoBehaviour
 
     void Start()
     {
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
         CharactersManager
             .Instance
             .SetGoToCharacter(ServerConnection.Instance.selectedCharacterName);
@@ -41,17 +43,6 @@ public class MainScreenManager : MonoBehaviour
 
     public void QuickGame()
     {
-        StartCoroutine(WaitForBattleCreation());
-    }
-
-    public IEnumerator WaitForBattleCreation()
-    {
-        ServerConnection.Instance.JoinGame("quick_game");
-        yield return new WaitUntil(
-            () =>
-                !string.IsNullOrEmpty(ServerConnection.Instance.LobbySession)
-                && !string.IsNullOrEmpty(SessionParameters.GameId)
-        );
-        SceneManager.LoadScene("Battle");
+        StartCoroutine(ServerConnection.Instance.WaitForBattleCreation(MAIN_SCENE_NAME, BATTLE_SCENE_NAME, "quick_game"));
     }
 }

@@ -14,7 +14,7 @@ public class LobbyManager : LevelSelector
 
     void Start()
     {
-        StartCoroutine(WaitForLobbyJoin());
+       StartCoroutine(ServerConnection.Instance.WaitForBattleCreation(LOBBY_SCENE_NAME, BATTLE_SCENE_NAME, "join"));
     }
 
     public void BackToLobbyFromGame()
@@ -46,15 +46,4 @@ public class LobbyManager : LevelSelector
         SceneManager.LoadScene(this.LevelName);
     }
 
-    public IEnumerator WaitForLobbyJoin()
-    {
-        yield return new WaitUntil(() => SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME);
-        ServerConnection.Instance.JoinLobby("join");
-        yield return new WaitUntil(
-            () =>
-                !string.IsNullOrEmpty(ServerConnection.Instance.LobbySession)
-                && !string.IsNullOrEmpty(SessionParameters.GameId)
-        );
-        SceneManager.LoadScene(BATTLE_SCENE_NAME);
-    }
 }
