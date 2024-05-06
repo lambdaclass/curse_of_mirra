@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: H4ck_Flash
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: FLASH
-  description: Perform a dash that deals damage to enemies in its path.
+  description: Perform a quick dash avoiding enemies along the way.
   inputType: 2
   skillSetType: 2
   angle: 0
@@ -36,7 +36,7 @@ MonoBehaviour:
   skillSprite: {fileID: 21300000, guid: 1dd764fa6cb0249a5a0bb2a0db6be558, type: 3}
   vfxList:
   - vfx: {fileID: 5874514398963917427, guid: 41f068eeafa39494387cc12a55059719, type: 3}
-    duration: 1
+    duration: 0.5
     delay: 0
     instantiateVfxOnModel: 1
     hasDestination: 0

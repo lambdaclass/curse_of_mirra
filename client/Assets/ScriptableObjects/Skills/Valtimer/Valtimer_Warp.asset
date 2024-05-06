@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: Valtimer_Warp
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: WRAP
+  name: WARP
   description: Teleport-like dash, opening a black hole and then warping to it.
   inputType: 1
   skillSetType: 2
