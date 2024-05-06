@@ -975,7 +975,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4346752819451963338}
         m_TargetAssemblyTypeName: QuestsManager, CurseOfMirra
-        m_MethodName: ChangeToOriginal
+        m_MethodName: ShowOriginal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

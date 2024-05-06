@@ -13,6 +13,11 @@ public class Quest : MonoBehaviour
     public float progress;
     public bool reroll; 
 
+    Slider progressSlider;
+    Image logoImage;
+    Image completedImage;
+    TMP_Text completedAmount;
+
     [SerializeField] 
     TextMeshProUGUI totalTrophies; 
 
@@ -30,6 +35,11 @@ public class Quest : MonoBehaviour
 
     void Start()
     {
+        progressSlider = gameObject.transform.Find("ProgressBar").GetComponent<Slider>();
+        logoImage = gameObject.transform.Find("Logo").GetComponent<Image>();
+        completedImage = gameObject.transform.Find("ProgressBar").Find("Completed").GetComponent<Image>();
+        completedAmount = gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>();
+
         SetQuestContainer();
         StartCoroutine(CheckReadyToClaim());
     }
@@ -53,20 +63,20 @@ public class Quest : MonoBehaviour
     private void SetQuestContainer() 
     {
         gameObject.GetComponent<EventTrigger>().enabled = false;
-        gameObject.transform.Find("ProgressBar").GetComponent<Slider>().value = this.progress;
-        gameObject.transform.Find("Logo").GetComponent<Image>().sprite = this.logo;
-        gameObject.transform.Find("Logo").GetComponent<Image>().SetNativeSize();
-        gameObject.transform.Find("ProgressBar").Find("Completed").GetComponent<Image>().sprite = completed;
-        gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>().text = (progress * 100f) + "/100";
+        progressSlider.value = this.progress;
+        logoImage.sprite = this.logo;
+        logoImage.SetNativeSize();
+        completedImage.sprite = completed;
+        completedAmount.text = (progress * 100f) + "/100";
     }
 
     private void SetReadyToClaim() 
     {
-        gameObject.transform.Find("Logo").GetComponent<Image>().sprite = claimImage;
-        gameObject.transform.Find("Logo").GetComponent<Image>().SetNativeSize();
-        gameObject.transform.Find("ProgressBar").Find("Completed").GetComponent<Image>().sprite = claimCompleted;
-        gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>().text = "READY TO CLAIM";
-        gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>().font = claimFont;
+        logoImage.sprite = claimImage;
+        logoImage.SetNativeSize();
+        completedImage.sprite = claimCompleted;
+        completedAmount.text = "READY TO CLAIM";
+        completedAmount.font = claimFont;
         gameObject.GetComponent<EventTrigger>().enabled = true;
     }
 }
