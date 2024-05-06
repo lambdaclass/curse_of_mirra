@@ -1,0 +1,45 @@
+{
+    "characters": [
+      {
+        "name": "Muflus",
+        "tips": [
+          "LEAP into your opponents and unleash your fury!",
+          "CRUSH adversaries with the relentless power of your saw!",
+          "RAMPAGE into the action as enemies flee in desperation!",
+          "Outsmart opponents by leaping to unexpected hideouts.",
+          "Pro Tip: Use the MAGIC BOOTS to combine strength and agility."
+        ]
+      },
+      {
+        "name": "H4CK",
+        "tips": [
+          "Use your SLINGSHOT and strike up to 3 enemies at once!",
+          "Your enemy is hiding behind a wall? No worries, use your Ulti and make it rain!",
+          "Stuck in a bad place? FLASH out before they catch you!",
+          "Use your speed and don't let anyone hit you.",
+          "Pro Tip: Take advantage of your slingshot and fight from a safe distance."
+        ]
+      },
+      {
+        "name": "Uma",
+        "tips": [
+          "With three knife stabs, AVENGE your kind!",
+          "Channel your VEIL OF RADIANCE and vanish into the shadows!",
+          "SNEAK into opponents when they least expect you!",
+          "Use well your invisibility: any action you make will bring you back to light.",
+          "Pro Tip: Approach a weak opponent while invisible and stab him before he even sees you."
+        ]
+      },
+      {
+        "name": "Valtimer",
+        "tips": [
+          "Release ANTIMATTER and blast your enemies!",
+          "Spawn a black hole and trap your enemies!",
+          "Open a portal and WARP away!",
+          "Teleport through a wall and leave your opponents hanging.",
+          "Pro Tip: Aim your ANTIMATTER into a black hole you spawned and unleash its full strength."
+        ]
+      }
+    ]
+  }
+  
