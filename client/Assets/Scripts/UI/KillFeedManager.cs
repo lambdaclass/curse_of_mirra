@@ -71,7 +71,7 @@ public class KillFeedManager : MonoBehaviour
         }
 
         KillEntry killEvent = null;
-        while (feedEvents.TryDequeue(out killEvent))
+        while (feedEvents.TryDequeue(out killEvent) && !PingAnalyzer.Instance.unstableConnection)
         {
             if (currentTrackedPlayer == killEvent.VictimId)
             {
