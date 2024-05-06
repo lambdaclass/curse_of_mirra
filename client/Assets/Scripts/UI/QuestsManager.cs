@@ -11,6 +11,7 @@ public class QuestsManager : MonoBehaviour
     public List<Quest> quests;
     public TextMeshProUGUI rerollAvailable;
     public Sprite glowContainer;
+    private bool rerollActive = false;
 
     void Start()
     {
@@ -20,15 +21,16 @@ public class QuestsManager : MonoBehaviour
 
     public void ShowReroll() 
     {
+        rerollActive = true;
+
         foreach (Quest q in quests) 
         {
             if (q.reroll) 
             {
-                ChangeToReroll(q);
+                q.ChangeToReroll();
             } else 
             {
-                q.gameObject.GetComponent<CanvasGroup>().alpha = 0.4f;
-                q.gameObject.GetComponent<EventTrigger>().enabled = false;
+                q.SetAsInactive();
             }
         }
     }
@@ -37,17 +39,20 @@ public class QuestsManager : MonoBehaviour
     {
         foreach (Quest q in quests) 
         {
-            q.gameObject.transform.Find("Logo").GetComponent<Image>().sprite = q.logo;
-            q.gameObject.transform.Find("Logo").GetComponent<Image>().SetNativeSize();
+            q.SetQuestContainer();
             q.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
         }
     }
 
-    private void ChangeToReroll(Quest q) 
-    {
-        q.gameObject.GetComponent<EventTrigger>().enabled = true;
-        q.gameObject.transform.Find("Logo").GetComponent<Image>().sprite = rerollImage;
-        q.gameObject.transform.Find("Logo").GetComponent<Image>().SetNativeSize();
+    public void HandleSelection(Quest q) {
+        if (q.reroll && rerollActive) 
+        {
+            q.Reroll();
+        }
+        else if (q.progress == 1f && !rerollActive) 
+        {
+            q.Claim();
+        }
     }
 
     private int GetRerollAmount()
@@ -63,8 +68,5 @@ public class QuestsManager : MonoBehaviour
         }
 
         return amount;
-    }
-
-    // Claim()
-    // Reroll()
+    } 
 }

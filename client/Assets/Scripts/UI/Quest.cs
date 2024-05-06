@@ -17,6 +17,7 @@ public class Quest : MonoBehaviour
     Image logoImage;
     Image completedImage;
     TMP_Text completedAmount;
+    EventTrigger eventTrigger;
 
     [SerializeField] 
     TextMeshProUGUI totalTrophies; 
@@ -33,14 +34,20 @@ public class Quest : MonoBehaviour
     [SerializeField]  
     TMP_FontAsset claimFont;
 
+    [SerializeField]
+    Sprite rerollImage;
+
     void Start()
     {
         progressSlider = gameObject.transform.Find("ProgressBar").GetComponent<Slider>();
         logoImage = gameObject.transform.Find("Logo").GetComponent<Image>();
         completedImage = gameObject.transform.Find("ProgressBar").Find("Completed").GetComponent<Image>();
         completedAmount = gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>();
+        eventTrigger = gameObject.GetComponent<EventTrigger>();
 
         SetQuestContainer();
+
+        // Hace que cuando vuelvo del reroll ya no siga ready to claim!!!!!! 
         StartCoroutine(CheckReadyToClaim());
     }
 
@@ -50,19 +57,9 @@ public class Quest : MonoBehaviour
         SetReadyToClaim();
     }
 
-    public void SelectQuest() 
+    public void SetQuestContainer() 
     {
-        if (this.progress == 1f) 
-        {
-            this.progress = 0f; 
-            totalTrophies.text = int.Parse(totalTrophies.text) + this.reward + "";
-            SetQuestContainer();
-        }
-    }
-
-    private void SetQuestContainer() 
-    {
-        gameObject.GetComponent<EventTrigger>().enabled = false;
+        // eventTrigger.enabled = false;
         progressSlider.value = this.progress;
         logoImage.sprite = this.logo;
         logoImage.SetNativeSize();
@@ -70,13 +67,38 @@ public class Quest : MonoBehaviour
         completedAmount.text = (progress * 100f) + "/100";
     }
 
-    private void SetReadyToClaim() 
+    public void SetReadyToClaim() 
     {
         logoImage.sprite = claimImage;
         logoImage.SetNativeSize();
         completedImage.sprite = claimCompleted;
         completedAmount.text = "READY TO CLAIM";
         completedAmount.font = claimFont;
-        gameObject.GetComponent<EventTrigger>().enabled = true;
+        // eventTrigger.enabled = true;
+    }
+
+    public void ChangeToReroll() 
+    {
+        // eventTrigger.enabled = true;
+        logoImage.sprite = rerollImage;
+        logoImage.SetNativeSize();
+    }
+
+    public void SetAsInactive() 
+    {
+        gameObject.GetComponent<CanvasGroup>().alpha = 0.4f;
+        // eventTrigger.enabled = false;
+    }
+
+    public void Reroll() 
+    {
+        Debug.Log("REROLL");
+    }
+
+    public void Claim() 
+    {
+        this.progress = 0f; 
+        totalTrophies.text = int.Parse(totalTrophies.text) + this.reward + "";
+        SetQuestContainer();
     }
 }
