@@ -72,7 +72,7 @@ public class PingAnalyzer : MonoBehaviour
             for(int i = 0; i < list.Count - 1; i++){
                 // Check for spikes
                 //print("diff: " + Mathf.Abs(list[i] - list[i + 1]));
-                if (Mathf.Abs(list[i] - list[i + 1]) >= spikeValueThreshold)
+                if (list[i] - list[i + 1] >= spikeValueThreshold)
                 {
                     spikesCounter += 1;
                     //print("spike: " + Mathf.Abs(list[i] - list[i + 1]));
