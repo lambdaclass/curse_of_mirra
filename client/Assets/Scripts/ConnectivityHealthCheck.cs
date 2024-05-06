@@ -7,11 +7,12 @@ public class ConnectivityHealthCheck : MonoBehaviour
     CanvasGroup iconCanvas;
     float animationDuration = .4f;
     Coroutine displayCoroutine, hideCoroutine;
-    Sequence pulseSequence = DOTween.Sequence();
+    Sequence pulseSequence;
 
     void Start()
     {
         iconCanvas = GetComponent<CanvasGroup>();
+        pulseSequence = DOTween.Sequence();
         pulseSequence.Append(transform.DOScale(1.15f, animationDuration))
           .Append(transform.DOScale(1, animationDuration))
           .AppendInterval(1).SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear).Pause();
