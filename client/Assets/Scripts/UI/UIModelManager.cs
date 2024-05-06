@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIModelManager : MonoBehaviour
 {
@@ -102,7 +105,8 @@ public class UIModelManager : MonoBehaviour
     public IEnumerator AnimateChainedCharacterSkill(List<string> animationsList, string currentParameterName)
     {
         animationsList.RemoveAt(0);
-        
+
+ 
         modelAnimator.SetBool(currentParameterName, true);
         float animationDuration = AnimationClipTime(modelAnimator, currentParameterName);
         yield return new WaitForSeconds(animationDuration);
@@ -111,8 +115,8 @@ public class UIModelManager : MonoBehaviour
         if(animationsList.Count > 0) {
             StartCoroutine(AnimateChainedCharacterSkill(animationsList, animationsList[0].ToUpper()));
         }
-      
     }
+
 
     public void ShowEndGameCharacterAnimation()
     {
