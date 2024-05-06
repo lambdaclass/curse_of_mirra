@@ -526,6 +526,9 @@ MonoBehaviour:
   reroll: 0
   totalTrophies: {fileID: 0}
   completed: {fileID: 21300000, guid: 8656d91e618f54ac4bca307caba806cd, type: 3}
+  claimImage: {fileID: 21300000, guid: 6ee2b25b559ad48968d6c09c81df4272, type: 3}
+  claimCompleted: {fileID: 21300000, guid: 7eeba37e8fd64441ba74c43620216dc3, type: 3}
+  claimFont: {fileID: 11400000, guid: 73eaf078ee0ea46d6bbdeb5cf7de9809, type: 2}
 --- !u!225 &487894420578191785
 CanvasGroup:
   m_ObjectHideFlags: 0

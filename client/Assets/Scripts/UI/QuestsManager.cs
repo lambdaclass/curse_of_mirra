@@ -7,9 +7,9 @@ using UnityEngine.EventSystems;
 
 public class QuestsManager : MonoBehaviour
 {
-    public Sprite claimImage;
-    public Sprite claimCompleted;
-    public TMP_FontAsset claimFont;
+    // public Sprite claimImage;
+    // public Sprite claimCompleted;
+    // public TMP_FontAsset claimFont;
     public Sprite rerollImage;
     public List<Quest> quests;
     public TextMeshProUGUI rerollAvailable;
@@ -21,17 +21,17 @@ public class QuestsManager : MonoBehaviour
         rerollAvailable.text = rerollAmount + "/6 reroll available";
     }
 
-    void Update()
-    {
-        foreach (Quest q in quests) 
-        {
-            if (q.progress == 1f) 
-            {
-                SetReadyToClaim(q);
-            } 
-        }
-        // IsReadyToReroll()
-    }
+    // void Update()
+    // {
+    //     foreach (Quest q in quests) 
+    //     {
+    //         if (q.progress == 1f) 
+    //         {
+    //             SetReadyToClaim(q);
+    //         } 
+    //     }
+    //     // IsReadyToReroll()
+    // }
 
     public void ShowReroll() 
     {
@@ -58,16 +58,16 @@ public class QuestsManager : MonoBehaviour
         }
     }
 
-    private void SetReadyToClaim(Quest q) 
-    {
-        q.gameObject.transform.Find("Logo").GetComponent<Image>().sprite = claimImage;
-        q.gameObject.transform.Find("Logo").GetComponent<Image>().SetNativeSize();
-        q.gameObject.transform.Find("ProgressBar").Find("Completed").GetComponent<Image>().sprite = claimCompleted;
-        // q.gameObject.transform.Find("ProgressBar").GetComponent<Slider>().value = 1;
-        q.gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>().text = "READY TO CLAIM";
-        q.gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>().font = claimFont;
-        q.gameObject.GetComponent<EventTrigger>().enabled = true;
-    }
+    // private void SetReadyToClaim(Quest q) 
+    // {
+    //     q.gameObject.transform.Find("Logo").GetComponent<Image>().sprite = claimImage;
+    //     q.gameObject.transform.Find("Logo").GetComponent<Image>().SetNativeSize();
+    //     q.gameObject.transform.Find("ProgressBar").Find("Completed").GetComponent<Image>().sprite = claimCompleted;
+    //     // q.gameObject.transform.Find("ProgressBar").GetComponent<Slider>().value = 1;
+    //     q.gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>().text = "READY TO CLAIM";
+    //     q.gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>().font = claimFont;
+    //     q.gameObject.GetComponent<EventTrigger>().enabled = true;
+    // }
 
     private void ChangeToReroll(Quest q) 
     {

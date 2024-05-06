@@ -19,9 +19,25 @@ public class Quest : MonoBehaviour
     [SerializeField] 
     Sprite completed;
 
+    [SerializeField]  
+    Sprite claimImage;
+
+    [SerializeField]  
+    Sprite claimCompleted;
+
+    [SerializeField]  
+    TMP_FontAsset claimFont;
+
     void Start()
     {
         SetQuestContainer();
+        StartCoroutine(CheckReadyToClaim());
+    }
+
+    IEnumerator CheckReadyToClaim() 
+    {
+        yield return new WaitUntil(() => this.progress == 1f);
+        SetReadyToClaim();
     }
 
     public void SelectQuest() 
@@ -42,5 +58,15 @@ public class Quest : MonoBehaviour
         gameObject.transform.Find("Logo").GetComponent<Image>().SetNativeSize();
         gameObject.transform.Find("ProgressBar").Find("Completed").GetComponent<Image>().sprite = completed;
         gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>().text = (progress * 100f) + "/100";
+    }
+
+    private void SetReadyToClaim() 
+    {
+        gameObject.transform.Find("Logo").GetComponent<Image>().sprite = claimImage;
+        gameObject.transform.Find("Logo").GetComponent<Image>().SetNativeSize();
+        gameObject.transform.Find("ProgressBar").Find("Completed").GetComponent<Image>().sprite = claimCompleted;
+        gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>().text = "READY TO CLAIM";
+        gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>().font = claimFont;
+        gameObject.GetComponent<EventTrigger>().enabled = true;
     }
 }

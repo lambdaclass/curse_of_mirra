@@ -853,9 +853,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1354785c41b41b98e0dbc9c9839db8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  claimImage: {fileID: 21300000, guid: 6ee2b25b559ad48968d6c09c81df4272, type: 3}
-  claimCompleted: {fileID: 21300000, guid: 7eeba37e8fd64441ba74c43620216dc3, type: 3}
-  claimFont: {fileID: 11400000, guid: 73eaf078ee0ea46d6bbdeb5cf7de9809, type: 2}
   rerollImage: {fileID: 21300000, guid: e8a1f9e429ff74ecbb8300a0b856b461, type: 3}
   quests:
   - {fileID: 1556710408827910143}
@@ -3187,6 +3184,11 @@ PrefabInstance:
         type: 3}
       propertyPath: reward
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7861226940066808108, guid: 4f482b960c7e24d11aa196541997902e,
+        type: 3}
+      propertyPath: progress
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7861226940066808108, guid: 4f482b960c7e24d11aa196541997902e,
         type: 3}
