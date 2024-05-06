@@ -27,20 +27,27 @@ public class QuestsManager : MonoBehaviour
         {
             if (q.reroll) 
             {
-                q.ChangeToReroll();
+                q.SetReroll();
             } else 
             {
-                q.SetAsInactive();
+                q.gameObject.GetComponent<CanvasGroup>().alpha = 0.4f;
             }
         }
     }
 
     public void ShowOriginal() 
     {
+        rerollActive = false;
+
         foreach (Quest q in quests) 
         {
-            q.SetQuestContainer();
-            q.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
+            if (q.reroll) 
+            {
+                q.SetQuestContainer();
+            }
+            else {
+                q.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
+            }
         }
     }
 

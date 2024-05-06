@@ -530,6 +530,8 @@ MonoBehaviour:
   claimCompleted: {fileID: 21300000, guid: 7eeba37e8fd64441ba74c43620216dc3, type: 3}
   claimFont: {fileID: 11400000, guid: 73eaf078ee0ea46d6bbdeb5cf7de9809, type: 2}
   rerollImage: {fileID: 21300000, guid: e8a1f9e429ff74ecbb8300a0b856b461, type: 3}
+  questContainer: {fileID: 21300000, guid: 2b0330fc6bea441958e30205d353564b, type: 3}
+  rerollContainer: {fileID: 21300000, guid: fb674b40d09914b7a8448416f38acacd, type: 3}
 --- !u!225 &487894420578191785
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -559,9 +561,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 7861226940066808108}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: Quest, CurseOfMirra
-          m_MethodName: SelectQuest
+          m_MethodName: 
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

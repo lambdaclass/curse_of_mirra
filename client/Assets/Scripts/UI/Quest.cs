@@ -37,6 +37,12 @@ public class Quest : MonoBehaviour
     [SerializeField]
     Sprite rerollImage;
 
+    [SerializeField]
+    Sprite questContainer;
+
+    [SerializeField]
+    Sprite rerollContainer;
+
     void Start()
     {
         progressSlider = gameObject.transform.Find("ProgressBar").GetComponent<Slider>();
@@ -46,8 +52,6 @@ public class Quest : MonoBehaviour
         eventTrigger = gameObject.GetComponent<EventTrigger>();
 
         SetQuestContainer();
-
-        // Hace que cuando vuelvo del reroll ya no siga ready to claim!!!!!! 
         StartCoroutine(CheckReadyToClaim());
     }
 
@@ -59,7 +63,8 @@ public class Quest : MonoBehaviour
 
     public void SetQuestContainer() 
     {
-        // eventTrigger.enabled = false;
+        gameObject.GetComponent<Image>().sprite = questContainer;
+        gameObject.GetComponent<Image>().SetNativeSize();
         progressSlider.value = this.progress;
         logoImage.sprite = this.logo;
         logoImage.SetNativeSize();
@@ -74,29 +79,28 @@ public class Quest : MonoBehaviour
         completedImage.sprite = claimCompleted;
         completedAmount.text = "READY TO CLAIM";
         completedAmount.font = claimFont;
-        // eventTrigger.enabled = true;
     }
 
-    public void ChangeToReroll() 
+    public void SetReroll() 
     {
-        // eventTrigger.enabled = true;
         logoImage.sprite = rerollImage;
         logoImage.SetNativeSize();
     }
 
-    public void SetAsInactive() 
-    {
-        gameObject.GetComponent<CanvasGroup>().alpha = 0.4f;
-        // eventTrigger.enabled = false;
-    }
-
     public void Reroll() 
     {
-        Debug.Log("REROLL");
+        // In future iterations (when having the backend) we should show a new quest but for now 
+        // we will just show the same but as if not started. 
+        this.progress = 0f; 
+        SetQuestContainer();
+        gameObject.GetComponent<Image>().sprite = rerollContainer;
+        gameObject.GetComponent<Image>().SetNativeSize();
     }
 
     public void Claim() 
     {
+        // In future iterations (when having the backend) we should show a new quest but for now 
+        // we will just show the same but as if not started.
         this.progress = 0f; 
         totalTrophies.text = int.Parse(totalTrophies.text) + this.reward + "";
         SetQuestContainer();
