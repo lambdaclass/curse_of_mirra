@@ -8,12 +8,7 @@ public class MainManager : LevelSelector
 
     void Start()
     {
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Instance = this;
     }
 
-    public void JoinLobby()
-    {
-        SceneManager.LoadScene("Lobby");
-    }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using MoreMountains.Tools;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainScreenManager : MonoBehaviour
 {
@@ -14,11 +15,11 @@ public class MainScreenManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI currentPlayerName;
     
-    string sceneName = "CharacterInfo";
     string characterNameToGo;
 
     void Start()
     {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
         CharactersManager
             .Instance
             .SetGoToCharacter(ServerConnection.Instance.selectedCharacterName);
@@ -30,6 +31,27 @@ public class MainScreenManager : MonoBehaviour
 
     public void GoToCharacteInfo()
     {
-        Utils.GoToCharacterInfo(characterNameToGo, sceneName);
+        Utils.GoToCharacterInfo(characterNameToGo, "CharacterInfo");
+    }
+
+    public void JoinLobby()
+    {
+        SceneManager.LoadScene("Lobby");
+    }
+
+    public void QuickGame()
+    {
+        StartCoroutine(WaitForBattleCreation());
+    }
+
+    public IEnumerator WaitForBattleCreation()
+    {
+        ServerConnection.Instance.JoinGame("quick_game");
+        yield return new WaitUntil(
+            () =>
+                !string.IsNullOrEmpty(ServerConnection.Instance.LobbySession)
+                && !string.IsNullOrEmpty(SessionParameters.GameId)
+        );
+        SceneManager.LoadScene("Battle");
     }
 }

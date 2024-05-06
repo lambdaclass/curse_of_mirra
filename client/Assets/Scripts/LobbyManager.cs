@@ -49,7 +49,7 @@ public class LobbyManager : LevelSelector
     public IEnumerator WaitForLobbyJoin()
     {
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME);
-        ServerConnection.Instance.JoinLobby();
+        ServerConnection.Instance.JoinLobby("join");
         yield return new WaitUntil(
             () =>
                 !string.IsNullOrEmpty(ServerConnection.Instance.LobbySession)
