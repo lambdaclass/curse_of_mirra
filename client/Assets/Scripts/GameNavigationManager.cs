@@ -5,12 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameNavigationManager : LevelSelector
 {
-    public static GameNavigationManager Instance;
     private const string BATTLE_SCENE_NAME = "Battle";
     private const string LOBBY_SCENE_NAME = "Lobby";
-    private const string CHARACTER_INFO_SCENE_NAME = "CharacterInfo";
     private const string MAIN_SCENE_NAME = "MainScreen";
-    private const string TITLE_SCENE_NAME = "TitleScreen";
 
     void Start()
     {
@@ -21,7 +18,7 @@ public class GameNavigationManager : LevelSelector
     public void ExitGame(string goToScene){
         Utils.BackToLobbyFromGame(goToScene);
     }
-    
+
     public void JoinLobby()
     {
         SceneManager.LoadScene(LOBBY_SCENE_NAME);
