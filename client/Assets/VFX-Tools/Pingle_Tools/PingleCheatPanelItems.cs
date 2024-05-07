@@ -90,6 +90,11 @@ public class PingleCheatPanelItems : MonoBehaviour
         {
             activateItemVFX(golden_clock_vfx);
         }
+
+        if ( GUI.Button(new Rect( 400, 100, 80, 80 ), "fake_item") )
+        {
+            activateItemVFX(golden_clock_vfx);
+        }
     }
 
     private void activateItemVFX(GameObject vfx)

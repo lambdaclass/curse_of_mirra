@@ -23,6 +23,7 @@ public class InventoryUI : MonoBehaviour
     public Sprite goldenClock;
     public Sprite magicBoots;
     public Sprite giant;
+    public Sprite fakeItem;
 
     [SerializeField]
     Image inventoryImage;
@@ -130,6 +131,8 @@ public class InventoryUI : MonoBehaviour
                 return magicBoots;
             case "giant":
                 return giant;
+            case "fake_item":
+                return fakeItem;
             default:
                 return null;
         }
