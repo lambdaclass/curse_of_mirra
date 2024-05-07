@@ -70,6 +70,7 @@ public class Quest : MonoBehaviour
         logoImage.SetNativeSize();
         completedImage.sprite = completed;
         completedAmount.text = (progress * 100f) + "/100";
+        gameObject.transform.Find("Logo").Find("Frame").gameObject.SetActive(false);
     }
 
     public void SetReadyToClaim() 
@@ -92,9 +93,11 @@ public class Quest : MonoBehaviour
         // In future iterations (when having the backend) we should show a new quest but for now 
         // we will just show the same but as if not started. 
         this.progress = 0f; 
+        this.reroll = false;
         SetQuestContainer();
         gameObject.GetComponent<Image>().sprite = rerollContainer;
         gameObject.GetComponent<Image>().SetNativeSize();
+        gameObject.transform.Find("Logo").Find("Frame").gameObject.SetActive(true);
     }
 
     public void Claim() 

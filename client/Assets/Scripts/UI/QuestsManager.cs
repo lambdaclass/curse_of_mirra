@@ -47,6 +47,7 @@ public class QuestsManager : MonoBehaviour
             }
             else {
                 q.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
+                q.gameObject.transform.Find("Logo").Find("Frame").gameObject.SetActive(false);
             }
         }
     }
