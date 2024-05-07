@@ -38,17 +38,4 @@ public class MainScreenManager : MonoBehaviour
     {
         Utils.GoToCharacterInfo(characterNameToGo, CHARACTER_INFO_SCENE_NAME);
     }
-
-    public void JoinLobby()
-    {
-        SceneManager.LoadScene(LOBBY_SCENE_NAME);
-    }
-
-    public void QuickGame()
-    {
-        StartCoroutine(Utils.WaitForBattleCreation(MAIN_SCENE_NAME, BATTLE_SCENE_NAME, "quick_game"));
-    }
-    public void ChangeServer(){
-        Utils.BackToLobbyFromGame(TITLE_SCENE_NAME);
-    }
 }

@@ -21,4 +21,14 @@ public class GameNavigationManager : LevelSelector
     public void ExitGame(string goToScene){
         Utils.BackToLobbyFromGame(goToScene);
     }
+    
+    public void JoinLobby()
+    {
+        SceneManager.LoadScene(LOBBY_SCENE_NAME);
+    }
+
+    public void QuickGame()
+    {
+        StartCoroutine(Utils.WaitForBattleCreation(MAIN_SCENE_NAME, BATTLE_SCENE_NAME, "quick_game"));
+    }
 }
