@@ -122,7 +122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &405015045608437906
 RectTransform:
   m_ObjectHideFlags: 0
@@ -842,7 +842,6 @@ GameObject:
   - component: {fileID: 3840665550688316928}
   - component: {fileID: 1364510498569485697}
   - component: {fileID: 4445584850137750963}
-  - component: {fileID: 3820880597871610697}
   - component: {fileID: 1595368770806346934}
   m_Layer: 5
   m_Name: ExitButton
@@ -922,21 +921,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &3820880597871610697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1181877069075632646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb0c1e1552c445139ba3a8b7d1febe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LevelName: 
-  DoNotUseLevelManager: 0
-  DestroyPersistentCharacter: 0
 --- !u!114 &1595368770806346934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,7 +940,7 @@ MonoBehaviour:
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3820880597871610697}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: LobbyManager, CurseOfMirra
         m_MethodName: BackToLobbyFromGame
         m_Mode: 1
@@ -3449,7 +3433,6 @@ GameObject:
   - component: {fileID: 4280989191328624733}
   - component: {fileID: 815671941853908115}
   - component: {fileID: 2379412058721377619}
-  - component: {fileID: 4505618541501362415}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -3559,18 +3542,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 4075871386785948845}
-        m_TargetAssemblyTypeName: EndGameManager, CurseOfMirra
-        m_MethodName: ShowCharacterAnimation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
   ButtonPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -3597,21 +3568,6 @@ MonoBehaviour:
   isBackButton: 0
   executeRelease: 0
   listElement: 0
---- !u!114 &4505618541501362415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7145453564534406388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb0c1e1552c445139ba3a8b7d1febe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LevelName: 
-  DoNotUseLevelManager: 0
-  DestroyPersistentCharacter: 0
 --- !u!1 &7494032373456624646
 GameObject:
   m_ObjectHideFlags: 0
@@ -4028,7 +3984,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8154815512964373421}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
