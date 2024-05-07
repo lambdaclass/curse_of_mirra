@@ -103,18 +103,6 @@ public class ServerConnection : MonoBehaviour
         }
     }
 
-    public IEnumerator WaitForBattleCreation(string currentSceneName, string battleSceneName, string action_action)
-    {
-        yield return new WaitUntil(() => SceneManager.GetActiveScene().name == currentSceneName);
-        ServerConnection.Instance.JoinGame(action_action);
-        yield return new WaitUntil(
-            () =>
-                !string.IsNullOrEmpty(ServerConnection.Instance.LobbySession)
-                && !string.IsNullOrEmpty(SessionParameters.GameId)
-        );
-        SceneManager.LoadScene(battleSceneName);
-    }
-
     public void JoinGame(string join_action)
     {
         // ValidateVersionHashes();
