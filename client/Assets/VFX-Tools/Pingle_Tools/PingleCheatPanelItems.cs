@@ -85,6 +85,11 @@ public class PingleCheatPanelItems : MonoBehaviour
         {
             activateItemVFX(magic_boots_vfx);
         }
+
+        if ( GUI.Button(new Rect( 400, 100, 80, 80 ), "giant") )
+        {
+            activateItemVFX(golden_clock_vfx);
+        }
     }
 
     private void activateItemVFX(GameObject vfx)
