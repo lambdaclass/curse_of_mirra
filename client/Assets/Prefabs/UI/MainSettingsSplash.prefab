@@ -2631,7 +2631,6 @@ GameObject:
   - component: {fileID: 5577892622153590942}
   - component: {fileID: 7529163089235913080}
   - component: {fileID: 2926767238495096549}
-  - component: {fileID: 4539442892967566204}
   - component: {fileID: 995113529396765072}
   - component: {fileID: 1133012760848737072}
   m_Layer: 5
@@ -2693,7 +2692,7 @@ MonoBehaviour:
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4539442892967566204}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MoreMountains.Tools.MMLoadScene, MoreMountains.Tools
         m_MethodName: LoadScene
         m_Mode: 1
@@ -2731,20 +2730,6 @@ MonoBehaviour:
   isBackButton: 0
   executeRelease: 0
   listElement: 0
---- !u!114 &4539442892967566204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2898280638102943725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9251a9f35d2c384a9e26195e0c63ee9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SceneName: TitleScreen
-  LoadingSceneMode: 0
 --- !u!222 &995113529396765072
 CanvasRenderer:
   m_ObjectHideFlags: 0
