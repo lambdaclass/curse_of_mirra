@@ -2,9 +2,16 @@ using System.Collections;
 using MoreMountains.Tools;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainScreenManager : MonoBehaviour
 {
+    private const string BATTLE_SCENE_NAME = "Battle";
+    private const string LOBBY_SCENE_NAME = "Lobby";
+    private const string MAIN_SCENE_NAME = "MainScreen";
+    private const string CHARACTER_INFO_SCENE_NAME = "CharacterInfo";
+    private const string TITLE_SCENE_NAME = "TitleScreen";
+
     [SerializeField]
     UIModelManager modelManager;
 
@@ -14,7 +21,6 @@ public class MainScreenManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI currentPlayerName;
     
-    string sceneName = "CharacterInfo";
     string characterNameToGo;
 
     void Start()
@@ -30,6 +36,6 @@ public class MainScreenManager : MonoBehaviour
 
     public void GoToCharacteInfo()
     {
-        Utils.GoToCharacterInfo(characterNameToGo, sceneName);
+        Utils.GoToCharacterInfo(characterNameToGo, CHARACTER_INFO_SCENE_NAME);
     }
 }

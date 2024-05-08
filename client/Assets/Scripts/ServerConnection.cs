@@ -103,12 +103,12 @@ public class ServerConnection : MonoBehaviour
         }
     }
 
-    public void JoinLobby()
+    public void JoinGame(string join_action)
     {
         // ValidateVersionHashes();
         ResetFields();
-        ConnectToSession();
-        InvokeRepeating("UpdateSimulatedCounter", 0, 1);
+        ConnectToSession(join_action);
+        // InvokeRepeating("UpdateSimulatedCounter", 0, 1);
     }
 
     //     public void ConnectToLobby(string matchmaking_id)
@@ -122,7 +122,7 @@ public class ServerConnection : MonoBehaviour
     {
         using (var stream = new MemoryStream())
         {
-            var action = new LobbyEvent {Leave = new LeaveLobby {}};
+            var action = new LobbyEvent { Leave = new LeaveLobby { } };
             action.WriteTo(stream);
             var msg = stream.ToArray();
             ws.Send(msg);
@@ -156,7 +156,7 @@ public class ServerConnection : MonoBehaviour
         }
     }
 
-    private void ConnectToSession()
+    private void ConnectToSession(string join_action)
     {
         int hashCode = this.clientId.GetHashCode();
         ulong id = (ulong)(hashCode > 0 ? hashCode : hashCode * -1);
@@ -164,7 +164,7 @@ public class ServerConnection : MonoBehaviour
         this.playerId = id;
         string character_name = CharactersManager.Instance.GoToCharacter.ToLower();
         string player_name = PlayerPrefs.GetString("playerName");
-        string url = makeWebsocketUrl("/join/" + id + "/" + character_name + "/" + player_name);
+        string url = makeWebsocketUrl("/" + join_action + "/" + id + "/" + character_name + "/" + player_name);
         print(url);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
