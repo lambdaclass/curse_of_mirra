@@ -68,7 +68,6 @@ public class VolumeController : MonoBehaviour
             channelToUse,
             volumeSlider.value
         );
-        print("volume: " + MMSoundManagerTrackEventTypes.SetVolumeTrack);
         uiValue.text = UIVolumeValue(volumeSlider.value);
     }
 
