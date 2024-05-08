@@ -31,10 +31,8 @@ public class LobbyManager : LevelSelector
 
     private void ShowCharacterTips(){
         var characterSelected = ServerConnection.Instance.selectedCharacterName;
-        print(characterSelected);
-        string filePath = Path.Combine(Application.dataPath, "Resources/tips.json");
-        string jsonData = File.ReadAllText(filePath);
-        CharactersData charactersData = JsonUtility.FromJson<CharactersData>(jsonData);
+        TextAsset jsonFile = Resources.Load<TextAsset>("tips");
+        CharactersData charactersData = JsonUtility.FromJson<CharactersData>(jsonFile.text);
  
         foreach (CharacterTips character in charactersData.characters)
         {
@@ -42,8 +40,23 @@ public class LobbyManager : LevelSelector
                 int random = Random.Range(0,character.tips.Count());
                 string abilityTip = character.tips[random];
 
-                tipText.text = abilityTip;
-                characterImage.sprite = CharactersManager.Instance.AllCharacters.Find(character => character.name.ToUpper() == characterSelected.ToUpper()).UIIcon;
+                int threshold = Mathf.FloorToInt(character.tips.Count() * 0.3f);
+ 
+                if(random <= threshold){
+                    var genetalTip = charactersData.characters.Last();
+                    var randomTip = Random.Range(0, genetalTip.tips.Count());
+                    tipText.text = genetalTip.tips[randomTip];
+                }else{
+                    tipText.text = abilityTip;
+                }
+
+                for(int i = 0; i < CharactersManager.Instance.AllCharacters.Count();i++){
+                    if(character.name.ToUpper() == CharactersManager.Instance.AllCharacters[i].name.ToUpper()){
+                        characterImage.sprite = CharactersManager.Instance.AllCharacters[i].UIIcon;
+                        return;
+                    }
+                }
+                return;
             }
         }
     }
