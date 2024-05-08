@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3708708, g: 0.37838137, b: 0.35725543, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -159,15 +159,10 @@ MonoBehaviour:
   currentPing: 0
   serverTickRate_ms: 0
   serverHash: 
-  gameStatus: 0
-  gameCountdown: 0
   allSelected: 0
   playableRadius: 0
-  zoneShrinkTime: 0
-  zoneEnabled: 0
   cinematicDone: 0
   connected: 0
-  shrinking: 0
 --- !u!4 &1042142745
 Transform:
   m_ObjectHideFlags: 0
@@ -194,7 +189,7 @@ GameObject:
   - component: {fileID: 1580772511}
   - component: {fileID: 1580772512}
   m_Layer: 0
-  m_Name: LobbyManager
+  m_Name: GameNavigationManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

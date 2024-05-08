@@ -6495,7 +6495,6 @@ GameObject:
   - component: {fileID: 1096603292015347264}
   - component: {fileID: 6475140259523909226}
   - component: {fileID: 5988659528566409508}
-  - component: {fileID: 8247467863762044502}
   - component: {fileID: 8198341402623061669}
   - component: {fileID: 6538630216455121451}
   m_Layer: 5
@@ -6557,16 +6556,16 @@ MonoBehaviour:
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8247467863762044502}
-        m_TargetAssemblyTypeName: LobbyManager, CurseOfMirra
-        m_MethodName: BackToLobbyFromGame
-        m_Mode: 1
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameNavigationManager, CurseOfMirra
+        m_MethodName: BackToLobbyAndCloseConnection
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MainScreen
           m_BoolArgument: 0
         m_CallState: 2
   ButtonPressed:
@@ -6595,21 +6594,6 @@ MonoBehaviour:
   isBackButton: 0
   executeRelease: 0
   listElement: 0
---- !u!114 &8247467863762044502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4161613690618227563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb0c1e1552c445139ba3a8b7d1febe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LevelName: 
-  DoNotUseLevelManager: 0
-  DestroyPersistentCharacter: 0
 --- !u!222 &8198341402623061669
 CanvasRenderer:
   m_ObjectHideFlags: 0
