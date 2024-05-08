@@ -120,10 +120,6 @@ public class Skill : CharacterAbility
     {
         ClearAnimator();
 
-        // Setup
-        AudioClip sfxClip;
-
-        sfxClip = skillInfo.abilityStartSfx;
 
         // State & animation
         ChangeCharacterState(skillId, blockMovement);
@@ -150,6 +146,9 @@ public class Skill : CharacterAbility
             );
         }
 
+        // Setup
+        AudioClip sfxClip;
+        sfxClip = skillInfo.abilityStartSfx;
         // Sound effects
         if (sfxClip)
         {
@@ -161,7 +160,20 @@ public class Skill : CharacterAbility
 
     public IEnumerator AutoEndSkillAnimation(string skillAnimationId, float duration)
     {
+        // Setup
+        AudioClip sfxClip;
+        sfxClip = skillInfo.abilityStopSfx;
+        
         yield return new WaitForSeconds(duration);
+
+        // Sound effects
+        if (sfxClip)
+        {
+            Sound3DManager sound3DManager = this.GetComponent<CustomCharacter>().characterBase.sound3DManager;
+            sound3DManager.SetSfxSound(sfxClip);
+            sound3DManager.PlaySfxSound();
+        }
+
         EndSkillAnimation(skillAnimationId);
     }
 
