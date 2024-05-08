@@ -45,17 +45,19 @@ public class Quest : MonoBehaviour
 
     void Start()
     {
-        progressSlider = gameObject.transform.Find("ProgressBar").GetComponent<Slider>();
-        logoImage = gameObject.transform.Find("Logo").GetComponent<Image>();
-        completedImage = gameObject.transform.Find("ProgressBar").Find("Completed").GetComponent<Image>();
-        completedAmount = gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>();
+        // Eviar finds, usar referencias 
+
+        progressSlider = gameObject.transform.Find("ProgressBar").GetComponent<Slider>(); // No es necesario, referenciar la imagen
+        logoImage = gameObject.transform.Find("Logo").GetComponent<Image>(); // No es necesario, referenciar la imagen
+        completedImage = gameObject.transform.Find("ProgressBar").Find("Completed").GetComponent<Image>(); // No es necesario, referenciar la imagen
+        completedAmount = gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>(); // No es necesario, referenciar la imagen
         eventTrigger = gameObject.GetComponent<EventTrigger>();
 
         SetQuestContainer();
         StartCoroutine(CheckReadyToClaim());
     }
 
-    IEnumerator CheckReadyToClaim() 
+    IEnumerator MockCheckReadyToClaim() 
     {
         yield return new WaitUntil(() => this.progress == 1f);
         SetReadyToClaim();

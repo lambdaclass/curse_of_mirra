@@ -532,7 +532,6 @@ MonoBehaviour:
   rerollImage: {fileID: 21300000, guid: e8a1f9e429ff74ecbb8300a0b856b461, type: 3}
   questContainer: {fileID: 21300000, guid: 2b0330fc6bea441958e30205d353564b, type: 3}
   rerollContainer: {fileID: 21300000, guid: fb674b40d09914b7a8448416f38acacd, type: 3}
-  glowHexagon: {fileID: 21300000, guid: d3d13f5849b824d59b10e511add52eaf, type: 3}
 --- !u!225 &487894420578191785
 CanvasGroup:
   m_ObjectHideFlags: 0
