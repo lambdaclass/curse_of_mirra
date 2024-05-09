@@ -106,7 +106,6 @@ public class UIModelManager : MonoBehaviour
     {
         animationsList.RemoveAt(0);
 
- 
         modelAnimator.SetBool(currentParameterName, true);
         float animationDuration = AnimationClipTime(modelAnimator, currentParameterName);
         yield return new WaitForSeconds(animationDuration);
