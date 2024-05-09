@@ -56,6 +56,9 @@ public class GameServerConnectionManager : MonoBehaviour
 
     public Configuration config;
 
+    private long gameEventTimestamp;
+    private int secondsToWaitForReconnect = 8;
+
     void Start()
     {
         Init();
@@ -92,6 +95,22 @@ public class GameServerConnectionManager : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
+        if(gameEventTimestamp > 0 && !GameHasEnded())
+        {
+            long clientTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            if(clientTimestamp - gameEventTimestamp >= 2)
+            {
+                PingAnalyzer.Instance.disconnect = true;
+            }
+            else
+            {
+                PingAnalyzer.Instance.disconnect = false;
+            }
+            if(clientTimestamp - gameEventTimestamp >= secondsToWaitForReconnect)
+            {
+                DisconnectFeedback();
+            }
+        }
     }
 
     private IEnumerator IsGameCreated()
@@ -130,7 +149,6 @@ public class GameServerConnectionManager : MonoBehaviour
             // Once the connection is established we reset so when we try to load the scenes again
             // it waits to fetch it from the Lobby websocket and not reuse
             SessionParameters.GameId = null;
-            PingAnalyzer.Instance.disconnect = false;
             Debug.Log("Game websocket connected successfully");
         };
         ws.Connect();
@@ -141,14 +159,18 @@ public class GameServerConnectionManager : MonoBehaviour
         if (closeCode != WebSocketCloseCode.Normal)
         {
             // TODO: Add some error handle for when websocket closes unexpectedly
-            PingAnalyzer.Instance.disconnect = true;
-            Utils.BackToLobbyFromGame("MainScreen");
+            DisconnectFeedback();
             Debug.Log("Game websocket closed unexpectedly");
         }
         else
         {
             Debug.Log("Game websocket closed normally");
         }
+    }
+    private void DisconnectFeedback()
+    {
+        PingAnalyzer.Instance.disconnect = false;
+        Utils.BackToLobbyFromGame("MainScreen");
     }
 
     private void OnWebSocketMessage(byte[] data)
@@ -187,6 +209,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.gameLoots = gameState.Items.Values.ToList();
                     this.damageDone = gameState.DamageDone.ToDictionary(x => x.Key, x => x.Value);
                     this.shrinking = gameState.Zone.Shrinking;
+                    this.gameEventTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
                     this.playersIdPosition = new Dictionary<ulong, Position>
                     {
                         [this.playerId] = position

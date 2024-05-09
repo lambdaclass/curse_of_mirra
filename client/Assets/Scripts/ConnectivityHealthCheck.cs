@@ -19,7 +19,7 @@ public class ConnectivityHealthCheck : MonoBehaviour
     }
     void Update()
     {
-        if (PingAnalyzer.Instance.unstableConnection)
+        if (PingAnalyzer.Instance.unstableConnection || PingAnalyzer.Instance.disconnect)
         {
             displayCoroutine = StartCoroutine(Display());
         }
@@ -28,7 +28,7 @@ public class ConnectivityHealthCheck : MonoBehaviour
     {
         pulseSequence.Play();
         iconCanvas.DOFade(1, animationDuration);
-        yield return new WaitUntil(() => !PingAnalyzer.Instance.unstableConnection);
+        yield return new WaitUntil(() => (!PingAnalyzer.Instance.unstableConnection && !PingAnalyzer.Instance.disconnect));
         StopCoroutine(displayCoroutine);
         hideCoroutine = StartCoroutine(Hide());
     }
