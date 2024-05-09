@@ -12,13 +12,13 @@ public class PingAnalyzer : MonoBehaviour
     // updateInterval: how requent should the update be?
     // spikesAmountThreshold: how many spikes should be in a list, of X length updated every Y seconds, to be considered unstable?
 
-    public bool unstableConnection;
+    public bool unstableConnection, disconnect;
     public string pingValue;
     /// the frequency at which the PING counter should update
     float updateInterval = 1f;
     protected float _timeLeftToUpdate;
     float spikeValueThreshold = 150f;
-    int spikesAmountThreshold = 4;
+    int spikesAmountThreshold = 3;
     List<float> pingValues = new List<float>();
     const int SPIKES_LIST_MAX_LENGTH = 10;
     public static PingAnalyzer Instance;

@@ -130,6 +130,8 @@ public class GameServerConnectionManager : MonoBehaviour
             // Once the connection is established we reset so when we try to load the scenes again
             // it waits to fetch it from the Lobby websocket and not reuse
             SessionParameters.GameId = null;
+            PingAnalyzer.Instance.disconnect = false;
+            Debug.Log("Game websocket connected successfully");
         };
         ws.Connect();
     }
@@ -139,6 +141,9 @@ public class GameServerConnectionManager : MonoBehaviour
         if (closeCode != WebSocketCloseCode.Normal)
         {
             // TODO: Add some error handle for when websocket closes unexpectedly
+            PingAnalyzer.Instance.disconnect = true;
+            Utils.BackToLobbyFromGame("MainScreen");
+            Debug.Log("Game websocket closed unexpectedly");
         }
         else
         {
