@@ -58,6 +58,8 @@ public class GameServerConnectionManager : MonoBehaviour
 
     private long gameEventTimestamp;
     private int secondsToWaitForReconnect = 8;
+    private const string connectionTitle = "Error";
+    private const string connectionDescription = "Your connection to the server has been lost.";
 
     void Start()
     {
@@ -171,6 +173,7 @@ public class GameServerConnectionManager : MonoBehaviour
     {
         PingAnalyzer.Instance.disconnect = false;
         Utils.BackToLobbyFromGame("MainScreen");
+        Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
     }
 
     private void OnWebSocketMessage(byte[] data)
