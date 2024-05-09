@@ -30,7 +30,7 @@ public class CharacterInfoManager : MonoBehaviour
     List<CoMCharacter> availableCharacters;
 
     List<string> animationsList = new List<string>();
-    int maxSize = 3;
+    int maxSize = 5;
 
     string lastSkill;
 
