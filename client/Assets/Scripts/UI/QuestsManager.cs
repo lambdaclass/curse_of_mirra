@@ -41,14 +41,7 @@ public class QuestsManager : MonoBehaviour
 
         foreach (Quest q in quests) 
         {
-            if (q.reroll) 
-            {
-                q.SetQuestContainer();
-            }
-            else {
-                q.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
-                q.gameObject.transform.Find("Logo").Find("Frame").gameObject.SetActive(false);
-            }
+            q.SetQuestContainer();
         }
     }
 

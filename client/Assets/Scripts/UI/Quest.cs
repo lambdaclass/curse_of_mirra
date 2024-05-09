@@ -12,15 +12,13 @@ public class Quest : MonoBehaviour
     public string title;
     public float progress;
     public bool reroll; 
-
-    Slider progressSlider;
-    Image logoImage;
-    Image completedImage;
-    TMP_Text completedAmount;
-    EventTrigger eventTrigger;
-
-    [SerializeField] 
-    TextMeshProUGUI totalTrophies; 
+    public Slider progressSlider;
+    public Image logoImage;
+    public Image completedImage;
+    public TMP_Text completedAmount;
+    public EventTrigger eventTrigger;
+    public TextMeshProUGUI totalTrophies; 
+    public GameObject hexagonFrame;
 
     [SerializeField] 
     Sprite completed;
@@ -45,22 +43,7 @@ public class Quest : MonoBehaviour
 
     void Start()
     {
-        // Eviar finds, usar referencias 
-
-        progressSlider = gameObject.transform.Find("ProgressBar").GetComponent<Slider>(); // No es necesario, referenciar la imagen
-        logoImage = gameObject.transform.Find("Logo").GetComponent<Image>(); // No es necesario, referenciar la imagen
-        completedImage = gameObject.transform.Find("ProgressBar").Find("Completed").GetComponent<Image>(); // No es necesario, referenciar la imagen
-        completedAmount = gameObject.transform.Find("ProgressBar").Find("CompletedAmount").GetComponent<TMP_Text>(); // No es necesario, referenciar la imagen
-        eventTrigger = gameObject.GetComponent<EventTrigger>();
-
         SetQuestContainer();
-        StartCoroutine(CheckReadyToClaim());
-    }
-
-    IEnumerator MockCheckReadyToClaim() 
-    {
-        yield return new WaitUntil(() => this.progress == 1f);
-        SetReadyToClaim();
     }
 
     public void SetQuestContainer() 
@@ -72,7 +55,15 @@ public class Quest : MonoBehaviour
         logoImage.SetNativeSize();
         completedImage.sprite = completed;
         completedAmount.text = (progress * 100f) + "/100";
-        gameObject.transform.Find("Logo").Find("Frame").gameObject.SetActive(false);
+        hexagonFrame.SetActive(false);
+        gameObject.GetComponent<CanvasGroup>().alpha = 1f;
+
+        // Recreate the ready to claim check
+        // (This should actually be done on the backend)
+        if (this.progress == 1f) 
+        {
+            SetReadyToClaim();
+        }
     }
 
     public void SetReadyToClaim() 
@@ -99,7 +90,7 @@ public class Quest : MonoBehaviour
         SetQuestContainer();
         gameObject.GetComponent<Image>().sprite = rerollContainer;
         gameObject.GetComponent<Image>().SetNativeSize();
-        gameObject.transform.Find("Logo").Find("Frame").gameObject.SetActive(true);
+        hexagonFrame.SetActive(true);
     }
 
     public void Claim() 

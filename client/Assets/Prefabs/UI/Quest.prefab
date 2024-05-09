@@ -524,7 +524,13 @@ MonoBehaviour:
   title: 
   progress: 0
   reroll: 0
-  totalTrophies: {fileID: 0}
+  progressSlider: {fileID: 3554817521263700912}
+  logoImage: {fileID: 259121020742591953}
+  completedImage: {fileID: 4190147067150713504}
+  completedAmount: {fileID: 3433263209759121639}
+  eventTrigger: {fileID: 361914162439770953}
+  totalTrophies: {fileID: 6543373234331074590}
+  hexagonFrame: {fileID: 7569885818746359790}
   completed: {fileID: 21300000, guid: 8656d91e618f54ac4bca307caba806cd, type: 3}
   claimImage: {fileID: 21300000, guid: 6ee2b25b559ad48968d6c09c81df4272, type: 3}
   claimCompleted: {fileID: 21300000, guid: 7eeba37e8fd64441ba74c43620216dc3, type: 3}
