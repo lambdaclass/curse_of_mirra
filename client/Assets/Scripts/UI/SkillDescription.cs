@@ -1,3 +1,4 @@
+using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -15,7 +16,6 @@ public class SkillDescription : MonoBehaviour, IPointerDownHandler
     [SerializeField]
     SkillsDetailHandler skillsDetailHandler;
 
-    bool isAnimating = false;
     public bool interactable = true;
 
     public void SetSkillDescription(SkillInfo skillInfo)
@@ -45,11 +45,18 @@ public class SkillDescription : MonoBehaviour, IPointerDownHandler
         skillsDetailHandler.SetSkillDetaill(skillSetType, skillData.name, skillData.description);
         skillsDetailHandler.ResetSelectSkill(this);
         if(interactable == true){
+            this.GetComponent<Slider>().value = 1;
             skillsDetailHandler.characterInfoManager.PlaySkillAnimation(skillSetType);
+            DOTween.To(() => this.GetComponent<Slider>().value, x => this.GetComponent<Slider>().value = x, 0, 2.8f);        
+            StartCoroutine(WaitForUsage());
         }
     }
 
-
+    public IEnumerator WaitForUsage(){
+        interactable = false;
+        yield return new WaitForSeconds(3f);
+        interactable = true;
+    }
 
 
     public string GetSkillSetType()

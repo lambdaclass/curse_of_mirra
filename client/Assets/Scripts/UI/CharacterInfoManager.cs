@@ -95,10 +95,7 @@ public class CharacterInfoManager : MonoBehaviour
 
     public void PlaySkillAnimation(string parameterName){
         if(animationsList.Count < maxSize){
-
-            if(lastSkill != parameterName){
-                animationsList.Add(parameterName);
-            }
+            animationsList.Add(parameterName);
 
             foreach(AnimatorControllerParameter param in modelManager.modelAnimator.parameters){
                 if(param.name.ToUpper() == parameterName.ToUpper() + "_END" 
@@ -108,7 +105,6 @@ public class CharacterInfoManager : MonoBehaviour
             }
         }
         if(animationsList.Count > 0 && modelManager.modelAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle") == true){
-            lastSkill = animationsList[0];
             StartCoroutine(modelManager.AnimateChainedCharacterSkill(animationsList,animationsList[0].ToUpper()));
         }
     }
