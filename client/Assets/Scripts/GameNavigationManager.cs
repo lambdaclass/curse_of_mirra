@@ -17,12 +17,14 @@ public class GameNavigationManager : LevelSelector
 
     void Start()
     {
-        if(SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME){
+        if (SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME)
+        {
             StartCoroutine(Utils.WaitForBattleCreation(LOBBY_SCENE_NAME, BATTLE_SCENE_NAME, "join"));
             ShowCharacterTips();
         }
     }
-    public void ExitGame(string goToScene){
+    public void ExitGame(string goToScene)
+    {
         Utils.BackToLobbyFromGame(goToScene);
     }
 
@@ -34,6 +36,11 @@ public class GameNavigationManager : LevelSelector
     public void QuickGame()
     {
         StartCoroutine(Utils.WaitForBattleCreation(MAIN_SCENE_NAME, BATTLE_SCENE_NAME, "quick_game"));
+    }
+
+    public void LeaveLobby()
+    {
+        ServerConnection.Instance.LeaveLobby();
     }
 
     private void ShowCharacterTips(){
