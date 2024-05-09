@@ -12,7 +12,6 @@ public class CharacterBase : MonoBehaviour
         Hitbox,
         FeedbackContainer,
         AimDirection,
-        SkillRange,
         spawnFeedback,
         OrientationIndicator,
         OrientationArrow,
