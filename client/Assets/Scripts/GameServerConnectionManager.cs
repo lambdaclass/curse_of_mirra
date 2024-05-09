@@ -57,7 +57,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public Configuration config;
 
     private long gameEventTimestamp;
-    private int secondsToWaitForReconnect = 8;
+    private int secondsToWaitForReconnect = 3;
     private const string connectionTitle = "Error";
     private const string connectionDescription = "Your connection to the server has been lost.";
 
