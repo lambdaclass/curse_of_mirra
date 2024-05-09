@@ -131,7 +131,7 @@ public class Battle : MonoBehaviour
         GetComponent<ProjectileHandler>().CreateProjectilesPoolers(skillInfoSet);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         // MoveEntities();
         if (
@@ -176,25 +176,6 @@ public class Battle : MonoBehaviour
         UpdateProjectileActions();
         loot.UpdateLoots();
         powerUpsManager.UpdatePowerUps();
-        // CreateMesh();
-        // Sat.IntersectCirclePolygon(playersReferences.First().Value.character, mesh);
-    }
-
-    public void CreateMesh(){
-        var triangles = GameServerConnectionManager.Instance.obstacles[3].Vertices;
-        Vector3[] vertices = new Vector3[triangles.Count];
-        foreach(var triangle in triangles){
-            int i = triangles.IndexOf(triangle);
-            vertices[i].x = triangle.X / 100;
-            vertices[i].y = 3;
-            vertices[i].z = triangle.Y / 100; 
-        }
-        var go = new GameObject();
-        go.AddComponent<MeshFilter>();
-        Instantiate(go);
-        Mesh mesh = new Mesh();
-        go.GetComponent<MeshFilter>().mesh = mesh;
-        mesh.vertices = vertices;
     }
 
     private void SetAccumulatedTime()
@@ -735,7 +716,6 @@ public class Battle : MonoBehaviour
             }
 
             player.transform.position = new Vector3(newPosition.x, 0, newPosition.z);
-            // player.GetComponent<Rigidbody>().AddForce(newPosition);
 
             // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
             // if the player is in attacking state, movement rotation from movement should be ignored
@@ -748,7 +728,6 @@ public class Battle : MonoBehaviour
         }
 
         character.RotateCharacterOrientation();
-        character.GetComponent<CharacterController>().Move(Vector3.up * 0);
         
         modelAnimator.SetBool("Walking", walking);
     }
