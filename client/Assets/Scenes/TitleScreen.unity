@@ -171,7 +171,7 @@ MonoBehaviour:
   statusText: {fileID: 445723375}
   signOutButton: {fileID: 1365717059}
   signInButton: {fileID: 1100061445}
-  webClientIdGoogle: 529212382177-822ukg0eeufi7pivtk1dpatqveqlqord.apps.googleusercontent.com
+  webClientIdGoogle: 194682062935-ukqi0s2vp1d2nmoembp0dapes21ei859.apps.googleusercontent.com
   titleScreenController: {fileID: 1365717057}
 --- !u!1 &334481341
 GameObject:
