@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4485032, g: 0.4976024, b: 0.57084066, a: 1}
+  m_IndirectSpecularColor: {r: 0.44864714, g: 0.49776745, b: 0.57104254, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -169,6 +169,66 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1013026665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1013026667}
+  - component: {fileID: 1013026666}
+  m_Layer: 0
+  m_Name: GamerServerConnection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1013026666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013026665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6186ef20af4c4442aaf5adf09d9a2714, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  players: []
+  sessionId: 
+  serverIp: localhost
+  playerId: 0
+  currentPing: 0
+  serverTickRate_ms: 0
+  serverHash: 
+  gameStatus: 0
+  gameCountdown: 0
+  allSelected: 0
+  playableRadius: 0
+  zoneShrinkTime: 0
+  zoneEnabled: 0
+  cinematicDone: 0
+  connected: 0
+  shrinking: 0
+--- !u!4 &1013026667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013026665}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.5, y: 1.5, z: 9.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1183267379
 PrefabInstance:
@@ -382,6 +442,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2731847950629683537, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1999291674}
+    - target: {fileID: 2731847950629683537, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuickGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 2731847950629683537, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameNavigationManager, CurseOfMirra
+      objectReference: {fileID: 0}
     - target: {fileID: 3247218542708775194, guid: 2e58a51401b054dda958456ff0440f6c,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -466,6 +541,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835097392061982037, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835097392061982037, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1999291674}
+    - target: {fileID: 3835097392061982037, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835097392061982037, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameNavigationManager, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835097392061982037, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: TitleScreen
       objectReference: {fileID: 0}
     - target: {fileID: 4413550275703960875, guid: 2e58a51401b054dda958456ff0440f6c,
         type: 3}
@@ -682,6 +782,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5702973044178368352, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1999291674}
+    - target: {fileID: 5702973044178368352, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: JoinLobby
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702973044178368352, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameNavigationManager, CurseOfMirra
+      objectReference: {fileID: 0}
     - target: {fileID: 5859350725550425739, guid: 2e58a51401b054dda958456ff0440f6c,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -770,6 +885,26 @@ PrefabInstance:
     - target: {fileID: 6288387247942539035, guid: 2e58a51401b054dda958456ff0440f6c,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6775207521408291500, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6775207521408291500, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6775207521408291500, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6775207521408291500, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7171503534274398426, guid: 2e58a51401b054dda958456ff0440f6c,
@@ -1075,6 +1210,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1999291673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1999291675}
+  - component: {fileID: 1999291674}
+  m_Layer: 0
+  m_Name: GameNavigationManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1999291674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999291673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb0c1e1552c445139ba3a8b7d1febe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelName: 
+  DoNotUseLevelManager: 0
+  DestroyPersistentCharacter: 0
+--- !u!4 &1999291675
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999291673}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.9636, y: 3.8701477, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2061626070
 PrefabInstance:
