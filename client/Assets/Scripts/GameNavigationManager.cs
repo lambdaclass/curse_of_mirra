@@ -57,9 +57,9 @@ public class GameNavigationManager : LevelSelector
                 int threshold = Mathf.FloorToInt(character.tips.Count() * 0.3f);
 
                 if(random <= threshold){
-                    var genetalTip = charactersData.characters.Last();
-                    var randomTip = Random.Range(0, genetalTip.tips.Count());
-                    tipText.text = genetalTip.tips[randomTip];
+                    var generalTip = charactersData.characters.Last();
+                    var randomTip = Random.Range(0, generalTip.tips.Count());
+                    tipText.text = generalTip.tips[randomTip];
                 }else{
                     tipText.text = abilityTip;
                 }
