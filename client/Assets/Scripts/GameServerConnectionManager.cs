@@ -111,6 +111,7 @@ public class GameServerConnectionManager : MonoBehaviour
             if(clientTimestamp - gameEventTimestamp >= secondsToWaitForReconnect)
             {
                 DisconnectFeedback();
+                Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
             }
         }
     }
@@ -173,7 +174,6 @@ public class GameServerConnectionManager : MonoBehaviour
     {
         PingAnalyzer.Instance.disconnect = false;
         Utils.BackToLobbyFromGame("MainScreen");
-        Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
     }
 
     private void OnWebSocketMessage(byte[] data)
