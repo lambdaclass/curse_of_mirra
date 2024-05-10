@@ -17,7 +17,8 @@ public class MatchStatsController : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI killCount;
 
-    [SerializeField] Image zoneTimerImage;
+    [SerializeField]
+    Image zoneTimerImage;
 
     [SerializeField]
     Sprite shrinkingSprite;
@@ -43,18 +44,23 @@ public class MatchStatsController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(isShrinking != GameServerConnectionManager.Instance.shrinking){
+        if (isShrinking != GameServerConnectionManager.Instance.shrinking)
+        {
             zoneTimerImage.sprite = isShrinking ? shrinkingSprite : waitingSprite;
             isShrinking = GameServerConnectionManager.Instance.shrinking;
         }
 
         if (GameServerConnectionManager.Instance.gamePlayers != null)
         {
-            alivePlayers.text = GameServerConnectionManager
-                .Instance
-                .gamePlayers
-                .Sum(playerEntity => Convert.ToInt32(playerEntity.Player.Health > 0))
-                .ToString();
+            int alivePlayerCount = 0;
+            foreach (var playerEntity in GameServerConnectionManager.Instance.gamePlayers)
+            {
+                if (playerEntity.Player.Health > 0)
+                {
+                    alivePlayerCount++;
+                }
+            }
+            alivePlayers.text = alivePlayerCount.ToString();
         }
 
         killCount.text = Utils

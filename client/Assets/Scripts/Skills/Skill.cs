@@ -233,9 +233,6 @@ public class Skill : CharacterAbility
         if (instantiateVfxOnModel)
         {
             vfxInstance = Instantiate(vfx, _model.transform);
-            vfxInstance
-                .GetComponent<PinnedEffectsController>()
-                ?.Setup(this.GetComponent<PinnedEffectsManager>());
         }
         else
         {
@@ -254,11 +251,13 @@ public class Skill : CharacterAbility
             }
 
             vfxInstance = Instantiate(vfx, vfxPosition, vfx.transform.rotation);
-           
+        }
             vfxInstance
                 .GetComponent<PinnedEffectsController>()
                 ?.Setup(this.GetComponent<PinnedEffectsManager>());
-        }
+            
+            vfxInstance.GetComponent<EffectCharacterMaterialController>()
+                ?.Setup(this.GetComponent<CharacterMaterialManager>());
 
         Destroy(vfxInstance, duration);
     }
@@ -275,13 +274,17 @@ public class Skill : CharacterAbility
         });
 
         if(vfx.transform.childCount > 0){
-            if(vfx.GetComponentInChildren<VisualEffect>()){
+            if(vfx.GetComponentInChildren<VisualEffect>() && vfx.GetComponentInChildren<VisualEffect>().HasFloat("EffectDiameter")){
                vfx.GetComponentInChildren<VisualEffect>().SetFloat("EffectDiameter", diameter);
-            } else {
-                // Placeholder, we should have the same implementation for the vfx as above
-                vfx.transform.localScale = new Vector3(diameter/10, diameter/10, diameter/10); 
-            }
+            } 
+            if(vfx.GetComponentInChildren<VisualEffect>() && vfx.GetComponentInChildren<VisualEffect>().HasFloat("EffectRadius")){
+               var rotation = this.GetComponent<CharacterOrientation3D>().ForcedRotationDirection;
+               var negative = rotation.x > 0 ? 1 : -1;
+               vfx.GetComponentInChildren<VisualEffect>().transform.eulerAngles = 
+                new Vector3(0,  (rotation.x * 90), 0);
 
+               vfx.GetComponentInChildren<VisualEffect>().SetFloat("EffectRadius", diameter/2);
+            } 
         }
 
         return vfxPosition;

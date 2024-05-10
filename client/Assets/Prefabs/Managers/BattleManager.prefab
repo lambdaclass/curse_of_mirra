@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c855c5f06d74a3aab76674847acac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUpItem: {fileID: 123589743302129095, guid: 62ea518512e0e421aa87019f6701ff26,
+  powerUpItem: {fileID: 9044405749776733583, guid: 7924bdc3de3dee7468eca432e6b2ef6e,
     type: 3}
   powerUpPickedVfx: {fileID: 0}
   spawnAnimationDuration: 0.4

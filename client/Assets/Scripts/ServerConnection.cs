@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Google.Protobuf;
 using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class ServerConnection : MonoBehaviour
 {
@@ -83,7 +85,6 @@ public class ServerConnection : MonoBehaviour
         this.serverHash = "";
         this.playerCount = 0;
         this.gameStarted = false;
-        this.clientId = "";
         this.simulatedPlayerCount = 0;
         this.lobbyCapacity = 0;
     }
@@ -102,11 +103,12 @@ public class ServerConnection : MonoBehaviour
         }
     }
 
-    public void JoinLobby()
+    public void JoinGame(string join_action)
     {
         // ValidateVersionHashes();
-        ConnectToSession();
-        InvokeRepeating("UpdateSimulatedCounter", 0, 1);
+        ResetFields();
+        ConnectToSession(join_action);
+        // InvokeRepeating("UpdateSimulatedCounter", 0, 1);
     }
 
     //     public void ConnectToLobby(string matchmaking_id)
@@ -115,6 +117,17 @@ public class ServerConnection : MonoBehaviour
     //         ConnectToSession(matchmaking_id);
     //         LobbySession = matchmaking_id;
     //     }
+
+    public void LeaveLobby()
+    {
+        using (var stream = new MemoryStream())
+        {
+            var action = new LobbyEvent { Leave = new LeaveLobby { } };
+            action.WriteTo(stream);
+            var msg = stream.ToArray();
+            ws.Send(msg);
+        }
+    }
 
     public void RefreshServerInfo()
     {
@@ -143,7 +156,7 @@ public class ServerConnection : MonoBehaviour
         }
     }
 
-    private void ConnectToSession()
+    private void ConnectToSession(string join_action)
     {
         int hashCode = this.clientId.GetHashCode();
         ulong id = (ulong)(hashCode > 0 ? hashCode : hashCode * -1);
@@ -151,7 +164,7 @@ public class ServerConnection : MonoBehaviour
         this.playerId = id;
         string character_name = CharactersManager.Instance.GoToCharacter.ToLower();
         string player_name = PlayerPrefs.GetString("playerName");
-        string url = makeWebsocketUrl("/join/" + id + "/" + character_name + "/" + player_name);
+        string url = makeWebsocketUrl("/" + join_action + "/" + id + "/" + character_name + "/" + player_name);
         print(url);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
@@ -167,12 +180,21 @@ public class ServerConnection : MonoBehaviour
     {
         try
         {
-            GameState gameState = GameState.Parser.ParseFrom(data);
-            this.lobbyCapacity = 2;
-            if (!String.IsNullOrEmpty(gameState.GameId) && SessionParameters.GameId == null)
+            LobbyEvent lobbyEvent = LobbyEvent.Parser.ParseFrom(data);
+            switch (lobbyEvent.EventCase)
             {
-                SessionParameters.GameId = gameState.GameId;
-                GameSession = gameState.GameId;
+                case LobbyEvent.EventOneofCase.Left:
+                    SceneManager.LoadScene("MainScreen");
+                    break;
+                case LobbyEvent.EventOneofCase.Game:
+                    GameState gameState = lobbyEvent.Game;
+                    this.lobbyCapacity = 2;
+                    if (!String.IsNullOrEmpty(gameState.GameId) && SessionParameters.GameId == null)
+                    {
+                        SessionParameters.GameId = gameState.GameId;
+                        GameSession = gameState.GameId;
+                    }
+                    break;
             }
         }
         catch (Exception e)
@@ -191,6 +213,8 @@ public class ServerConnection : MonoBehaviour
 
     private void OnWebsocketClose(WebSocketCloseCode closeCode)
     {
+        CancelInvoke("UpdateSimulatedCounter");
+
         if (closeCode != WebSocketCloseCode.Normal)
         {
             Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);

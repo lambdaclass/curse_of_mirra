@@ -5000,6 +5000,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 96998977793678940, guid: 909fe292d4df88f40ae747068bdac1f9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1005158257021410175, guid: 909fe292d4df88f40ae747068bdac1f9,
         type: 3}
       propertyPath: m_RootOrder
@@ -10069,15 +10074,9 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!4 &457675811 stripped
+--- !u!4 &633557430 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 1883901920164249451, guid: ed2f9d09eb48e4bfea96370afd8336ef,
-    type: 3}
-  m_PrefabInstance: {fileID: 1038870616}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &531205859 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5834226147007296763, guid: ed2f9d09eb48e4bfea96370afd8336ef,
+  m_CorrespondingSourceObject: {fileID: 598961745872259084, guid: ed2f9d09eb48e4bfea96370afd8336ef,
     type: 3}
   m_PrefabInstance: {fileID: 1038870616}
   m_PrefabAsset: {fileID: 0}
@@ -10150,6 +10149,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c52df159d5dc499aaa0bd06adc934c9, type: 3}
+--- !u!4 &796593609 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1296600015075452005, guid: ed2f9d09eb48e4bfea96370afd8336ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 1038870616}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &820190472
 GameObject:
   m_ObjectHideFlags: 0
@@ -15279,25 +15284,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill1_vfx: {fileID: 695258524620621366, guid: ef9e760d3a8966f4793c4995dadde0f0,
     type: 3}
-  skill1_vfx_root: {fileID: 531205859}
+  skill1_vfx_root: {fileID: 633557430}
   skill2_vfx: {fileID: 8937093405017515387, guid: 28e88f4ccef6c8c4d99d368b7a702270,
     type: 3}
-  skill2_vfx_root: {fileID: 457675811}
+  skill2_vfx_root: {fileID: 796593609}
   skill2_vfx_floor: {fileID: 7096130188477378498, guid: 1b0acc3ce1538554e9b68d31470cbb8e,
     type: 3}
-  character_renderer: {fileID: 1634441275}
+  character_renderer: {fileID: 1915556176}
   spawn_point: {fileID: 820190473}
   dash_vfx: {fileID: 1371067997947001578, guid: 31cd86e2ec9638145a9cf5f4567e213d,
     type: 3}
   skill3_duration: 30
   skill3_speed: 30
   skill3_start_delay: 0.25
---- !u!137 &1634441275 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 1704022157346314458, guid: ed2f9d09eb48e4bfea96370afd8336ef,
-    type: 3}
-  m_PrefabInstance: {fileID: 1038870616}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1780529534
 GameObject:
   m_ObjectHideFlags: 0
@@ -15332,3 +15331,9 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!137 &1915556176 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5700785624977269805, guid: ed2f9d09eb48e4bfea96370afd8336ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 1038870616}
+  m_PrefabAsset: {fileID: 0}
