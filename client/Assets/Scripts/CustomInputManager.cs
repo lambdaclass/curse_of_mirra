@@ -184,7 +184,6 @@ public class CustomInputManager : InputManager
 
     public void ShowTapSkill(Skill skill)
     {
-        ShowSkillRange(skill);
         directionIndicator.InitIndicator(skill, characterSkillColor);
     }
 
@@ -196,7 +195,6 @@ public class CustomInputManager : InputManager
         //TODO : Add the spread area (amgle) depeding of the skill.json
         activeJoystick = joystick;
 
-        ShowSkillRange(joystick.skill);
     }
 
     public void AimAoeSkill(Vector2 aoePosition, CustomMMTouchJoystick joystick)
@@ -215,7 +213,6 @@ public class CustomInputManager : InputManager
     {
         directionIndicator.DeactivateIndicator();
 
-        HideSkillRange();
 
         activeJoystick = null;
         EnableButtons();
@@ -234,7 +231,6 @@ public class CustomInputManager : InputManager
         }
 
         directionIndicator.DeactivateIndicator();
-        HideSkillRange();
     }
 
     private void MapDirectionInputEvents(CustomMMTouchButton button, Skill skill)
@@ -272,7 +268,6 @@ public class CustomInputManager : InputManager
 
     private void ShowAimDirectionTargetsSkill(Skill skill)
     {
-        ShowSkillRange(skill);
         directionIndicator.InitIndicator(skill, characterSkillColor);
     }
 
@@ -289,8 +284,6 @@ public class CustomInputManager : InputManager
     private void ExecuteDirectionSkill(Vector2 direction, Skill skill)
     {
         directionIndicator.DeactivateIndicator();
-
-        HideSkillRange();
 
         activeJoystick = null;
         EnableButtons();
@@ -337,53 +330,6 @@ public class CustomInputManager : InputManager
         }
     }
 
-    // TODO: Reactor: avoid fetching player and SkillRange on every use
-    public void ShowSkillRange(Skill skill)
-    {
-        float range = skill.GetSkillRange();
-
-        Transform skillRange = _player
-            .GetComponent<CustomCharacter>()
-            .characterBase
-            .SkillRange
-            .transform;
-        skillRange.localScale = new Vector3(range * 2, skillRange.localScale.y, range * 2);
-
-        if (skill.IsSelfTargeted())
-        {
-            material = skillRange.GetComponentInChildren<MeshRenderer>().material;
-            material.SetColor("_Color", new Color32(255, 255, 255, 200));
-        }
-        else
-        {
-            material = skillRange.GetComponentInChildren<MeshRenderer>().material;
-            material.SetColor("_Color", characterSkillColor);
-        }
-    }
-
-    public void HideSkillRange()
-    {
-        Transform skillRange = _player
-            .GetComponent<CustomCharacter>()
-            .characterBase
-            .SkillRange
-            .transform;
-        skillRange.localScale = new Vector3(0, skillRange.localScale.y, 0);
-    }
-
-    public void SetSkillRangeCancelable()
-    {
-        Material skillRangeMaterial = _player
-            .GetComponent<CustomCharacter>()
-            .characterBase
-            .SkillRange
-            .GetComponentInChildren<MeshRenderer>()
-            .material;
-        skillRangeMaterial.SetColor("_Color", characterSkillColor);
-
-        //directionIndicator.DeactivateIndicator();
-    }
-
     private void DisableButtons()
     {
         foreach (var (key, button) in mobileButtons)
@@ -413,10 +359,6 @@ public class CustomInputManager : InputManager
         else if (directionIndicator && !cancelValue && dragged)
         {
             directionIndicator.ActivateIndicator(indicatorType);
-        }
-        if (_player)
-        {
-            SetSkillRangeCancelable();
         }
     }
 
