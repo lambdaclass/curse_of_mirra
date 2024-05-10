@@ -19,6 +19,7 @@ public class Quest : MonoBehaviour
     public EventTrigger eventTrigger;
     public TextMeshProUGUI totalTrophies; 
     public GameObject hexagonFrame;
+    public GameObject glowingContainer;
 
     [SerializeField] 
     Sprite completed;
@@ -35,12 +36,6 @@ public class Quest : MonoBehaviour
     [SerializeField]
     Sprite rerollImage;
 
-    [SerializeField]
-    Sprite questContainer;
-
-    [SerializeField]
-    Sprite rerollContainer;
-
     void Start()
     {
         SetQuestContainer();
@@ -48,8 +43,7 @@ public class Quest : MonoBehaviour
 
     public void SetQuestContainer() 
     {
-        gameObject.GetComponent<Image>().sprite = questContainer;
-        gameObject.GetComponent<Image>().SetNativeSize();
+        glowingContainer.SetActive(false);
         progressSlider.value = this.progress;
         logoImage.sprite = this.logo;
         logoImage.SetNativeSize();
@@ -88,8 +82,7 @@ public class Quest : MonoBehaviour
         this.progress = 0f; 
         this.reroll = false;
         SetQuestContainer();
-        gameObject.GetComponent<Image>().sprite = rerollContainer;
-        gameObject.GetComponent<Image>().SetNativeSize();
+        glowingContainer.SetActive(true);
         hexagonFrame.SetActive(true);
     }
 
