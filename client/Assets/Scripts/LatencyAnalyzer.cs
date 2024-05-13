@@ -8,16 +8,14 @@ using System.Linq;
 public class LatencyAnalyzer : MonoBehaviour
 {
     public bool unstableConnection, disconnect;
-    public long pingValue;
-    /// the frequency at which the PING counter should update
-    float updateInterval = .5f;
+    float updateInterval = .05f;
     protected float _timeLeftToUpdate;
-    int spikeValueThreshold = 1500;
-    int spikesAmountThreshold = 3;
     List<long> gameEventTimestamps = new List<long>();
-    const int TIMESTAMPS_LIST_MAX_LENGTH = 10;
     public static LatencyAnalyzer Instance;
-    public int secondsToWaitForReconnect = 3000;
+    const int SPIKE_VALUE_THRESHOLD = 100;
+    const int SPIKES_AMOUNT_THRESHOLD = 3;
+    const int TIMESTAMPS_LIST_MAX_LENGTH = 100;
+    const int SECONDS_TO_WAIT = 3000;
     private const string connectionTitle = "Error";
     private const string connectionDescription = "Your connection to the server has been lost.";
 
@@ -42,12 +40,13 @@ public class LatencyAnalyzer : MonoBehaviour
     void Update()
     {
         long gameEventTimestamp = GameServerConnectionManager.Instance.gameEventTimestamp;
+        long clientTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         _timeLeftToUpdate = _timeLeftToUpdate - Time.deltaTime;
         if(gameEventTimestamp > 0 && !GameServerConnectionManager.Instance.GameHasEnded())
         {
-            long clientTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            long diffUpdateValue = clientTimestamp - gameEventTimestamp;
             // Show connection icon to warn client
-            if(clientTimestamp - gameEventTimestamp >= 2000)
+            if(diffUpdateValue >= 2000)
             {
                 disconnect = true;
             }
@@ -56,17 +55,15 @@ public class LatencyAnalyzer : MonoBehaviour
                 disconnect = false;
             }
             // Redirect on disconnect
-            if(clientTimestamp - gameEventTimestamp >= secondsToWaitForReconnect)
+            if(diffUpdateValue >= SECONDS_TO_WAIT)
             {
-                //DisconnectFeedback();
-                //Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
+                DisconnectFeedback();
+                Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
             }
         }
         if (_timeLeftToUpdate <= 0.0)
         {
             _timeLeftToUpdate = updateInterval;
-            
-            pingValue = gameEventTimestamp;
 
             // Check if the list Length is already 10 and keep it that way
             if( gameEventTimestamps.Count >= TIMESTAMPS_LIST_MAX_LENGTH){
@@ -74,7 +71,6 @@ public class LatencyAnalyzer : MonoBehaviour
             }
             gameEventTimestamps.Add(gameEventTimestamp);
 
-            // Check if the target value exists in the list
             unstableConnection = ConnectionStabilityCheck(gameEventTimestamps);
             if(unstableConnection){
                 //print("More spikes than usual found in list: " + gameEventTimestamps);
@@ -88,15 +84,15 @@ public class LatencyAnalyzer : MonoBehaviour
         if(list.Count >= 2){
             for(int i = 0; i < list.Count - 1; i++){
                 // Check for spikes
-                print(list[i + 1] - list[i]);
-                if (list[i + 1] - list[i] >= spikeValueThreshold)
+                // print(list[i + 1] - list[i]);
+                if (list[i + 1] - list[i] >= SPIKE_VALUE_THRESHOLD)
                 {
                     spikesCounter += 1;
                 }
             }
         }
-        //print(spikesCounter);
-        return spikesCounter >=  spikesAmountThreshold;
+        print(spikesCounter);
+        return spikesCounter >=  SPIKES_AMOUNT_THRESHOLD;
     }
     public void DisconnectFeedback()
     {
