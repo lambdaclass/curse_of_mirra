@@ -23,29 +23,31 @@ public class PowerUpsManager : MonoBehaviour
 
     public void UpdatePowerUps()
     {
-        GameServerConnectionManager
+        List<Entity> powerUpslist = GameServerConnectionManager
             .Instance
-            .gamePowerUps
-            .ForEach(powerupEntity =>
+            .gamePowerUps;
+
+        for (int i = 0; i < powerUpslist.Count; i++)
+        {
+            Entity powerupEntity = powerUpslist[i];
+            PowerUp powerUp = powerupEntity.PowerUp;
+
+            if (
+                powerUp.Status == PowerUpstatus.Available
+                && !availablePowerUps.Keys.Contains(powerupEntity.Id)
+            )
             {
-                PowerUp powerUp = powerupEntity.PowerUp;
+                CreateNewPowerUp(powerupEntity, powerUp);
+            }
 
-                if (
-                    powerUp.Status == PowerUpstatus.Available
-                    && !availablePowerUps.Keys.Contains(powerupEntity.Id)
-                )
-                {
-                    CreateNewPowerUp(powerupEntity, powerUp);
-                }
-
-                if (
-                    powerUp.Status == PowerUpstatus.Taken
-                    && availablePowerUps.Keys.Contains(powerupEntity.Id)
-                )
-                {
-                    RemovePowerUp(powerupEntity, powerUp);
-                }
-            });
+            if (
+                powerUp.Status == PowerUpstatus.Taken
+                && availablePowerUps.Keys.Contains(powerupEntity.Id)
+            )
+            {
+                RemovePowerUp(powerupEntity);
+            }
+        };
     }
 
     private void CreateNewPowerUp(Entity powerupEntity, PowerUp powerUp)
@@ -78,7 +80,7 @@ public class PowerUpsManager : MonoBehaviour
         }
     }
 
-    private void RemovePowerUp(Entity powerupEntity, PowerUp powerUp)
+    private void RemovePowerUp(Entity powerupEntity)
     {
         GameObject powerUpObject = availablePowerUps[powerupEntity.Id];
         PlayPickUpFeedbacks(powerUpObject);
