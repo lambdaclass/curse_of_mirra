@@ -143,6 +143,8 @@ public class CharacterFeedbacks : MonoBehaviour
                 return magicBootsVFX;
             case "golden_clock_effect":
                 return goldenClockVFX;
+            case "giant_effect":
+                return goldenClockVFX;
             default:
                 return null;
         }

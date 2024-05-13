@@ -117,7 +117,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.8, z: 0}
+  m_Center: {x: 0, y: 1.4, z: 0}
 --- !u!54 &1787465996332106809
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -162,7 +162,7 @@ MonoBehaviour:
   AddedForce: {x: 0, y: 0, z: 0}
   FreeMovement: 1
   InputMoveDirection: {x: 0, y: 0, z: 0}
-  UpdateMode: 1
+  UpdateMode: 0
   VelocityTransferMethod: 2
   ObstaclesLayerMask:
     serializedVersion: 2

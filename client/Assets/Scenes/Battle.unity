@@ -461,6 +461,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9310725409210618, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9310725409210618, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8472880970037954470}
+    - target: {fileID: 9310725409210618, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 9310725409210618, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameNavigationManager, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 9310725409210618, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: MainScreen
+      objectReference: {fileID: 0}
     - target: {fileID: 224495582061553100, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1161,6 +1181,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7762687500111548062, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8472880970037954470}
+    - target: {fileID: 7762687500111548062, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitGame
+      objectReference: {fileID: 0}
     - target: {fileID: 8097910241772325409, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1506,5 +1536,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7f873a947f374623ad960f283bba9ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8472880970037954470 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5082102494061114550, guid: 62eb30154c76d4e0fb902ff01db61581,
+    type: 3}
+  m_PrefabInstance: {fileID: 8472880970037954468}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb0c1e1552c445139ba3a8b7d1febe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

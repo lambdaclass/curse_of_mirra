@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3708708, g: 0.37838137, b: 0.35725543, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -159,10 +159,15 @@ MonoBehaviour:
   currentPing: 0
   serverTickRate_ms: 0
   serverHash: 
+  gameStatus: 0
+  gameCountdown: 0
   allSelected: 0
   playableRadius: 0
+  zoneShrinkTime: 0
+  zoneEnabled: 0
   cinematicDone: 0
   connected: 0
+  shrinking: 0
 --- !u!4 &1042142745
 Transform:
   m_ObjectHideFlags: 0
@@ -189,7 +194,7 @@ GameObject:
   - component: {fileID: 1580772511}
   - component: {fileID: 1580772512}
   m_Layer: 0
-  m_Name: LobbyManager
+  m_Name: GameNavigationManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,6 +230,8 @@ MonoBehaviour:
   LevelName: 
   DoNotUseLevelManager: 0
   DestroyPersistentCharacter: 0
+  tipText: {fileID: 6761895706733006029}
+  characterImage: {fileID: 6761895706733006028}
 --- !u!1001 &6761895706733006027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -292,5 +299,39 @@ PrefabInstance:
       propertyPath: m_Name
       value: LobbyCameraUI
       objectReference: {fileID: 0}
+    - target: {fileID: 5906778235761794147, guid: d0ac014e27cb54c89add86b45c7421ef,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1580772512}
+    - target: {fileID: 5906778235761794147, guid: d0ac014e27cb54c89add86b45c7421ef,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LeaveLobby
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0ac014e27cb54c89add86b45c7421ef, type: 3}
+--- !u!114 &6761895706733006028 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 814725389471341907, guid: d0ac014e27cb54c89add86b45c7421ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 6761895706733006027}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6761895706733006029 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1637941203724669012, guid: d0ac014e27cb54c89add86b45c7421ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 6761895706733006027}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
