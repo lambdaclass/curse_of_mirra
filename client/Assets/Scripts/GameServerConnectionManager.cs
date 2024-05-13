@@ -58,10 +58,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
     public Configuration config;
 
-    private long gameEventTimestamp;
-    private int secondsToWaitForReconnect = 3;
-    private const string connectionTitle = "Error";
-    private const string connectionDescription = "Your connection to the server has been lost.";
+    public long gameEventTimestamp;
 
     void Start()
     {
@@ -99,23 +96,6 @@ public class GameServerConnectionManager : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
-        if(gameEventTimestamp > 0 && !GameHasEnded())
-        {
-            long clientTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-            if(clientTimestamp - gameEventTimestamp >= 2)
-            {
-                PingAnalyzer.Instance.disconnect = true;
-            }
-            else
-            {
-                PingAnalyzer.Instance.disconnect = false;
-            }
-            if(clientTimestamp - gameEventTimestamp >= secondsToWaitForReconnect)
-            {
-                DisconnectFeedback();
-                Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
-            }
-        }
     }
 
     private IEnumerator IsGameCreated()
@@ -164,18 +144,13 @@ public class GameServerConnectionManager : MonoBehaviour
         if (closeCode != WebSocketCloseCode.Normal)
         {
             // TODO: Add some error handle for when websocket closes unexpectedly
-            DisconnectFeedback();
+            LatencyAnalyzer.Instance.DisconnectFeedback();
             Debug.Log("Game websocket closed unexpectedly");
         }
         else
         {
             Debug.Log("Game websocket closed normally");
         }
-    }
-    private void DisconnectFeedback()
-    {
-        PingAnalyzer.Instance.disconnect = false;
-        Utils.BackToLobbyFromGame("MainScreen");
     }
 
     private void OnWebSocketMessage(byte[] data)
@@ -215,7 +190,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.obstacles = gameState.Obstacles.Values.ToList();
                     this.damageDone = gameState.DamageDone.ToDictionary(x => x.Key, x => x.Value);
                     this.shrinking = gameState.Zone.Shrinking;
-                    this.gameEventTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                    this.gameEventTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                     this.playersIdPosition = new Dictionary<ulong, Position>
                     {
                         [this.playerId] = position
@@ -278,7 +253,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
     private string makeWebsocketUrl(string path)
     {
-        int port = 4000;
+        int port = 5000;
 
         if (serverIp.Contains("localhost"))
         {

@@ -139,7 +139,7 @@ public class Battle : MonoBehaviour
             playersSetupCompleted
             && GameServerConnectionManager.Instance.gamePlayers != null
             && GameServerConnectionManager.Instance.players.Count > 0
-            && GameServerConnectionManager.Instance.gamePlayers.Count > 0 && !PingAnalyzer.Instance.unstableConnection
+            && GameServerConnectionManager.Instance.gamePlayers.Count > 0 && !LatencyAnalyzer.Instance.unstableConnection
         )
         {
             SetAccumulatedTime();
@@ -149,7 +149,7 @@ public class Battle : MonoBehaviour
         if (
             GameServerConnectionManager.Instance.eventsBuffer.Count() > 1
             && !sendMovementStarted
-            && GameServerConnectionManager.Instance.gameStatus == GameStatus.Running && !PingAnalyzer.Instance.unstableConnection
+            && GameServerConnectionManager.Instance.gameStatus == GameStatus.Running && !LatencyAnalyzer.Instance.unstableConnection
         )
         {
             long nowMiliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -193,7 +193,7 @@ public class Battle : MonoBehaviour
     public bool PlayerMovementAuthorized(CustomCharacter character)
     {
         
-        if(PingAnalyzer.Instance.unstableConnection){
+        if(LatencyAnalyzer.Instance.unstableConnection){
             return false;
         }
         

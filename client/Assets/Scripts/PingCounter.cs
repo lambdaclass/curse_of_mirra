@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,29 +7,36 @@ using UnityEngine.UI;
 /// </summary>
 public class PingCounter : MonoBehaviour
 {
-    protected Text pingText;
-    private string pingValue;
+    /// the frequency at which the PING counter should update
+    public float updateInterval = 5f;
+    protected float _timeLeftToUpdate;
+    protected Text _pingText;
 
     /// <summary>
     /// On Start(), we get the Text component and initialize our counter
     /// </summary>
-    void Start()
+    protected virtual void Start()
     {
-        pingText = GetComponent<Text>();
-        pingValue = PingAnalyzer.Instance.pingValue;
-        pingText.text = "PING " + pingValue;
+        if (GetComponent<Text>() == null)
+        {
+            Debug.LogWarning("PINGCounter requires a GUIText component.");
+            return;
+        }
+        _pingText = GetComponent<Text>();
+        _timeLeftToUpdate = updateInterval;
     }
 
     /// <summary>
     /// On Update, we decrease our time_left counter, and if we've reached zero, we update our PING counter
     /// with the last PING received
     /// </summary>
-    void Update()
+    protected virtual void Update()
     {
-        pingValue = PingAnalyzer.Instance.pingValue;
-        if (pingValue != pingText.text)
+        _timeLeftToUpdate = _timeLeftToUpdate - Time.deltaTime;
+        if (_timeLeftToUpdate <= 0.0)
         {
-            pingText.text = "PING " + pingValue;
+            _timeLeftToUpdate = updateInterval;
+            _pingText.text = "PING " + GameServerConnectionManager.Instance.currentPing.ToString();
         }
     }
 }
