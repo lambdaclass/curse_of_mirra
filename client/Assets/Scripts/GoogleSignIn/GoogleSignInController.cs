@@ -50,6 +50,12 @@ public class GoogleSignInController : MonoBehaviour
     {
         AddStatusText("Welcome " + PlayerPrefs.GetString("GoogleUserName"));
         SignInWithCachedUser();
+        if(PlayerPrefs.GetString("GoogleUserId") != ""){
+            AddStatusText("SingOut");
+            userName.text = PlayerPrefs.GetString("GoogleUserName");
+            signOutButton.SetActive(true);
+            signInButton.SetActive(false);
+        }
     }
 
     private void SignInWithCachedUser()
@@ -131,6 +137,7 @@ public class GoogleSignInController : MonoBehaviour
         AddStatusText("SingOut");
         PlayerPrefs.SetString("GoogleUserName", "");
         PlayerPrefs.SetString("GoogleUserId", "");
+        userName.text = "Guest";
         signOutButton.SetActive(false);
         signInButton.SetActive(true);
     }
@@ -180,6 +187,8 @@ public class GoogleSignInController : MonoBehaviour
                             userName.text = task.Result.DisplayName;
                             signInButton.SetActive(false);
                             signOutButton.SetActive(true);
+                            AddStatusText("Activated");
+                            AddStatusText(task.Result.DisplayName);
                         },
                         error =>
                         {
