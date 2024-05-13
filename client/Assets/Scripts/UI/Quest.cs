@@ -7,34 +7,24 @@ using TMPro;
 
 public class Quest : MonoBehaviour
 {
-    public int reward;
-    public Sprite logo;
-    public string title;
-    public float progress;
     public bool reroll; 
-    public Slider progressSlider;
-    public Image logoImage;
-    public Image completedImage;
-    public TMP_Text completedAmount;
-    public EventTrigger eventTrigger;
-    public TextMeshProUGUI totalTrophies; 
-    public GameObject hexagonFrame;
-    public GameObject glowingContainer;
-
-    [SerializeField] 
-    Sprite completed;
-
-    [SerializeField]  
-    Sprite claimImage;
-
-    [SerializeField]  
-    Sprite claimCompleted;
-
-    [SerializeField]  
-    TMP_FontAsset claimFont;
-
-    [SerializeField]
-    Sprite rerollImage;
+    public float progress;
+    [SerializeField] private int reward;
+    [SerializeField] private Sprite logo;
+    [SerializeField] private string title;
+    [SerializeField] private Slider progressSlider;
+    [SerializeField] private Image logoImage;
+    [SerializeField] private Image completedImage;
+    [SerializeField] private TMP_Text completedAmount;
+    [SerializeField] private EventTrigger eventTrigger;
+    [SerializeField] private TextMeshProUGUI totalTrophies; 
+    [SerializeField] private GameObject hexagonFrame;
+    [SerializeField] private GameObject glowingContainer;
+    [SerializeField] Sprite completed;
+    [SerializeField] Sprite claimImage;
+    [SerializeField] Sprite claimCompleted;
+    [SerializeField] TMP_FontAsset claimFont;
+    [SerializeField] Sprite rerollImage;
 
     void Start()
     {

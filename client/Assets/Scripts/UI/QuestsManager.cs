@@ -23,14 +23,14 @@ public class QuestsManager : MonoBehaviour
     {
         rerollActive = true;
 
-        foreach (Quest q in quests) 
+        foreach (Quest quest in quests) 
         {
-            if (q.reroll) 
+            if (quest.reroll) 
             {
-                q.SetReroll();
+                quest.SetReroll();
             } else 
             {
-                q.gameObject.GetComponent<CanvasGroup>().alpha = 0.4f;
+                quest.gameObject.GetComponent<CanvasGroup>().alpha = 0.4f;
             }
         }
     }
@@ -38,6 +38,8 @@ public class QuestsManager : MonoBehaviour
     public void ShowOriginal() 
     {
         rerollActive = false;
+        int rerollAmount = GetRerollAmount();
+        rerollAvailable.text = rerollAmount + "/6 reroll available";
 
         foreach (Quest q in quests) 
         {
@@ -45,14 +47,14 @@ public class QuestsManager : MonoBehaviour
         }
     }
 
-    public void HandleSelection(Quest q) {
-        if (q.reroll && rerollActive) 
+    public void HandleSelection(Quest quest) {
+        if (quest.reroll && rerollActive) 
         {
-            q.Reroll();
+            quest.Reroll();
         }
-        else if (q.progress == 1f && !rerollActive) 
+        else if (quest.progress == 1f && !rerollActive) 
         {
-            q.Claim();
+            quest.Claim();
         }
     }
 
@@ -60,9 +62,9 @@ public class QuestsManager : MonoBehaviour
     {
         int amount = 0;
 
-        foreach (Quest q in quests) 
+        foreach (Quest quest in quests) 
         {
-            if (q.reroll) 
+            if (quest.reroll) 
             {
                 amount ++;
             }
