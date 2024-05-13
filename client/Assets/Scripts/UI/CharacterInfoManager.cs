@@ -29,10 +29,6 @@ public class CharacterInfoManager : MonoBehaviour
 
     List<CoMCharacter> availableCharacters;
 
-    List<string> animationsList = new List<string>();
-    int maxSize = 5;
-
-    string lastSkill;
 
     void Start()
     {
@@ -94,18 +90,6 @@ public class CharacterInfoManager : MonoBehaviour
     }
 
     public void PlaySkillAnimation(string parameterName){
-        if(animationsList.Count < maxSize){
-            animationsList.Add(parameterName);
-
-            foreach(AnimatorControllerParameter param in modelManager.modelAnimator.parameters){
-                if(param.name.ToUpper() == parameterName.ToUpper() + "_END" 
-                    || param.name.ToUpper() == parameterName.ToUpper() + "_MIDDLE"){
-                    animationsList.Add(param.name);
-                }
-            }
-        }
-        if(animationsList.Count > 0 && modelManager.modelAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle") == true){
-            StartCoroutine(modelManager.AnimateChainedCharacterSkill(animationsList,animationsList[0].ToUpper()));
-        }
+        modelManager.AnimateChainedCharacterSkill(parameterName.ToUpper());
     }
 }

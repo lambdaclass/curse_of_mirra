@@ -102,18 +102,9 @@ public class UIModelManager : MonoBehaviour
         }
     }
 
-    public IEnumerator AnimateChainedCharacterSkill(List<string> animationsList, string currentParameterName)
+    public void AnimateChainedCharacterSkill(string currentParameterName)
     {
-        animationsList.RemoveAt(0);
-
-        modelAnimator.SetBool(currentParameterName, true);
-        float animationDuration = AnimationClipTime(modelAnimator, currentParameterName);
-        yield return new WaitForSeconds(animationDuration);
-        modelAnimator.SetBool(currentParameterName, false);
-
-        if(animationsList.Count > 0) {
-            StartCoroutine(AnimateChainedCharacterSkill(animationsList, animationsList[0].ToUpper()));
-        }
+        modelAnimator.Play(currentParameterName);
     }
 
 

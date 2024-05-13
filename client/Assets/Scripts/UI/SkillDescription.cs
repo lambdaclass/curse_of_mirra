@@ -44,18 +44,7 @@ public class SkillDescription : MonoBehaviour, IPointerDownHandler
         string skillSetType = GetSkillSetType();
         skillsDetailHandler.SetSkillDetaill(skillSetType, skillData.name, skillData.description);
         skillsDetailHandler.ResetSelectSkill(this);
-        if(interactable == true){
-            this.GetComponent<Slider>().value = 1;
-            skillsDetailHandler.characterInfoManager.PlaySkillAnimation(skillSetType);
-            DOTween.To(() => this.GetComponent<Slider>().value, x => this.GetComponent<Slider>().value = x, 0, 2.8f);        
-            StartCoroutine(WaitForUsage());
-        }
-    }
-
-    public IEnumerator WaitForUsage(){
-        interactable = false;
-        yield return new WaitForSeconds(3f);
-        interactable = true;
+        skillsDetailHandler.characterInfoManager.PlaySkillAnimation(skillSetType);
     }
 
 
