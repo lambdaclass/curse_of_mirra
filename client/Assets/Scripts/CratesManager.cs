@@ -1,12 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-public class DestroyableCrate : MonoBehaviour
+public class CratesManager : MonoBehaviour
 {
     class CrateItem
     {
@@ -20,7 +19,6 @@ public class DestroyableCrate : MonoBehaviour
 
     MMSimpleObjectPooler objectPooler;
 
-
     void Start()
     {
         for (int i = 0; i < cratesList.crateList.Count; i++)
@@ -33,49 +31,57 @@ public class DestroyableCrate : MonoBehaviour
         }
     }
 
-    private void MaybeAddLoot(Entity item)
+    private void MaybeAddCrate(Entity item)
     {
         if (!ExistInCrates(item.Id))
         {
             var position = Utils.transformBackendOldPositionToFrontendPosition(item.Position);
             position.y = 0;
-            CrateItem LootItem = new CrateItem();
-            LootItem.crateObject = objectPooler.GetPooledGameObject();
-            LootItem.crateObject.transform.position = position;
-            LootItem.crateObject.SetActive(true);
-            LootItem.id = item.Id;
-            LootItem.crateObject.GetComponent<Health>().CurrentHealth = item.Crate.Health;
-            LootItem.crateObject.GetComponent<Health>().InitialHealth = item.Crate.Health;
-            LootItem.crateObject.GetComponent<Health>().MaximumHealth = item.Crate.Health;
-            crates.Add(LootItem);
+            CrateItem crate = new CrateItem();
+            crate.id = item.Id;
+
+            crate.crateObject = objectPooler.GetPooledGameObject();
+            crate.crateObject.transform.position = position;
+            crate.crateObject.SetActive(true);
+            crate.crateObject.GetComponent<Health>().CurrentHealth = item.Crate.Health;
+            crate.crateObject.GetComponent<Health>().InitialHealth = item.Crate.Health;
+            crate.crateObject.GetComponent<Health>().MaximumHealth = item.Crate.Health;
+
+            crates.Add(crate);
         }
     }
 
-    private void RemoveLoots(List<Entity> updatedCrates)
+    private void CleanUpCrates(List<Entity> updatedCrates)
     {
-        crates
-            .ToList()
-            .ForEach(crate =>
+        List<CrateItem> cratesCopy = new List<CrateItem>(crates);
+
+        foreach (var crate in cratesCopy)
+        {
+            if (!updatedCrates.Exists(updateCrate => updateCrate.Id == crate.id))
             {
-                if (!updatedCrates.Exists(updateCrate => updateCrate.Id == crate.id))
-                {
-                    RemoveCrate(crate.id);
-                }
-            });
+                RemoveCrate(crate.id);
+            }
+        }
     }
 
     private void RemoveCrate(ulong id)
     {
-        GameObject lootObject = GetCrate(id).crateObject;
+        GameObject crateObject = GetCrate(id).crateObject;
 
-        lootObject.SetActive(false);
+        crateObject.SetActive(false);
         RemoveById(id);
     }
 
-
     private bool ExistInCrates(ulong id)
     {
-        return crates.Any(crate => crate.id == id);
+        foreach (var crate in crates)
+        {
+            if (crate.id == id)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void RemoveById(ulong id)
@@ -104,15 +110,24 @@ public class DestroyableCrate : MonoBehaviour
 
     public void UpdateCrates()
     {
-        List<Entity> updatedCrates =
-            GameServerConnectionManager.Instance.gameCrates.Where(crate => crate.Crate.Status != CrateStatus.Destroyed).ToList();
-        RemoveLoots(updatedCrates);
-        HandleCrateHealth(updatedCrates);
-        updatedCrates.ForEach(update_crate =>
-        {
-            MaybeAddLoot(update_crate);
-        }
-        );
-    }
+        List<Entity> updatedCrates = new List<Entity>();
 
+        Debug.Log(updatedCrates);
+
+        foreach (var crate in GameServerConnectionManager.Instance.gameCrates)
+        {
+            if (crate.Crate.Status != CrateStatus.Destroyed)
+            {
+                updatedCrates.Add(crate);
+            }
+        }
+
+        CleanUpCrates(updatedCrates);
+        HandleCrateHealth(updatedCrates);
+
+        foreach (var update_crate in updatedCrates)
+        {
+            MaybeAddCrate(update_crate);
+        }
+    }
 }
