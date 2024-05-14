@@ -21,7 +21,7 @@ public class GoogleSignInController : MonoBehaviour
 
     [SerializeField]
     private GameObject signInButton;
-    public string webClientIdGoogle = "273396836446-bpoko025ahovlv9pfs5rtsg7dfm1mrno.apps.googleusercontent.com";
+    public string webClientIdGoogle = "194682062935-ukqi0s2vp1d2nmoembp0dapes21ei859.apps.googleusercontent.com";
 
     private GoogleSignInConfiguration configuration;
 
