@@ -21,7 +21,7 @@ public class GoogleSignInController : MonoBehaviour
 
     [SerializeField]
     private GameObject signInButton;
-    public string webClientIdGoogle = "194682062935-ukqi0s2vp1d2nmoembp0dapes21ei859.apps.googleusercontent.com";
+    public string webClientIdGoogle = "273396836446-bpoko025ahovlv9pfs5rtsg7dfm1mrno.apps.googleusercontent.com";
 
     private GoogleSignInConfiguration configuration;
 
@@ -49,20 +49,16 @@ public class GoogleSignInController : MonoBehaviour
     void Start()
     {
         AddStatusText("Welcome " + PlayerPrefs.GetString("GoogleUserName"));
-        SignInWithCachedUser();
-        if(PlayerPrefs.GetString("GoogleUserId") != ""){
-            AddStatusText("SingOut");
-            userName.text = PlayerPrefs.GetString("GoogleUserName");
-            signOutButton.SetActive(true);
-            signInButton.SetActive(false);
+        if(GoogleSignIn.Configuration == null){
+            GoogleSignIn.Configuration = configuration;
         }
+        SignInWithCachedUser();
     }
 
     private void SignInWithCachedUser()
     {
         if (PlayerPrefs.GetString("GoogleUserId") != "")
         {
-            GoogleSignIn.Configuration = configuration;
             GoogleSignIn
                 .DefaultInstance
                 .SignInSilently()
@@ -70,15 +66,16 @@ public class GoogleSignInController : MonoBehaviour
                     OnAuthenticationFinished,
                     TaskScheduler.FromCurrentSynchronizationContext()
                 );
-            print("Esta logeado ya");
         }
     }
 
     public async void OnSignInSimple()
     {
-        GoogleSignIn.Configuration = configuration;
-        GoogleSignIn.Configuration.UseGameSignIn = false;
-        GoogleSignIn.Configuration.RequestIdToken = true;
+         if(GoogleSignIn.Configuration == null){
+            GoogleSignIn.Configuration = configuration;
+            GoogleSignIn.Configuration.UseGameSignIn = false;
+            GoogleSignIn.Configuration.RequestIdToken = true;
+         }
         AddStatusText("Calling SignIn");
 
         TimeSpan timeout = new TimeSpan(0, 0, timeoutToCancelInSeconds);
@@ -112,7 +109,6 @@ public class GoogleSignInController : MonoBehaviour
         }
         if (await Task.WhenAny(task, Task.Delay(timeout, cancellationToken)) == task)
         {
-            print("Entro al task");
             titleScreenController.SetLoadingScreen(false);
             await task.ContinueWith(
                 OnAuthenticationFinished,
