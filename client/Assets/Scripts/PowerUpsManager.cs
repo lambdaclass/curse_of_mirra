@@ -113,14 +113,17 @@ public class PowerUpsManager : MonoBehaviour
 
             targetPosition = new Vector3(targetPosition.x, currentAltitude, targetPosition.z);
 
-            powerUp.transform.position = Vector3.Lerp(
-                startPosition,
-                targetPosition,
-                time / spawnAnimationDuration
-            );
+            if (powerUp)
+            {
+                powerUp.transform.position = Vector3.Lerp(
+                    startPosition,
+                    targetPosition,
+                    time / spawnAnimationDuration
+                );
+            }
             time += Time.deltaTime;
             yield return null;
         }
-        powerUp.transform.position = targetPosition;
+        if (powerUp) powerUp.transform.position = targetPosition;
     }
 }

@@ -112,8 +112,6 @@ public class CratesManager : MonoBehaviour
     {
         List<Entity> updatedCrates = new List<Entity>();
 
-        Debug.Log(updatedCrates);
-
         foreach (var crate in GameServerConnectionManager.Instance.gameCrates)
         {
             if (crate.Crate.Status != CrateStatus.Destroyed)
