@@ -14,9 +14,6 @@ public class CustomLevelManager : LevelManager
 {
     private const float DEATH_FEEDBACK_DURATION = 1.5f;
     bool paused = false;
-    private GameObject mapPrefab;
-    private GameObject mapInstance;
-    public GameObject quickMapPrefab;
 
     [SerializeField]
     GameObject deathSplash;
@@ -32,48 +29,20 @@ public class CustomLevelManager : LevelManager
     public GameObject UiControls;
     public CinemachineCameraController camera;
 
-    public List<GameObject> mapList = new List<GameObject>();
     private bool deathSplashIsShown = false;
+
+    [SerializeField] GameObject colliderPrefab;
     EndGameManager endGameManager;
 
     protected override void Awake()
     {
         base.Awake();
-        // this.totalPlayers = (ulong)ServerConnection.Instance.playerCount;
-        InitializeMap();
     }
 
     protected override void Start()
     {
         base.Start();
         StartCoroutine(InitializeLevel());
-    }
-
-    private void InitializeMap()
-    {
-        if (LobbyManager.LevelSelected == null)
-        {
-            InitializeMapPrefab(quickMapPrefab);
-        }
-        else
-        {
-            mapPrefab = mapList.Find(map => map.name == LobbyManager.LevelSelected);
-            InitializeMapPrefab(mapPrefab);
-        }
-    }
-
-    private void InitializeMapPrefab(GameObject mapPrefab)
-    {
-        mapInstance = Instantiate(mapPrefab);
-        //Add gameobject to the scene root
-        mapInstance
-            .transform
-            .SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent);
-    }
-
-    public GameObject GetMapInstance()
-    {
-        return mapInstance;
     }
 
     private IEnumerator InitializeLevel()
@@ -91,6 +60,21 @@ public class CustomLevelManager : LevelManager
 
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
         endGameManager.SetDeathSplashCharacter();
+
+        GameServerConnectionManager.Instance.obstacles.ForEach(el => {
+            GenerateColliders(el.Vertices.ToList(), el.Name);
+        });
+    }
+
+    private void GenerateColliders(List<Position> vertices, string name){
+        GameObject collider = Instantiate(colliderPrefab);
+        collider.name = name;
+        collider.GetComponent<LineRenderer>().positionCount = vertices.Count;
+        for(int i = 0; i < vertices.Count; i++){
+            var vertice = vertices[i];
+            var position = new Vector3(vertice.X/100, 0, vertice.Y/100);
+            collider.GetComponent<LineRenderer>().SetPosition(i, position);
+        };
     }
 
     void Update()
@@ -107,7 +91,8 @@ public class CustomLevelManager : LevelManager
             // TODO: Redirect to EndGameScreen
             //SceneManager.LoadScene("EndGame");
             endGameManager.finalSplash.SetActive(true);
-            endGameManager.ShowCharacterAnimation();
+            endGameManager.modelManager.ShowEndGameCharacterAnimation();
+            endGameManager.ShowWinner();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -116,11 +101,11 @@ public class CustomLevelManager : LevelManager
             paused = !paused;
         }
 
-        if(gamePlayer != null && gamePlayer.Player.Health <= 0){
+        if (gamePlayer != null && gamePlayer.Player.Health <= 0)
+        {
             SetCameraToAlivePlayer();
         }
     }
-
 
     private void GeneratePlayers()
     {
@@ -198,7 +183,10 @@ public class CustomLevelManager : LevelManager
     {
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
-            if (UInt64.Parse(player.PlayerID) == playerID && UInt64.Parse(this.camera.TargetCharacter.PlayerID) != playerID)
+            if (
+                UInt64.Parse(player.PlayerID) == playerID
+                && UInt64.Parse(this.camera.TargetCharacter.PlayerID) != playerID
+            )
             {
                 this.camera.SetTarget(player);
                 this.camera.StartFollowing();
@@ -336,10 +324,10 @@ public class CustomLevelManager : LevelManager
 
         if (saveKillerId != 0)
         {
-            playerToFollow = Utils.GetGamePlayer(saveKillerId); 
+            playerToFollow = Utils.GetGamePlayer(saveKillerId);
             StartCoroutine(WaitToChangeCamera(playerToFollow));
         }
-        else if(Utils.GetAlivePlayers().Count() > 0 && saveKillerId == currentTrackedPlayer)
+        else if (Utils.GetAlivePlayers().Count() > 0 && saveKillerId == currentTrackedPlayer)
         {
             playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
             SetCameraToPlayer(playerToFollow.Id);

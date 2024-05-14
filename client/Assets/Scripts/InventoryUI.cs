@@ -22,6 +22,8 @@ public class InventoryUI : MonoBehaviour
     public Sprite myrrasBlessing;
     public Sprite goldenClock;
     public Sprite magicBoots;
+    public Sprite giant;
+    public Sprite fakeItem;
 
     [SerializeField]
     Image inventoryImage;
@@ -31,6 +33,8 @@ public class InventoryUI : MonoBehaviour
         useItemAnimation;
     Sequence pickSequenceAnimation,
         useSequenceAnimation;
+
+    string currentItem;
 
     private void Start()
     {
@@ -79,7 +83,6 @@ public class InventoryUI : MonoBehaviour
             )
             .Append(inventoryImage.transform.DOScale(imageInitialScale, 0));
         yield return new WaitForSeconds(0.1f);
-        HandlePlayerUseItemFeedback(true);
 
         yield return new WaitForSeconds(BASE_DURATION);
         sparkleEffect.SetActive(false);
@@ -87,7 +90,6 @@ public class InventoryUI : MonoBehaviour
         inventoryImage.sprite = null;
 
         yield return new WaitForSeconds(1f);
-        HandlePlayerUseItemFeedback(false);
     }
 
     private void Update()
@@ -102,6 +104,7 @@ public class InventoryUI : MonoBehaviour
         if (PlayerHasItem(playerEntity))
         {
             activeItem = playerEntity.Player.Inventory;
+            currentItem = activeItem.Name;
         }
         else
         {
@@ -126,6 +129,10 @@ public class InventoryUI : MonoBehaviour
                 return goldenClock;
             case "magic_boots":
                 return magicBoots;
+            case "giant":
+                return giant;
+            case "fake_item":
+                return fakeItem;
             default:
                 return null;
         }
@@ -152,10 +159,5 @@ public class InventoryUI : MonoBehaviour
         {
             useItemAnimation = StartCoroutine(AnimateUseItem(pickItemAnimation));
         }
-    }
-
-    void HandlePlayerUseItemFeedback(bool state)
-    {
-        characterFeedbacks.ExecuteUseItemFeedback(state);
     }
 }

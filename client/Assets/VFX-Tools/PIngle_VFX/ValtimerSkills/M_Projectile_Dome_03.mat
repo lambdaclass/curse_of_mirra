@@ -61,6 +61,7 @@ Material:
     - _Color_Ramp_Power: 1
     - _Cull: 2
     - _DISTORTION_TEXTURE_CHANNEL: 0
+    - _Displasement_Amount: 0
     - _Distortion: 0.02
     - _DstBlend: 10
     - _ERODE_TEXTURE_CHANNEL: 1
@@ -88,21 +89,23 @@ Material:
     - _Use_Polar_UV: 0
     - _Use_Sphere_Mask: 0
     - _Use_UV_Mask: 1
+    - _Use_UV_Offset: 0
     - _Use_Vertical_Ramp: 1
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _Color_A: {r: 0.59052277, g: 0.2980392, b: 1, a: 0}
-    - _Color_B: {r: 0.7254902, g: 0.69803923, b: 1, a: 0}
+    - _Color_A: {r: 0.16078432, g: 0.0627451, b: 0.1764706, a: 0}
+    - _Color_B: {r: 0.3372549, g: 0.17254902, b: 0.38039216, a: 0}
     - _Color_Base: {r: 0.4071897, g: 0, b: 0.6980392, a: 0}
-    - _Color_Emission: {r: 0.69741905, g: 0.39999998, b: 1, a: 0}
+    - _Color_Emission: {r: 1, g: 0.9198632, b: 0.48584908, a: 0}
     - _Distortion_UV_Controls: {r: 1, g: 0.25, b: 0.1, a: -0.2}
     - _Erode_Texture_UV_Controls: {r: 1, g: 0.35, b: 0, a: -0.5}
     - _Main_Texture_Smothstep: {r: 0.2, g: 0.7, b: 0, a: 0}
     - _Main_Texture_UV_Controls: {r: 1, g: 0.5, b: 0, a: -0.5}
     - _Sphere_Mask_Controls: {r: 1.6, g: 0.8, b: 0.5, a: 0}
     - _UV_Pollar_Center_Offset: {r: 0.25, g: 0, b: 0, a: 0}
+    - _UV_Stretch: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3342527826827399583
 MonoBehaviour:

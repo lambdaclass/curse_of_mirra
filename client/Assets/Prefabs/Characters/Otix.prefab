@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &721210044643141863
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7798749080977458264}
+  m_Layer: 0
+  m_Name: Placeholder_Root
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7798749080977458264
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721210044643141863}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1787465996332106948}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1787465996332106805
 GameObject:
   m_ObjectHideFlags: 0
@@ -39,6 +70,7 @@ Transform:
   m_Children:
   - {fileID: 7026653753258630403}
   - {fileID: 4364836716465000514}
+  - {fileID: 7798749080977458264}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -79,13 +111,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 4
-  m_Radius: 0.9
+  m_Height: 3.23
+  m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 2.18, z: 0}
+  m_Center: {x: 0, y: 1.4, z: 0}
 --- !u!54 &1787465996332106809
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -130,7 +162,7 @@ MonoBehaviour:
   AddedForce: {x: 0, y: 0, z: 0}
   FreeMovement: 1
   InputMoveDirection: {x: 0, y: 0, z: 0}
-  UpdateMode: 1
+  UpdateMode: 0
   VelocityTransferMethod: 2
   ObstaclesLayerMask:
     serializedVersion: 2
@@ -491,6 +523,9 @@ MonoBehaviour:
   hitFeedback: {fileID: 5660724968042978400}
   pickUpFeedback: {fileID: 3657418904232725223}
   useItemFeedback: {fileID: 1431322896781444281}
+  goldenClockVFX: {fileID: 0}
+  magicBootsVFX: {fileID: 0}
+  myrrasBlessingVFX: {fileID: 0}
   healthBar: {fileID: 2635068537373217531}
   damageOverlayColor: {r: 0, g: 0, b: 0, a: 0}
   healOverlayColor: {r: 0, g: 0, b: 0, a: 0}
@@ -506,7 +541,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 735b7d114b344f946bae02a701c5ef53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeholder_transform_pairs: []
+  placeholder_transform_pairs:
+  - placement_holder: {fileID: 11400000, guid: 63a32f724320ba94381cfd0e32039ae8, type: 2}
+    look_up_transform: {fileID: 7798749080977458264}
 --- !u!1 &4044323782746128162
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,6 +855,11 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 7067085905496623633}
+    - target: {fileID: 8173465752018876278, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8412503181057611870, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_sharedMaterial

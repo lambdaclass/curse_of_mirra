@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.Tools;
 using TMPro;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 public class CharacterInfoManager : MonoBehaviour
 {
     [SerializeField]
-    private UIModelManager ModelManager;
+    private UIModelManager modelManager;
 
     [Header("Character info")]
     [SerializeField]
@@ -28,6 +29,7 @@ public class CharacterInfoManager : MonoBehaviour
 
     List<CoMCharacter> availableCharacters;
 
+
     void Start()
     {
         availableCharacters = CharactersManager.Instance.AvailableCharacters;
@@ -46,8 +48,8 @@ public class CharacterInfoManager : MonoBehaviour
 
     public void SetCharacterInfo(CoMCharacter comCharacter)
     {
-        ModelManager.RemoveCurrentModel();
-        ModelManager.SetModel(comCharacter.name);
+        modelManager.RemoveCurrentModel();
+        modelManager.SetModel(comCharacter.name);
         nameText.text = comCharacter.name;
         subTitle.text = comCharacter.description;
         classImage.sprite = comCharacter.classImage;
@@ -62,6 +64,8 @@ public class CharacterInfoManager : MonoBehaviour
         ServerConnection.Instance.selectedCharacterName = CharactersManager
             .Instance
             .GetGoToCharacter();
+
+        PlayerPrefs.SetString("selectedCharacterName",  ServerConnection.Instance.selectedCharacterName);
         this.GetComponent<MMLoadScene>().LoadScene();
         // CharactersManager.Instance.SetGoToCharacter()
         // StartCoroutine(SetCharacter());
@@ -83,5 +87,9 @@ public class CharacterInfoManager : MonoBehaviour
             )
         );
         this.GetComponent<MMLoadScene>().LoadScene();
+    }
+
+    public void PlaySkillAnimation(string parameterName){
+        modelManager.AnimateChainedCharacterSkill(parameterName.ToUpper());
     }
 }

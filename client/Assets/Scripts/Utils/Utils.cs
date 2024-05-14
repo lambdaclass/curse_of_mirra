@@ -7,6 +7,7 @@ using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using MoreMountains.TopDownEngine;
 
 public class Utils
 {
@@ -14,6 +15,8 @@ public class Utils
     public static readonly Color healthBarRed = new Color32(255, 26, 0, 255);
     public static readonly Color healthBarPoisoned = new Color32(66, 168, 0, 255);
     public static readonly Color burstLoadsBarCharging = new Color32(110, 110, 110, 255);
+
+    private const string LOBBIES_BACKGROUND_MUSIC = "LobbiesBackgroundMusic";
 
     public static Vector3 transformBackendOldPositionToFrontendPosition(Position position)
     {
@@ -26,18 +29,6 @@ public class Utils
     public static float TransformBackenUnitToClientUnit(float unit){
         return unit / 100f;
     }
-
-    // public static Vector3 transformBackendPositionToFrontendPosition(Game.Position position)
-    // {
-    //     var x = (long)position?.x / 100f;
-    //     var y = (long)position?.y / 100f;
-    //     return new Vector3(x, 1f, y);
-    // }
-
-    // public static float transformBackendRadiusToFrontendRadius(float radius)
-    // {
-    //     return radius * 100f / 5000;
-    // }
 
     public static GameObject GetPlayer(ulong id)
     {
@@ -104,16 +95,6 @@ public class Utils
         return objectPooler;
     }
 
-    // public static List<T> ToList<T>(RepeatedField<T> repeatedField)
-    // {
-    //     var list = new List<T>();
-    //     foreach (var item in repeatedField)
-    //     {
-    //         list.Add(item);
-    //     }
-    //     return list;
-    // }
-
     public static Gradient GetHealthBarGradient(Color color)
     {
         return new Gradient()
@@ -135,5 +116,44 @@ public class Utils
     {
         CharactersManager.Instance.SetGoToCharacter(characterName);
         SceneManager.LoadScene(sceneName);
+    }
+
+    public static void BackToLobbyFromGame(string goToScene)
+    {
+        GameObject.Destroy(GameObject.Find(LOBBIES_BACKGROUND_MUSIC));
+        BackToLobbyAndCloseConnection(goToScene);
+    }
+
+    public static void BackToLobbyAndCloseConnection(string goToScene)
+    {
+        // Websocket connection is closed as part of Init() destroy;
+        GameServerConnectionManager.Instance.Init();
+        DestroySingletonInstances();
+        Back(goToScene);
+    }
+
+    private static void DestroySingletonInstances()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameObject.Destroy(GameManager.Instance.gameObject);
+        }
+    }
+
+    public static void Back(string goToScene)
+    {
+        SceneManager.LoadScene(goToScene);
+    }
+
+    public static IEnumerator WaitForBattleCreation(string currentSceneName, string battleSceneName, string action_action)
+    {
+        yield return new WaitUntil(() => SceneManager.GetActiveScene().name == currentSceneName);
+        ServerConnection.Instance.JoinGame(action_action);
+        yield return new WaitUntil(
+            () =>
+                !string.IsNullOrEmpty(ServerConnection.Instance.LobbySession)
+                && !string.IsNullOrEmpty(SessionParameters.GameId)
+        );
+        SceneManager.LoadScene(battleSceneName);
     }
 }
