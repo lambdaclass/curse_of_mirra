@@ -7,7 +7,7 @@ using System.Linq;
 
 public class LatencyAnalyzer : MonoBehaviour
 {
-    public bool unstableConnection, disconnect;
+    public bool showWarning, unstableConnection;
     float updateInterval = .05f;
     protected float _timeLeftToUpdate;
     List<long> gameEventTimestamps = new List<long>();
@@ -15,9 +15,10 @@ public class LatencyAnalyzer : MonoBehaviour
     const int SPIKE_VALUE_THRESHOLD = 100;
     const int SPIKES_AMOUNT_THRESHOLD = 3;
     const int TIMESTAMPS_LIST_MAX_LENGTH = 100;
+    const int SECONDS_UNTIL_WARNING = 1000;
     const int SECONDS_TO_WAIT = 3000;
-    private const string connectionTitle = "Error";
-    private const string connectionDescription = "Your connection to the server has been lost.";
+    private const string CONNECTION_TITLE = "Error";
+    private const string CONNECTION_DESCRIPTION = "Your connection to the server has been lost.";
 
     public void Awake()
     {
@@ -45,20 +46,15 @@ public class LatencyAnalyzer : MonoBehaviour
         if(gameEventTimestamp > 0 && !GameServerConnectionManager.Instance.GameHasEnded())
         {
             long diffUpdateValue = clientTimestamp - gameEventTimestamp;
-            // Show connection icon to warn client
-            if(diffUpdateValue >= 2000)
-            {
-                disconnect = true;
-            }
-            else
-            {
-                disconnect = false;
-            }
-            // Redirect on disconnect
+
+            // Block actions
+            unstableConnection = diffUpdateValue >= 2000;
+
+            // Redirect on disconnection 
             if(diffUpdateValue >= SECONDS_TO_WAIT)
             {
                 DisconnectFeedback();
-                Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
+                Errors.Instance.HandleNetworkError(CONNECTION_TITLE, CONNECTION_DESCRIPTION);
             }
         }
         if (_timeLeftToUpdate <= 0.0)
@@ -71,32 +67,28 @@ public class LatencyAnalyzer : MonoBehaviour
             }
             gameEventTimestamps.Add(gameEventTimestamp);
 
-            unstableConnection = ConnectionStabilityCheck(gameEventTimestamps);
-            if(unstableConnection){
-                //print("More spikes than usual found in list: " + gameEventTimestamps);
-            }
+            ConnectionStabilityCheck(gameEventTimestamps);
         }
     }
 
-    bool ConnectionStabilityCheck(List<long> list)
+    void ConnectionStabilityCheck(List<long> list)
     {
         int spikesCounter = 0;
         if(list.Count >= 2){
             for(int i = 0; i < list.Count - 1; i++){
                 // Check for spikes
-                // print(list[i + 1] - list[i]);
                 if (list[i + 1] - list[i] >= SPIKE_VALUE_THRESHOLD)
                 {
                     spikesCounter += 1;
                 }
             }
         }
-        print(spikesCounter);
-        return spikesCounter >=  SPIKES_AMOUNT_THRESHOLD;
+        showWarning = spikesCounter >=  1;
+        unstableConnection = spikesCounter >=  SPIKES_AMOUNT_THRESHOLD;
     }
     public void DisconnectFeedback()
     {
-        disconnect = false;
+        unstableConnection = false;
         Utils.BackToLobbyFromGame("MainScreen");
     }
 }

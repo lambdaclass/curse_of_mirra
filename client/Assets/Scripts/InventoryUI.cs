@@ -94,27 +94,30 @@ public class InventoryUI : MonoBehaviour
 
     private void Update()
     {
-        if (GameServerConnectionManager.Instance.players.Count > 0 && characterFeedbacks == null)
+        if(!LatencyAnalyzer.Instance.unstableConnection)
         {
-            characterFeedbacks = Utils
-                .GetCharacter(GameServerConnectionManager.Instance.playerId)
-                .GetComponent<CharacterFeedbacks>();
-        }
-        playerEntity = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
-        if (PlayerHasItem(playerEntity))
-        {
-            activeItem = playerEntity.Player.Inventory;
-            currentItem = activeItem.Name;
-        }
-        else
-        {
-            activeItem = null;
-        }
-        if (ShouldChangeInventorySprite())
-        {
-            Sprite inventorySprite = GetInventoryItemSprite();
-            inventoryImage.sprite = inventorySprite;
-            pickItemAnimation = StartCoroutine(AnimatePickItem(useItemAnimation));
+            if (GameServerConnectionManager.Instance.players.Count > 0 && characterFeedbacks == null)
+            {
+                characterFeedbacks = Utils
+                    .GetCharacter(GameServerConnectionManager.Instance.playerId)
+                    .GetComponent<CharacterFeedbacks>();
+            }
+            playerEntity = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
+            if (PlayerHasItem(playerEntity))
+            {
+                activeItem = playerEntity.Player.Inventory;
+                currentItem = activeItem.Name;
+            }
+            else
+            {
+                activeItem = null;
+            }
+            if (ShouldChangeInventorySprite())
+            {
+                Sprite inventorySprite = GetInventoryItemSprite();
+                inventoryImage.sprite = inventorySprite;
+                pickItemAnimation = StartCoroutine(AnimatePickItem(useItemAnimation));
+            }
         }
     }
 
@@ -140,7 +143,7 @@ public class InventoryUI : MonoBehaviour
 
     private bool ShouldChangeInventorySprite()
     {
-        return activeItem != null && inventoryImage.sprite == null;
+        return activeItem != null && inventoryImage.sprite == null && !LatencyAnalyzer.Instance.unstableConnection;
     }
 
     private bool PlayerHasItem(Entity playerEntity)

@@ -41,7 +41,7 @@ public class Battle : MonoBehaviour
     private PlayerControls playerControls;
     private PowerUpsManager powerUpsManager;
     private CustomCharacter myClientCharacter = null;
-    private const float teleportThreshold = 7;
+    private const float TELEPORT_THRESHOLD = 10;
 
     public Dictionary<ulong, PlayerReferences> playersReferences =
         new Dictionary<ulong, PlayerReferences>();
@@ -738,7 +738,7 @@ public class Battle : MonoBehaviour
         }
         float totalPositionChange = Math.Abs(xChange) + Math.Abs(yChange);
 
-        if (totalPositionChange > teleportThreshold && isPlayer) {
+        if (totalPositionChange > TELEPORT_THRESHOLD && isPlayer && LatencyAnalyzer.Instance.showWarning) {
             player.transform.position = frontendPosition;
         }
 

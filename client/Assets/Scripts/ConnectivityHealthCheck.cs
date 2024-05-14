@@ -19,7 +19,7 @@ public class ConnectivityHealthCheck : MonoBehaviour
     }
     void Update()
     {
-        if (LatencyAnalyzer.Instance.unstableConnection || LatencyAnalyzer.Instance.disconnect)
+        if (LatencyAnalyzer.Instance.showWarning)
         {
             displayCoroutine = StartCoroutine(Display());
         }
@@ -28,7 +28,7 @@ public class ConnectivityHealthCheck : MonoBehaviour
     {
         pulseSequence.Play();
         iconCanvas.DOFade(1, animationDuration);
-        yield return new WaitUntil(() => (!LatencyAnalyzer.Instance.unstableConnection && !LatencyAnalyzer.Instance.disconnect));
+        yield return new WaitUntil(() => (!LatencyAnalyzer.Instance.showWarning));
         StopCoroutine(displayCoroutine);
         hideCoroutine = StartCoroutine(Hide());
     }
