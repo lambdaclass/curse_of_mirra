@@ -15,8 +15,8 @@ public class LatencyAnalyzer : MonoBehaviour
     const int SPIKE_VALUE_THRESHOLD = 150;
     const int SPIKES_AMOUNT_THRESHOLD = 3;
     const int TIMESTAMPS_LIST_MAX_LENGTH = 100;
-    const int SECONDS_UNTIL_WARNING = 2000;
-    const int SECONDS_TO_WAIT = 3000;
+    const int MILLISECONDS_UNTIL_WARNING = 2000;
+    const int MILLISECONDS_TO_WAIT = 3000;
     private const string CONNECTION_TITLE = "Error";
     private const string CONNECTION_DESCRIPTION = "Your connection to the server has been lost.";
 
@@ -48,10 +48,10 @@ public class LatencyAnalyzer : MonoBehaviour
             long diffUpdateValue = clientTimestamp - gameEventTimestamp;
 
             // Block actions
-            unstableConnection = diffUpdateValue >= SECONDS_UNTIL_WARNING;
+            unstableConnection = diffUpdateValue >= MILLISECONDS_UNTIL_WARNING;
 
             // Redirect on disconnection 
-            if (diffUpdateValue >= SECONDS_TO_WAIT)
+            if (diffUpdateValue >= MILLISECONDS_TO_WAIT)
             {
                 DisconnectFeedback();
                 Errors.Instance.HandleNetworkError(CONNECTION_TITLE, CONNECTION_DESCRIPTION);
