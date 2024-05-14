@@ -14,9 +14,9 @@ public class ToggleAudio : MonoBehaviour
 
     private Image muteButtonImage;
 
-    private const float SFX_VOLUME = 10f;
-    private const float MASTER_VOLUME = 5f;
-    private const float MUSIC_VOLUME = 0.5f;
+    private const float SFX_VOLUME = 1f;
+    private const float MASTER_VOLUME = 1f;
+    private const float MUSIC_VOLUME = 0.05f;
 
     //The engines defines this value as 0 (muted)
     private const float MUTED_VOLUME = 0.0001f;
