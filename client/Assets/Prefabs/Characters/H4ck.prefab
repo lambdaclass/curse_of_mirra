@@ -112,13 +112,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 4
-  m_Radius: 0.9
+  m_Height: 3.23
+  m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 2.18, z: 0}
+  m_Center: {x: 0, y: 1.4, z: 0}
 --- !u!54 &1787465996332106809
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   AddedForce: {x: 0, y: 0, z: 0}
   FreeMovement: 1
   InputMoveDirection: {x: 0, y: 0, z: 0}
-  UpdateMode: 1
+  UpdateMode: 0
   VelocityTransferMethod: 2
   ObstaclesLayerMask:
     serializedVersion: 2
@@ -985,6 +985,11 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 7067085905496623633}
+    - target: {fileID: 8173465752018876278, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8412503181057611870, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_sharedMaterial
