@@ -1,6 +1,8 @@
 using UnityEditor;
 using UnityEditor.Callbacks;
-using UnityEditor.iOS.Xcode;
+#if UNITY_IOS
+    using UnityEditor.iOS.Xcode;
+#endif
 
 public static class GoogleSignInPostBuild
 {
