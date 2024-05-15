@@ -130,8 +130,8 @@ public static partial class MessagesReflection {
           "CQoFVEFLRU4QASqPAQoQUGxheWVyQWN0aW9uVHlwZRIKCgZNT1ZJTkcQABIU",
           "ChBTVEFSVElOR19TS0lMTF8xEAESFAoQU1RBUlRJTkdfU0tJTExfMhACEhUK",
           "EUVYRUNVVElOR19TS0lMTF8xEAMSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQBBIV",
-          "ChFFWEVDVVRJTkdfU0tJTExfMxAFKikKClRyYXBTdGF0dXMSDAoIUFJFUEFS",
-          "RUQQABINCglUUklHR0VSRUQQAWIGcHJvdG8z"));
+          "ChFFWEVDVVRJTkdfU0tJTExfMxAFKjMKClRyYXBTdGF0dXMSDAoIUFJFUEFS",
+          "RUQQABINCglUUklHR0VSRUQQARIICgRVU0VEEAJiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameStatus), typeof(global::ProjectileStatus), typeof(global::CrateStatus), typeof(global::PowerUpstatus), typeof(global::PlayerActionType), typeof(global::TrapStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -210,6 +210,7 @@ public enum PlayerActionType {
 public enum TrapStatus {
   [pbr::OriginalName("PREPARED")] Prepared = 0,
   [pbr::OriginalName("TRIGGERED")] Triggered = 1,
+  [pbr::OriginalName("USED")] Used = 2,
 }
 
 #endregion
