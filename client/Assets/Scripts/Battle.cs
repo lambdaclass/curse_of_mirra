@@ -42,6 +42,7 @@ public class Battle : MonoBehaviour
     private PlayerControls playerControls;
     private PowerUpsManager powerUpsManager;
     private CustomCharacter myClientCharacter = null;
+    private bool repositionPlayer;
     private const float TELEPORT_THRESHOLD = 10;
 
     public Dictionary<ulong, PlayerReferences> playersReferences =
@@ -176,7 +177,7 @@ public class Battle : MonoBehaviour
 
     void UpdateBattleState()
     {
-        
+
         UpdatePlayerActions();
         UpdateProjectileActions();
         loot.UpdateLoots();
@@ -196,11 +197,10 @@ public class Battle : MonoBehaviour
 
     public bool PlayerMovementAuthorized(CustomCharacter character)
     {
-        
-        if(LatencyAnalyzer.Instance.unstableConnection){
+        if (LatencyAnalyzer.Instance.unstableConnection)
+        {
             return false;
         }
-        
 
         if ((BlockingMovementStates != null) && (BlockingMovementStates.Length > 0))
         {
@@ -396,7 +396,7 @@ public class Battle : MonoBehaviour
 
                         buffer.setLastTimestampSeen(player.Id, gameEvent.ServerTimestamp);
                     }
-                    
+
                     playerCharacter.HandleTeleport(serverPlayerUpdate.Position);
                 }
 
@@ -743,7 +743,13 @@ public class Battle : MonoBehaviour
         }
         float totalPositionChange = Math.Abs(xChange) + Math.Abs(yChange);
 
-        if (totalPositionChange > TELEPORT_THRESHOLD && isPlayer && LatencyAnalyzer.Instance.showWarning) {
+        if (isPlayer && LatencyAnalyzer.Instance.showWarning)
+        {
+            repositionPlayer = true;
+        }
+        if (totalPositionChange > TELEPORT_THRESHOLD && isPlayer && !LatencyAnalyzer.Instance.showWarning && repositionPlayer)
+        {
+            repositionPlayer = false;
             player.transform.position = frontendPosition;
         }
 
