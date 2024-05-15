@@ -62,7 +62,7 @@ public class LatencyAnalyzer : MonoBehaviour
             _timeLeftToUpdate = updateInterval;
 
             // Check if the list Length is already 10 and keep it that way
-            if (gameEventTimestamps.Count >= (long)GameServerConnectionManager.Instance.timestampsListMaxLength)
+            if (gameEventTimestamps.Count >= (int)GameServerConnectionManager.Instance.timestampsListMaxLength)
             {
                 gameEventTimestamps.RemoveAt(0);
             }
