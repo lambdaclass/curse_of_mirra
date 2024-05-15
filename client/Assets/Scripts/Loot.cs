@@ -131,6 +131,10 @@ public class Loot : MonoBehaviour
                 return "LootHealth";
             case "mirra_blessing":
                 return "LootHealth";
+            case "giant":
+                return "LootHealth";
+            case "fake_item":
+                return "LootHealth";
             default:
                 throw new ArgumentException(String.Format("no type for `{0}`", name));
         }

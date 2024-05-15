@@ -136,12 +136,9 @@ MonoBehaviour:
     UnloadMethod: 2
     AntiSpillSceneName: 
   SetPlayerAsFeedbackRangeCenter: 0
-  quickMapPrefab: {fileID: 8260821150174466730, guid: 6c52df159d5dc499aaa0bd06adc934c9,
-    type: 3}
   deathSplash: {fileID: 0}
   UiCamera: {fileID: 0}
   UiControls: {fileID: 0}
   camera: {fileID: 0}
-  mapList:
-  - {fileID: 8260821150174466730, guid: f5b5452532bd24f7c94de87391698d07, type: 3}
-  - {fileID: 3856665203278081415, guid: 49d35586eb6b54147a958245fc3ab7ad, type: 3}
+  colliderPrefab: {fileID: 7411665003070985544, guid: dccf3322a53ba4c07a4e76b6569236f5,
+    type: 3}

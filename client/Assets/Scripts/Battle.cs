@@ -30,6 +30,7 @@ public class Battle : MonoBehaviour
     public GameObject mapGrid;
 
     private Loot loot;
+    private CratesManager cratesManager;
     private bool playerMaterialColorChanged;
     private bool sendMovementStarted = false;
     private long lastMovementUpdate;
@@ -45,10 +46,14 @@ public class Battle : MonoBehaviour
     public Dictionary<ulong, PlayerReferences> playersReferences =
         new Dictionary<ulong, PlayerReferences>();
 
+    [SerializeField]
+    MeshFilter mesh;
+
     public struct PlayerReferences
     {
         public GameObject player;
         public CustomCharacter character;
+
         public CharacterFeedbacks characterFeedbacks;
         public CharacterFeedbackManager feedbackManager;
         public Animator modelAnimator;
@@ -61,6 +66,7 @@ public class Battle : MonoBehaviour
         StartCoroutine(InitializeProjectiles());
         StartCoroutine(SetupPlayersReferences());
         loot = GetComponent<Loot>();
+        cratesManager = GetComponent<CratesManager>();
         playerMaterialColorChanged = false;
         playerControls = GetComponent<PlayerControls>();
         powerUpsManager = GetComponent<PowerUpsManager>();
@@ -172,6 +178,7 @@ public class Battle : MonoBehaviour
         UpdatePlayerActions();
         UpdateProjectileActions();
         loot.UpdateLoots();
+        cratesManager.UpdateCrates();
         powerUpsManager.UpdatePowerUps();
     }
 
@@ -392,7 +399,8 @@ public class Battle : MonoBehaviour
                 }
 
                 Transform hitbox = playerCharacter.characterBase.Hitbox.transform;
-
+                playerCharacter.GetComponent<CharacterController>().radius =
+                    serverPlayerUpdate.Radius / 100;
                 float hitboxSize =
                     Utils.TransformBackenUnitToClientUnit(serverPlayerUpdate.Radius) * 2;
                 hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
@@ -712,7 +720,7 @@ public class Battle : MonoBehaviour
                 newPosition.z = Math.Max(frontendPosition.z, newPosition.z);
             }
 
-            player.transform.position = newPosition;
+            player.transform.position = new Vector3(newPosition.x, 0, newPosition.z);
 
             // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
             // if the player is in attacking state, movement rotation from movement should be ignored
