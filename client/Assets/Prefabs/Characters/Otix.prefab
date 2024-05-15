@@ -978,7 +978,7 @@ PrefabInstance:
     - target: {fileID: 434776423157168015, guid: 9f19dc1bc5f9b4469974a5e7809d0f88,
         type: 3}
       propertyPath: m_Name
-      value: Otix_AllAnim
+      value: Otix
       objectReference: {fileID: 0}
     - target: {fileID: 955733400961887541, guid: 9f19dc1bc5f9b4469974a5e7809d0f88,
         type: 3}
