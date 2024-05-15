@@ -48,7 +48,7 @@ public class LatencyAnalyzer : MonoBehaviour
         {
             long diffUpdateValue = clientTimestamp - gameEventTimestamp;
 
-            // Redirect on disconnection 
+            // Redirect on disconnection
             if (diffUpdateValue >= (long)GameServerConnectionManager.Instance.maxMsBetweenEvents)
             {
                 DisconnectFeedback();
@@ -59,12 +59,14 @@ public class LatencyAnalyzer : MonoBehaviour
                 _timeLeftToUpdate = updateInterval;
 
                 // Check if the list Length is already 10 and keep it that way
-                if (gameEventTimestamps.Count >= (int)GameServerConnectionManager.Instance.timestampsListMaxLength)
+                if (gameEventTimestamps.Count == (int)GameServerConnectionManager.Instance.timestampsListMaxLength)
                 {
                     gameEventTimestamps.RemoveAt(0);
                 }
-                gameEventTimestamps.Add(gameEventTimestamp);
-
+                else
+                {
+                    gameEventTimestamps.Add(gameEventTimestamp);
+                }
                 ConnectionStabilityCheck(gameEventTimestamps);
             }
         }
@@ -95,7 +97,7 @@ public class LatencyAnalyzer : MonoBehaviour
         {
             amountOfSpikes = spikesCounter;
         }
-        showWarning = amountOfSpikes >= (long)GameServerConnectionManager.Instance.spikesAmountThreshold;
+        showWarning = amountOfSpikes >= Math.Max(1, (long)GameServerConnectionManager.Instance.spikesAmountThreshold - 1);
         unstableConnection = amountOfSpikes >= (long)GameServerConnectionManager.Instance.spikesAmountThreshold;
 
     }
