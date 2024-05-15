@@ -46,6 +46,6 @@ public class SafeZone : MonoBehaviour
         float currentRadius = radius / 100;
         double value = finalVfxValue + (currentRadius) * (-finalVfxValue) / (initialPlayableRadius);
 
-        dangerZone.sharedMaterial.SetFloat("_Progress", (float)value);
+        dangerZone.material.SetFloat("_Progress", (float)value);
     }
 }
