@@ -59,6 +59,11 @@ public class GameServerConnectionManager : MonoBehaviour
     public Configuration config;
 
     public long gameEventTimestamp;
+    public ulong spikeValueThreshold;
+    public ulong spikesAmountThreshold;
+    public ulong timestampsListMaxLength;
+    public ulong msUntilWarning;
+    public ulong maxMsBetweenEvents;
 
     void Start()
     {
@@ -165,6 +170,11 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.serverTickRate_ms = gameEvent.Joined.Config.Game.TickRateMs;
                     this.playerId = gameEvent.Joined.PlayerId;
                     this.config = gameEvent.Joined.Config;
+                    this.spikeValueThreshold = gameEvent.Joined.Config.ClientConfig.LagSpikes.SpikeValueThreshold;
+                    this.spikesAmountThreshold = gameEvent.Joined.Config.ClientConfig.LagSpikes.SpikesAmountThreshold;
+                    this.timestampsListMaxLength = gameEvent.Joined.Config.ClientConfig.LagSpikes.TimestampsMaxLength;
+                    this.msUntilWarning = gameEvent.Joined.Config.ClientConfig.LagSpikes.MsUntilWarning;
+                    this.maxMsBetweenEvents = gameEvent.Joined.Config.ClientConfig.LagSpikes.MaxMsBetweenEvents;
                     break;
                 case GameEvent.EventOneofCase.Ping:
                     currentPing = (uint)gameEvent.Ping.Latency;

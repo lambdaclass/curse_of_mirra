@@ -48,10 +48,10 @@ public class LatencyAnalyzer : MonoBehaviour
             long diffUpdateValue = clientTimestamp - gameEventTimestamp;
 
             // Block actions
-            unstableConnection = diffUpdateValue >= MILLISECONDS_UNTIL_WARNING;
+            unstableConnection = diffUpdateValue >= (long)GameServerConnectionManager.Instance.msUntilWarning;
 
             // Redirect on disconnection 
-            if (diffUpdateValue >= MILLISECONDS_TO_WAIT)
+            if (diffUpdateValue >= (long)GameServerConnectionManager.Instance.maxMsBetweenEvents)
             {
                 DisconnectFeedback();
                 Errors.Instance.HandleNetworkError(CONNECTION_TITLE, CONNECTION_DESCRIPTION);
@@ -62,7 +62,7 @@ public class LatencyAnalyzer : MonoBehaviour
             _timeLeftToUpdate = updateInterval;
 
             // Check if the list Length is already 10 and keep it that way
-            if (gameEventTimestamps.Count >= TIMESTAMPS_LIST_MAX_LENGTH)
+            if (gameEventTimestamps.Count >= (long)GameServerConnectionManager.Instance.timestampsListMaxLength)
             {
                 gameEventTimestamps.RemoveAt(0);
             }
@@ -80,14 +80,14 @@ public class LatencyAnalyzer : MonoBehaviour
             for (int i = 0; i < list.Count - 1; i++)
             {
                 // Check for spikes
-                if (list[i + 1] - list[i] >= SPIKE_VALUE_THRESHOLD)
+                if (list[i + 1] - list[i] >= (long)GameServerConnectionManager.Instance.spikeValueThreshold)
                 {
                     spikesCounter += 1;
                 }
             }
         }
         showWarning = spikesCounter >= 1;
-        unstableConnection = spikesCounter >= SPIKES_AMOUNT_THRESHOLD;
+        unstableConnection = spikesCounter >= (long)GameServerConnectionManager.Instance.spikesAmountThreshold;
     }
     public void DisconnectFeedback()
     {

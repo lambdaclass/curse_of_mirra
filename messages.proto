@@ -60,6 +60,7 @@ message Configuration {
   ConfigGame game = 1;
   ConfigMap map = 2;
   repeated ConfigCharacter characters = 3;
+  ClientConfig client_config = 4;
 }
 
 message ConfigGame {
@@ -78,6 +79,18 @@ message ConfigCharacter {
   uint64 base_health = 5;
   uint64 max_inventory_size = 6;
   map<string, ConfigSkill> skills = 7;
+}
+
+message ClientConfig {
+  ConfigLagSpikes lag_spikes = 1;
+}
+
+message ConfigLagSpikes {
+  uint64 spike_value_threshold = 1;
+  uint64 spikes_amount_threshold = 2;
+  uint64 timestamps_max_length = 3;
+  uint64 ms_until_warning = 4;
+  uint64 max_ms_between_events = 5;
 }
 
 message ConfigSkill {
@@ -110,6 +123,8 @@ message GameState {
   map<uint64, Entity> items = 13;
   map<uint64, Entity> obstacles = 14;
   map<uint64, Entity> pools = 15;
+  map<uint64, Entity> crates = 16;
+  map<uint64, Entity> bushes = 17;
 }
 
 enum GameStatus {
@@ -151,6 +166,8 @@ message Entity {
     PowerUp power_up = 15;
     Item item = 16;
     Pool pool = 17;
+    Crate crate = 18;
+    Bush bush = 19;
   }
 }
 
@@ -167,6 +184,8 @@ message Player {
   repeated Effect effects = 10;
   Item inventory = 11;
   map<string, uint64> cooldowns = 12;
+  repeated uint64 visible_players = 13;
+  bool on_bush  = 14;
 }
 
 message Effect {
@@ -188,6 +207,7 @@ message Projectile {
 enum ProjectileStatus {
   ACTIVE = 0;
   EXPLODED = 1;
+  CONSUMED = 2;
 }
 
 message Obstacle {
@@ -199,6 +219,17 @@ message PowerUp {
   PowerUpstatus status = 2;
 }
 
+message Crate {
+  uint64 health = 1;
+  uint64 amount_of_power_ups = 2;
+  CrateStatus status = 3;
+}
+
+enum CrateStatus {
+  FINE = 0;
+  DESTROYED = 1;
+}
+
 enum  PowerUpstatus {
   AVAILABLE = 0;
   TAKEN = 1;
@@ -206,6 +237,9 @@ enum  PowerUpstatus {
 
 message Pool {
   uint64 owner_id = 1;
+}
+
+message Bush {
 }
 
 message PlayerAction {
