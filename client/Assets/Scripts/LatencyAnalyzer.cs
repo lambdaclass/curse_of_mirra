@@ -56,19 +56,19 @@ public class LatencyAnalyzer : MonoBehaviour
                 DisconnectFeedback();
                 Errors.Instance.HandleNetworkError(CONNECTION_TITLE, CONNECTION_DESCRIPTION);
             }
-        }
-        if (_timeLeftToUpdate <= 0.0)
-        {
-            _timeLeftToUpdate = updateInterval;
-
-            // Check if the list Length is already 10 and keep it that way
-            if (gameEventTimestamps.Count >= (int)GameServerConnectionManager.Instance.timestampsListMaxLength)
+            if (_timeLeftToUpdate <= 0.0)
             {
-                gameEventTimestamps.RemoveAt(0);
-            }
-            gameEventTimestamps.Add(gameEventTimestamp);
+                _timeLeftToUpdate = updateInterval;
 
-            ConnectionStabilityCheck(gameEventTimestamps);
+                // Check if the list Length is already 10 and keep it that way
+                if (gameEventTimestamps.Count >= (int)GameServerConnectionManager.Instance.timestampsListMaxLength)
+                {
+                    gameEventTimestamps.RemoveAt(0);
+                }
+                gameEventTimestamps.Add(gameEventTimestamp);
+
+                ConnectionStabilityCheck(gameEventTimestamps);
+            }
         }
     }
 

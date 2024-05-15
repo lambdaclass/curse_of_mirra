@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.Tools;
 using TMPro;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class CharacterInfoManager : MonoBehaviour
     private int characterIndex;
 
     List<CoMCharacter> availableCharacters;
+
 
     void Start()
     {
@@ -85,5 +87,9 @@ public class CharacterInfoManager : MonoBehaviour
             )
         );
         this.GetComponent<MMLoadScene>().LoadScene();
+    }
+
+    public void PlaySkillAnimation(string parameterName){
+        modelManager.AnimateChainedCharacterSkill(parameterName.ToUpper());
     }
 }
