@@ -111,6 +111,8 @@ message GameState {
   map<uint64, Entity> obstacles = 14;
   map<uint64, Entity> pools = 15;
   map<uint64, Entity> crates = 16;
+  map<uint64, Entity> bushes = 17;
+  map<uint64, Entity> traps = 18;
 }
 
 enum GameStatus {
@@ -153,6 +155,8 @@ message Entity {
     Item item = 16;
     Pool pool = 17;
     Crate crate = 18;
+    Bush bush = 19;
+    Trap trap = 20;
   }
 }
 
@@ -169,6 +173,8 @@ message Player {
   repeated Effect effects = 10;
   Item inventory = 11;
   map<string, uint64> cooldowns = 12;
+  repeated uint64 visible_players = 13;
+  bool on_bush  = 14;
 }
 
 message Effect {
@@ -190,6 +196,7 @@ message Projectile {
 enum ProjectileStatus {
   ACTIVE = 0;
   EXPLODED = 1;
+  CONSUMED = 2;
 }
 
 message Obstacle {
@@ -221,6 +228,15 @@ message Pool {
   uint64 owner_id = 1;
 }
 
+message Bush {
+}
+
+message Trap {
+  uint64 owner_id = 1;
+  string name = 2;
+  TrapStatus status = 3;
+}
+
 message PlayerAction {
     PlayerActionType action = 1;
     uint64 duration = 2;
@@ -234,6 +250,11 @@ enum PlayerActionType {
     EXECUTING_SKILL_1 = 3;
     EXECUTING_SKILL_2 = 4;
     EXECUTING_SKILL_3 = 5;
+}
+
+enum TrapStatus{
+  PREPARED = 0;
+  TRIGGERED = 1;
 }
 
 /*
