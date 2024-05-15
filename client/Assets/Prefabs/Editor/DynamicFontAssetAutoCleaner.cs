@@ -23,7 +23,6 @@ internal class DynamicFontAssetAutoClear : AssetModificationProcessor
             {
                 if (fontAsset.atlasPopulationMode == AtlasPopulationMode.Dynamic)
                 {
-                    Debug.Log("Clearing font asset data at " + path);
                     fontAsset.ClearFontAssetData(setAtlasSizeToZero: true);
                 }
             }
