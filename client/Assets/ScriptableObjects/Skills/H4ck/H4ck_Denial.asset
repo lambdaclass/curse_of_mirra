@@ -27,7 +27,7 @@ MonoBehaviour:
   animationSpeedMultiplier: 3
   abilityStartSfx: {fileID: 8300000, guid: b83404e324db745cf987a2ef706cf550, type: 3}
   sfxHasAbilityStop: 1
-  abilityStopSfx: {fileID: 8300000, guid: b10206d7d5296478f91e62c09da8b415, type: 3}
+  abilityStopSfx: {fileID: 8300000, guid: b7f086f2b70d34a88b2be22f94fde37e, type: 3}
   skillCircleRange: 0
   skillConeAngle: 80
   arrowWidth: 1
