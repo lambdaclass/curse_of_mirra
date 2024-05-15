@@ -18,11 +18,11 @@ internal class DynamicFontAssetAutoClear : AssetModificationProcessor
     {
         foreach (string path in paths)
         {
-            Debug.Log(path);
             if (AssetDatabase.LoadAssetAtPath(path, typeof(TMP_FontAsset)) is TMP_FontAsset fontAsset)
             {
                 if (fontAsset.atlasPopulationMode == AtlasPopulationMode.Dynamic)
                 {
+                    Debug.Log(path);
                     fontAsset.ClearFontAssetData(setAtlasSizeToZero: true);
                 }
             }

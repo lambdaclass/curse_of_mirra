@@ -21,7 +21,7 @@ public class CharacterMaterialManager : MonoBehaviour
 
     public void init()
     {
-        foreach(Renderer renderer in renderers)
+        foreach (Renderer renderer in renderers)
         {
             renderer_material_pairs.Add(new RendererMaterialPair(renderer, renderer.sharedMaterial));
         }
@@ -34,7 +34,7 @@ public class CharacterMaterialManager : MonoBehaviour
 
     public void setMaterial(Material material)
     {
-        foreach(Renderer renderer in renderers)
+        foreach (Renderer renderer in renderers)
         {
             if (renderer == null)
                 continue;
@@ -45,10 +45,10 @@ public class CharacterMaterialManager : MonoBehaviour
 
     public void resetMaterial()
     {
-        foreach(Renderer renderer in renderers)
+        foreach (Renderer renderer in renderers)
         {
             renderer_material_pairs.Add(new RendererMaterialPair(renderer, renderer.sharedMaterial));
-            renderer.sharedMaterial = renderer_material_pairs.FirstOrDefault(x => x.renderer == renderer)?.material;
+            renderer.material = renderer_material_pairs.FirstOrDefault(x => x.renderer == renderer)?.material;
         }
     }
 
@@ -57,20 +57,20 @@ public class CharacterMaterialManager : MonoBehaviour
         resetMaterial();
         MaterialSettingsBlock block = holder.getBlockByKey(key);
 
-        foreach(Renderer renderer in renderers)
+        foreach (Renderer renderer in renderers)
             block.applyToMaterial(renderer.sharedMaterial);
 
         float curent_duration = 0.0f;
         while (curent_duration <= block.apply_duration)
         {
-            foreach(Renderer renderer in renderers)
+            foreach (Renderer renderer in renderers)
                 renderer.material.SetFloat(block.controll_property, curent_duration / block.apply_duration);
 
             curent_duration += Time.deltaTime;
             yield return null;
         }
 
-        foreach(Renderer renderer in renderers)
+        foreach (Renderer renderer in renderers)
             renderer.material.SetFloat(block.controll_property, 1.0f);
     }
 
@@ -82,21 +82,22 @@ public class CharacterMaterialManager : MonoBehaviour
         float curent_duration = 0.0f;
         while (curent_duration <= block.apply_duration)
         {
-            foreach(Renderer renderer in renderers)
+            foreach (Renderer renderer in renderers)
                 renderer.material.SetFloat(block.controll_property, 1.0f - curent_duration / block.apply_duration);
 
             curent_duration += Time.deltaTime;
             yield return null;
         }
 
-        foreach(Renderer renderer in renderers)
+        foreach (Renderer renderer in renderers)
             renderer.material.SetFloat(block.controll_property, 0.0f);
     }
 
-    public IEnumerator ResetEffects(float time, GameObject vfxInstance,  
-         PinnedEffectsController controller, Dictionary<int,GameObject> effects, int key){
+    public IEnumerator ResetEffects(float time, GameObject vfxInstance,
+         PinnedEffectsController controller, Dictionary<int, GameObject> effects, int key)
+    {
         yield return new WaitForSeconds(time);
-        this.renderers[0].sharedMaterial.SetFloat("_FresnelEffectAmount",  0);
+        this.renderers[0].material.SetFloat("_FresnelEffectAmount", 0);
         controller?.ClearEffects();
         Destroy(vfxInstance);
         effects.Remove(key);
