@@ -12,6 +12,4 @@ public class ProfileManager : MonoBehaviour
     {
         playerName.text = PlayerPrefs.GetString("playerName");
     }
-
-    
 }
