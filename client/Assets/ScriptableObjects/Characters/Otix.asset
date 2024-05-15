@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Otix
   description: Iron fist ruler
-  characterSprite: {fileID: 21300000, guid: 5ec8fc5d939ea2244985ca77a114c9d0, type: 3}
+  characterSprite: {fileID: 21300000, guid: 25c6ba19deae14da8a58d506552bf1fe, type: 3}
   characterIcon: {fileID: 21300000, guid: da2ff610a11d24b47932594035d1b758, type: 3}
   artWork: {fileID: 21300000, guid: 06dbb91af72c34e7c85ad2f236c0cc9a, type: 3}
   selectedArtwork: {fileID: 21300000, guid: 6e8d03bdd65f84365803e9281c0593c1, type: 3}
   blockArtwork: {fileID: 21300000, guid: db1e5768206194879be1da8a2738aa2e, type: 3}
   characterPlayer: {fileID: 21300000, guid: 7b577a1c4c8204f7989984ebaee07c54, type: 3}
   classImage: {fileID: 21300000, guid: 0682131e89c8a4069bd5c7a248d453e6, type: 3}
-  UIIcon: {fileID: 21300000, guid: 1460deffa26539a41bf955586cafcb28, type: 3}
+  UIIcon: {fileID: 21300000, guid: 2d2b72a57a68842b4b67a020cd189136, type: 3}
   prefab: {fileID: 1787465996332106805, guid: c0af9017b82b84a37a40e0c09569d34b, type: 3}
   InputFeedbackColor:
     serializedVersion: 2
