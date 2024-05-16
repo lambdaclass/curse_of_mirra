@@ -15,6 +15,8 @@ public class GoogleSignInController : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI statusText;
+    [SerializeField]
+    private GameObject loggedInScreen, loggedOutScreen;
 
     [SerializeField]
     private GameObject signOutButton;
@@ -49,7 +51,8 @@ public class GoogleSignInController : MonoBehaviour
     void Start()
     {
         AddStatusText("Welcome " + PlayerPrefs.GetString("GoogleUserName"));
-        if(GoogleSignIn.Configuration == null){
+        if (GoogleSignIn.Configuration == null)
+        {
             GoogleSignIn.Configuration = configuration;
         }
         SignInWithCachedUser();
@@ -71,11 +74,12 @@ public class GoogleSignInController : MonoBehaviour
 
     public async void OnSignInSimple()
     {
-         if(GoogleSignIn.Configuration == null){
+        if (GoogleSignIn.Configuration == null)
+        {
             GoogleSignIn.Configuration = configuration;
             GoogleSignIn.Configuration.UseGameSignIn = false;
             GoogleSignIn.Configuration.RequestIdToken = true;
-         }
+        }
         AddStatusText("Calling SignIn");
 
         TimeSpan timeout = new TimeSpan(0, 0, timeoutToCancelInSeconds);
