@@ -8,7 +8,7 @@
     <file>Assets/GeneratedLocalRepo/Scripts/GoogleSignIn/GoogleSignIn/Editor/m2repository/com/google/signin/google-signin-support/1.0.4/google-signin-support-1.0.4.pom</file>
   </files>
   <settings>
-    <setting name="androidAbis" value="armeabi-v7a" />
+    <setting name="androidAbis" value="arm64-v8a,armeabi-v7a" />
     <setting name="bundleId" value="com.DefaultCompany.client" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
