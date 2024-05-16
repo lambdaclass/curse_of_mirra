@@ -46,18 +46,14 @@ public class TitleScreenController : MonoBehaviour
         StartCoroutine(FadeIn(logoImage.GetComponent<CanvasGroup>(), 1f, .1f));
         StartCoroutine(FadeIn(ButtonsCanvas, .3f, 1.2f));
         StartCoroutine(FadeIn(changeNameButton, 1f, 1.2f));
-        if (PlayerPrefs.GetString("playerName") == "")
-        {
-            playerNamePopUp.SetActive(true);
-            StartCoroutine(FadeIn(playerNamePopUp.GetComponent<CanvasGroup>(), 1f, 1.2f));
-        }
+
         if (this.asyncOperation == null)
         {
             this.StartCoroutine(this.LoadSceneAsyncProcess(TITLE_SCENE_NAME));
         }
 
-        selectedCharacterName = PlayerPrefs.GetString("selectedCharacterName") == "" 
-            ? "Muflus" 
+        selectedCharacterName = PlayerPrefs.GetString("selectedCharacterName") == ""
+            ? "Muflus"
             : PlayerPrefs.GetString("selectedCharacterName");
     }
 
@@ -78,7 +74,7 @@ public class TitleScreenController : MonoBehaviour
     {
         SetLoadingScreen(true);
         // SelectCharacterAndMaybeCreateUser();
-        ServerConnection.Instance.selectedCharacterName = selectedCharacterName ;
+        ServerConnection.Instance.selectedCharacterName = selectedCharacterName;
         asyncOperation.allowSceneActivation = true;
     }
 

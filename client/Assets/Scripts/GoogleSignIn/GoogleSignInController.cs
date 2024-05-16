@@ -35,6 +35,10 @@ public class GoogleSignInController : MonoBehaviour
     int timeoutToCancelInSeconds = 50;
     int timeoutToShowLoadingInSeconds = 5;
 
+    public static GoogleSignInController Instance;
+
+    private static bool isTrue;
+
     void Awake()
     {
         configuration = new GoogleSignInConfiguration
@@ -48,13 +52,30 @@ public class GoogleSignInController : MonoBehaviour
 
     void Start()
     {
+        Init();
         AddStatusText("Welcome " + PlayerPrefs.GetString("GoogleUserName"));
-        if(GoogleSignIn.Configuration == null){
+        if (GoogleSignIn.Configuration == null)
+        {
             GoogleSignIn.Configuration = configuration;
         }
         SignInWithCachedUser();
     }
 
+    void Init()
+    {
+        // Check if an instance already exists
+        if (Instance != null)
+        {
+            // Destroy the old instance
+            Destroy(Instance.gameObject);
+        }
+
+        // Set the new instance
+        Instance = this;
+
+        // Preserve the new instance between scenes
+        DontDestroyOnLoad(gameObject);
+    }
     private void SignInWithCachedUser()
     {
         if (PlayerPrefs.GetString("GoogleUserId") != "")
@@ -71,11 +92,12 @@ public class GoogleSignInController : MonoBehaviour
 
     public async void OnSignInSimple()
     {
-         if(GoogleSignIn.Configuration == null){
+        if (GoogleSignIn.Configuration == null)
+        {
             GoogleSignIn.Configuration = configuration;
             GoogleSignIn.Configuration.UseGameSignIn = false;
             GoogleSignIn.Configuration.RequestIdToken = true;
-         }
+        }
         AddStatusText("Calling SignIn");
 
         TimeSpan timeout = new TimeSpan(0, 0, timeoutToCancelInSeconds);
