@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Google;
@@ -202,6 +200,7 @@ public class GoogleSignInController : MonoBehaviour
                                 PlayerPrefs.SetString("GoogleUserName", task.Result.DisplayName);
                                 PlayerPrefs.SetString("GoogleUserId", task.Result.UserId);
                                 PlayerPrefs.SetString("GoogleUserEmail", task.Result.Email);
+                                titleScreenController.ChangeToMainscreen();
                             }
                             userName.text = task.Result.DisplayName;
                             loggedOutScreen.SetActive(false);
