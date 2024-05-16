@@ -27,6 +27,8 @@ public class TitleScreenController : MonoBehaviour
     [SerializeField]
     CanvasGroup changeNameButton;
 
+    [SerializeField] CanvasGroup SingOutContainer, SingInContainer;
+
     [SerializeField]
     GameObject playerNamePopUp;
 
@@ -46,6 +48,8 @@ public class TitleScreenController : MonoBehaviour
         StartCoroutine(FadeIn(logoImage.GetComponent<CanvasGroup>(), 1f, .1f));
         StartCoroutine(FadeIn(ButtonsCanvas, .3f, 1.2f));
         StartCoroutine(FadeIn(changeNameButton, 1f, 1.2f));
+        StartCoroutine(FadeIn(SingOutContainer, 1f, 1.2f));
+        StartCoroutine(FadeIn(SingInContainer, .3f, 1.2f));
 
         if (this.asyncOperation == null)
         {

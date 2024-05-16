@@ -18,11 +18,6 @@ public class GoogleSignInController : MonoBehaviour
     [SerializeField]
     private GameObject loggedInScreen, loggedOutScreen;
 
-    [SerializeField]
-    private GameObject signOutButton;
-
-    [SerializeField]
-    private GameObject signInButton;
     private string webClientIdGoogle = "194682062935-ukqi0s2vp1d2nmoembp0dapes21ei859.apps.googleusercontent.com";
 
     private GoogleSignInConfiguration configuration;
@@ -154,14 +149,14 @@ public class GoogleSignInController : MonoBehaviour
     public void OnSignOut()
     {
         GoogleSignIn.DefaultInstance.SignOut();
-        AddStatusText("SingOut");
         PlayerPrefs.SetString("GoogleUserName", "");
         PlayerPrefs.SetString("GoogleUserId", "");
-        userName.text = "Guest";
-        if (signOutButton)
+        if (loggedInScreen)
         {
-            signOutButton.SetActive(false);
-            signInButton.SetActive(true);
+            AddStatusText("SingOut");
+            userName.text = "Guest";
+            loggedInScreen.SetActive(false);
+            loggedOutScreen.SetActive(true);
         }
     }
 
@@ -209,8 +204,8 @@ public class GoogleSignInController : MonoBehaviour
                                 PlayerPrefs.SetString("GoogleUserEmail", task.Result.Email);
                             }
                             userName.text = task.Result.DisplayName;
-                            signInButton.SetActive(false);
-                            signOutButton.SetActive(true);
+                            loggedOutScreen.SetActive(false);
+                            loggedInScreen.SetActive(true);
                             AddStatusText("Activated");
                             AddStatusText(task.Result.DisplayName);
                         },
