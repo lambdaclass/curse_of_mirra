@@ -15,7 +15,7 @@ public class LatencyAnalyzer : MonoBehaviour
     const int SPIKE_VALUE_THRESHOLD = 150;
     const int SPIKES_AMOUNT_THRESHOLD = 3;
     const int TIMESTAMPS_LIST_MAX_LENGTH = 100;
-    const int MILLISECONDS_UNTIL_WARNING = 2000;
+    const int SPIKES_UNTIL_WARNING = 1;
     const int MILLISECONDS_TO_WAIT = 3000;
     private const string CONNECTION_TITLE = "Error";
     private const string CONNECTION_DESCRIPTION = "Your connection to the server has been lost.";
@@ -97,7 +97,7 @@ public class LatencyAnalyzer : MonoBehaviour
         {
             amountOfSpikes = spikesCounter;
         }
-        showWarning = amountOfSpikes >= Math.Max(1, (long)GameServerConnectionManager.Instance.spikesAmountThreshold - 1);
+        showWarning = amountOfSpikes >= (long)GameServerConnectionManager.Instance.spikesUntilWarning;
         unstableConnection = amountOfSpikes >= (long)GameServerConnectionManager.Instance.spikesAmountThreshold;
 
     }
