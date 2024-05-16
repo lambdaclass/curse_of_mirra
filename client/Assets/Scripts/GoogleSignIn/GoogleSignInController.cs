@@ -156,8 +156,11 @@ public class GoogleSignInController : MonoBehaviour
         PlayerPrefs.SetString("GoogleUserName", "");
         PlayerPrefs.SetString("GoogleUserId", "");
         userName.text = "Guest";
-        signOutButton.SetActive(false);
-        signInButton.SetActive(true);
+        if (signOutButton)
+        {
+            signOutButton.SetActive(false);
+            signInButton.SetActive(true);
+        }
     }
 
     internal void OnAuthenticationFinished(Task<GoogleSignInUser> task)
@@ -201,6 +204,7 @@ public class GoogleSignInController : MonoBehaviour
                             {
                                 PlayerPrefs.SetString("GoogleUserName", task.Result.DisplayName);
                                 PlayerPrefs.SetString("GoogleUserId", task.Result.UserId);
+                                PlayerPrefs.SetString("GoogleUserEmail", task.Result.Email);
                             }
                             userName.text = task.Result.DisplayName;
                             signInButton.SetActive(false);

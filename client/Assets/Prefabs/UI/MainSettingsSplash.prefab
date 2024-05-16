@@ -3875,6 +3875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisconnectButton: {fileID: 8923258175332101338}
   ConnectButton: {fileID: 6951438843327642941}
+  AccountText: {fileID: 4986510712378495519}
 --- !u!1 &2297657417566437824
 GameObject:
   m_ObjectHideFlags: 0
@@ -7762,7 +7763,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: -73.50001}
-  m_SizeDelta: {x: 780.9874, y: 176.05}
+  m_SizeDelta: {x: 751.1874, y: 85.44}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &2205078217253021423
 MonoBehaviour:
@@ -7993,7 +7994,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7307518692916528235
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8283,7 +8284,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 130.665, y: -133.33}
+  m_AnchoredPosition: {x: 130.665, y: -42.72}
   m_SizeDelta: {x: 261.33, y: 85.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5847186353982442396
@@ -8683,8 +8684,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1011.0161, y: -73.5}
-  m_SizeDelta: {x: 460.0574, y: 0}
+  m_AnchoredPosition: {x: 996.1161, y: -73.5}
+  m_SizeDelta: {x: 489.85742, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9221355296697580160
 GameObject:

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,7 @@ public class MainScreenSettings : MonoBehaviour
 {
     [SerializeField] private GameObject DisconnectButton;
     [SerializeField] private GameObject ConnectButton;
+    [SerializeField] private GameObject AccountText;
 
     void Start()
     {
@@ -16,6 +18,8 @@ public class MainScreenSettings : MonoBehaviour
         }
         else
         {
+            AccountText.SetActive(true);
+            AccountText.GetComponent<TextMeshProUGUI>().text += " " + PlayerPrefs.GetString("GoogleUserEmail");
             DisconnectAccount();
         }
     }
