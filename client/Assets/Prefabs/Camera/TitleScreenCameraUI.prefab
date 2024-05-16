@@ -337,7 +337,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Guest
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c29bd5fad2a3454b88e38781b2bf065, type: 2}
   m_sharedMaterial: {fileID: -8425151701689930610, guid: 9c29bd5fad2a3454b88e38781b2bf065,
@@ -3783,8 +3783,11 @@ MonoBehaviour:
   logoImage: {fileID: 5972543162918846898}
   playerNameHandler: {fileID: 3855226733270593250}
   changeNameButton: {fileID: 6391834393251454901}
+  SingOutContainer: {fileID: 0}
+  SingInContainer: {fileID: 0}
   playerNamePopUp: {fileID: 3855226732262484018}
   loadingScreen: {fileID: 1744729843235979323}
+  userText: {fileID: 7337300064976493759}
   loadingSpinner: {fileID: 4935968348015675279}
 --- !u!1 &8257441222066099901
 GameObject:

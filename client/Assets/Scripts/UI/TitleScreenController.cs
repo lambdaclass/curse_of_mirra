@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using MoreMountains.Tools;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -35,6 +36,8 @@ public class TitleScreenController : MonoBehaviour
     [SerializeField]
     GameObject loadingScreen;
 
+    [SerializeField] TextMeshProUGUI userText;
+
     [SerializeField]
     Image loadingSpinner;
     private AsyncOperation asyncOperation;
@@ -50,6 +53,19 @@ public class TitleScreenController : MonoBehaviour
         StartCoroutine(FadeIn(changeNameButton, 1f, 1.2f));
         StartCoroutine(FadeIn(SingOutContainer, 1f, 1.2f));
         StartCoroutine(FadeIn(SingInContainer, .3f, 1.2f));
+
+        if (PlayerPrefs.GetString("GoogleUserId") == "")
+        {
+            SingOutContainer.gameObject.SetActive(true);
+            SingInContainer.gameObject.SetActive(false);
+            userText.text = "Guest";
+        }
+        else
+        {
+            SingInContainer.gameObject.SetActive(true);
+            SingOutContainer.gameObject.SetActive(false);
+            userText.text = PlayerPrefs.GetString("GoogleUserName");
+        }
 
         if (this.asyncOperation == null)
         {
