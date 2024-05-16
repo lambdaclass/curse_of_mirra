@@ -15,6 +15,8 @@ public class GoogleSignInController : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI statusText;
+    [SerializeField]
+    private GameObject loggedInScreen, loggedOutScreen;
 
     [SerializeField]
     private GameObject signOutButton;
