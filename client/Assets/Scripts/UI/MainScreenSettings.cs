@@ -8,7 +8,7 @@ public class MainScreenSettings : MonoBehaviour
 {
     [SerializeField] private GameObject DisconnectButton;
     [SerializeField] private GameObject ConnectButton;
-    [SerializeField] private GameObject AccountText;
+    [SerializeField] private GameObject AccountMail, AccountLabel;
 
     void Start()
     {
@@ -18,8 +18,9 @@ public class MainScreenSettings : MonoBehaviour
         }
         else
         {
-            AccountText.SetActive(true);
-            AccountText.GetComponent<TextMeshProUGUI>().text += " " + PlayerPrefs.GetString("GoogleUserEmail");
+            AccountLabel.SetActive(true);
+            AccountMail.SetActive(true);
+            AccountMail.GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetString("GoogleUserEmail");
             DisconnectAccount();
         }
     }
