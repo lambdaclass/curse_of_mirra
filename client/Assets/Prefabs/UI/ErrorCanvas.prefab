@@ -631,6 +631,7 @@ MonoBehaviour:
   yesButton: {fileID: 8357837723953142230}
   versionHashesWarning: {fileID: 5315715249132799385}
   versionHashesDescription: {fileID: 5189096576004997166}
+  signInDescription: {fileID: 7228286227082432116}
 --- !u!1 &2373502916361808161
 GameObject:
   m_ObjectHideFlags: 0

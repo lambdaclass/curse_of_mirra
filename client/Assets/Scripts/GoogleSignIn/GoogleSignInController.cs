@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Google;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GoogleSignInController : MonoBehaviour
 {
@@ -147,7 +149,7 @@ public class GoogleSignInController : MonoBehaviour
                     titleScreenController.SetLoadingScreen(false);
                 }
                 OnSignOut();
-                Errors.Instance.HandleSignInError();
+                Errors.Instance.HandleSignInError("Sign in canceled");
                 throw new TaskCanceledException();
             }
         }
@@ -219,7 +221,8 @@ public class GoogleSignInController : MonoBehaviour
                         },
                         error =>
                         {
-                            print(error);
+                            Errors.Instance.HandleSignInError("SignIn Error");
+                            StartCoroutine(WaitForReload());
                             AddStatusText(error);
                         }
                     )
@@ -229,6 +232,13 @@ public class GoogleSignInController : MonoBehaviour
                 print(task.Status.ToString());
                 break;
         }
+    }
+
+    IEnumerator WaitForReload()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("TitleScreen");
+        Errors.Instance.HideSignInError();
     }
 
     List<String> messages = new List<String>();
