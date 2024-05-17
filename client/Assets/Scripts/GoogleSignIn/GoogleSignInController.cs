@@ -34,8 +34,6 @@ public class GoogleSignInController : MonoBehaviour
 
     public static GoogleSignInController Instance;
 
-    private static bool isTrue;
-
     void Awake()
     {
         configuration = new GoogleSignInConfiguration

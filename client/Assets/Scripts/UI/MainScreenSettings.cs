@@ -18,10 +18,7 @@ public class MainScreenSettings : MonoBehaviour
         }
         else
         {
-            AccountLabel.SetActive(true);
-            AccountMail.SetActive(true);
-            AccountMail.GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetString("GoogleUserEmail");
-            DisconnectAccount();
+            SetGoogleConnectedData();
         }
     }
 
@@ -56,6 +53,11 @@ public class MainScreenSettings : MonoBehaviour
     IEnumerator WaitForGoogleResponse()
     {
         yield return new WaitUntil(() => PlayerPrefs.GetString("GoogleUserId") != "");
+        SetGoogleConnectedData();
+    }
+
+    public void SetGoogleConnectedData()
+    {
         AccountLabel.SetActive(true);
         AccountMail.SetActive(true);
         AccountMail.GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetString("GoogleUserEmail");
