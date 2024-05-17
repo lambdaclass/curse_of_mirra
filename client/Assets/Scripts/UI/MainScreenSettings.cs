@@ -39,14 +39,26 @@ public class MainScreenSettings : MonoBehaviour
         DisconnectButton.SetActive(false);
     }
 
-    public void DisconnectFromAccount()
+    public void DisconnectFromGoogleAccount()
     {
         GoogleSignInController.Instance.OnSignOut();
-        GoToTitleScreen();
-    }
-    private void GoToTitleScreen()
-    {
-        SceneManager.LoadScene("TitleScreen");
+        AccountLabel.SetActive(false);
+        AccountMail.SetActive(false);
+        ConnectAccount();
     }
 
+    public void ConnectToGoogleAccount()
+    {
+        GoogleSignInController.Instance.OnSignInSimple();
+        StartCoroutine(WaitForGoogleResponse());
+    }
+
+    IEnumerator WaitForGoogleResponse()
+    {
+        yield return new WaitUntil(() => PlayerPrefs.GetString("GoogleUserId") != "");
+        AccountLabel.SetActive(true);
+        AccountMail.SetActive(true);
+        AccountMail.GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetString("GoogleUserEmail");
+        DisconnectAccount();
+    }
 }

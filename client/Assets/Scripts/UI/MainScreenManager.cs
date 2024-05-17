@@ -50,7 +50,7 @@ public class MainScreenManager : MonoBehaviour
     public void ShowPlayerNamePopUp()
     {
         playerNamePopUp.SetActive(true);
-        StartCoroutine(FadeIn(playerNamePopUp.GetComponent<CanvasGroup>(), 0.6f, 0.3f));
+        StartCoroutine(FadeIn(playerNamePopUp.GetComponent<CanvasGroup>(), 0.6f, 0f));
     }
 
     IEnumerator FadeIn(CanvasGroup element, float time, float delay)

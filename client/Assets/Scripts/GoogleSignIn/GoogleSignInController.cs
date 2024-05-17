@@ -122,11 +122,17 @@ public class GoogleSignInController : MonoBehaviour
     {
         if (await Task.WhenAny(task, Task.Delay(loadingTimeout, cancellationToken)) != task)
         {
-            titleScreenController.SetLoadingScreen(true);
+            if (titleScreenController)
+            {
+                titleScreenController.SetLoadingScreen(true);
+            }
         }
         if (await Task.WhenAny(task, Task.Delay(timeout, cancellationToken)) == task)
         {
-            titleScreenController.SetLoadingScreen(false);
+            if (titleScreenController)
+            {
+                titleScreenController.SetLoadingScreen(false);
+            }
             await task.ContinueWith(
                 OnAuthenticationFinished,
                 TaskScheduler.FromCurrentSynchronizationContext()
@@ -136,7 +142,10 @@ public class GoogleSignInController : MonoBehaviour
         {
             if (cancellationToken.IsCancellationRequested)
             {
-                titleScreenController.SetLoadingScreen(false);
+                if (titleScreenController)
+                {
+                    titleScreenController.SetLoadingScreen(false);
+                }
                 OnSignOut();
                 Errors.Instance.HandleSignInError();
                 throw new TaskCanceledException();
