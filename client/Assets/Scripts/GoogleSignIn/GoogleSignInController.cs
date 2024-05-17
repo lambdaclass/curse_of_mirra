@@ -184,6 +184,8 @@ public class GoogleSignInController : MonoBehaviour
                         GoogleSignIn.SignInException error = (GoogleSignIn.SignInException)
                             enumerator.Current;
                         print("Got Error: " + error.Status + " " + error.Message);
+                        Errors.Instance.HandleSignInError("Developer Error");
+                        StartCoroutine(WaitForReload());
                         AddStatusText("Got Error: " + error.Status + " " + error.Message);
                     }
                     else
