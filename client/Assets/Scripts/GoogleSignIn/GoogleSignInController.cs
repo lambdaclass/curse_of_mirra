@@ -115,7 +115,6 @@ public class GoogleSignInController : MonoBehaviour
 
         foreach (var key in keyValues)
         {
-            print(key.Key);
             if (key.Key == "REVERSED_CLIENT_ID")
             {
                 if (key.Value != REVERSED_CLIENT_ID)
@@ -124,13 +123,13 @@ public class GoogleSignInController : MonoBehaviour
                     break;
                 }
             }
+            if (correctReverseKey == false) return;
         }
 
-        Task<GoogleSignInUser> task = null;
 
         if (correctReverseKey)
         {
-            task = GoogleSignIn.DefaultInstance.SignIn();
+            var task = GoogleSignIn.DefaultInstance.SignIn();
             try
             {
                 await RunningTask(timeout, loadingTimeout, cancellationToken.Token, task);
@@ -143,6 +142,7 @@ public class GoogleSignInController : MonoBehaviour
         }
         else
         {
+            AddStatusText("Got Error no condifciona el plist");
             Errors.Instance.HandleSignInError("SignIn Error");
             StartCoroutine(WaitForReload());
         }
