@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PingCounter : MonoBehaviour
 {
     /// the frequency at which the PING counter should update
-    public float updateInterval = 5f;
+    public float updateInterval = .5f;
     protected float _timeLeftToUpdate;
     protected Text _pingText;
 
