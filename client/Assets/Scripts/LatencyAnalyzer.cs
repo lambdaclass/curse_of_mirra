@@ -20,6 +20,7 @@ public class LatencyAnalyzer : MonoBehaviour
     private const string CONNECTION_TITLE = "Error";
     private const string CONNECTION_DESCRIPTION = "Your connection to the server has been lost.";
     int amountOfSpikes = 0;
+    private Entity gamePlayer;
 
     public void Awake()
     {
@@ -36,6 +37,8 @@ public class LatencyAnalyzer : MonoBehaviour
     void Start()
     {
         _timeLeftToUpdate = updateInterval;
+        ulong playerId = GameServerConnectionManager.Instance.playerId;
+        Entity gamePlayer = Utils.GetGamePlayer(playerId);
     }
 
     // Update is called once per frame
@@ -44,7 +47,8 @@ public class LatencyAnalyzer : MonoBehaviour
         long gameEventTimestamp = GameServerConnectionManager.Instance.gameEventTimestamp;
         long clientTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         _timeLeftToUpdate = _timeLeftToUpdate - Time.deltaTime;
-        if (gameEventTimestamp > 0 && !GameServerConnectionManager.Instance.GameHasEnded())
+        if (gameEventTimestamp > 0 && (!GameServerConnectionManager.Instance.GameHasEnded()
+            || (gamePlayer != null && gamePlayer.Player.Health != 0)))
         {
             long diffUpdateValue = clientTimestamp - gameEventTimestamp;
 
