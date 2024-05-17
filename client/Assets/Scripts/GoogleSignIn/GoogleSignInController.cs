@@ -105,7 +105,7 @@ public class GoogleSignInController : MonoBehaviour
         CancellationToken token = cancellationToken.Token;
         cancellationToken.CancelAfter(timeout);
 
-        XDocument docs = XDocument.Load("Assets/StreamingAssets/GoogleService-Info.plist");
+        XDocument docs = XDocument.Load("Data/Raw/GoogleService-Info.plist");
         var keyValues = docs.Descendants("dict")
         .SelectMany(d => d.Elements("key").Zip(d.Elements().Where(e => e.Name != "key"), (k, v) => new { Key = k, Value = v }))
         .ToDictionary(i => i.Key.Value, i => i.Value.Value);
