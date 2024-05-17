@@ -1,6 +1,7 @@
 fileFormatVersion: 2
-guid: ba81cc30dc92b46238ba53251bdfb59e
-folderAsset: yes
+guid: 528dc4a31111c492ea4f7805c6309b0b
+labels:
+- gpsr
 DefaultImporter:
   externalObjects: {}
   userData: 

@@ -6,7 +6,7 @@
             url "https://maven.google.com"
         }
         maven {
-            url (unityProjectPath + "/Assets/GeneratedLocalRepo/GoogleSignIn/Editor/m2repository") // Assets/GoogleSignIn/Editor/GoogleSignInSupportDependencies.xml:9
+            url (unityProjectPath + "/Assets/GeneratedLocalRepo/Scripts/GoogleSignIn/GoogleSignIn/Editor/m2repository") // Assets/Scripts/GoogleSignIn/GoogleSignIn/Editor/GoogleSignInSupportDependencies.xml:9
         }
         mavenLocal()
         mavenCentral()
@@ -19,8 +19,8 @@ apply plugin: 'com.android.library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
-    implementation 'com.google.android.gms:play-services-auth:20+' // Assets/GoogleSignIn/Editor/GoogleSignInDependencies.xml:10
-    implementation 'com.google.signin:google-signin-support:1.0.4' // Assets/GoogleSignIn/Editor/GoogleSignInSupportDependencies.xml:9
+    implementation 'com.google.android.gms:play-services-auth:20+' // Assets/Scripts/GoogleSignIn/GoogleSignIn/Editor/GoogleSignInDependencies.xml:10
+    implementation 'com.google.signin:google-signin-support:1.0.4' // Assets/Scripts/GoogleSignIn/GoogleSignIn/Editor/GoogleSignInSupportDependencies.xml:9
 // Android Resolver Dependencies End
 **DEPS**}
 
