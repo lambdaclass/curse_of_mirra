@@ -8,8 +8,6 @@ using System.Linq;
 public class LatencyAnalyzer : MonoBehaviour
 {
     public bool showWarning, unstableConnection;
-    int updateInterval = 50;
-    protected int _timeLeftToUpdate;
     List<long> gameEventTimestamps = new List<long>();
     public static LatencyAnalyzer Instance;
     const int SPIKE_VALUE_THRESHOLD = 150;
@@ -21,7 +19,6 @@ public class LatencyAnalyzer : MonoBehaviour
     private const string CONNECTION_DESCRIPTION = "Your connection to the server has been lost.";
     int amountOfSpikes = 0;
     private Entity gamePlayer;
-    long currentTimeUnix, nextUpdateTimeUnix;
 
     public void Awake()
     {
@@ -37,50 +34,40 @@ public class LatencyAnalyzer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _timeLeftToUpdate = updateInterval;
         ulong playerId = GameServerConnectionManager.Instance.playerId;
         Entity gamePlayer = Utils.GetGamePlayer(playerId);
-        // Get the current Unix time in seconds
-        currentTimeUnix = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        // Calculate the next update time by adding the update interval to the current time
-        nextUpdateTimeUnix = currentTimeUnix + _timeLeftToUpdate;
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentTimeUnix = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        if (currentTimeUnix >= nextUpdateTimeUnix)
+        long gameEventTimestamp = GameServerConnectionManager.Instance.gameEventTimestamp;
+        long clientTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+        if (gameEventTimestamp > 0 && (!GameServerConnectionManager.Instance.GameHasEnded()
+            || (gamePlayer != null && gamePlayer.Player.Health != 0)))
         {
-            // Calculate the next update time
-            nextUpdateTimeUnix = currentTimeUnix + _timeLeftToUpdate;
-            long gameEventTimestamp = GameServerConnectionManager.Instance.gameEventTimestamp;
-            long clientTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            long diffUpdateValue = clientTimestamp - gameEventTimestamp;
 
-            if (gameEventTimestamp > 0 && (!GameServerConnectionManager.Instance.GameHasEnded()
-                || (gamePlayer != null && gamePlayer.Player.Health != 0)))
+            // Redirect on disconnection
+            if (diffUpdateValue >= (long)GameServerConnectionManager.Instance.maxMsBetweenEvents)
             {
-                long diffUpdateValue = clientTimestamp - gameEventTimestamp;
-
-                // Redirect on disconnection
-                if (diffUpdateValue >= (long)GameServerConnectionManager.Instance.maxMsBetweenEvents)
-                {
-                    DisconnectFeedback();
-                    Errors.Instance.HandleNetworkError(CONNECTION_TITLE, CONNECTION_DESCRIPTION);
-                }
-
-                // Check if the list Length is already 10 and keep it that way
-                if (gameEventTimestamps.Count == (int)GameServerConnectionManager.Instance.timestampsListMaxLength)
-                {
-                    gameEventTimestamps.RemoveAt(0);
-                }
-                else
-                {
-                    gameEventTimestamps.Add(gameEventTimestamp);
-                }
-                ConnectionStabilityCheck(gameEventTimestamps);
+                DisconnectFeedback();
+                Errors.Instance.HandleNetworkError(CONNECTION_TITLE, CONNECTION_DESCRIPTION);
             }
+
+            // Check if the list Length is already 10 and keep it that way
+            if (gameEventTimestamps.Count == (int)GameServerConnectionManager.Instance.timestampsListMaxLength)
+            {
+                gameEventTimestamps.RemoveAt(0);
+            }
+            else
+            {
+                gameEventTimestamps.Add(gameEventTimestamp);
+            }
+            ConnectionStabilityCheck(gameEventTimestamps);
         }
+
     }
 
     void ConnectionStabilityCheck(List<long> list)
