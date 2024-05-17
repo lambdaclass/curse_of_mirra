@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using MoreMountains.Tools;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -27,11 +28,15 @@ public class TitleScreenController : MonoBehaviour
     [SerializeField]
     CanvasGroup changeNameButton;
 
+    [SerializeField] CanvasGroup SingOutContainer, SingInContainer;
+
     [SerializeField]
     GameObject playerNamePopUp;
 
     [SerializeField]
     GameObject loadingScreen;
+
+    [SerializeField] TextMeshProUGUI userText;
 
     [SerializeField]
     Image loadingSpinner;
@@ -46,18 +51,29 @@ public class TitleScreenController : MonoBehaviour
         StartCoroutine(FadeIn(logoImage.GetComponent<CanvasGroup>(), 1f, .1f));
         StartCoroutine(FadeIn(ButtonsCanvas, .3f, 1.2f));
         StartCoroutine(FadeIn(changeNameButton, 1f, 1.2f));
-        if (PlayerPrefs.GetString("playerName") == "")
+        StartCoroutine(FadeIn(SingOutContainer, 1f, 1.2f));
+        StartCoroutine(FadeIn(SingInContainer, .3f, 1.2f));
+
+        if (PlayerPrefs.GetString("GoogleUserId") == "")
         {
-            playerNamePopUp.SetActive(true);
-            StartCoroutine(FadeIn(playerNamePopUp.GetComponent<CanvasGroup>(), 1f, 1.2f));
+            SingOutContainer.gameObject.SetActive(true);
+            SingInContainer.gameObject.SetActive(false);
+            userText.text = "Guest";
         }
+        else
+        {
+            SingInContainer.gameObject.SetActive(true);
+            SingOutContainer.gameObject.SetActive(false);
+            userText.text = PlayerPrefs.GetString("GoogleUserName");
+        }
+
         if (this.asyncOperation == null)
         {
             this.StartCoroutine(this.LoadSceneAsyncProcess(TITLE_SCENE_NAME));
         }
 
-        selectedCharacterName = PlayerPrefs.GetString("selectedCharacterName") == "" 
-            ? "Muflus" 
+        selectedCharacterName = PlayerPrefs.GetString("selectedCharacterName") == ""
+            ? "Muflus"
             : PlayerPrefs.GetString("selectedCharacterName");
     }
 
@@ -78,7 +94,7 @@ public class TitleScreenController : MonoBehaviour
     {
         SetLoadingScreen(true);
         // SelectCharacterAndMaybeCreateUser();
-        ServerConnection.Instance.selectedCharacterName = selectedCharacterName ;
+        ServerConnection.Instance.selectedCharacterName = selectedCharacterName;
         asyncOperation.allowSceneActivation = true;
     }
 

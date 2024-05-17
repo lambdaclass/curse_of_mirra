@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Google;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GoogleSignInController : MonoBehaviour
 {
@@ -15,12 +15,9 @@ public class GoogleSignInController : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI statusText;
-
     [SerializeField]
-    private GameObject signOutButton;
+    private GameObject loggedInScreen, loggedOutScreen;
 
-    [SerializeField]
-    private GameObject signInButton;
     private string webClientIdGoogle = "194682062935-ukqi0s2vp1d2nmoembp0dapes21ei859.apps.googleusercontent.com";
 
     private GoogleSignInConfiguration configuration;
@@ -35,6 +32,8 @@ public class GoogleSignInController : MonoBehaviour
     int timeoutToCancelInSeconds = 50;
     int timeoutToShowLoadingInSeconds = 5;
 
+    public static GoogleSignInController Instance;
+
     void Awake()
     {
         configuration = new GoogleSignInConfiguration
@@ -48,13 +47,30 @@ public class GoogleSignInController : MonoBehaviour
 
     void Start()
     {
+        Init();
         AddStatusText("Welcome " + PlayerPrefs.GetString("GoogleUserName"));
-        if(GoogleSignIn.Configuration == null){
+        if (GoogleSignIn.Configuration == null)
+        {
             GoogleSignIn.Configuration = configuration;
         }
         SignInWithCachedUser();
     }
 
+    void Init()
+    {
+        // Check if an instance already exists
+        if (Instance != null)
+        {
+            // Destroy the old instance
+            Destroy(Instance.gameObject);
+        }
+
+        // Set the new instance
+        Instance = this;
+
+        // Preserve the new instance between scenes
+        DontDestroyOnLoad(gameObject);
+    }
     private void SignInWithCachedUser()
     {
         if (PlayerPrefs.GetString("GoogleUserId") != "")
@@ -71,11 +87,12 @@ public class GoogleSignInController : MonoBehaviour
 
     public async void OnSignInSimple()
     {
-         if(GoogleSignIn.Configuration == null){
+        if (GoogleSignIn.Configuration == null)
+        {
             GoogleSignIn.Configuration = configuration;
             GoogleSignIn.Configuration.UseGameSignIn = false;
             GoogleSignIn.Configuration.RequestIdToken = true;
-         }
+        }
         AddStatusText("Calling SignIn");
 
         TimeSpan timeout = new TimeSpan(0, 0, timeoutToCancelInSeconds);
@@ -105,11 +122,17 @@ public class GoogleSignInController : MonoBehaviour
     {
         if (await Task.WhenAny(task, Task.Delay(loadingTimeout, cancellationToken)) != task)
         {
-            titleScreenController.SetLoadingScreen(true);
+            if (titleScreenController)
+            {
+                titleScreenController.SetLoadingScreen(true);
+            }
         }
         if (await Task.WhenAny(task, Task.Delay(timeout, cancellationToken)) == task)
         {
-            titleScreenController.SetLoadingScreen(false);
+            if (titleScreenController)
+            {
+                titleScreenController.SetLoadingScreen(false);
+            }
             await task.ContinueWith(
                 OnAuthenticationFinished,
                 TaskScheduler.FromCurrentSynchronizationContext()
@@ -119,9 +142,12 @@ public class GoogleSignInController : MonoBehaviour
         {
             if (cancellationToken.IsCancellationRequested)
             {
-                titleScreenController.SetLoadingScreen(false);
+                if (titleScreenController)
+                {
+                    titleScreenController.SetLoadingScreen(false);
+                }
                 OnSignOut();
-                Errors.Instance.HandleSignInError();
+                Errors.Instance.HandleSignInError("Sign in canceled");
                 throw new TaskCanceledException();
             }
         }
@@ -130,12 +156,15 @@ public class GoogleSignInController : MonoBehaviour
     public void OnSignOut()
     {
         GoogleSignIn.DefaultInstance.SignOut();
-        AddStatusText("SingOut");
         PlayerPrefs.SetString("GoogleUserName", "");
         PlayerPrefs.SetString("GoogleUserId", "");
-        userName.text = "Guest";
-        signOutButton.SetActive(false);
-        signInButton.SetActive(true);
+        if (loggedInScreen)
+        {
+            AddStatusText("SingOut");
+            userName.text = "Guest";
+            loggedInScreen.SetActive(false);
+            loggedOutScreen.SetActive(true);
+        }
     }
 
     internal void OnAuthenticationFinished(Task<GoogleSignInUser> task)
@@ -155,6 +184,8 @@ public class GoogleSignInController : MonoBehaviour
                         GoogleSignIn.SignInException error = (GoogleSignIn.SignInException)
                             enumerator.Current;
                         print("Got Error: " + error.Status + " " + error.Message);
+                        Errors.Instance.HandleSignInError("Developer Error");
+                        StartCoroutine(WaitForReload());
                         AddStatusText("Got Error: " + error.Status + " " + error.Message);
                     }
                     else
@@ -179,16 +210,19 @@ public class GoogleSignInController : MonoBehaviour
                             {
                                 PlayerPrefs.SetString("GoogleUserName", task.Result.DisplayName);
                                 PlayerPrefs.SetString("GoogleUserId", task.Result.UserId);
+                                PlayerPrefs.SetString("GoogleUserEmail", task.Result.Email);
+                                titleScreenController.ChangeToMainscreen();
                             }
                             userName.text = task.Result.DisplayName;
-                            signInButton.SetActive(false);
-                            signOutButton.SetActive(true);
+                            loggedOutScreen.SetActive(false);
+                            loggedInScreen.SetActive(true);
                             AddStatusText("Activated");
                             AddStatusText(task.Result.DisplayName);
                         },
                         error =>
                         {
-                            print(error);
+                            Errors.Instance.HandleSignInError("SignIn Error");
+                            StartCoroutine(WaitForReload());
                             AddStatusText(error);
                         }
                     )
@@ -198,6 +232,13 @@ public class GoogleSignInController : MonoBehaviour
                 print(task.Status.ToString());
                 break;
         }
+    }
+
+    IEnumerator WaitForReload()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("TitleScreen");
+        Errors.Instance.HideSignInError();
     }
 
     List<String> messages = new List<String>();
