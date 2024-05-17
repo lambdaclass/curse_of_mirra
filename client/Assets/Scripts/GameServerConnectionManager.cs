@@ -150,7 +150,6 @@ public class GameServerConnectionManager : MonoBehaviour
         if (closeCode != WebSocketCloseCode.Normal)
         {
             // TODO: Add some error handle for when websocket closes unexpectedly
-            LatencyAnalyzer.Instance.DisconnectFeedback();
             Debug.Log("Game websocket closed unexpectedly");
         }
         else
