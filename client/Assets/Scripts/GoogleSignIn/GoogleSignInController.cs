@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Google;
 using TMPro;
 using UnityEngine;
@@ -19,6 +21,8 @@ public class GoogleSignInController : MonoBehaviour
     private GameObject loggedInScreen, loggedOutScreen;
 
     private string webClientIdGoogle = "194682062935-ukqi0s2vp1d2nmoembp0dapes21ei859.apps.googleusercontent.com";
+
+    private string REVERSED_CLIENT_ID = "";
 
     private GoogleSignInConfiguration configuration;
 
@@ -100,17 +104,50 @@ public class GoogleSignInController : MonoBehaviour
         CancellationTokenSource cancellationToken = new CancellationTokenSource();
         CancellationToken token = cancellationToken.Token;
         cancellationToken.CancelAfter(timeout);
-        var task = GoogleSignIn.DefaultInstance.SignIn();
 
-        try
+        XDocument docs = XDocument.Load("Assets/StreamingAssets/GoogleService-Info.plist");
+        var keyValues = docs.Descendants("dict")
+        .SelectMany(d => d.Elements("key").Zip(d.Elements().Where(e => e.Name != "key"), (k, v) => new { Key = k, Value = v }))
+        .ToDictionary(i => i.Key.Value, i => i.Value.Value);
+
+        bool correctReverseKey = true;
+
+
+        foreach (var key in keyValues)
         {
-            await RunningTask(timeout, loadingTimeout, cancellationToken.Token, task);
+            print(key.Key);
+            if (key.Key == "REVERSED_CLIENT_ID")
+            {
+                if (key.Value != REVERSED_CLIENT_ID)
+                {
+                    correctReverseKey = false;
+                    break;
+                }
+            }
         }
-        catch (TaskCanceledException e)
+
+        Task<GoogleSignInUser> task = null;
+
+        if (correctReverseKey)
         {
-            print(e);
-            cancellationToken.Cancel();
+            task = GoogleSignIn.DefaultInstance.SignIn();
+            try
+            {
+                await RunningTask(timeout, loadingTimeout, cancellationToken.Token, task);
+            }
+            catch (TaskCanceledException e)
+            {
+                print(e);
+                cancellationToken.Cancel();
+            }
         }
+        else
+        {
+            Errors.Instance.HandleSignInError("SignIn Error");
+            StartCoroutine(WaitForReload());
+        }
+
+
     }
 
     public async Task RunningTask(
