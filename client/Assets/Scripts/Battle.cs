@@ -743,11 +743,11 @@ public class Battle : MonoBehaviour
         }
         float totalPositionChange = Math.Abs(xChange) + Math.Abs(yChange);
 
-        if (isPlayer && LatencyAnalyzer.Instance.showWarning)
+        if (isPlayer && LatencyAnalyzer.Instance.unstableConnection)
         {
             repositionPlayer = true;
         }
-        if (totalPositionChange > TELEPORT_THRESHOLD && isPlayer && !LatencyAnalyzer.Instance.showWarning && repositionPlayer)
+        if (totalPositionChange > TELEPORT_THRESHOLD && isPlayer && !LatencyAnalyzer.Instance.unstableConnection && repositionPlayer)
         {
             repositionPlayer = false;
             player.transform.position = frontendPosition;
