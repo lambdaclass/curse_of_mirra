@@ -105,13 +105,15 @@ public class GoogleSignInController : MonoBehaviour
         CancellationToken token = cancellationToken.Token;
         cancellationToken.CancelAfter(timeout);
 
-        XDocument docs = XDocument.Load("Data/Raw/GoogleService-Info.plist");
+        bool correctReverseKey = true;
+
+#if UNITY_IOS
+        // Fix for iOS REVERSED_CLIENT_ID not matching
+        string plistPath = Application.dataPath + "/Raw/GoogleService-Info.plist";
+        XDocument docs = XDocument.Load(plistPath);
         var keyValues = docs.Descendants("dict")
         .SelectMany(d => d.Elements("key").Zip(d.Elements().Where(e => e.Name != "key"), (k, v) => new { Key = k, Value = v }))
         .ToDictionary(i => i.Key.Value, i => i.Value.Value);
-
-        bool correctReverseKey = true;
-
 
         foreach (var key in keyValues)
         {
@@ -125,7 +127,7 @@ public class GoogleSignInController : MonoBehaviour
             }
             if (correctReverseKey == false) return;
         }
-
+#endif
 
         if (correctReverseKey)
         {
@@ -142,7 +144,7 @@ public class GoogleSignInController : MonoBehaviour
         }
         else
         {
-            AddStatusText("Got Error no condifciona el plist");
+            AddStatusText("Got Error iOs plist not matching");
             Errors.Instance.HandleSignInError("SignIn Error");
             StartCoroutine(WaitForReload());
         }
