@@ -130,8 +130,9 @@ public static partial class MessagesReflection {
           "CQoFVEFLRU4QASqPAQoQUGxheWVyQWN0aW9uVHlwZRIKCgZNT1ZJTkcQABIU",
           "ChBTVEFSVElOR19TS0lMTF8xEAESFAoQU1RBUlRJTkdfU0tJTExfMhACEhUK",
           "EUVYRUNVVElOR19TS0lMTF8xEAMSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQBBIV",
-          "ChFFWEVDVVRJTkdfU0tJTExfMxAFKjMKClRyYXBTdGF0dXMSDAoIUFJFUEFS",
-          "RUQQABINCglUUklHR0VSRUQQARIICgRVU0VEEAJiBnByb3RvMw=="));
+          "ChFFWEVDVVRJTkdfU0tJTExfMxAFKkAKClRyYXBTdGF0dXMSCwoHUEVORElO",
+          "RxAAEgwKCFBSRVBBUkVEEAESDQoJVFJJR0dFUkVEEAISCAoEVVNFRBADYgZw",
+          "cm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameStatus), typeof(global::ProjectileStatus), typeof(global::CrateStatus), typeof(global::PowerUpstatus), typeof(global::PlayerActionType), typeof(global::TrapStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -208,9 +209,10 @@ public enum PlayerActionType {
 }
 
 public enum TrapStatus {
-  [pbr::OriginalName("PREPARED")] Prepared = 0,
-  [pbr::OriginalName("TRIGGERED")] Triggered = 1,
-  [pbr::OriginalName("USED")] Used = 2,
+  [pbr::OriginalName("PENDING")] Pending = 0,
+  [pbr::OriginalName("PREPARED")] Prepared = 1,
+  [pbr::OriginalName("TRIGGERED")] Triggered = 2,
+  [pbr::OriginalName("USED")] Used = 3,
 }
 
 #endregion
@@ -8255,7 +8257,7 @@ public sealed partial class Trap : pb::IMessage<Trap>
 
   /// <summary>Field number for the "status" field.</summary>
   public const int StatusFieldNumber = 3;
-  private global::TrapStatus status_ = global::TrapStatus.Prepared;
+  private global::TrapStatus status_ = global::TrapStatus.Pending;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public global::TrapStatus Status {
@@ -8292,7 +8294,7 @@ public sealed partial class Trap : pb::IMessage<Trap>
     int hash = 1;
     if (OwnerId != 0UL) hash ^= OwnerId.GetHashCode();
     if (Name.Length != 0) hash ^= Name.GetHashCode();
-    if (Status != global::TrapStatus.Prepared) hash ^= Status.GetHashCode();
+    if (Status != global::TrapStatus.Pending) hash ^= Status.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -8319,7 +8321,7 @@ public sealed partial class Trap : pb::IMessage<Trap>
       output.WriteRawTag(18);
       output.WriteString(Name);
     }
-    if (Status != global::TrapStatus.Prepared) {
+    if (Status != global::TrapStatus.Pending) {
       output.WriteRawTag(24);
       output.WriteEnum((int) Status);
     }
@@ -8341,7 +8343,7 @@ public sealed partial class Trap : pb::IMessage<Trap>
       output.WriteRawTag(18);
       output.WriteString(Name);
     }
-    if (Status != global::TrapStatus.Prepared) {
+    if (Status != global::TrapStatus.Pending) {
       output.WriteRawTag(24);
       output.WriteEnum((int) Status);
     }
@@ -8361,7 +8363,7 @@ public sealed partial class Trap : pb::IMessage<Trap>
     if (Name.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
     }
-    if (Status != global::TrapStatus.Prepared) {
+    if (Status != global::TrapStatus.Pending) {
       size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Status);
     }
     if (_unknownFields != null) {
@@ -8382,7 +8384,7 @@ public sealed partial class Trap : pb::IMessage<Trap>
     if (other.Name.Length != 0) {
       Name = other.Name;
     }
-    if (other.Status != global::TrapStatus.Prepared) {
+    if (other.Status != global::TrapStatus.Pending) {
       Status = other.Status;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
