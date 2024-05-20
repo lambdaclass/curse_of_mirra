@@ -12,6 +12,8 @@ public class SkillsDetailHandler : MonoBehaviour
     public List<SkillDescription> skillsList;
     public List<Image> bordersList;
 
+    [SerializeField] public CharacterInfoManager characterInfoManager;
+
     void Awake()
     {
         SetSkillsList();

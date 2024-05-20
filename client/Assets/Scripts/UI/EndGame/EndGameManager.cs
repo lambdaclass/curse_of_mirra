@@ -35,7 +35,7 @@ public class EndGameManager : MonoBehaviour
 
     private const int WINNER_POS = 1;
     private const int SECOND_PLACE_POS = 2;
-    private const string ZONE_ID = "0";
+    private const ulong ZONE_ID = 9999;
     CustomCharacter player;
 
     void OnEnable()
@@ -59,7 +59,7 @@ public class EndGameManager : MonoBehaviour
         }
     }
 
-    public void ShowWinner() 
+    public void ShowWinner()
     {
         winnerContainer.GetComponent<CanvasGroup>().DOFade(1, 1f);
         winnerNameText.text = GameServerConnectionManager.Instance.winnerPlayer.Item1.Name;
@@ -129,7 +129,7 @@ public class EndGameManager : MonoBehaviour
 
     void MaybeShowDefeaterName()
     {
-        if (KillFeedManager.instance.GetMyKillerId().ToString() == ZONE_ID)
+        if (KillFeedManager.instance.GetMyKillerId() == ZONE_ID)
         {
             defeaterPlayerName.gameObject.SetActive(false);
         }
@@ -141,7 +141,7 @@ public class EndGameManager : MonoBehaviour
 
     private Sprite GetDefeaterSprite()
     {
-        if (KillFeedManager.instance.GetMyKillerId().ToString() == ZONE_ID)
+        if (KillFeedManager.instance.GetMyKillerId() == ZONE_ID)
         {
             return KillFeedManager.instance.zoneIcon;
         }

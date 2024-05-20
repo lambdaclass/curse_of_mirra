@@ -21,7 +21,7 @@ public class KillFeedManager : MonoBehaviour
 
     private ulong currentTrackedPlayer;
     private bool currentTrackedPlayerIsSet = false;
-    private const ulong ZONE_ID = 0;
+    private const ulong ZONE_ID = 9999;
 
     void Awake()
     {
@@ -65,7 +65,8 @@ public class KillFeedManager : MonoBehaviour
 
     public void Update()
     {
-        if(GameServerConnectionManager.Instance.gamePlayers?.Count() > 0 && currentTrackedPlayerIsSet == false){
+        if (GameServerConnectionManager.Instance.gamePlayers?.Count() > 0 && currentTrackedPlayerIsSet == false)
+        {
             currentTrackedPlayer = GameServerConnectionManager.Instance.playerId;
             currentTrackedPlayerIsSet = true;
         }
@@ -90,8 +91,16 @@ public class KillFeedManager : MonoBehaviour
             ulong killerPlayerId = killEvent.KillerId;
 
             string deathPlayerName = Utils.GetGamePlayer(deathPlayerId).Name;
-            string killerPlayerName = Utils.GetGamePlayer(killerPlayerId).Name;
+            string killerPlayerName;
+            if (killerPlayerId == ZONE_ID)
+            {
+                killerPlayerName = ZONE_ID.ToString();
+            }
+            else
+            {
+                killerPlayerName = Utils.GetGamePlayer(killerPlayerId).Name;
 
+            }
             Sprite killerIcon = GetUIIcon(killEvent.KillerId);
             Sprite killedIcon = GetUIIcon(killEvent.VictimId);
 
@@ -100,28 +109,34 @@ public class KillFeedManager : MonoBehaviour
             Destroy(item, 3.0f);
         }
 
-        if(Utils.GetGamePlayer(currentTrackedPlayer)?.Player.Health <= 0 && killEvent == null){
+        if (Utils.GetGamePlayer(currentTrackedPlayer)?.Player.Health <= 0 && killEvent == null)
+        {
             currentTrackedPlayer = ZONE_ID;
         }
     }
 
-    public ulong GetSaveKillderId(){
+    public ulong GetSaveKillderId()
+    {
         return this.saveKillerId;
     }
 
-    public void SetSaveKillderId(ulong newSaveKillderId){
+    public void SetSaveKillderId(ulong newSaveKillderId)
+    {
         this.saveKillerId = newSaveKillderId;
     }
 
-    public ulong GetMyKillerId(){
+    public ulong GetMyKillerId()
+    {
         return this.myKillerId;
     }
 
-    public ulong GetCurrentTrackedPlayer(){
+    public ulong GetCurrentTrackedPlayer()
+    {
         return this.currentTrackedPlayer;
     }
 
-    public void SetCurrentTrackedPlayer(ulong newCurrentTrackedPlayer){
+    public void SetCurrentTrackedPlayer(ulong newCurrentTrackedPlayer)
+    {
         this.currentTrackedPlayer = newCurrentTrackedPlayer;
     }
 }

@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIModelManager : MonoBehaviour
 {
@@ -24,7 +26,7 @@ public class UIModelManager : MonoBehaviour
     const float ANIMATION_INTERVAL = 20f;
     float animationClipDuration;
     Coroutine characterAnimation;
-    Animator modelAnimator;
+    public Animator modelAnimator;
 
     void Start()
     {
@@ -47,10 +49,10 @@ public class UIModelManager : MonoBehaviour
         GameObject modelClone = Instantiate(playerModel, playerModelContainer.transform);
         animate = true;
         modelAnimator = modelClone.GetComponentInChildren<Animator>();
-        if (SceneManager.GetActiveScene().name != "Battle")
+        if (SceneManager.GetActiveScene().name == "MainScreen")
         {
-            animationClipDuration = AnimationClipTime(modelAnimator);
-            characterAnimation = StartCoroutine(AnimateCharacter(modelClone));
+            animationClipDuration = AnimationClipTime(modelAnimator, "Victory");
+            characterAnimation = StartCoroutine(AnimateCharacter("Victory"));
         }
     }
 
@@ -63,28 +65,51 @@ public class UIModelManager : MonoBehaviour
         }
     }
 
-    float AnimationClipTime(Animator modelClone)
+    float AnimationClipTime(Animator modelClone, string parameterName)
     {
         List<AnimationClip> clips = modelClone.runtimeAnimatorController.animationClips.ToList();
-        return modelClone.name.Contains("Uma")
-            ? clips.Single(clip => clip.name == "GR_VeilOfRadiance").length / 2
-            : clips.Single(clip => clip.name == "Victory").length;
+        float animationClipTime = 0;
+
+        if (modelClone.name.Contains("Uma") && parameterName == "Victory")
+        {
+            animationClipTime = clips.Single(clip => clip.name == "Victory_aux").length / 2;
+        }
+        else
+        {
+            animationClipTime = clips.Single(clip => clip.name.ToLower() == parameterName.ToLower()).length;
+        }
+
+        return animationClipTime;
     }
 
-    IEnumerator AnimateCharacter(GameObject modelClone)
+    public IEnumerator AnimateCharacter(string parameterName)
     {
         // Fix this: With the characterSelection PR we can add a string in the ComCharacter to
         // select which animations should be played
-        string animationName = modelClone.name.Contains("Uma") ? "Radiance" : "Victory";
+        // string animationName = modelClone.name.Contains("Uma") ? "Radiance" : "Victory";
+        GameObject modelClone = modelAnimator.transform.parent.gameObject;
+
+
+        if (modelClone.name.Contains("Uma") && parameterName == "Victory")
+        {
+            parameterName = "Victory_aux";
+        }
+
         while (animate)
         {
             yield return new WaitForSeconds(1f);
-            modelClone.GetComponentInChildren<Animator>().SetBool(animationName, true);
+            modelClone.GetComponentInChildren<Animator>().SetBool(parameterName, true);
             yield return new WaitForSeconds(animationClipDuration);
-            modelClone.GetComponentInChildren<Animator>().SetBool(animationName, false);
+            modelClone.GetComponentInChildren<Animator>().SetBool(parameterName, false);
             yield return new WaitForSeconds(ANIMATION_INTERVAL);
         }
     }
+
+    public void AnimateChainedCharacterSkill(string currentParameterName)
+    {
+        modelAnimator.Play(currentParameterName);
+    }
+
 
     public void ShowEndGameCharacterAnimation()
     {
