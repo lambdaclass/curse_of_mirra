@@ -22,7 +22,7 @@ public class GoogleSignInController : MonoBehaviour
 
     private string webClientIdGoogle = "194682062935-ukqi0s2vp1d2nmoembp0dapes21ei859.apps.googleusercontent.com";
 
-    private string REVERSED_CLIENT_ID = "";
+    private string REVERSED_CLIENT_ID = "com.googleusercontent.apps.194682062935-rr8ci902jclhelhc61dcomrk0ntmjc66";
 
     private GoogleSignInConfiguration configuration;
 
