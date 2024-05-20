@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using DG.Tweening;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -69,14 +68,17 @@ public class UIModelManager : MonoBehaviour
     float AnimationClipTime(Animator modelClone, string parameterName)
     {
         List<AnimationClip> clips = modelClone.runtimeAnimatorController.animationClips.ToList();
-        float animationClipTime = 0;     
-    
-        if(modelClone.name.Contains("Uma") && parameterName == "Victory"){
-            animationClipTime =  clips.Single(clip => clip.name == "Victory_aux").length / 2;
-        } else {
-            animationClipTime =  clips.Single(clip => clip.name.ToLower() == parameterName.ToLower()).length;
+        float animationClipTime = 0;
+
+        if (modelClone.name.Contains("Uma") && parameterName == "Victory")
+        {
+            animationClipTime = clips.Single(clip => clip.name == "Victory_aux").length / 2;
         }
-       
+        else
+        {
+            animationClipTime = clips.Single(clip => clip.name.ToLower() == parameterName.ToLower()).length;
+        }
+
         return animationClipTime;
     }
 
@@ -88,7 +90,8 @@ public class UIModelManager : MonoBehaviour
         GameObject modelClone = modelAnimator.transform.parent.gameObject;
 
 
-        if(modelClone.name.Contains("Uma") && parameterName == "Victory"){
+        if (modelClone.name.Contains("Uma") && parameterName == "Victory")
+        {
             parameterName = "Victory_aux";
         }
 
