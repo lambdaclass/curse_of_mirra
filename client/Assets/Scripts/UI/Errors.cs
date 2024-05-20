@@ -17,6 +17,9 @@ public class Errors : MonoBehaviour
     public GameObject reconnectContainer;
 
     [SerializeField]
+    public GameObject signInContainer;
+
+    [SerializeField]
     public GameObject versionHashesContainer;
 
     [SerializeField]
@@ -39,7 +42,8 @@ public class Errors : MonoBehaviour
 
     [SerializeField]
     public TextMeshProUGUI versionHashesDescription;
-
+    [SerializeField]
+    public TextMeshProUGUI signInDescription;
     public static Errors Instance;
 
     public void Awake()
@@ -74,6 +78,17 @@ public class Errors : MonoBehaviour
         reconnectContainer.SetActive(true);
         reconnectError.text = title;
         reconnectDescription.text = description;
+    }
+
+    public void HandleSignInError(string description)
+    {
+        signInContainer.SetActive(true);
+        signInDescription.text = description;
+    }
+
+    public void HideSignInError()
+    {
+        signInContainer.SetActive(false);
     }
 
     public void HideOngoingGameError()
