@@ -99,21 +99,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4609565920255728975, guid: 32aa6a414c0c74acc9ba9dd2cdbeee83,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.00107
-      objectReference: {fileID: 0}
-    - target: {fileID: 7357164018063871861, guid: 32aa6a414c0c74acc9ba9dd2cdbeee83,
-        type: 3}
-      propertyPath: CustomDataModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7663306181912155181, guid: 32aa6a414c0c74acc9ba9dd2cdbeee83,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32aa6a414c0c74acc9ba9dd2cdbeee83, type: 3}
 --- !u!4 &8171164187522833681 stripped
@@ -122,30 +107,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6809407030452286158}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8804007468838504363 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2617085856529692005, guid: 32aa6a414c0c74acc9ba9dd2cdbeee83,
-    type: 3}
-  m_PrefabInstance: {fileID: 6809407030452286158}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &857401548743728621
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8804007468838504363}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b1973b2a37cdd46c8a8c097598323923, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
