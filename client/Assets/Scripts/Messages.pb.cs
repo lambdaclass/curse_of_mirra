@@ -110,29 +110,29 @@ public static partial class MessagesReflection {
           "EhsKE2Ftb3VudF9vZl9wb3dlcl91cHMYAiABKAQSHAoGc3RhdHVzGAMgASgO",
           "MgwuQ3JhdGVTdGF0dXMiGAoEUG9vbBIQCghvd25lcl9pZBgBIAEoBCIGCgRC",
           "dXNoIkMKBFRyYXASEAoIb3duZXJfaWQYASABKAQSDAoEbmFtZRgCIAEoCRIb",
-          "CgZzdGF0dXMYAyABKA4yCy5UcmFwU3RhdHVzImMKDFBsYXllckFjdGlvbhIh",
-          "CgZhY3Rpb24YASABKA4yES5QbGF5ZXJBY3Rpb25UeXBlEhAKCGR1cmF0aW9u",
-          "GAIgASgEEh4KC2Rlc3RpbmF0aW9uGAMgASgLMgkuUG9zaXRpb24iJQoETW92",
-          "ZRIdCglkaXJlY3Rpb24YASABKAsyCi5EaXJlY3Rpb24iPgoGQXR0YWNrEg0K",
-          "BXNraWxsGAEgASgJEiUKCnBhcmFtZXRlcnMYAiABKAsyES5BdHRhY2tQYXJh",
-          "bWV0ZXJzIi4KEEF0dGFja1BhcmFtZXRlcnMSGgoGdGFyZ2V0GAEgASgLMgou",
-          "RGlyZWN0aW9uIhcKB1VzZUl0ZW0SDAoEaXRlbRgBIAEoBCJ+CgpHYW1lQWN0",
-          "aW9uEhUKBG1vdmUYASABKAsyBS5Nb3ZlSAASGQoGYXR0YWNrGAIgASgLMgcu",
-          "QXR0YWNrSAASHAoIdXNlX2l0ZW0YBCABKAsyCC5Vc2VJdGVtSAASEQoJdGlt",
-          "ZXN0YW1wGAMgASgDQg0KC2FjdGlvbl90eXBlIl4KBFpvbmUSDgoGcmFkaXVz",
-          "GAEgASgCEg8KB2VuYWJsZWQYAiABKAgSIgoabmV4dF96b25lX2NoYW5nZV90",
-          "aW1lc3RhbXAYAyABKAMSEQoJc2hyaW5raW5nGAQgASgIIjEKCUtpbGxFbnRy",
-          "eRIRCglraWxsZXJfaWQYASABKAQSEQoJdmljdGltX2lkGAIgASgEKjMKCkdh",
-          "bWVTdGF0dXMSDQoJUFJFUEFSSU5HEAASCwoHUlVOTklORxABEgkKBUVOREVE",
-          "EAIqOgoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RF",
-          "RBABEgwKCENPTlNVTUVEEAIqJgoLQ3JhdGVTdGF0dXMSCAoERklORRAAEg0K",
-          "CURFU1RST1lFRBABKikKDVBvd2VyVXBzdGF0dXMSDQoJQVZBSUxBQkxFEAAS",
-          "CQoFVEFLRU4QASqPAQoQUGxheWVyQWN0aW9uVHlwZRIKCgZNT1ZJTkcQABIU",
-          "ChBTVEFSVElOR19TS0lMTF8xEAESFAoQU1RBUlRJTkdfU0tJTExfMhACEhUK",
-          "EUVYRUNVVElOR19TS0lMTF8xEAMSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQBBIV",
-          "ChFFWEVDVVRJTkdfU0tJTExfMxAFKkAKClRyYXBTdGF0dXMSCwoHUEVORElO",
-          "RxAAEgwKCFBSRVBBUkVEEAESDQoJVFJJR0dFUkVEEAISCAoEVVNFRBADYgZw",
-          "cm90bzM="));
+          "CgZzdGF0dXMYAyABKA4yCy5UcmFwU3RhdHVzIoEBCgxQbGF5ZXJBY3Rpb24S",
+          "IQoGYWN0aW9uGAEgASgOMhEuUGxheWVyQWN0aW9uVHlwZRIQCghkdXJhdGlv",
+          "bhgCIAEoBBIeCgtkZXN0aW5hdGlvbhgDIAEoCzIJLlBvc2l0aW9uEhwKCWRp",
+          "cmVjdGlvbhgEIAEoCzIJLlBvc2l0aW9uIiUKBE1vdmUSHQoJZGlyZWN0aW9u",
+          "GAEgASgLMgouRGlyZWN0aW9uIj4KBkF0dGFjaxINCgVza2lsbBgBIAEoCRIl",
+          "CgpwYXJhbWV0ZXJzGAIgASgLMhEuQXR0YWNrUGFyYW1ldGVycyIuChBBdHRh",
+          "Y2tQYXJhbWV0ZXJzEhoKBnRhcmdldBgBIAEoCzIKLkRpcmVjdGlvbiIXCgdV",
+          "c2VJdGVtEgwKBGl0ZW0YASABKAQifgoKR2FtZUFjdGlvbhIVCgRtb3ZlGAEg",
+          "ASgLMgUuTW92ZUgAEhkKBmF0dGFjaxgCIAEoCzIHLkF0dGFja0gAEhwKCHVz",
+          "ZV9pdGVtGAQgASgLMgguVXNlSXRlbUgAEhEKCXRpbWVzdGFtcBgDIAEoA0IN",
+          "CgthY3Rpb25fdHlwZSJeCgRab25lEg4KBnJhZGl1cxgBIAEoAhIPCgdlbmFi",
+          "bGVkGAIgASgIEiIKGm5leHRfem9uZV9jaGFuZ2VfdGltZXN0YW1wGAMgASgD",
+          "EhEKCXNocmlua2luZxgEIAEoCCIxCglLaWxsRW50cnkSEQoJa2lsbGVyX2lk",
+          "GAEgASgEEhEKCXZpY3RpbV9pZBgCIAEoBCozCgpHYW1lU3RhdHVzEg0KCVBS",
+          "RVBBUklORxAAEgsKB1JVTk5JTkcQARIJCgVFTkRFRBACKjoKEFByb2plY3Rp",
+          "bGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQARIMCghDT05TVU1F",
+          "RBACKiYKC0NyYXRlU3RhdHVzEggKBEZJTkUQABINCglERVNUUk9ZRUQQASop",
+          "Cg1Qb3dlclVwc3RhdHVzEg0KCUFWQUlMQUJMRRAAEgkKBVRBS0VOEAEqjwEK",
+          "EFBsYXllckFjdGlvblR5cGUSCgoGTU9WSU5HEAASFAoQU1RBUlRJTkdfU0tJ",
+          "TExfMRABEhQKEFNUQVJUSU5HX1NLSUxMXzIQAhIVChFFWEVDVVRJTkdfU0tJ",
+          "TExfMRADEhUKEUVYRUNVVElOR19TS0lMTF8yEAQSFQoRRVhFQ1VUSU5HX1NL",
+          "SUxMXzMQBSpACgpUcmFwU3RhdHVzEgsKB1BFTkRJTkcQABIMCghQUkVQQVJF",
+          "RBABEg0KCVRSSUdHRVJFRBACEggKBFVTRUQQA2IGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameStatus), typeof(global::ProjectileStatus), typeof(global::CrateStatus), typeof(global::PowerUpstatus), typeof(global::PlayerActionType), typeof(global::TrapStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -163,7 +163,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::Pool), global::Pool.Parser, new[]{ "OwnerId" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Bush), global::Bush.Parser, null, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Trap), global::Trap.Parser, new[]{ "OwnerId", "Name", "Status" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::PlayerAction), global::PlayerAction.Parser, new[]{ "Action", "Duration", "Destination" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::PlayerAction), global::PlayerAction.Parser, new[]{ "Action", "Duration", "Destination", "Direction" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Move), global::Move.Parser, new[]{ "Direction" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Attack), global::Attack.Parser, new[]{ "Skill", "Parameters" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::AttackParameters), global::AttackParameters.Parser, new[]{ "Target" }, null, null, null, null),
@@ -8486,6 +8486,7 @@ public sealed partial class PlayerAction : pb::IMessage<PlayerAction>
     action_ = other.action_;
     duration_ = other.duration_;
     destination_ = other.destination_ != null ? other.destination_.Clone() : null;
+    direction_ = other.direction_ != null ? other.direction_.Clone() : null;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -8531,6 +8532,18 @@ public sealed partial class PlayerAction : pb::IMessage<PlayerAction>
     }
   }
 
+  /// <summary>Field number for the "direction" field.</summary>
+  public const int DirectionFieldNumber = 4;
+  private global::Position direction_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::Position Direction {
+    get { return direction_; }
+    set {
+      direction_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -8549,6 +8562,7 @@ public sealed partial class PlayerAction : pb::IMessage<PlayerAction>
     if (Action != other.Action) return false;
     if (Duration != other.Duration) return false;
     if (!object.Equals(Destination, other.Destination)) return false;
+    if (!object.Equals(Direction, other.Direction)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -8559,6 +8573,7 @@ public sealed partial class PlayerAction : pb::IMessage<PlayerAction>
     if (Action != global::PlayerActionType.Moving) hash ^= Action.GetHashCode();
     if (Duration != 0UL) hash ^= Duration.GetHashCode();
     if (destination_ != null) hash ^= Destination.GetHashCode();
+    if (direction_ != null) hash ^= Direction.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -8589,6 +8604,10 @@ public sealed partial class PlayerAction : pb::IMessage<PlayerAction>
       output.WriteRawTag(26);
       output.WriteMessage(Destination);
     }
+    if (direction_ != null) {
+      output.WriteRawTag(34);
+      output.WriteMessage(Direction);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -8611,6 +8630,10 @@ public sealed partial class PlayerAction : pb::IMessage<PlayerAction>
       output.WriteRawTag(26);
       output.WriteMessage(Destination);
     }
+    if (direction_ != null) {
+      output.WriteRawTag(34);
+      output.WriteMessage(Direction);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -8629,6 +8652,9 @@ public sealed partial class PlayerAction : pb::IMessage<PlayerAction>
     }
     if (destination_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(Destination);
+    }
+    if (direction_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Direction);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -8653,6 +8679,12 @@ public sealed partial class PlayerAction : pb::IMessage<PlayerAction>
         Destination = new global::Position();
       }
       Destination.MergeFrom(other.Destination);
+    }
+    if (other.direction_ != null) {
+      if (direction_ == null) {
+        Direction = new global::Position();
+      }
+      Direction.MergeFrom(other.Direction);
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -8684,6 +8716,13 @@ public sealed partial class PlayerAction : pb::IMessage<PlayerAction>
           input.ReadMessage(Destination);
           break;
         }
+        case 34: {
+          if (direction_ == null) {
+            Direction = new global::Position();
+          }
+          input.ReadMessage(Direction);
+          break;
+        }
       }
     }
   #endif
@@ -8712,6 +8751,13 @@ public sealed partial class PlayerAction : pb::IMessage<PlayerAction>
             Destination = new global::Position();
           }
           input.ReadMessage(Destination);
+          break;
+        }
+        case 34: {
+          if (direction_ == null) {
+            Direction = new global::Position();
+          }
+          input.ReadMessage(Direction);
           break;
         }
       }
