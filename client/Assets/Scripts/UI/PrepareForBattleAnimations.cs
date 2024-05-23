@@ -15,6 +15,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
     GameObject battleScreen,
         loadingScreen,
         loadingIcon,
+        bountiesContainer,
         prepareBattleContainer,
         playersContainer,
         surviveContainer,
@@ -36,6 +37,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
     GameObject player;
     const float CAMERA_START_OFFSET = 30f;
     const float PREPARE_FOR_BATTLE_DURATION = 3f;
+    const float BOUNTIES_DURATION = 5f;
     const float CHARACTERS_DISPLAY_DURATION = 4f;
     float TIME_UNTIL_GAME_STARTS = 0f;
     const float SURVIVE_DURATION = 1.2f;
@@ -73,6 +75,8 @@ public class PrepareForBattleAnimations : MonoBehaviour
             cinemachineVirtualCamera.transform.rotation
         );
         loadingScreen.GetComponent<CanvasGroup>().DOFade(0, .1f);
+        StartCoroutine(BountiesAnimation());
+        yield return new WaitForSeconds(BOUNTIES_DURATION + 1f);
         StartCoroutine(PrepareForBattleAnimation());
         yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION + 1f);
         StartCoroutine(PlayersAnimation());
@@ -95,6 +99,13 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .SetEase(Ease.InOutQuart);
         yield return new WaitForSeconds(1.5f);
         loadingComplete = true;
+    }
+
+    IEnumerator BountiesAnimation()
+    {
+        bountiesContainer.GetComponent<CanvasGroup>().alpha = 1f;
+        yield return new WaitForSeconds(BOUNTIES_DURATION);
+        bountiesContainer.GetComponent<CanvasGroup>().DOFade(0, .5f);
     }
 
     IEnumerator PrepareForBattleAnimation()
