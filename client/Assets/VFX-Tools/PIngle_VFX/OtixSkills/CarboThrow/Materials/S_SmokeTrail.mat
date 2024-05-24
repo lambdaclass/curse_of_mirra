@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: S_SmokeTrail
+  m_Shader: {fileID: -6465566751694194690, guid: de36d90917915a940b3a600b09f51dbd,
+    type: 3}
+  m_ValidKeywords:
+  - _ALPHATEST_ON
+  - _SURFACE_TYPE_TRANSPARENT
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses:
+  - DepthOnly
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTexture:
+        m_Texture: {fileID: 2800000, guid: 627b79240a75c4943832ed1c6a6287ae, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_6fce1cf82ae34a62b8790df1857f7e55_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 0852cadd2da7938439af05c2186bfda6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaClip: 1
+    - _Blend: 0
+    - _CastShadows: 1
+    - _Cull: 0
+    - _DissolveScale: 20
+    - _DistortionScale: 20
+    - _DstBlend: 10
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _SrcBlend: 5
+    - _Surface: 1
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
+    m_Colors:
+    - _BaseColor: {r: 0.07790578, g: 0.03116231, b: 0.015581155, a: 0.9019608}
+    - _Color1: {r: 0.2745494, g: 0.6089925, b: 2.2799537, a: 1}
+    - _Color2: {r: 0.023087755, g: 0.15884201, b: 0.97892094, a: 1}
+    - _DissolveSpeed: {r: -1, g: 0, b: 0, a: 0}
+    - _DissolveSpeed_2: {r: 0.2, g: 0.2, b: 0, a: 0}
+    - _DistortionSpedSpeed_2: {r: 0.2, g: 0, b: 0, a: 0}
+    - _DistortionSpeed: {r: 0.1, g: 0, b: 0, a: 0}
+    - _EmissionColor: {r: 0.030280633, g: 0.020288024, b: 0.020288024, a: 0.87058824}
+    - _TextureSpeed: {r: -2.5, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!114 &2786360951403272064
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
