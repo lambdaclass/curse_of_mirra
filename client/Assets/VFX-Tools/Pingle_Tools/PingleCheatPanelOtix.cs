@@ -22,7 +22,6 @@ public class PingleCheatPanelOtix : MonoBehaviour
     public float skill2_duration = 1.8f;
 
     public GameObject skill3_explosion_vfx = null;
-    public GameObject skill3_trail_vfx = null;
     public GameObject skill3_decal_vfx = null;
     public int skill3_duration = 80;
     public float skill3_speed = 7.0f;
@@ -219,11 +218,6 @@ public class PingleCheatPanelOtix : MonoBehaviour
 
         if( skill3_explosion_vfx != null )
             cached_vfx = Instantiate(skill3_explosion_vfx, character_instance.transform.position, character_instance.transform.rotation);
-
-        pool.Add( cached_vfx );
-
-        if( skill3_trail_vfx != null )
-            cached_vfx = Instantiate(skill3_trail_vfx, character_instance.transform);
 
         pool.Add( cached_vfx );
 

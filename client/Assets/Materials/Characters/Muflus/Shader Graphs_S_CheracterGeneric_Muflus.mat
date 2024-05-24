@@ -26,7 +26,6 @@ Material:
   m_ValidKeywords:
   - _USEEMISIVEANIMATION
   - _USEFRESNEL
-  - _USE_LAVA
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -108,7 +107,7 @@ Material:
     - _FresnelPower: 6
     - _FresnelValue: 3
     - _ISTRANSPARENT: 0
-    - _LavaAmount: 0.5
+    - _LavaAmount: 0.381
     - _LavaSoftFactor: 0.15
     - _LinkDetailsWithBase: 1
     - _MetalicChannelID: 2.79
@@ -125,7 +124,7 @@ Material:
     - _TexWorldScale: 1
     - _USEEMISIVEANIMATION: 1
     - _USEFRESNEL: 1
-    - _USE_LAVA: 1
+    - _USE_LAVA: 0
     - _UVBase: 2.68
     - _UVDetail: 1.719
     - _WorldMapping: 0
