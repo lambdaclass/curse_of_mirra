@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bdbbfac32f6c44e84b9416071321892a
+guid: fff9f4e25b7b24296a0715a0c9d16464
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,7 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert1
+      name: Kenzo_Txt
     second: {fileID: 2100000, guid: 6727f19bed7ee4207b8484cdf0f191bc, type: 2}
   materials:
     materialImportMode: 2
