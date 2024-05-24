@@ -1,10 +1,8 @@
-# Curse of Mirra
-
-<img src="docs/src/images/Curse_of_Mirra_logo.png" alt="Curse of Mirra logo">
+# Champions of Mirra
 
 ## Table of Contents
 
-- [Curse of Mirra](#curse-of-mirra)
+- [Champions of Mirra](#champions-of-mirra)
   - [Table of Contents](#table-of-contents)
   - [About](#about)
   - [Licensing](#licensing)
@@ -17,22 +15,22 @@
 
 ## About
 
-Welcome to the realm of Curse of Mirra, crafted by LambdaClass.
+Welcome to the realm of Champions of Mirra, crafted by LambdaClass.
 
-Curse of Mirra is the inaugural game built on our groundbreaking [Game Backend](https://github.com/lambdaclass/game_backend). This open source backend, meticulously developed by Lambda, ensures seamless and reliable gameplay.
+Champions of Mirra is the inaugural game built on our groundbreaking [Game Backend](https://github.com/lambdaclass/game_backend). This open source backend, meticulously developed by Lambda, ensures seamless and reliable gameplay.
 
 Step into a universe where the destinies of heroes from four planets collide in an epic struggle for the favor of Mirra, a capricious deity known for manipulating entire societies by exploiting their deepest desires. Brace yourself for an immersive journey where every decision matters, and the pursuit of victory comes with the ever-present thrill of unpredictability.
 
-Curse of Mirra is more than a game; it's an adventure into a world where strategy, skill, and a dash of chaos converge. Join the battle and confront the challenges that lie ahead in this captivating and dynamic gaming experience. The stage is set, and the Curse of Mirra awaits—embrace the challenge and become a legend!
+Champions of Mirra is more than a game; it's an adventure into a world where strategy, skill, and a dash of chaos converge. Join the battle and confront the challenges that lie ahead in this captivating and dynamic gaming experience. The stage is set, and the Champions of Mirra awaits—embrace the challenge and become a legend!
 
 <div>
   <div float="center">
-    <img src="docs/src/images/Curse_of_Mirra_3D_Assets_Muflus.png" alt="Muflus 3D model" width=300px>  
-    <img src="docs/src/images/Curse_of_Mirra_3D_Assets_Uma.jpeg" alt="Uma 3D model" width=300px> 
+    <img src="docs/src/images/Champions_of_Mirra_3D_Assets_Muflus.png" alt="Muflus 3D model" width=300px>  
+    <img src="docs/src/images/Champions_of_Mirra_3D_Assets_Uma.jpeg" alt="Uma 3D model" width=300px> 
   </div>
   <div float="center">
-    <img src="docs/src/images/Curse_of_Mirra_concept_art_Shinko.png" alt="Shinko hero concept art" width=300px>
-    <img src="docs/src/images/Curse_of_Mirra_concept_art_Otobi_dog.png" alt="Concept art for a gang member dog in the planet of Otobi" width=300px>
+    <img src="docs/src/images/Champions_of_Mirra_concept_art_Shinko.png" alt="Shinko hero concept art" width=300px>
+    <img src="docs/src/images/Champions_of_Mirra_concept_art_Otobi_dog.png" alt="Concept art for a gang member dog in the planet of Otobi" width=300px>
   </div>
 <div>
 
@@ -75,10 +73,10 @@ Your code should now autocomplete.
 - Open a terminal and clone the project:
 
 ```bash
-git clone https://github.com/lambdaclass/curse_of_mirra
+git clone https://github.com/lambdaclass/champions_of_mirra
 ```
 
-- In Unity Hub, click on the add project button and select the `curse_of_mirra/client` folder.
+- In Unity Hub, click on the add project button and select the `champions_of_mirra/client` folder.
 - Choose the correct editor version.
 - Download the following libraries and include them in the `Assets/ThirdParty` folder:
   - [Top Down Engine](https://assetstore.unity.com/packages/templates/systems/topdown-engine-89636) by [More Mountains](https://moremountains.com). You need to purchase the license to use it.
