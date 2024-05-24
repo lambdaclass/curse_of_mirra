@@ -198,7 +198,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Start_Block 0
+  m_Name: Start_Block test
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -307,7 +307,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Ultimate
+    m_ConditionEvent: Skill3
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8702235583042488928}
@@ -315,7 +315,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.31047392
+  m_TransitionDuration: 0.2
   m_TransitionOffset: 0
   m_ExitTime: 0.94585687
   m_HasExitTime: 0
@@ -380,7 +380,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Basic_3 0
+  m_Name: Basic_3 test
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -463,7 +463,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Ultimate
+    m_ConditionEvent: Skill3
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8702235583042488928}
@@ -621,7 +621,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Basic_1 0
+  m_Name: Basic_1 test
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -728,7 +728,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: Ultimate
+    m_ConditionEvent: Skill3
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8365767095726497114}
@@ -922,9 +922,9 @@ AnimatorController:
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 1
+    m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Ultimate
+  - m_Name: Skill3
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -1446,7 +1446,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: Ultimate
+    m_ConditionEvent: Skill3
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: Walking
@@ -1497,7 +1497,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Block_Idle 0
+  m_Name: Block_Idle test
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1600,7 +1600,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Basic_2 0
+  m_Name: Basic_2 test
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1828,7 +1828,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pounce 0
+  m_Name: Pounce test
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1856,7 +1856,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Block_Walking 0
+  m_Name: Block_Walking test
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
