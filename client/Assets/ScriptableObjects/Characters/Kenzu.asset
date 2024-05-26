@@ -22,7 +22,7 @@ MonoBehaviour:
   characterPlayer: {fileID: 0}
   classImage: {fileID: 0}
   UIIcon: {fileID: 0}
-  prefab: {fileID: 0}
+  prefab: {fileID: 1787465996332106805, guid: 12816910f69194c0ea324d54cec632f3, type: 3}
   InputFeedbackColor:
     serializedVersion: 2
     rgba: 0
