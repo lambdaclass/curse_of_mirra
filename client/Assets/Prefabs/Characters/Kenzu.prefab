@@ -546,13 +546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 735b7d114b344f946bae02a701c5ef53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeholder_transform_pairs:
-  - placement_holder: {fileID: 11400000, guid: a87f0f421f1fbaa41b99e2846f57e81e, type: 2}
-    look_up_transform: {fileID: 0}
-  - placement_holder: {fileID: 11400000, guid: d3f7d77582fa68248872099db4e295e2, type: 2}
-    look_up_transform: {fileID: 0}
-  - placement_holder: {fileID: 11400000, guid: 63a32f724320ba94381cfd0e32039ae8, type: 2}
-    look_up_transform: {fileID: 5597785395153152954}
+  placeholder_transform_pairs: []
 --- !u!114 &4367255950604289525
 MonoBehaviour:
   m_ObjectHideFlags: 0
