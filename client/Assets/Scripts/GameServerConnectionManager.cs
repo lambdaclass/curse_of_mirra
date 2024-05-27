@@ -60,6 +60,18 @@ public class GameServerConnectionManager : MonoBehaviour
     public Configuration config;
 
     public long gameEventTimestamp;
+    public long GameEventTimestamp
+    {
+        get { return gameEventTimestamp; }
+        set
+        {
+            gameEventTimestamp = value;
+            OnGameEventTimestampChanged?.Invoke(value);
+        }
+    }
+
+    public static Action<long> OnGameEventTimestampChanged;
+
     public ulong spikeValueThreshold;
     public ulong spikesAmountThreshold;
     public ulong timestampsListMaxLength;
@@ -202,11 +214,14 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.obstacles = gameState.Obstacles.Values.ToList();
                     this.damageDone = gameState.DamageDone.ToDictionary(x => x.Key, x => x.Value);
                     this.shrinking = gameState.Zone.Shrinking;
-                    this.gameEventTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                    // this.gameEventTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                    this.GameEventTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                     this.playersIdPosition = new Dictionary<ulong, Position>
                     {
                         [this.playerId] = position
                     };
+                    // Debug.Log($"latency: {DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - gameState.ServerTimestamp}");
+
                     break;
                 case GameEvent.EventOneofCase.Finished:
                     winnerPlayer.Item1 = gameEvent.Finished.Winner;
@@ -265,7 +280,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
     private string makeWebsocketUrl(string path)
     {
-        int port = 4000;
+        int port = 6000;
 
         if (serverIp.Contains("localhost"))
         {

@@ -8,7 +8,9 @@ using System.Linq;
 public class LatencyAnalyzer : MonoBehaviour
 {
     public bool showWarning, unstableConnection;
-    List<long> gameEventTimestamps = new List<long>();
+    long lastUpdateTimestamp;
+    // List<long> timestampsDifferences = new List<long>();
+    Queue<long> timestampsDifferences = new Queue<long>();
     public static LatencyAnalyzer Instance;
     const int SPIKE_VALUE_THRESHOLD = 150;
     const int SPIKES_AMOUNT_THRESHOLD = 3;
@@ -18,7 +20,6 @@ public class LatencyAnalyzer : MonoBehaviour
     private const string CONNECTION_TITLE = "Error";
     private const string CONNECTION_DESCRIPTION = "Your connection to the server has been lost.";
     int amountOfSpikes = 0;
-    private Entity gamePlayer;
 
     public void Awake()
     {
@@ -36,72 +37,45 @@ public class LatencyAnalyzer : MonoBehaviour
     {
         ulong playerId = GameServerConnectionManager.Instance.playerId;
         Entity gamePlayer = Utils.GetGamePlayer(playerId);
+        GameServerConnectionManager.OnGameEventTimestampChanged += OnGameEventTimestampChanged;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnGameEventTimestampChanged(long newTimestamp)
     {
-        long gameEventTimestamp = GameServerConnectionManager.Instance.gameEventTimestamp;
-        long clientTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-
-        if (gameEventTimestamp > 0 && (!GameServerConnectionManager.Instance.GameHasEnded()
-            || (gamePlayer != null && gamePlayer.Player.Health != 0)))
+        if(lastUpdateTimestamp == 0)
         {
-            long diffUpdateValue = clientTimestamp - gameEventTimestamp;
-
-            // Redirect on disconnection
-            if (diffUpdateValue >= (long)GameServerConnectionManager.Instance.maxMsBetweenEvents)
-            {
-                DisconnectFeedback();
-                Errors.Instance.HandleNetworkError(CONNECTION_TITLE, CONNECTION_DESCRIPTION);
-            }
-
-            // Check if the list Length is already 10 and keep it that way
-            if (gameEventTimestamps.Count == (int)GameServerConnectionManager.Instance.timestampsListMaxLength)
-            {
-                gameEventTimestamps.RemoveAt(0);
-            }
-            else
-            {
-                gameEventTimestamps.Add(gameEventTimestamp);
-            }
-            ConnectionStabilityCheck(gameEventTimestamps);
+            lastUpdateTimestamp = newTimestamp;
         }
 
+        long msSinceLastUpdate = newTimestamp - lastUpdateTimestamp;
+
+        if (msSinceLastUpdate >= (long)GameServerConnectionManager.Instance.maxMsBetweenEvents)
+        {
+            DisconnectFeedback();
+            Errors.Instance.HandleNetworkError(CONNECTION_TITLE, CONNECTION_DESCRIPTION);
+        }
+
+        lastUpdateTimestamp = newTimestamp;
+        if (timestampsDifferences.Count == (int)GameServerConnectionManager.Instance.timestampsListMaxLength)
+        {
+            timestampsDifferences.Dequeue();
+        }
+        timestampsDifferences.Enqueue(msSinceLastUpdate);
+
+        if((timestampsDifferences.Max() - timestampsDifferences.Min()) > (long)GameServerConnectionManager.Instance.spikeValueThreshold)
+        {
+            showWarning = true;
+        }
+        else
+        {
+            showWarning = false;
+        }
     }
 
-    void ConnectionStabilityCheck(List<long> list)
-    {
-        int spikesCounter = 0;
-        bool finishCounting = false;
-        if (list.Count >= 2)
-        {
-            for (int i = 0; i < list.Count - 1; i++)
-            {
-                // Check for spikes
-                if (list[i + 1] - list[i] >= (long)GameServerConnectionManager.Instance.spikeValueThreshold && !finishCounting)
-                {
-                    spikesCounter += 1;
-                }
-                int index = list.IndexOf(list[i + 1]);
-                if (index == list.Count - 1)
-                {
-                    finishCounting = true;
-                }
-            }
-        }
-
-        if (finishCounting)
-        {
-            amountOfSpikes = spikesCounter;
-        }
-        showWarning = amountOfSpikes >= (long)GameServerConnectionManager.Instance.spikesUntilWarning;
-        unstableConnection = amountOfSpikes >= (long)GameServerConnectionManager.Instance.spikesAmountThreshold;
-
-    }
     public void DisconnectFeedback()
     {
         unstableConnection = false;
         Utils.BackToLobbyFromGame("MainScreen");
     }
 }
+
