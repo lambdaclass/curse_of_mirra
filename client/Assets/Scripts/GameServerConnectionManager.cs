@@ -280,7 +280,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
     private string makeWebsocketUrl(string path)
     {
-        int port = 6000;
+        int port = 4000;
 
         if (serverIp.Contains("localhost"))
         {
