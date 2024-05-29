@@ -37,6 +37,7 @@ public class ConnectivityHealthCheck : MonoBehaviour
 
     IEnumerator Hide()
     {
+        yield return new WaitForSeconds(1f);
         pulseSequence.Pause();
         iconCanvas.DOFade(0, animationDuration);
         yield return new WaitForSeconds(1f);
