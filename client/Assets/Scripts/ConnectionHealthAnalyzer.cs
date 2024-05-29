@@ -23,7 +23,7 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
     void Update()
     {
         if(timestampDifferences.Count > 0 &&
-            DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - timestampDifferences.Last() > MS_WITHOUT_UPDATE_SHOW_WARNING)
+            DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - lastUpdateTimestamp > MS_WITHOUT_UPDATE_SHOW_WARNING)
         {
             unstableConnection = true;
         }
