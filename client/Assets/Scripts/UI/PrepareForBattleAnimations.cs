@@ -28,7 +28,11 @@ public class PrepareForBattleAnimations : MonoBehaviour
         surviveText;
 
     [SerializeField]
-    TextMeshProUGUI countDown;
+    TextMeshProUGUI countDown,
+        bountiesCountDown;
+
+    [SerializeField]
+    CanvasGroup bountiesCountDownCG;
 
     [SerializeField]
     CinemachineVirtualCamera cinemachineVirtualCamera;
@@ -46,6 +50,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
     const float SURVIVE_DURATION = 1.2f;
 
     bool countdownDone = false;
+    bool bountiesCountdownDone = false;
 
     float originalCountdownScale,
         originalCoinScale,
@@ -79,7 +84,10 @@ public class PrepareForBattleAnimations : MonoBehaviour
         );
         loadingScreen.GetComponent<CanvasGroup>().DOFade(0, .1f);
         StartCoroutine(BountiesAnimation());
-        yield return new WaitForSeconds(BOUNTIES_DURATION + 1f);
+        yield return new WaitUntil(
+            () => bountiesCountdownDone
+        );
+        // yield return new WaitForSeconds(BOUNTIES_DURATION + 1f);
         StartCoroutine(PrepareForBattleAnimation());
         yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION + 1f);
         StartCoroutine(PlayersAnimation());
@@ -106,6 +114,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
 
     IEnumerator BountiesAnimation()
     {
+        GenerateBounties();
         bountiesContainer.GetComponent<CanvasGroup>().alpha = 1f;
 
         foreach (GameObject bounty in bountiesList)
@@ -122,6 +131,28 @@ public class PrepareForBattleAnimations : MonoBehaviour
             // Wait before starting the next animation
             yield return new WaitForSeconds(.1f);
         }
+        StartCoroutine(BountiesCountdown());
+        yield return new WaitUntil(
+            () => bountiesCountdownDone
+        );
+        bountiesContainer.GetComponent<CanvasGroup>().alpha = 0f;
+    }
+
+    IEnumerator BountiesCountdown()
+    {
+        Sequence displaySequence = DOTween.Sequence();
+        displaySequence
+            .Append(countDown.transform.DOScale(originalCountdownScale + 0.2f, .5f))
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetEase(Ease.Linear);
+        for (int i = 5; i > 0; i--)
+        {
+            bountiesCountDown.text = i.ToString();
+            bountiesCountDownCG.alpha = 1; 
+            bountiesCountDownCG.DOFade(0, 1f); 
+            yield return new WaitForSeconds(1f);
+        }
+        bountiesCountdownDone = true;
     }
 
     IEnumerator PrepareForBattleAnimation()
@@ -315,10 +346,11 @@ public class PrepareForBattleAnimations : MonoBehaviour
 
     void GenerateBounties()
     {
+        for (int i = 0; i < 2; i ++) {
+            GameObject bountyGameObject = bountiesList[i];
+            BountyInfo bountyInfo = GameServerConnectionManager.Instance.bounties[i];
 
-        foreach (GameObject bounty in bountiesList)
-        {
-            bounty.SetBountyContainer()
+            bountyGameObject.GetComponent<Bounty>().SetBountyContainer(bountyInfo);
         }
     }
 

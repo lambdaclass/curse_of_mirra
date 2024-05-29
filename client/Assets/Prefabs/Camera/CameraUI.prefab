@@ -1739,6 +1739,7 @@ GameObject:
   - component: {fileID: 5459488061620900722}
   - component: {fileID: 7473372605777070203}
   - component: {fileID: 4978225142249358199}
+  - component: {fileID: 8757295510117510648}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1864,6 +1865,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &8757295510117510648
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617250388382971513}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &627176288169803809
 GameObject:
   m_ObjectHideFlags: 0
@@ -3855,6 +3868,8 @@ MonoBehaviour:
   prepareCoin: {fileID: 5769132581105517621}
   surviveText: {fileID: 4707298941903163517}
   countDown: {fileID: 8354045121928496173}
+  bountiesCountDown: {fileID: 4978225142249358199}
+  bountiesCountDownCG: {fileID: 8757295510117510648}
   cinemachineVirtualCamera: {fileID: 114129316014370704}
   bountiesList:
   - {fileID: 8136072152143955635}

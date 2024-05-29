@@ -1,34 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class Bounty : MonoBehaviour
 {
     private string id;
 
     [SerializeField] private 
-    TMP_Text description,
-        reward;
+    TMP_Text descriptionText,
+        rewardText;
 
-    [SerializeField] private Sprite currency;
-    [SerializeField] private int reward;
+    [SerializeField] private 
+    Image currency,
+        icon;
+
     [SerializeField] Sprite goldImage;
     [SerializeField] Sprite gemImage;
+    [SerializeField] Sprite killImage;
+    [SerializeField] Sprite powerUpImage;
 
-    void SetBountyContainer(BountyInfo bounty) 
+    public void SetBountyContainer(BountyInfo bounty) 
     {
         id = bounty.Id;
-        description = bounty.Description;
-        reward = bounty.Reward.Amount;
+        descriptionText.text = bounty.Description;
+        rewardText.text = bounty.Reward.Amount.ToString();
 
         switch (bounty.Reward.Currency)
         {
             case "Gold":
-                currency = goldImage;
+                currency.sprite = goldImage;
                 break;
             default:
-                currency = gemImage;
+                currency.sprite = gemImage;
                 break;
         }
+
+        // switch (bounty.Type)
+        // {
+        //     case "Kill":
+        //         icon.sprite = killImage;
+        //         break;
+        //     case "PowerUp":
+        //         icon.sprite = powerUpImage;
+        //         break;
+        // }
     }
 }

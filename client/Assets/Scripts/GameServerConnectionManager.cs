@@ -163,6 +163,9 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.playerId = gameEvent.Joined.PlayerId;
                     this.config = gameEvent.Joined.Config;
                     this.bounties = gameEvent.Joined.Bounties.ToList();
+
+                    Debug.Log(this.bounties);
+
                     break;
                 case GameEvent.EventOneofCase.Ping:
                     currentPing = (uint)gameEvent.Ping.Latency;
