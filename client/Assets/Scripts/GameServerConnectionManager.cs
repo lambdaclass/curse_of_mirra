@@ -165,7 +165,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.config = gameEvent.Joined.Config;
                     break;
                 case GameEvent.EventOneofCase.Ping:
-                    currentPing = (uint)gameEvent.Ping.Latency;
+                    // currentPing = (uint)gameEvent.Ping.Latency;
                     break;
                 case GameEvent.EventOneofCase.Update:
                     GameState gameState = gameEvent.Update;
