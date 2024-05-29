@@ -34,7 +34,7 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
 
         GameServerConnectionManager.Instance.currentPing = (uint)timestampDifferences.Peek();
 
-        if(timestampDifferences.Peek() - timestampDifferences.Average() > SHOW_WARNING_THRESHOLD)
+        if(timestampDifferences.First() - timestampDifferences.Average() > SHOW_WARNING_THRESHOLD)
         {
             unstableConnection = true;
         }
