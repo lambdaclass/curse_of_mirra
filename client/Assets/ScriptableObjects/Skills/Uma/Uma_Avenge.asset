@@ -24,7 +24,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   skillKey: 
   animationSpeedMultiplier: 1
-  abilityStartSfx: {fileID: 8300000, guid: 8510e93d5def640fc8f13560ab091b9d, type: 3}
+  abilityStartSfx: {fileID: 8300000, guid: 4f4e2609c1ba2476484b8188cad62d18, type: 3}
   sfxHasAbilityStop: 0
   abilityStopSfx: {fileID: 0}
   skillCircleRange: 0
