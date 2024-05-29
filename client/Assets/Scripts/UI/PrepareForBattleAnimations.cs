@@ -44,7 +44,6 @@ public class PrepareForBattleAnimations : MonoBehaviour
     GameObject player;
     const float CAMERA_START_OFFSET = 30f;
     const float PREPARE_FOR_BATTLE_DURATION = 3f;
-    const float BOUNTIES_DURATION = 10f;
     const float CHARACTERS_DISPLAY_DURATION = 4f;
     float TIME_UNTIL_GAME_STARTS = 0f;
     const float SURVIVE_DURATION = 1.2f;
@@ -87,7 +86,6 @@ public class PrepareForBattleAnimations : MonoBehaviour
         yield return new WaitUntil(
             () => bountiesCountdownDone
         );
-        // yield return new WaitForSeconds(BOUNTIES_DURATION + 1f);
         StartCoroutine(PrepareForBattleAnimation());
         yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION + 1f);
         StartCoroutine(PlayersAnimation());
@@ -350,7 +348,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
             GameObject bountyGameObject = bountiesList[i];
             BountyInfo bountyInfo = GameServerConnectionManager.Instance.bounties[i];
 
-            bountyGameObject.GetComponent<Bounty>().SetBountyContainer(bountyInfo);
+            bountyGameObject.GetComponent<Bounty>().SetBounty(bountyInfo);
         }
     }
 

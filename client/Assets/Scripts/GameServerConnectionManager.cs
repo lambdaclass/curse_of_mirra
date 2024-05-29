@@ -241,6 +241,13 @@ public class GameServerConnectionManager : MonoBehaviour
         SendGameAction(gameAction);
     }
 
+    public void SendSelectBounty(string bountyId)
+    {
+        SelectBounty selectBounty = new SelectBounty { BountyQuestId=bountyId };
+        GameAction gameAction = new GameAction { SelectBounty = selectBounty };
+        SendGameAction(gameAction);
+    }
+
     private void SendGameAction<T>(IMessage<T> action)
         where T : IMessage<T>
     {

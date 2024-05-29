@@ -20,8 +20,8 @@ public class Bounty : MonoBehaviour
     [SerializeField] Sprite gemImage;
     [SerializeField] Sprite killImage;
     [SerializeField] Sprite powerUpImage;
-
-    public void SetBountyContainer(BountyInfo bounty) 
+   
+    public void SetBounty(BountyInfo bounty) 
     {
         id = bounty.Id;
         descriptionText.text = bounty.Description;
@@ -47,4 +47,21 @@ public class Bounty : MonoBehaviour
         //         break;
         // }
     }
+
+    public void SelectBounty() 
+    {
+        GameServerConnectionManager.Instance.SendSelectBounty(id);
+
+        // // Calculate the center position of the screen in world coordinates
+        // Vector2 centerPosition = centralBountyRectTransform.anchoredPosition;
+
+        // // Move the target object to the center position along the x-axis
+        // bounty.transform.DOMoveX(centerPosition.x, moveDuration)
+        //     .OnComplete(() =>
+        //     {
+        //         // Start bouncing when the movement to the center is complete
+        //         bounty.transform.DOShakePosition(bounceDuration, new Vector3(bounceStrength, 0, 0), bounceVibrato, 90, false, false)
+        //             .SetLoops(-1, LoopType.Yoyo);
+        //     });
+    } 
 }

@@ -118,27 +118,28 @@ public static partial class MessagesReflection {
           "dGlvbiI+CgZBdHRhY2sSDQoFc2tpbGwYASABKAkSJQoKcGFyYW1ldGVycxgC",
           "IAEoCzIRLkF0dGFja1BhcmFtZXRlcnMiLgoQQXR0YWNrUGFyYW1ldGVycxIa",
           "CgZ0YXJnZXQYASABKAsyCi5EaXJlY3Rpb24iFwoHVXNlSXRlbRIMCgRpdGVt",
-          "GAEgASgEIiUKClBpY2tCb3VudHkSFwoPYm91bnR5X3F1ZXN0X2lkGAEgASgJ",
-          "IqIBCgpHYW1lQWN0aW9uEhUKBG1vdmUYASABKAsyBS5Nb3ZlSAASGQoGYXR0",
-          "YWNrGAIgASgLMgcuQXR0YWNrSAASHAoIdXNlX2l0ZW0YBCABKAsyCC5Vc2VJ",
-          "dGVtSAASIgoLcGlja19ib3VudHkYBSABKAsyCy5QaWNrQm91bnR5SAASEQoJ",
-          "dGltZXN0YW1wGAMgASgDQg0KC2FjdGlvbl90eXBlIl4KBFpvbmUSDgoGcmFk",
-          "aXVzGAEgASgCEg8KB2VuYWJsZWQYAiABKAgSIgoabmV4dF96b25lX2NoYW5n",
-          "ZV90aW1lc3RhbXAYAyABKAMSEQoJc2hyaW5raW5nGAQgASgIIjEKCUtpbGxF",
-          "bnRyeRIRCglraWxsZXJfaWQYASABKAQSEQoJdmljdGltX2lkGAIgASgEIl0K",
-          "CkJvdW50eUluZm8SCgoCaWQYASABKAkSDQoFdGl0bGUYAiABKAkSEwoLZGVz",
-          "Y3JpcHRpb24YAyABKAkSHwoGcmV3YXJkGAQgASgLMg8uQ3VycmVuY3lSZXdh",
-          "cmQiMgoOQ3VycmVuY3lSZXdhcmQSEAoIY3VycmVuY3kYASABKAkSDgoGYW1v",
-          "dW50GAIgASgDKkcKCkdhbWVTdGF0dXMSDQoJUFJFUEFSSU5HEAASCwoHUlVO",
-          "TklORxABEgkKBUVOREVEEAISEgoOUElDS0lOR19CT1VOVFkQAyo6ChBQcm9q",
-          "ZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExPREVEEAESDAoIQ09O",
-          "U1VNRUQQAiomCgtDcmF0ZVN0YXR1cxIICgRGSU5FEAASDQoJREVTVFJPWUVE",
-          "EAEqKQoNUG93ZXJVcHN0YXR1cxINCglBVkFJTEFCTEUQABIJCgVUQUtFThAB",
-          "Ko8BChBQbGF5ZXJBY3Rpb25UeXBlEgoKBk1PVklORxAAEhQKEFNUQVJUSU5H",
-          "X1NLSUxMXzEQARIUChBTVEFSVElOR19TS0lMTF8yEAISFQoRRVhFQ1VUSU5H",
-          "X1NLSUxMXzEQAxIVChFFWEVDVVRJTkdfU0tJTExfMhAEEhUKEUVYRUNVVElO",
-          "R19TS0lMTF8zEAUqQAoKVHJhcFN0YXR1cxILCgdQRU5ESU5HEAASDAoIUFJF",
-          "UEFSRUQQARINCglUUklHR0VSRUQQAhIICgRVU0VEEANiBnByb3RvMw=="));
+          "GAEgASgEIicKDFNlbGVjdEJvdW50eRIXCg9ib3VudHlfcXVlc3RfaWQYASAB",
+          "KAkipgEKCkdhbWVBY3Rpb24SFQoEbW92ZRgBIAEoCzIFLk1vdmVIABIZCgZh",
+          "dHRhY2sYAiABKAsyBy5BdHRhY2tIABIcCgh1c2VfaXRlbRgEIAEoCzIILlVz",
+          "ZUl0ZW1IABImCg1zZWxlY3RfYm91bnR5GAUgASgLMg0uU2VsZWN0Qm91bnR5",
+          "SAASEQoJdGltZXN0YW1wGAMgASgDQg0KC2FjdGlvbl90eXBlIl4KBFpvbmUS",
+          "DgoGcmFkaXVzGAEgASgCEg8KB2VuYWJsZWQYAiABKAgSIgoabmV4dF96b25l",
+          "X2NoYW5nZV90aW1lc3RhbXAYAyABKAMSEQoJc2hyaW5raW5nGAQgASgIIjEK",
+          "CUtpbGxFbnRyeRIRCglraWxsZXJfaWQYASABKAQSEQoJdmljdGltX2lkGAIg",
+          "ASgEIl0KCkJvdW50eUluZm8SCgoCaWQYASABKAkSDQoFdGl0bGUYAiABKAkS",
+          "EwoLZGVzY3JpcHRpb24YAyABKAkSHwoGcmV3YXJkGAQgASgLMg8uQ3VycmVu",
+          "Y3lSZXdhcmQiMgoOQ3VycmVuY3lSZXdhcmQSEAoIY3VycmVuY3kYASABKAkS",
+          "DgoGYW1vdW50GAIgASgDKkkKCkdhbWVTdGF0dXMSDQoJUFJFUEFSSU5HEAAS",
+          "CwoHUlVOTklORxABEgkKBUVOREVEEAISFAoQU0VMRUNUSU5HX0JPVU5UWRAD",
+          "KjoKEFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQ",
+          "ARIMCghDT05TVU1FRBACKiYKC0NyYXRlU3RhdHVzEggKBEZJTkUQABINCglE",
+          "RVNUUk9ZRUQQASopCg1Qb3dlclVwc3RhdHVzEg0KCUFWQUlMQUJMRRAAEgkK",
+          "BVRBS0VOEAEqjwEKEFBsYXllckFjdGlvblR5cGUSCgoGTU9WSU5HEAASFAoQ",
+          "U1RBUlRJTkdfU0tJTExfMRABEhQKEFNUQVJUSU5HX1NLSUxMXzIQAhIVChFF",
+          "WEVDVVRJTkdfU0tJTExfMRADEhUKEUVYRUNVVElOR19TS0lMTF8yEAQSFQoR",
+          "RVhFQ1VUSU5HX1NLSUxMXzMQBSpACgpUcmFwU3RhdHVzEgsKB1BFTkRJTkcQ",
+          "ABIMCghQUkVQQVJFRBABEg0KCVRSSUdHRVJFRBACEggKBFVTRUQQA2IGcHJv",
+          "dG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameStatus), typeof(global::ProjectileStatus), typeof(global::CrateStatus), typeof(global::PowerUpstatus), typeof(global::PlayerActionType), typeof(global::TrapStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -174,8 +175,8 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::Attack), global::Attack.Parser, new[]{ "Skill", "Parameters" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::AttackParameters), global::AttackParameters.Parser, new[]{ "Target" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::UseItem), global::UseItem.Parser, new[]{ "Item" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::PickBounty), global::PickBounty.Parser, new[]{ "BountyQuestId" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "Attack", "UseItem", "PickBounty", "Timestamp" }, new[]{ "ActionType" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::SelectBounty), global::SelectBounty.Parser, new[]{ "BountyQuestId" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "Attack", "UseItem", "SelectBounty", "Timestamp" }, new[]{ "ActionType" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Zone), global::Zone.Parser, new[]{ "Radius", "Enabled", "NextZoneChangeTimestamp", "Shrinking" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::KillEntry), global::KillEntry.Parser, new[]{ "KillerId", "VictimId" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::BountyInfo), global::BountyInfo.Parser, new[]{ "Id", "Title", "Description", "Reward" }, null, null, null, null),
@@ -190,7 +191,7 @@ public enum GameStatus {
   [pbr::OriginalName("PREPARING")] Preparing = 0,
   [pbr::OriginalName("RUNNING")] Running = 1,
   [pbr::OriginalName("ENDED")] Ended = 2,
-  [pbr::OriginalName("PICKING_BOUNTY")] PickingBounty = 3,
+  [pbr::OriginalName("SELECTING_BOUNTY")] SelectingBounty = 3,
 }
 
 public enum ProjectileStatus {
@@ -9632,16 +9633,16 @@ public sealed partial class UseItem : pb::IMessage<UseItem>
 }
 
 [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-public sealed partial class PickBounty : pb::IMessage<PickBounty>
+public sealed partial class SelectBounty : pb::IMessage<SelectBounty>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
 #endif
 {
-  private static readonly pb::MessageParser<PickBounty> _parser = new pb::MessageParser<PickBounty>(() => new PickBounty());
+  private static readonly pb::MessageParser<SelectBounty> _parser = new pb::MessageParser<SelectBounty>(() => new SelectBounty());
   private pb::UnknownFieldSet _unknownFields;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public static pb::MessageParser<PickBounty> Parser { get { return _parser; } }
+  public static pb::MessageParser<SelectBounty> Parser { get { return _parser; } }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -9657,7 +9658,7 @@ public sealed partial class PickBounty : pb::IMessage<PickBounty>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public PickBounty() {
+  public SelectBounty() {
     OnConstruction();
   }
 
@@ -9665,15 +9666,15 @@ public sealed partial class PickBounty : pb::IMessage<PickBounty>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public PickBounty(PickBounty other) : this() {
+  public SelectBounty(SelectBounty other) : this() {
     bountyQuestId_ = other.bountyQuestId_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public PickBounty Clone() {
-    return new PickBounty(this);
+  public SelectBounty Clone() {
+    return new SelectBounty(this);
   }
 
   /// <summary>Field number for the "bounty_quest_id" field.</summary>
@@ -9691,12 +9692,12 @@ public sealed partial class PickBounty : pb::IMessage<PickBounty>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
-    return Equals(other as PickBounty);
+    return Equals(other as SelectBounty);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool Equals(PickBounty other) {
+  public bool Equals(SelectBounty other) {
     if (ReferenceEquals(other, null)) {
       return false;
     }
@@ -9769,7 +9770,7 @@ public sealed partial class PickBounty : pb::IMessage<PickBounty>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void MergeFrom(PickBounty other) {
+  public void MergeFrom(SelectBounty other) {
     if (other == null) {
       return;
     }
@@ -9867,8 +9868,8 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
       case ActionTypeOneofCase.UseItem:
         UseItem = other.UseItem.Clone();
         break;
-      case ActionTypeOneofCase.PickBounty:
-        PickBounty = other.PickBounty.Clone();
+      case ActionTypeOneofCase.SelectBounty:
+        SelectBounty = other.SelectBounty.Clone();
         break;
     }
 
@@ -9917,15 +9918,15 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     }
   }
 
-  /// <summary>Field number for the "pick_bounty" field.</summary>
-  public const int PickBountyFieldNumber = 5;
+  /// <summary>Field number for the "select_bounty" field.</summary>
+  public const int SelectBountyFieldNumber = 5;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::PickBounty PickBounty {
-    get { return actionTypeCase_ == ActionTypeOneofCase.PickBounty ? (global::PickBounty) actionType_ : null; }
+  public global::SelectBounty SelectBounty {
+    get { return actionTypeCase_ == ActionTypeOneofCase.SelectBounty ? (global::SelectBounty) actionType_ : null; }
     set {
       actionType_ = value;
-      actionTypeCase_ = value == null ? ActionTypeOneofCase.None : ActionTypeOneofCase.PickBounty;
+      actionTypeCase_ = value == null ? ActionTypeOneofCase.None : ActionTypeOneofCase.SelectBounty;
     }
   }
 
@@ -9948,7 +9949,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     Move = 1,
     Attack = 2,
     UseItem = 4,
-    PickBounty = 5,
+    SelectBounty = 5,
   }
   private ActionTypeOneofCase actionTypeCase_ = ActionTypeOneofCase.None;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -9982,7 +9983,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     if (!object.Equals(Move, other.Move)) return false;
     if (!object.Equals(Attack, other.Attack)) return false;
     if (!object.Equals(UseItem, other.UseItem)) return false;
-    if (!object.Equals(PickBounty, other.PickBounty)) return false;
+    if (!object.Equals(SelectBounty, other.SelectBounty)) return false;
     if (Timestamp != other.Timestamp) return false;
     if (ActionTypeCase != other.ActionTypeCase) return false;
     return Equals(_unknownFields, other._unknownFields);
@@ -9995,7 +9996,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     if (actionTypeCase_ == ActionTypeOneofCase.Move) hash ^= Move.GetHashCode();
     if (actionTypeCase_ == ActionTypeOneofCase.Attack) hash ^= Attack.GetHashCode();
     if (actionTypeCase_ == ActionTypeOneofCase.UseItem) hash ^= UseItem.GetHashCode();
-    if (actionTypeCase_ == ActionTypeOneofCase.PickBounty) hash ^= PickBounty.GetHashCode();
+    if (actionTypeCase_ == ActionTypeOneofCase.SelectBounty) hash ^= SelectBounty.GetHashCode();
     if (Timestamp != 0L) hash ^= Timestamp.GetHashCode();
     hash ^= (int) actionTypeCase_;
     if (_unknownFields != null) {
@@ -10032,9 +10033,9 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
       output.WriteRawTag(34);
       output.WriteMessage(UseItem);
     }
-    if (actionTypeCase_ == ActionTypeOneofCase.PickBounty) {
+    if (actionTypeCase_ == ActionTypeOneofCase.SelectBounty) {
       output.WriteRawTag(42);
-      output.WriteMessage(PickBounty);
+      output.WriteMessage(SelectBounty);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -10062,9 +10063,9 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
       output.WriteRawTag(34);
       output.WriteMessage(UseItem);
     }
-    if (actionTypeCase_ == ActionTypeOneofCase.PickBounty) {
+    if (actionTypeCase_ == ActionTypeOneofCase.SelectBounty) {
       output.WriteRawTag(42);
-      output.WriteMessage(PickBounty);
+      output.WriteMessage(SelectBounty);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -10085,8 +10086,8 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     if (actionTypeCase_ == ActionTypeOneofCase.UseItem) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(UseItem);
     }
-    if (actionTypeCase_ == ActionTypeOneofCase.PickBounty) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(PickBounty);
+    if (actionTypeCase_ == ActionTypeOneofCase.SelectBounty) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(SelectBounty);
     }
     if (Timestamp != 0L) {
       size += 1 + pb::CodedOutputStream.ComputeInt64Size(Timestamp);
@@ -10125,11 +10126,11 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
         }
         UseItem.MergeFrom(other.UseItem);
         break;
-      case ActionTypeOneofCase.PickBounty:
-        if (PickBounty == null) {
-          PickBounty = new global::PickBounty();
+      case ActionTypeOneofCase.SelectBounty:
+        if (SelectBounty == null) {
+          SelectBounty = new global::SelectBounty();
         }
-        PickBounty.MergeFrom(other.PickBounty);
+        SelectBounty.MergeFrom(other.SelectBounty);
         break;
     }
 
@@ -10180,12 +10181,12 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
           break;
         }
         case 42: {
-          global::PickBounty subBuilder = new global::PickBounty();
-          if (actionTypeCase_ == ActionTypeOneofCase.PickBounty) {
-            subBuilder.MergeFrom(PickBounty);
+          global::SelectBounty subBuilder = new global::SelectBounty();
+          if (actionTypeCase_ == ActionTypeOneofCase.SelectBounty) {
+            subBuilder.MergeFrom(SelectBounty);
           }
           input.ReadMessage(subBuilder);
-          PickBounty = subBuilder;
+          SelectBounty = subBuilder;
           break;
         }
       }
@@ -10235,12 +10236,12 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
           break;
         }
         case 42: {
-          global::PickBounty subBuilder = new global::PickBounty();
-          if (actionTypeCase_ == ActionTypeOneofCase.PickBounty) {
-            subBuilder.MergeFrom(PickBounty);
+          global::SelectBounty subBuilder = new global::SelectBounty();
+          if (actionTypeCase_ == ActionTypeOneofCase.SelectBounty) {
+            subBuilder.MergeFrom(SelectBounty);
           }
           input.ReadMessage(subBuilder);
-          PickBounty = subBuilder;
+          SelectBounty = subBuilder;
           break;
         }
       }
