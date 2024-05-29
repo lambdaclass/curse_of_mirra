@@ -13,6 +13,7 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
     const long SHOW_WARNING_THRESHOLD = 75;
     const long STOP_WARNING_THRESHOLD = 40;
     const long MS_WITHOUT_UPDATE_SHOW_WARNING = 3000;
+    const long MS_WITHOUT_UPDATE_DISCONNECT = 10000;
     public static bool unstableConnection = false;
 
     void Start()
@@ -22,10 +23,19 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
 
     void Update()
     {
-        if(timestampDifferences.Count > 0 &&
-            DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - lastUpdateTimestamp > MS_WITHOUT_UPDATE_SHOW_WARNING)
+        if(lastUpdateTimestamp > 0)
         {
-            unstableConnection = true;
+            long msSinceLastUpdate = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - lastUpdateTimestamp;
+            
+            if (!unstableConnection && msSinceLastUpdate > MS_WITHOUT_UPDATE_SHOW_WARNING)
+            {
+                unstableConnection = true;
+            }
+
+            if(msSinceLastUpdate > MS_WITHOUT_UPDATE_DISCONNECT)
+            {
+                Disconnect();
+            }
         }
     }
 
@@ -58,5 +68,12 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
                 unstableConnection = false;
             }
         }
+    }
+
+    private void Disconnect()
+    {
+        unstableConnection = false;
+        Utils.BackToLobbyFromGame("MainScreen");
+        Errors.Instance.HandleNetworkError("Error", "Your connection to the server has been lost.");
     }
 }
