@@ -19,7 +19,8 @@ public class ConnectivityHealthCheck : MonoBehaviour
     }
     void Update()
     {
-        if (LatencyAnalyzer.Instance.showWarning)
+        // Both unstable connection and no updates currently show the same icon, this will change, there should be two different icons
+        if (LatencyAnalyzer.Instance.showUnstableConnectionWarning || LatencyAnalyzer.Instance.showDisconnectedWarning)
         {
             displayCoroutine = StartCoroutine(Display());
         }
@@ -28,7 +29,7 @@ public class ConnectivityHealthCheck : MonoBehaviour
     {
         pulseSequence.Play();
         iconCanvas.DOFade(1, animationDuration);
-        yield return new WaitUntil(() => (!LatencyAnalyzer.Instance.showWarning));
+        yield return new WaitUntil(() => !(LatencyAnalyzer.Instance.showUnstableConnectionWarning || LatencyAnalyzer.Instance.showDisconnectedWarning));
         StopCoroutine(displayCoroutine);
         hideCoroutine = StartCoroutine(Hide());
     }
