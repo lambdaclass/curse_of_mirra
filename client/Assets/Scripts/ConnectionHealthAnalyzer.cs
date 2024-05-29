@@ -8,7 +8,7 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
     Queue<long> timestampDifferences = new Queue<long>();
     const int TIMESTAMP_DIFFERENCES_MAX_LENGTH = 1;
     const long SHOW_WARNING_THRESHOLD = 100;
-    public bool unstableConnection = false;
+    public static bool unstableConnection = false;
 
     void Start()
     {
