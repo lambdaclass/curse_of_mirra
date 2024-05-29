@@ -6,9 +6,11 @@ using UnityEngine;
 public class ConnectionHealthAnalyzer : MonoBehaviour
 {
     long lastUpdateTimestamp;
-    Queue<long> timestampDifferences = new Queue<long>();
-    const int TIMESTAMP_DIFFERENCES_MAX_LENGTH = 5;
+    List<long> timestampDifferences = new List<long>();
+    const int TIMESTAMP_DIFFERENCES_TO_CHECK_WARNING = 5;
+    const int TIMESTAMP_DIFFERENCES_MAX_LENGTH = 30;
     const long SHOW_WARNING_THRESHOLD = 75;
+    const long STOP_WARNING_THRESHOLD = 40;
     public static bool unstableConnection = false;
 
     void Start()
@@ -28,19 +30,19 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
 
         if(timestampDifferences.Count > TIMESTAMP_DIFFERENCES_MAX_LENGTH)
         {
-            timestampDifferences.Dequeue();
+            timestampDifferences.RemoveAt(0);
         }
-        timestampDifferences.Enqueue(timestampDifference);
+        timestampDifferences.Add(timestampDifference);
 
-        GameServerConnectionManager.Instance.currentPing = (uint)timestampDifferences.Peek();
+        GameServerConnectionManager.Instance.currentPing = (uint)timestampDifferences.Last();
 
-        if(timestampDifferences.Count >= TIMESTAMP_DIFFERENCES_MAX_LENGTH)
+        if(timestampDifferences.Count >= TIMESTAMP_DIFFERENCES_TO_CHECK_WARNING)
         {
-            if(timestampDifferences.Max() - timestampDifferences.Average() > SHOW_WARNING_THRESHOLD)
+            if(timestampDifferences.Max() - timestampDifferences.Take(TIMESTAMP_DIFFERENCES_TO_CHECK_WARNING).Average() > SHOW_WARNING_THRESHOLD)
             {
                 unstableConnection = true;
             }
-            else
+            else if(timestampDifferences.Max() - timestampDifferences.Average() < STOP_WARNING_THRESHOLD)
             {
                 unstableConnection = false;
             }
