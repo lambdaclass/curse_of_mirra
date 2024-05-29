@@ -55,8 +55,6 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
         }
         timestampDifferences.Add(timestampDifference);
 
-        GameServerConnectionManager.Instance.currentPing = (uint)timestampDifferences.Last();
-
         if(timestampDifferences.Count >= TIMESTAMP_DIFFERENCES_TO_CHECK_WARNING)
         {
             if(timestampDifferences.Max() - timestampDifferences.Take(TIMESTAMP_DIFFERENCES_TO_CHECK_WARNING).Average() > SHOW_WARNING_THRESHOLD)
