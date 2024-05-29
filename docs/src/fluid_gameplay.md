@@ -1,6 +1,6 @@
 # Fluid Gameplay in an Online Environment
 
-Curse of Mirra is a multiplayer game. As such, every action any player performs (moving, attacking, etc) has to go through a centralized server that changes the state accordingly and sends back the new state to players. This introduces a huge source of problems when trying to render the game smoothly: there is an unreliable network in between.
+Champions of Mirra is a multiplayer game. As such, every action any player performs (moving, attacking, etc) has to go through a centralized server that changes the state accordingly and sends back the new state to players. This introduces a huge source of problems when trying to render the game smoothly: there is an unreliable network in between.
 
 Here we'll go over the problems that arise from networking, how we solved some of them, and how we might improve these solutions in the future. The way we judge whether we have done a good job or not is if the game feels good to play. Ultimately, that's the only metric that matters here.
 
