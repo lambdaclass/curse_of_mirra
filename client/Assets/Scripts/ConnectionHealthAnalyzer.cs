@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ConnectionHealthAnalyzer : MonoBehaviour
 {
     long lastUpdateTimestamp;
     Queue<long> timestampDifferences = new Queue<long>();
-    const int TIMESTAMP_DIFFERENCES_MAX_LENGTH = 1;
-    const long SHOW_WARNING_THRESHOLD = 100;
+    const int TIMESTAMP_DIFFERENCES_MAX_LENGTH = 5;
+    const long SHOW_WARNING_THRESHOLD = 75;
     public static bool unstableConnection = false;
 
     void Start()
@@ -33,7 +34,7 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
 
         GameServerConnectionManager.Instance.currentPing = (uint)timestampDifferences.Peek();
 
-        if(timestampDifferences.Peek() > SHOW_WARNING_THRESHOLD)
+        if(timestampDifferences.Peek() - timestampDifferences.Average() > SHOW_WARNING_THRESHOLD)
         {
             unstableConnection = true;
         }
