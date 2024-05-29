@@ -3856,6 +3856,10 @@ MonoBehaviour:
   surviveText: {fileID: 4707298941903163517}
   countDown: {fileID: 8354045121928496173}
   cinemachineVirtualCamera: {fileID: 114129316014370704}
+  bountiesList:
+  - {fileID: 8136072152143955635}
+  - {fileID: 7423277256705466801}
+  - {fileID: 2422420963077514471}
 --- !u!225 &4615091370588803898
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -30127,6 +30131,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c437c9b9f30a4bda9b4e61b74fb4485, type: 3}
+--- !u!1 &2422420963077514471 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1642260886516998032, guid: 3c437c9b9f30a4bda9b4e61b74fb4485,
+    type: 3}
+  m_PrefabInstance: {fileID: 3986900198020152183}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3932968807438270414 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 126354577604756665, guid: 3c437c9b9f30a4bda9b4e61b74fb4485,
@@ -30881,6 +30891,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7359824144497645859}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8136072152143955635 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1642260886516998032, guid: 3c437c9b9f30a4bda9b4e61b74fb4485,
+    type: 3}
+  m_PrefabInstance: {fileID: 7359824144497645859}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8200699534145715745
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31130,6 +31146,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c437c9b9f30a4bda9b4e61b74fb4485, type: 3}
+--- !u!1 &7423277256705466801 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1642260886516998032, guid: 3c437c9b9f30a4bda9b4e61b74fb4485,
+    type: 3}
+  m_PrefabInstance: {fileID: 8200699534145715745}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8074490238155045528 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 126354577604756665, guid: 3c437c9b9f30a4bda9b4e61b74fb4485,

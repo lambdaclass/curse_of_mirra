@@ -29,6 +29,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public List<Entity> gamePools;
     public List<Entity> gameLoots;
     public List<Entity> gameCrates;
+    public List<BountyInfo> bounties;
 
     public List<Entity> obstacles;
     public Dictionary<ulong, ulong> damageDone = new Dictionary<ulong, ulong>();
@@ -161,6 +162,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.serverTickRate_ms = gameEvent.Joined.Config.Game.TickRateMs;
                     this.playerId = gameEvent.Joined.PlayerId;
                     this.config = gameEvent.Joined.Config;
+                    this.bounties = gameEvent.Joined.Bounties.ToList();
                     break;
                 case GameEvent.EventOneofCase.Ping:
                     currentPing = (uint)gameEvent.Ping.Latency;

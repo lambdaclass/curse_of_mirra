@@ -103,6 +103,8 @@ GameObject:
   - component: {fileID: 126354577604756665}
   - component: {fileID: 9021116219328811443}
   - component: {fileID: 6130516672475933373}
+  - component: {fileID: 3504679535559145728}
+  - component: {fileID: 7830800804813307141}
   m_Layer: 5
   m_Name: Bounty
   m_TagString: Untagged
@@ -171,6 +173,30 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &3504679535559145728
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642260886516998032}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &7830800804813307141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642260886516998032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 462f067e91dff42878dce6280e8a6fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2386654376414624058
 GameObject:
   m_ObjectHideFlags: 0
