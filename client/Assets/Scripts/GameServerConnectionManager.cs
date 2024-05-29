@@ -59,6 +59,8 @@ public class GameServerConnectionManager : MonoBehaviour
 
     public Configuration config;
 
+    public static Action<long> OnGameEventTimestampChanged;
+
     void Start()
     {
         Init();
@@ -191,6 +193,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     {
                         [this.playerId] = position
                     };
+                    OnGameEventTimestampChanged?.Invoke(DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
                     break;
                 case GameEvent.EventOneofCase.Finished:
                     winnerPlayer.Item1 = gameEvent.Finished.Winner;
