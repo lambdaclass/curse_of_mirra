@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 
-public class ConnectivityHealthCheck : MonoBehaviour
+public class ConnectionStateIcon : MonoBehaviour
 {
     CanvasGroup iconCanvas;
     float animationDuration = .4f;
