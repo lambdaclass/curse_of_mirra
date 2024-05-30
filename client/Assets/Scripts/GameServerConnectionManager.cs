@@ -67,6 +67,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public Configuration config;
 
     public static Action<long> OnGameEventTimestampChanged;
+    public static Action OnMatchFinished;
 
     void Start()
     {
@@ -214,6 +215,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     winnerPlayer.Item1 = gameEvent.Finished.Winner;
                     winnerPlayer.Item2 = gameEvent.Finished.Winner.Player.KillCount;
                     this.gamePlayers = gameEvent.Finished.Players.Values.ToList();
+                    OnMatchFinished?.Invoke();
                     break;
                 default:
                     print("Message received is: " + gameEvent.EventCase);
