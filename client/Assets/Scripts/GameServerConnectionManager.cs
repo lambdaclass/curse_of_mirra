@@ -54,6 +54,13 @@ public class GameServerConnectionManager : MonoBehaviour
     private string clientId;
     private bool reconnect;
 
+    public int timestampDifferenceSamplesToCheckWarning;
+    public int timestampDifferencesSamplesMaxLength;
+    public int showWarningThreshold;
+    public int stopWarningThreshold;
+    public int msWithoutUpdateShowWarning;
+    public int msWithoutUpdateDisconnect;
+
     public bool shrinking;
     WebSocket ws;
 
@@ -163,6 +170,14 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.serverTickRate_ms = gameEvent.Joined.Config.Game.TickRateMs;
                     this.playerId = gameEvent.Joined.PlayerId;
                     this.config = gameEvent.Joined.Config;
+
+                    this.timestampDifferenceSamplesToCheckWarning = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.TimestampDifferenceSamplesToCheckWarning;
+                    this.timestampDifferencesSamplesMaxLength = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.TimestampDifferencesSamplesMaxLength;
+                    this.showWarningThreshold = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.ShowWarningThreshold;
+                    this.stopWarningThreshold = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.StopWarningThreshold;
+                    this.msWithoutUpdateShowWarning = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.MsWithoutUpdateShowWarning;
+                    this.msWithoutUpdateDisconnect = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.MsWithoutUpdateDisconnect;
+
                     break;
                 case GameEvent.EventOneofCase.Ping:
                     currentPing = (uint)gameEvent.Ping.Latency;

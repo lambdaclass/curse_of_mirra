@@ -8,12 +8,12 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
 {
     long lastUpdateTimestamp;
     List<long> timestampDifferences = new List<long>();
-    const int TIMESTAMP_DIFFERENCES_TO_CHECK_WARNING = 5;
-    const int TIMESTAMP_DIFFERENCES_MAX_LENGTH = 30;
-    const long SHOW_WARNING_THRESHOLD = 75;
-    const long STOP_WARNING_THRESHOLD = 40;
-    const long MS_WITHOUT_UPDATE_SHOW_WARNING = 3000;
-    const long MS_WITHOUT_UPDATE_DISCONNECT = 10000;
+    // const int TIMESTAMP_DIFFERENCES_TO_CHECK_WARNING = 5;
+    // const int TIMESTAMP_DIFFERENCES_MAX_LENGTH = 30;
+    // const long SHOW_WARNING_THRESHOLD = 75;
+    // const long STOP_WARNING_THRESHOLD = 40;
+    // const long MS_WITHOUT_UPDATE_SHOW_WARNING = 3000;
+    // const long MS_WITHOUT_UPDATE_DISCONNECT = 10000;
     public static bool unstableConnection = false;
 
     void Start()
@@ -27,12 +27,12 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
         {
             long msSinceLastUpdate = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - lastUpdateTimestamp;
             
-            if (!unstableConnection && msSinceLastUpdate > MS_WITHOUT_UPDATE_SHOW_WARNING)
+            if (!unstableConnection && msSinceLastUpdate > GameServerConnectionManager.Instance.msWithoutUpdateShowWarning)
             {
                 unstableConnection = true;
             }
 
-            if(msSinceLastUpdate > MS_WITHOUT_UPDATE_DISCONNECT)
+            if(msSinceLastUpdate > GameServerConnectionManager.Instance.msWithoutUpdateDisconnect)
             {
                 Disconnect();
             }
@@ -49,7 +49,7 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
         long timestampDifference = newTimestamp - lastUpdateTimestamp;
         lastUpdateTimestamp = newTimestamp;
 
-        if(timestampDifferences.Count > TIMESTAMP_DIFFERENCES_MAX_LENGTH)
+        if(timestampDifferences.Count > GameServerConnectionManager.Instance.timestampDifferencesSamplesMaxLength)
         {
             timestampDifferences.RemoveAt(0);
         }
@@ -57,13 +57,13 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
 
         GameServerConnectionManager.Instance.currentPing = (uint)timestampDifferences.Last();
 
-        if(timestampDifferences.Count >= TIMESTAMP_DIFFERENCES_TO_CHECK_WARNING)
+        if(timestampDifferences.Count >= GameServerConnectionManager.Instance.timestampDifferenceSamplesToCheckWarning)
         {
-            if(timestampDifferences.Max() - timestampDifferences.Take(TIMESTAMP_DIFFERENCES_TO_CHECK_WARNING).Average() > SHOW_WARNING_THRESHOLD)
+            if(timestampDifferences.Max() - timestampDifferences.Take(GameServerConnectionManager.Instance.timestampDifferenceSamplesToCheckWarning).Average() > GameServerConnectionManager.Instance.showWarningThreshold)
             {
                 unstableConnection = true;
             }
-            else if(timestampDifferences.Max() - timestampDifferences.Average() < STOP_WARNING_THRESHOLD)
+            else if(timestampDifferences.Max() - timestampDifferences.Average() < GameServerConnectionManager.Instance.stopWarningThreshold)
             {
                 unstableConnection = false;
             }
