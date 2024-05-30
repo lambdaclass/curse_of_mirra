@@ -57,16 +57,25 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
             return;
         }
 
-        long maxDifference = timestampDifferences.Max();
+        bool spikeDetected = SpikeDetected(timestampDifferences);
 
-        if(maxDifference - timestampDifferences.Take(GameServerConnectionManager.Instance.timestampDifferenceSamplesToCheckWarning).Average() > GameServerConnectionManager.Instance.showWarningThreshold)
+        if(spikeDetected)
         {
             unstableConnection = true;
         }
-        else if(maxDifference - timestampDifferences.Average() < GameServerConnectionManager.Instance.stopWarningThreshold)
-        {
-            unstableConnection = false;
-        }
+        unstableConnection = !IsConnectionStable(timestampDifferences);
+    }
+
+    private bool SpikeDetected(List<long> timestampDifferences)
+    {
+        // We take a subsample of the whole list to check spikes.
+        var spikeSample = timestampDifferences.Take(GameServerConnectionManager.Instance.timestampDifferenceSamplesToCheckWarning);
+        return spikeSample.Max() - spikeSample.Average() > GameServerConnectionManager.Instance.showWarningThreshold;
+    }
+
+    private bool IsConnectionStable(List<long> timestampDifferences)
+    {
+        return timestampDifferences.Max() - timestampDifferences.Average() < GameServerConnectionManager.Instance.stopWarningThreshold;
     }
 
     private void Disconnect()
