@@ -8,12 +8,6 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
 {
     long lastUpdateTimestamp;
     List<long> timestampDifferences = new List<long>();
-    // const int TIMESTAMP_DIFFERENCES_TO_CHECK_WARNING = 5;
-    // const int TIMESTAMP_DIFFERENCES_MAX_LENGTH = 30;
-    // const long SHOW_WARNING_THRESHOLD = 75;
-    // const long STOP_WARNING_THRESHOLD = 40;
-    // const long MS_WITHOUT_UPDATE_SHOW_WARNING = 3000;
-    // const long MS_WITHOUT_UPDATE_DISCONNECT = 10000;
     public static bool unstableConnection = false;
 
     void Start()
