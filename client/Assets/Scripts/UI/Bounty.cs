@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Bounty : MonoBehaviour
 {
-    private string id;
+    [SerializeField] private 
+    string id;
 
     [SerializeField] private 
     TMP_Text descriptionText,
@@ -16,6 +18,7 @@ public class Bounty : MonoBehaviour
     Image currency,
         icon;
 
+    [SerializeField] RectTransform rectTransform;
     [SerializeField] Sprite goldImage;
     [SerializeField] Sprite gemImage;
     [SerializeField] Sprite killImage;
@@ -50,18 +53,21 @@ public class Bounty : MonoBehaviour
 
     public void SelectBounty() 
     {
+        float moveDuration = .3f; 
+        float bounceDuration = .5f; 
+        float bounceScale = 1.12f; 
+
         GameServerConnectionManager.Instance.SendSelectBounty(id);
 
-        // // Calculate the center position of the screen in world coordinates
-        // Vector2 centerPosition = centralBountyRectTransform.anchoredPosition;
+        Vector2 targetPosition = new Vector2(0, rectTransform.anchoredPosition.y); 
 
-        // // Move the target object to the center position along the x-axis
-        // bounty.transform.DOMoveX(centerPosition.x, moveDuration)
-        //     .OnComplete(() =>
-        //     {
-        //         // Start bouncing when the movement to the center is complete
-        //         bounty.transform.DOShakePosition(bounceDuration, new Vector3(bounceStrength, 0, 0), bounceVibrato, 90, false, false)
-        //             .SetLoops(-1, LoopType.Yoyo);
-        //     });
+        rectTransform.DOScale(.8f, .5f);
+        rectTransform.DOAnchorPos(targetPosition, moveDuration)
+            .OnComplete(() =>
+            {
+                rectTransform.DOScale(bounceScale, bounceDuration)
+                    .SetLoops(-1, LoopType.Yoyo)
+                    .SetEase(Ease.InOutQuad);
+            });
     } 
 }

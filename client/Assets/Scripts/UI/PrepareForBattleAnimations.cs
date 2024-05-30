@@ -123,7 +123,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
             Vector2 finalPosition = rectTransform.anchoredPosition;
             
             rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -1000f);
-            bounty.GetComponent<CanvasGroup>().alpha = 1f;
+            bounty.SetActive(true);
             rectTransform.DOAnchorPos(finalPosition, .5f);
 
             // Wait before starting the next animation
@@ -287,10 +287,14 @@ public class PrepareForBattleAnimations : MonoBehaviour
 
     void CoinDisplayAnimation(GameObject coin, float originalScale)
     {
+        RectTransform rectTransform = coin.GetComponent<RectTransform>();
+        Vector2 finalPosition = rectTransform.anchoredPosition;
+        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 1000f);
+        
         Sequence stickerSequence = DOTween.Sequence();
         stickerSequence
-            .AppendInterval(.3f)
-            .Append(coin.GetComponent<CanvasGroup>().DOFade(1, .3f))
+            .Append(coin.GetComponent<CanvasGroup>().DOFade(1f, 0f))
+            .Append(rectTransform.DOAnchorPos(finalPosition, .2f))
             .Insert(0, coin.transform.DOScale(originalScale + .05f, .3f))
             .Append(coin.transform.DOScale(originalScale, .3f))
             .SetEase(Ease.InQuad)
