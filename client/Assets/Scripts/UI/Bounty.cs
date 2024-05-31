@@ -10,13 +10,16 @@ public class Bounty : MonoBehaviour
     string id;
     BountyInfo bountyInfo;
 
-    [SerializeField] private 
-    TMP_Text descriptionText,
+    [SerializeField] 
+    private TMP_Text descriptionText,
         rewardText;
 
-    [SerializeField] private 
-    Image currency,
+    [SerializeField] 
+    private Image currency,
         icon;
+
+    [SerializeField] 
+    private GameObject bountyContainer;
 
     [SerializeField] RectTransform rectTransform;
     [SerializeField] Sprite goldImage;
@@ -26,29 +29,36 @@ public class Bounty : MonoBehaviour
    
     public void SetBounty(BountyInfo bounty) 
     {
-        id = bounty.Id;
-        bountyInfo = bounty;
-        descriptionText.text = bounty.Description;
-        rewardText.text = bounty.Reward.Amount.ToString();
-
-        switch (bounty.Reward.Currency)
+        // For now we need to handle that no bounty is selected.
+        // This will be added on a future iteration.
+        if (bounty == null) 
         {
-            case "Gold":
-                currency.sprite = goldImage;
-                break;
-            default:
-                currency.sprite = gemImage;
-                break;
-        }
+            bountyContainer.SetActive(false);
+        } else {
+            id = bounty.Id;
+            bountyInfo = bounty;
+            descriptionText.text = bounty.Description;
+            rewardText.text = bounty.Reward.Amount.ToString();
 
-        switch (bounty.QuestType)
-        {
-            case "kills":
-                icon.sprite = killImage;
-                break;
-            default:
-                icon.sprite = powerUpImage;
-                break;
+            switch (bounty.Reward.Currency)
+            {
+                case "Gold":
+                    currency.sprite = goldImage;
+                    break;
+                default:
+                    currency.sprite = gemImage;
+                    break;
+            }
+
+            switch (bounty.QuestType)
+            {
+                case "kills":
+                    icon.sprite = killImage;
+                    break;
+                default:
+                    icon.sprite = powerUpImage;
+                    break;
+            }
         }
     }
 
