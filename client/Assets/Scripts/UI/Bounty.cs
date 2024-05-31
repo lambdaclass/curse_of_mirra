@@ -7,8 +7,8 @@ using DG.Tweening;
 
 public class Bounty : MonoBehaviour
 {
-    [SerializeField] private 
     string id;
+    BountyInfo bountyInfo;
 
     [SerializeField] private 
     TMP_Text descriptionText,
@@ -27,6 +27,7 @@ public class Bounty : MonoBehaviour
     public void SetBounty(BountyInfo bounty) 
     {
         id = bounty.Id;
+        bountyInfo = bounty;
         descriptionText.text = bounty.Description;
         rewardText.text = bounty.Reward.Amount.ToString();
 
@@ -40,15 +41,15 @@ public class Bounty : MonoBehaviour
                 break;
         }
 
-        // switch (bounty.Type)
-        // {
-        //     case "Kill":
-        //         icon.sprite = killImage;
-        //         break;
-        //     case "PowerUp":
-        //         icon.sprite = powerUpImage;
-        //         break;
-        // }
+        switch (bounty.QuestType)
+        {
+            case "kills":
+                icon.sprite = killImage;
+                break;
+            default:
+                icon.sprite = powerUpImage;
+                break;
+        }
     }
 
     public void SelectBounty() 
@@ -58,10 +59,9 @@ public class Bounty : MonoBehaviour
         float bounceScale = 1.12f; 
 
         GameServerConnectionManager.Instance.SendSelectBounty(id);
+        GameServerConnectionManager.Instance.bountySelected = bountyInfo;
 
         Vector2 targetPosition = new Vector2(0, rectTransform.anchoredPosition.y); 
-
-        rectTransform.DOScale(.8f, .5f);
         rectTransform.DOAnchorPos(targetPosition, moveDuration)
             .OnComplete(() =>
             {

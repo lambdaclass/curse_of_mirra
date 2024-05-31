@@ -58,6 +58,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public bool shrinking;
     WebSocket ws;
 
+    public BountyInfo bountySelected;
     public Configuration config;
 
     void Start()

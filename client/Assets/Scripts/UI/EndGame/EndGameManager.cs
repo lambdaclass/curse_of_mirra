@@ -26,7 +26,7 @@ public class EndGameManager : MonoBehaviour
     [SerializeField]
     public UIModelManager modelManager;
 
-    [SerializeField]
+    [SerializeField] 
     GameObject winnerContainer;
 
     [SerializeField]
@@ -44,6 +44,9 @@ public class EndGameManager : MonoBehaviour
     [SerializeField] 
     private Sprite bronzeRank;
 
+    [SerializeField]
+    private Bounty bounty;
+
     private const int WINNER_POS = 1;
     private const int SECOND_PLACE_POS = 2;
     private const ulong ZONE_ID = 9999;
@@ -53,6 +56,7 @@ public class EndGameManager : MonoBehaviour
     {
         ShowRankingDisplay();
         ShowMatchInfo();
+        bounty.SetBounty(GameServerConnectionManager.Instance.bountySelected);
     }
 
     public void SetDeathSplashCharacter()

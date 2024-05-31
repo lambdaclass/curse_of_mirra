@@ -126,20 +126,20 @@ public static partial class MessagesReflection {
           "DgoGcmFkaXVzGAEgASgCEg8KB2VuYWJsZWQYAiABKAgSIgoabmV4dF96b25l",
           "X2NoYW5nZV90aW1lc3RhbXAYAyABKAMSEQoJc2hyaW5raW5nGAQgASgIIjEK",
           "CUtpbGxFbnRyeRIRCglraWxsZXJfaWQYASABKAQSEQoJdmljdGltX2lkGAIg",
-          "ASgEIl0KCkJvdW50eUluZm8SCgoCaWQYASABKAkSDQoFdGl0bGUYAiABKAkS",
-          "EwoLZGVzY3JpcHRpb24YAyABKAkSHwoGcmV3YXJkGAQgASgLMg8uQ3VycmVu",
-          "Y3lSZXdhcmQiMgoOQ3VycmVuY3lSZXdhcmQSEAoIY3VycmVuY3kYASABKAkS",
-          "DgoGYW1vdW50GAIgASgDKkkKCkdhbWVTdGF0dXMSDQoJUFJFUEFSSU5HEAAS",
-          "CwoHUlVOTklORxABEgkKBUVOREVEEAISFAoQU0VMRUNUSU5HX0JPVU5UWRAD",
-          "KjoKEFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQ",
-          "ARIMCghDT05TVU1FRBACKiYKC0NyYXRlU3RhdHVzEggKBEZJTkUQABINCglE",
-          "RVNUUk9ZRUQQASopCg1Qb3dlclVwc3RhdHVzEg0KCUFWQUlMQUJMRRAAEgkK",
-          "BVRBS0VOEAEqjwEKEFBsYXllckFjdGlvblR5cGUSCgoGTU9WSU5HEAASFAoQ",
-          "U1RBUlRJTkdfU0tJTExfMRABEhQKEFNUQVJUSU5HX1NLSUxMXzIQAhIVChFF",
-          "WEVDVVRJTkdfU0tJTExfMRADEhUKEUVYRUNVVElOR19TS0lMTF8yEAQSFQoR",
-          "RVhFQ1VUSU5HX1NLSUxMXzMQBSpACgpUcmFwU3RhdHVzEgsKB1BFTkRJTkcQ",
-          "ABIMCghQUkVQQVJFRBABEg0KCVRSSUdHRVJFRBACEggKBFVTRUQQA2IGcHJv",
-          "dG8z"));
+          "ASgEImIKCkJvdW50eUluZm8SCgoCaWQYASABKAkSEwoLZGVzY3JpcHRpb24Y",
+          "AiABKAkSEgoKcXVlc3RfdHlwZRgDIAEoCRIfCgZyZXdhcmQYBCABKAsyDy5D",
+          "dXJyZW5jeVJld2FyZCIyCg5DdXJyZW5jeVJld2FyZBIQCghjdXJyZW5jeRgB",
+          "IAEoCRIOCgZhbW91bnQYAiABKAMqSQoKR2FtZVN0YXR1cxINCglQUkVQQVJJ",
+          "TkcQABILCgdSVU5OSU5HEAESCQoFRU5ERUQQAhIUChBTRUxFQ1RJTkdfQk9V",
+          "TlRZEAMqOgoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBM",
+          "T0RFRBABEgwKCENPTlNVTUVEEAIqJgoLQ3JhdGVTdGF0dXMSCAoERklORRAA",
+          "Eg0KCURFU1RST1lFRBABKikKDVBvd2VyVXBzdGF0dXMSDQoJQVZBSUxBQkxF",
+          "EAASCQoFVEFLRU4QASqPAQoQUGxheWVyQWN0aW9uVHlwZRIKCgZNT1ZJTkcQ",
+          "ABIUChBTVEFSVElOR19TS0lMTF8xEAESFAoQU1RBUlRJTkdfU0tJTExfMhAC",
+          "EhUKEUVYRUNVVElOR19TS0lMTF8xEAMSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQ",
+          "BBIVChFFWEVDVVRJTkdfU0tJTExfMxAFKkAKClRyYXBTdGF0dXMSCwoHUEVO",
+          "RElORxAAEgwKCFBSRVBBUkVEEAESDQoJVFJJR0dFUkVEEAISCAoEVVNFRBAD",
+          "YgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameStatus), typeof(global::ProjectileStatus), typeof(global::CrateStatus), typeof(global::PowerUpstatus), typeof(global::PlayerActionType), typeof(global::TrapStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -179,7 +179,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "Attack", "UseItem", "SelectBounty", "Timestamp" }, new[]{ "ActionType" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Zone), global::Zone.Parser, new[]{ "Radius", "Enabled", "NextZoneChangeTimestamp", "Shrinking" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::KillEntry), global::KillEntry.Parser, new[]{ "KillerId", "VictimId" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::BountyInfo), global::BountyInfo.Parser, new[]{ "Id", "Title", "Description", "Reward" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::BountyInfo), global::BountyInfo.Parser, new[]{ "Id", "Description", "QuestType", "Reward" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CurrencyReward), global::CurrencyReward.Parser, new[]{ "Currency", "Amount" }, null, null, null, null)
         }));
   }
@@ -10815,8 +10815,8 @@ public sealed partial class BountyInfo : pb::IMessage<BountyInfo>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public BountyInfo(BountyInfo other) : this() {
     id_ = other.id_;
-    title_ = other.title_;
     description_ = other.description_;
+    questType_ = other.questType_;
     reward_ = other.reward_ != null ? other.reward_.Clone() : null;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
@@ -10839,20 +10839,8 @@ public sealed partial class BountyInfo : pb::IMessage<BountyInfo>
     }
   }
 
-  /// <summary>Field number for the "title" field.</summary>
-  public const int TitleFieldNumber = 2;
-  private string title_ = "";
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string Title {
-    get { return title_; }
-    set {
-      title_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-    }
-  }
-
   /// <summary>Field number for the "description" field.</summary>
-  public const int DescriptionFieldNumber = 3;
+  public const int DescriptionFieldNumber = 2;
   private string description_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -10860,6 +10848,18 @@ public sealed partial class BountyInfo : pb::IMessage<BountyInfo>
     get { return description_; }
     set {
       description_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "quest_type" field.</summary>
+  public const int QuestTypeFieldNumber = 3;
+  private string questType_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string QuestType {
+    get { return questType_; }
+    set {
+      questType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
     }
   }
 
@@ -10891,8 +10891,8 @@ public sealed partial class BountyInfo : pb::IMessage<BountyInfo>
       return true;
     }
     if (Id != other.Id) return false;
-    if (Title != other.Title) return false;
     if (Description != other.Description) return false;
+    if (QuestType != other.QuestType) return false;
     if (!object.Equals(Reward, other.Reward)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
@@ -10902,8 +10902,8 @@ public sealed partial class BountyInfo : pb::IMessage<BountyInfo>
   public override int GetHashCode() {
     int hash = 1;
     if (Id.Length != 0) hash ^= Id.GetHashCode();
-    if (Title.Length != 0) hash ^= Title.GetHashCode();
     if (Description.Length != 0) hash ^= Description.GetHashCode();
+    if (QuestType.Length != 0) hash ^= QuestType.GetHashCode();
     if (reward_ != null) hash ^= Reward.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
@@ -10927,13 +10927,13 @@ public sealed partial class BountyInfo : pb::IMessage<BountyInfo>
       output.WriteRawTag(10);
       output.WriteString(Id);
     }
-    if (Title.Length != 0) {
-      output.WriteRawTag(18);
-      output.WriteString(Title);
-    }
     if (Description.Length != 0) {
-      output.WriteRawTag(26);
+      output.WriteRawTag(18);
       output.WriteString(Description);
+    }
+    if (QuestType.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(QuestType);
     }
     if (reward_ != null) {
       output.WriteRawTag(34);
@@ -10953,13 +10953,13 @@ public sealed partial class BountyInfo : pb::IMessage<BountyInfo>
       output.WriteRawTag(10);
       output.WriteString(Id);
     }
-    if (Title.Length != 0) {
-      output.WriteRawTag(18);
-      output.WriteString(Title);
-    }
     if (Description.Length != 0) {
-      output.WriteRawTag(26);
+      output.WriteRawTag(18);
       output.WriteString(Description);
+    }
+    if (QuestType.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(QuestType);
     }
     if (reward_ != null) {
       output.WriteRawTag(34);
@@ -10978,11 +10978,11 @@ public sealed partial class BountyInfo : pb::IMessage<BountyInfo>
     if (Id.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Id);
     }
-    if (Title.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Title);
-    }
     if (Description.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Description);
+    }
+    if (QuestType.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(QuestType);
     }
     if (reward_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(Reward);
@@ -11002,11 +11002,11 @@ public sealed partial class BountyInfo : pb::IMessage<BountyInfo>
     if (other.Id.Length != 0) {
       Id = other.Id;
     }
-    if (other.Title.Length != 0) {
-      Title = other.Title;
-    }
     if (other.Description.Length != 0) {
       Description = other.Description;
+    }
+    if (other.QuestType.Length != 0) {
+      QuestType = other.QuestType;
     }
     if (other.reward_ != null) {
       if (reward_ == null) {
@@ -11034,11 +11034,11 @@ public sealed partial class BountyInfo : pb::IMessage<BountyInfo>
           break;
         }
         case 18: {
-          Title = input.ReadString();
+          Description = input.ReadString();
           break;
         }
         case 26: {
-          Description = input.ReadString();
+          QuestType = input.ReadString();
           break;
         }
         case 34: {
@@ -11068,11 +11068,11 @@ public sealed partial class BountyInfo : pb::IMessage<BountyInfo>
           break;
         }
         case 18: {
-          Title = input.ReadString();
+          Description = input.ReadString();
           break;
         }
         case 26: {
-          Description = input.ReadString();
+          QuestType = input.ReadString();
           break;
         }
         case 34: {
