@@ -117,8 +117,9 @@ public class GameServerConnectionManager : MonoBehaviour
 
     private void ConnectToSession(string sessionId)
     {
+        string gateway_jwt = PlayerPrefs.GetString("gateway_jwt");
         string url = makeWebsocketUrl(
-            "/play/" + SessionParameters.GameId + "/" + SessionParameters.PlayerId
+            "/play/" + SessionParameters.GameId + "/" + SessionParameters.PlayerId + "?gateway_jwt=" + gateway_jwt
         );
         print(url);
         ws = new WebSocket(url);
