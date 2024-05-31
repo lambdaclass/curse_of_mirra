@@ -57,13 +57,14 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
             return;
         }
 
-        bool spikeDetected = SpikeDetected(timestampDifferences);
-
-        if(spikeDetected)
+        if(SpikeDetected(timestampDifferences))
         {
             unstableConnection = true;
         }
-        unstableConnection = !IsConnectionStable(timestampDifferences);
+        else if(IsConnectionStable(timestampDifferences))
+        {
+            unstableConnection = false;
+        };
     }
 
     private bool SpikeDetected(List<long> timestampDifferences)
