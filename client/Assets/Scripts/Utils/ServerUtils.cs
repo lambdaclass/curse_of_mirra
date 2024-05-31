@@ -256,6 +256,13 @@ public static class ServerUtils
         using (UnityWebRequest webRequest = UnityWebRequest.Post(url, ""))
         {
             webRequest.SetRequestHeader("Content-Type", "application/json");
+
+            CreateGuestUserRequest createGuestUserRequest = new CreateGuestUserRequest();
+            createGuestUserRequest.client_id = GetClientId();
+            string jsonString = JsonUtility.ToJson(createGuestUserRequest);
+            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonString);
+            webRequest.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
+
             yield return webRequest.SendWebRequest();
             if (webRequest.result == UnityWebRequest.Result.Success)
             {
@@ -270,5 +277,11 @@ public static class ServerUtils
                 errorCallback?.Invoke(webRequest.error);
             }
         }
+    }
+
+    [Serializable]
+    private class CreateGuestUserRequest
+    {
+        public string client_id;
     }
 }
