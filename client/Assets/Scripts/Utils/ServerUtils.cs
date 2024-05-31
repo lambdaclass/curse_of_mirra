@@ -243,4 +243,32 @@ public static class ServerUtils
             }
         }
     }
+
+    public static IEnumerator CreateGuestUser(
+        Action<string> successCallback,
+        Action<string> errorCallback
+    )
+    {
+        // You can replace central-europe-testing.curseofmirra.com with some ngrok for
+        // testing purposes.
+        string url = "http://localhost:4001/curse/users";
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Post(url, ""))
+        {
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+            yield return webRequest.SendWebRequest();
+            if (webRequest.result == UnityWebRequest.Result.Success)
+            {
+                // Successfully logged in
+                Debug.Log("RESPOND"  + webRequest.downloadHandler.text);
+                var response = webRequest.downloadHandler.text;
+                successCallback?.Invoke(response);
+                webRequest.Dispose();
+            }
+            else
+            {
+                errorCallback?.Invoke(webRequest.error);
+            }
+        }
+    }
 }
