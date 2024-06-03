@@ -89,6 +89,7 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
     private void OnMatchFinished()
     {
         GameServerConnectionManager.OnGameEventTimestampChanged -= OnGameEventTimestampChanged;
+        GameServerConnectionManager.OnMatchFinished -= OnMatchFinished;
         matchFinished = true;
     }
 }
