@@ -7,6 +7,7 @@ using UnityEngine;
 public class ConnectionHealthAnalyzer : MonoBehaviour
 {
     long lastUpdateTimestamp;
+    long msSinceLastUpdate;
     List<long> timestampDifferences = new List<long>();
     public static bool unstableConnection = false;
     bool matchFinished = false;
@@ -21,7 +22,7 @@ public class ConnectionHealthAnalyzer : MonoBehaviour
     {
         if(!matchFinished && lastUpdateTimestamp > 0)
         {
-            long msSinceLastUpdate = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - lastUpdateTimestamp;
+            msSinceLastUpdate = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - lastUpdateTimestamp;
             
             if (!unstableConnection && msSinceLastUpdate > GameServerConnectionManager.Instance.msWithoutUpdateShowWarning)
             {
