@@ -214,4 +214,33 @@ public static class ServerUtils
             }
         }
     }
+
+     public static IEnumerator GetTokenIdValidation(
+        string tokenID,
+        Action<string> successCallback,
+        Action<string> errorCallback
+    )
+    {
+        // You can replace central-europe-testing.curseofmirra.com with some ngrok for
+        // testing purposes.
+        string url = "https://central-europe-testing.curseofmirra.com/auth/google/token/" + tokenID;
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+        {
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+            yield return webRequest.SendWebRequest();
+            if (webRequest.result == UnityWebRequest.Result.Success)
+            {
+                // Successfully logged in
+                Debug.Log("RESPOND"  + webRequest.downloadHandler.text);
+                var response = webRequest.downloadHandler.text;
+                successCallback?.Invoke(response);
+                webRequest.Dispose();
+            }
+            else
+            {
+                errorCallback?.Invoke(webRequest.error);
+            }
+        }
+    }
 }
