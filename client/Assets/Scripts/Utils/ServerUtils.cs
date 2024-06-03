@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
+using NativeWebSocket;
 
 public static class ServerUtils
 {
@@ -25,6 +26,19 @@ public static class ServerUtils
         {
             return "https://" + SelectServerIP.GetServerIp() + path;
         }
+    }
+
+    public static string MakeGatewayHTTPUrl(string path)
+    {
+        // TODO: We probably want a more dynamic way to change the gateway URL
+        // sadly for now this is the best we can do. If you happen to be live testing the app
+        // locally you will need to manually change this otherwise it will fail for you
+    #if UNITY_EDITOR
+        Debug.Log("REMEMBER Gateway URL is set to localhost, change if live testing is intended");
+        return "http://localhost:4001" + path;
+    #else
+        return "https://central-europe-testing.curseofmirra.com" + path;
+    #endif
     }
 
     public static string GetClientId()
@@ -229,7 +243,7 @@ public static class ServerUtils
     {
         // You can replace central-europe-testing.curseofmirra.com with some ngrok for
         // testing purposes.
-        string url = "https://central-europe-testing.curseofmirra.com/auth/google/token/" + tokenID;
+        string url = MakeGatewayHTTPUrl("/auth/google/token/" + tokenID);
 
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
@@ -255,9 +269,7 @@ public static class ServerUtils
         Action<string> errorCallback
     )
     {
-        // You can replace central-europe-testing.curseofmirra.com with some ngrok for
-        // testing purposes.
-        string url = "http://localhost:4001/curse/users";
+        string url = MakeGatewayHTTPUrl("/curse/users");
 
         using (UnityWebRequest webRequest = UnityWebRequest.Post(url, ""))
         {
@@ -285,23 +297,21 @@ public static class ServerUtils
         }
     }
 
-    public static IEnumerator RefreshGuestUser(
+    public static IEnumerator RefreshToken(
         Action<string> successCallback,
         Action<string> errorCallback
     )
     {
-        // You can replace central-europe-testing.curseofmirra.com with some ngrok for
-        // testing purposes.
-        string url = "http://localhost:4001/auth/refresh-token";
+        string url = MakeGatewayHTTPUrl("/auth/refresh-token");
 
         using (UnityWebRequest webRequest = UnityWebRequest.Post(url, ""))
         {
             webRequest.SetRequestHeader("Content-Type", "application/json");
 
-            RefreshGuestUserRequest refreshGuestUserRequest = new RefreshGuestUserRequest();
-            refreshGuestUserRequest.client_id = GetClientId();
-            refreshGuestUserRequest.gateway_jwt = GetGatewayToken();
-            string jsonString = JsonUtility.ToJson(refreshGuestUserRequest);
+            RefreshTokenRequest refreshTokenRequest = new RefreshTokenRequest();
+            refreshTokenRequest.client_id = GetClientId();
+            refreshTokenRequest.gateway_jwt = GetGatewayToken();
+            string jsonString = JsonUtility.ToJson(refreshTokenRequest);
             byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonString);
             webRequest.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
 
@@ -321,6 +331,36 @@ public static class ServerUtils
         }
     }
 
+    public static bool isGatewayTokenValid()
+    {
+        string gatewayToken = GetGatewayToken();
+        string claimsEncoded = gatewayToken.Split(".")[1];
+        GatewayTokenClaims claims = DecodeBase64UrlSafeString<GatewayTokenClaims>(claimsEncoded);
+        // Consider invalid 30 minutes (1800 seconds) before expiration
+        return (claims.exp - 1800) > DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+    }
+
+    public static WebSocket CreateWebSocket(string url)
+    {
+        if (!isGatewayTokenValid())
+        {
+            RefreshToken(
+                raw_response => {
+                    TokenResponse response = JsonUtility.FromJson<TokenResponse>(raw_response);
+                    PlayerPrefs.SetString("gateway_jwt", response.gateway_jwt);
+                    PlayerPrefs.SetString("user_id", response.user_id);
+                },
+                error => {
+                    Debug.Log("Error refreshing token: " + error);
+                }
+            );
+        }
+
+        string gateway_jwt = PlayerPrefs.GetString("gateway_jwt");
+        string urlWithJwt = url + "?gateway_jwt=" + gateway_jwt;
+        return new WebSocket(urlWithJwt);
+    }
+
     [Serializable]
     private class CreateGuestUserRequest
     {
@@ -328,9 +368,46 @@ public static class ServerUtils
     }
 
     [Serializable]
-    private class RefreshGuestUserRequest
+    private class RefreshTokenRequest
     {
         public string client_id;
         public string gateway_jwt;
+    }
+
+    [Serializable]
+    private class GatewayTokenClaims
+    {
+        public string dev;
+        public long exp;
+        public string sub;
+    }
+
+    [Serializable]
+    public class TokenResponse
+    {
+        public string user_id;
+        public string gateway_jwt;
+    }
+
+    private static T DecodeBase64UrlSafeString<T>(string base64UrlSafeString)
+    {
+        // Replace URL safe characters with Base64 characters
+        string base64 = base64UrlSafeString.Replace('-', '+').Replace('_', '/');
+
+        // Add padding if necessary
+        int padding = 4 - (base64.Length % 4);
+        if (padding != 4)
+        {
+            base64 = base64.PadRight(base64.Length + padding, '=');
+        }
+
+        // Convert Base64 string to byte array
+        byte[] data = Convert.FromBase64String(base64);
+
+        // Convert byte array to JSON string
+        string json = Encoding.UTF8.GetString(data);
+
+        // Deserialize JSON string to object
+        return JsonUtility.FromJson<T>(json);
     }
 }

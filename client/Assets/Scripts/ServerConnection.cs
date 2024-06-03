@@ -164,10 +164,9 @@ public class ServerConnection : MonoBehaviour
         this.playerId = id;
         string character_name = CharactersManager.Instance.GoToCharacter.ToLower();
         string player_name = PlayerPrefs.GetString("playerName");
-        string gateway_jwt = PlayerPrefs.GetString("gateway_jwt");
-        string url = makeWebsocketUrl("/" + join_action + "/" + id + "/" + character_name + "/" + player_name + "?gateway_jwt=" + gateway_jwt);
+        string url = makeWebsocketUrl("/" + join_action + "/" + id + "/" + character_name + "/" + player_name);
         print(url);
-        ws = new WebSocket(url);
+        ws = ServerUtils.CreateWebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
         ws.OnClose += OnWebsocketClose;
         ws.OnOpen += () =>

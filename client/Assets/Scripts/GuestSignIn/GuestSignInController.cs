@@ -44,7 +44,7 @@ public class GuestSignInController : MonoBehaviour
     public async void SignIn()
     {
         Action<string> successCallback = raw_response => {
-            GuestSignInResponse response = JsonUtility.FromJson<GuestSignInResponse>(raw_response);
+            ServerUtils.TokenResponse response = JsonUtility.FromJson<ServerUtils.TokenResponse>(raw_response);
             PlayerPrefs.SetString("gateway_jwt", response.gateway_jwt);
             PlayerPrefs.SetString("user_id", response.user_id);
             titleScreenController.ChangeToMainscreen();
@@ -55,18 +55,12 @@ public class GuestSignInController : MonoBehaviour
 
         if (PlayerPrefs.HasKey("gateway_jwt"))
         {
-            StartCoroutine(ServerUtils.RefreshGuestUser(successCallback, errorCallback));
+            StartCoroutine(ServerUtils.RefreshToken(successCallback, errorCallback));
         }
         else
         {
             StartCoroutine(ServerUtils.CreateGuestUser(successCallback, errorCallback));
 
         }
-    }
-
-    private class GuestSignInResponse
-    {
-        public string user_id;
-        public string gateway_jwt;
     }
 }
