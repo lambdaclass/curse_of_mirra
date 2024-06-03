@@ -11,25 +11,10 @@ using UnityEngine.SceneManagement;
 
 public class GuestSignInController : MonoBehaviour
 {
-
-    [SerializeField] private TextMeshProUGUI userName;
-
-    [SerializeField]
-    private TextMeshProUGUI statusText;
-    [SerializeField]
-    private GameObject loggedInScreen, loggedOutScreen;
-
-    List<Task> tasks = new List<Task>();
-
-    Task<GoogleSignInUser> taskStatus;
+    public static GuestSignInController Instance;
 
     [SerializeField]
     TitleScreenController titleScreenController;
-
-    int timeoutToCancelInSeconds = 50;
-    int timeoutToShowLoadingInSeconds = 5;
-
-    public static GuestSignInController Instance;
 
     void Awake()
     {
@@ -58,23 +43,25 @@ public class GuestSignInController : MonoBehaviour
 
     public async void SignIn()
     {
-        StartCoroutine(
-            ServerUtils.CreateGuestUser(
-                raw_response =>
-                {
-                    Debug.Log(raw_response);
-                    GuestSignInResponse response = JsonUtility.FromJson<GuestSignInResponse>(raw_response);
-                    PlayerPrefs.SetString("gateway_jwt", response.gateway_jwt);
-                    PlayerPrefs.SetString("user_id", response.user_id);
-                    titleScreenController.ChangeToMainscreen();
-                },
-                error =>
-                {
-                    Debug.Log("error");
-                    Debug.Log(error);
-                }
-            )
-        );
+        Action<string> successCallback = raw_response => {
+            GuestSignInResponse response = JsonUtility.FromJson<GuestSignInResponse>(raw_response);
+            PlayerPrefs.SetString("gateway_jwt", response.gateway_jwt);
+            PlayerPrefs.SetString("user_id", response.user_id);
+            titleScreenController.ChangeToMainscreen();
+        };
+        Action<string> errorCallback = error => {
+            Debug.Log(error);
+        };
+
+        if (PlayerPrefs.HasKey("gateway_jwt"))
+        {
+            StartCoroutine(ServerUtils.RefreshGuestUser(successCallback, errorCallback));
+        }
+        else
+        {
+            StartCoroutine(ServerUtils.CreateGuestUser(successCallback, errorCallback));
+
+        }
     }
 
     private class GuestSignInResponse

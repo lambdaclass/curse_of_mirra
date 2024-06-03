@@ -38,6 +38,12 @@ public static class ServerUtils
         return PlayerPrefs.GetString("client_id");
     }
 
+    public static string GetGatewayToken()
+    {
+
+        return PlayerPrefs.GetString("gateway_jwt");
+    }
+
     public static IEnumerator GetSelectedCharacter(
         Action<UserCharacterResponse> successCallback,
         Action<string> errorCallback
@@ -279,9 +285,52 @@ public static class ServerUtils
         }
     }
 
+    public static IEnumerator RefreshGuestUser(
+        Action<string> successCallback,
+        Action<string> errorCallback
+    )
+    {
+        // You can replace central-europe-testing.curseofmirra.com with some ngrok for
+        // testing purposes.
+        string url = "http://localhost:4001/auth/refresh-token";
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Post(url, ""))
+        {
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+
+            RefreshGuestUserRequest refreshGuestUserRequest = new RefreshGuestUserRequest();
+            refreshGuestUserRequest.client_id = GetClientId();
+            refreshGuestUserRequest.gateway_jwt = GetGatewayToken();
+            string jsonString = JsonUtility.ToJson(refreshGuestUserRequest);
+            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonString);
+            webRequest.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
+
+            yield return webRequest.SendWebRequest();
+            if (webRequest.result == UnityWebRequest.Result.Success)
+            {
+                // Successfully logged in
+                Debug.Log("RESPOND"  + webRequest.downloadHandler.text);
+                var response = webRequest.downloadHandler.text;
+                successCallback?.Invoke(response);
+                webRequest.Dispose();
+            }
+            else
+            {
+                errorCallback?.Invoke(webRequest.error);
+            }
+        }
+    }
+
     [Serializable]
     private class CreateGuestUserRequest
     {
         public string client_id;
+    }
+
+    [Serializable]
+    private class RefreshGuestUserRequest
+    {
+        public string client_id;
+        public string gateway_jwt;
     }
 }
