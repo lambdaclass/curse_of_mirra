@@ -120,7 +120,7 @@ public class KillFeedManager : MonoBehaviour
         return this.saveKillerId;
     }
 
-    public void SetSaveKillderId(ulong newSaveKillderId)
+    public void SetSaveKillerId(ulong newSaveKillderId)
     {
         this.saveKillerId = newSaveKillderId;
     }
