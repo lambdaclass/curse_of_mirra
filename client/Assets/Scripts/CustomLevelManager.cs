@@ -319,7 +319,7 @@ public class CustomLevelManager : LevelManager
 
     private void SetCameraToAlivePlayer()
     {
-        ulong saveKillerId = KillFeedManager.instance.GetSaveKillderId();
+        ulong saveKillerId = KillFeedManager.instance.GetSaveKillerId();
         ulong currentTrackedPlayer = KillFeedManager.instance.GetCurrentTrackedPlayer();
 
         if (saveKillerId != 0)

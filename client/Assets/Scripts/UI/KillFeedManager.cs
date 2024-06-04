@@ -117,7 +117,7 @@ public class KillFeedManager : MonoBehaviour
         }
     }
 
-    public ulong GetSaveKillderId()
+    public ulong GetSaveKillerId()
     {
         return this.saveKillerId;
     }
