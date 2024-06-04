@@ -552,10 +552,10 @@ RectTransform:
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0.53}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 460}
-  m_Pivot: {x: 0.5, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4520386978778699311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1129,6 +1129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2714258927343830050}
   - component: {fileID: 3240989113986032044}
+  - component: {fileID: 2446991888772903181}
   m_Layer: 0
   m_Name: ProfileScreenCameraUI
   m_TagString: Untagged
@@ -1166,6 +1167,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: {fileID: 6895065631188389532}
+--- !u!81 &2446991888772903181
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2714258927343830051}
+  m_Enabled: 1
 --- !u!1 &2714258928131783177
 GameObject:
   m_ObjectHideFlags: 0
@@ -1753,10 +1762,10 @@ RectTransform:
   m_Father: {fileID: 4321150551011108045}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0.53}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 400}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &8544594119645806268
 MonoBehaviour:
