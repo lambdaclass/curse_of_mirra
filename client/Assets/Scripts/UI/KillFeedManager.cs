@@ -108,11 +108,6 @@ public class KillFeedManager : MonoBehaviour
             GameObject item = Instantiate(killFeedItem.gameObject, transform);
             Destroy(item, 3.0f);
         }
-
-        if (Utils.GetGamePlayer(currentTrackedPlayer)?.Player.Health <= 0 && killEvent == null)
-        {
-            currentTrackedPlayer = ZONE_ID;
-        }
     }
 
     public ulong GetSaveKillderId()
