@@ -95,6 +95,9 @@ public class KillFeedManager : MonoBehaviour
             if (killerPlayerId == ZONE_ID)
             {
                 killerPlayerName = ZONE_ID.ToString();
+
+                saveKillerId = Utils.GetAlivePlayers().ElementAt(0).Id;
+                currentTrackedPlayer = saveKillerId;
             }
             else
             {
