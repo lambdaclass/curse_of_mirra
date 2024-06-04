@@ -28,7 +28,7 @@ public class KillFeedManager : MonoBehaviour
         KillFeedManager.instance = this;
     }
 
-    public void putEvents(List<KillEntry> newFeedEvent)
+    public void PutEvents(List<KillEntry> newFeedEvent)
     {
         newFeedEvent.ForEach((killEvent) => feedEvents.Enqueue(killEvent));
     }
