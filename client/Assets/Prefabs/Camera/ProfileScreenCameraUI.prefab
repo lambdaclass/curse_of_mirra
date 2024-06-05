@@ -3375,6 +3375,11 @@ PrefabInstance:
       propertyPath: m_text
       value: Your name, your choice!
       objectReference: {fileID: 0}
+    - target: {fileID: 774246633117498074, guid: 4538e3b7a6b2341eb85e05d6acbf8e85,
+        type: 3}
+      propertyPath: m_Name
+      value: Description
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4538e3b7a6b2341eb85e05d6acbf8e85, type: 3}
 --- !u!1 &1558020148919778017 stripped
