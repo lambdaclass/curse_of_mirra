@@ -136,7 +136,6 @@ public class Skill : CharacterAbility
         StartCoroutine(AutoEndSkillAnimation(skillId, duration / 1000f));
 
         // Visual effects
-        // foreach (var vfxStep in skillInfo.vfxList)
         for(int i = 0; i < skillInfo.vfxList.Count(); i++)
         {
             var vfxStep = skillInfo.vfxList[i];
