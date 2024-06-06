@@ -12,6 +12,7 @@ public class GameServerConnectionManager : MonoBehaviour
 {
     public List<GameObject> players;
     public Dictionary<int, GameObject> projectiles = new Dictionary<int, GameObject>();
+    public Dictionary<string, GameObject> poolsVFXs = new Dictionary<string, GameObject>();
 
     [Tooltip("Session ID to connect to. If empty, a new session will be created")]
     public string sessionId = "";

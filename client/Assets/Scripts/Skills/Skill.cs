@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -135,8 +136,10 @@ public class Skill : CharacterAbility
         StartCoroutine(AutoEndSkillAnimation(skillId, duration / 1000f));
 
         // Visual effects
-        foreach (var vfxStep in skillInfo.vfxList)
+        // foreach (var vfxStep in skillInfo.vfxList)
+        for(int i = 0; i < skillInfo.vfxList.Count(); i++)
         {
+            var vfxStep = skillInfo.vfxList[i];
             StartCoroutine(
                 ExecuteFeedbackVfx(
                     vfxStep.vfx,
@@ -144,6 +147,7 @@ public class Skill : CharacterAbility
                     vfxStep.delay,
                     vfxStep.instantiateVfxOnModel,
                     this.skillInfo.hasSkillPool,
+                    i,
                     vfxStep.hasDestination,
                     destination
                 )
@@ -197,7 +201,8 @@ public class Skill : CharacterAbility
                     nextAnimation.vfxStep.duration,
                     nextAnimation.vfxStep.delay,
                     nextAnimation.vfxStep.instantiateVfxOnModel,
-                    this.skillInfo.hasSkillPool
+                    this.skillInfo.hasSkillPool,
+                    0
                 )
             );
         }
@@ -222,6 +227,7 @@ public class Skill : CharacterAbility
         float delay,
         bool instantiateVfxOnModel,
         bool hasSkillPool,
+        int vfxIndexInSkill,
         bool hasDestination = false,
         Position destinationPosition = null
     )
@@ -252,14 +258,31 @@ public class Skill : CharacterAbility
 
             vfxInstance = Instantiate(vfx, vfxPosition, vfx.transform.rotation);
         }
-            vfxInstance
-                .GetComponent<PinnedEffectsController>()
-                ?.Setup(this.GetComponent<PinnedEffectsManager>());
-            
-            vfxInstance.GetComponent<EffectCharacterMaterialController>()
-                ?.Setup(this.GetComponent<CharacterMaterialManager>());
 
-        Destroy(vfxInstance, duration);
+        vfxInstance
+            .GetComponent<PinnedEffectsController>()
+            ?.Setup(this.GetComponent<PinnedEffectsManager>());
+        
+        vfxInstance.GetComponent<EffectCharacterMaterialController>()
+            ?.Setup(this.GetComponent<CharacterMaterialManager>());
+
+        int poolId = -1;
+        if(hasSkillPool && GameServerConnectionManager.Instance.gamePools.Any(pool => pool.Pool.OwnerId == skillInfo.ownerId))
+        {
+            // this should be calculated only once for each skill, but not all skills will have an entity id I think. I'm not sure how this works
+            // Skill is just one skill, is not an instance of a skill, there isn't an instance of Skill for each H4ck slingshoot I.E.
+            poolId = (int)GameServerConnectionManager.Instance.gamePools.Find(pool => pool.Pool.OwnerId == skillInfo.ownerId).Id;
+            GameServerConnectionManager.Instance.poolsVFXs.Add($"{poolId}_{vfxIndexInSkill}", vfxInstance);
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        if(hasSkillPool)
+        {
+            GameServerConnectionManager.Instance.poolsVFXs.Remove($"{poolId}_{vfxIndexInSkill}");
+        }
+
+        Destroy(vfxInstance);
     }
  
 
