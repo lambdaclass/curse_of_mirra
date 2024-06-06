@@ -84,6 +84,11 @@ public class ToggleButton : MonoBehaviour
         ToggleUIState(battle.showClientPredictionGhost);
     }
 
+    public void ToggleZone()
+    {
+        ToggleUIState(battle.zoneActive);
+    }
+
     public void ToggleInterpolationGhosts()
     {
         ToggleUIState(battle.showInterpolationGhosts);

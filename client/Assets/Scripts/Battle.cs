@@ -18,6 +18,7 @@ public class Battle : MonoBehaviour
     [SerializeField]
     CustomGUIManager CustomGUIManager;
     public bool showClientPredictionGhost;
+    public bool zoneActive;
     public bool showInterpolationGhosts;
     public List<GameObject> InterpolationGhosts = new List<GameObject>();
     public GameObject clientPredictionGhost;
@@ -88,6 +89,7 @@ public class Battle : MonoBehaviour
         accumulatedTime = 0;
         showClientPredictionGhost = false;
         showInterpolationGhosts = false;
+        zoneActive = false;
     }
 
     private IEnumerator SetupPlayersReferences()
@@ -758,6 +760,11 @@ public class Battle : MonoBehaviour
         {
             TurnOffClientPredictionGhost();
         }
+    }
+
+    public void ToggleZone()
+    {
+        zoneActive = !zoneActive;
     }
 
     private void SpawnClientPredictionGhost()
