@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Battle : MonoBehaviour
 {
@@ -177,6 +178,7 @@ public class Battle : MonoBehaviour
     {
         UpdatePlayerActions();
         UpdateProjectileActions();
+        UpdatePools();
         loot.UpdateLoots();
         cratesManager.UpdateCrates();
         powerUpsManager.UpdatePowerUps();
@@ -735,6 +737,21 @@ public class Battle : MonoBehaviour
         character.RotateCharacterOrientation();
 
         modelAnimator.SetBool("Walking", walking);
+    }
+
+    void UpdatePools()
+    {
+        int poolId;
+        VisualEffect poolVFX;
+        Color red = new Color(.85f, .075f, .1f, 0f);
+        Color blue = new Color(0, 0, .75f, 0f);
+        foreach(Entity pool in GameServerConnectionManager.Instance.gamePools.Where(pool => pool.Pool.Effects.Any(effect => effect.Name == "buff_singularity")))
+        {
+            poolId = (int)pool.Id;
+            poolVFX = GameServerConnectionManager.Instance.poolsVFXs[$"{poolId}_1"].GetComponentInChildren<VisualEffect>();
+            poolVFX.SetVector4("Color A", red);
+            poolVFX.SetVector4("Color B", blue);
+        }
     }
 
     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH

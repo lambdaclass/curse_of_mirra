@@ -270,6 +270,8 @@ public class Skill : CharacterAbility
         {
             // this should be calculated only once for each skill, but not all skills will have an entity id I think. I'm not sure how this works
             // Skill is just one skill, is not an instance of a skill, there isn't an instance of Skill for each H4ck slingshoot I.E.
+
+            // there is going to be a problem here if two pools from the same player exist (by using the hourglass) since it will always find the first one
             poolId = (int)GameServerConnectionManager.Instance.gamePools.Find(pool => pool.Pool.OwnerId == skillInfo.ownerId).Id;
             GameServerConnectionManager.Instance.poolsVFXs.Add($"{poolId}_{vfxIndexInSkill}", vfxInstance);
         }
@@ -283,7 +285,6 @@ public class Skill : CharacterAbility
 
         Destroy(vfxInstance);
     }
- 
 
     private Vector3 SetPoolDiameterAndPosition(GameObject vfx){
         float diameter = 0;
