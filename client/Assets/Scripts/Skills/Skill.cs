@@ -266,30 +266,30 @@ public class Skill : CharacterAbility
             ?.Setup(this.GetComponent<CharacterMaterialManager>());
 
         int poolId = -1;
-        if(hasSkillPool && GameServerConnectionManager.Instance.gamePools.Any(pool => pool.Pool.OwnerId == skillInfo.ownerId))
+        if(hasSkillPool && PoolsManager.gamePools.Any(pool => pool.Pool.OwnerId == skillInfo.ownerId))
         {
             // this should be calculated only once for each skill, but not all skills will have an entity id I think. I'm not sure how this works
             // Skill is just one skill, is not an instance of a skill, there isn't an instance of Skill for each H4ck slingshoot I.E.
 
             // there is going to be a problem here if two pools from the same player exist (by using the hourglass) since it will always find the first one
-            poolId = (int)GameServerConnectionManager.Instance.gamePools.Find(pool => pool.Pool.OwnerId == skillInfo.ownerId).Id;
-            GameServerConnectionManager.Instance.poolsVFXs.Add($"{poolId}_{vfxIndexInSkill}", vfxInstance);
+            poolId = (int)PoolsManager.gamePools.Find(pool => pool.Pool.OwnerId == skillInfo.ownerId).Id;
+            PoolsManager.poolsVFXs.Add($"{poolId}_{vfxIndexInSkill}", vfxInstance);
         }
 
-        yield return new WaitForSeconds(duration);
+        // yield return new WaitForSeconds(duration);
 
-        if(hasSkillPool)
-        {
-            GameServerConnectionManager.Instance.poolsVFXs.Remove($"{poolId}_{vfxIndexInSkill}");
-        }
+        // if(hasSkillPool)
+        // {
+        //     GameServerConnectionManager.Instance.poolsVFXs.Remove($"{poolId}_{vfxIndexInSkill}");
+        // }
 
-        Destroy(vfxInstance);
+        // Destroy(vfxInstance);
     }
 
     private Vector3 SetPoolDiameterAndPosition(GameObject vfx){
         float diameter = 0;
         Vector3 vfxPosition = Vector3.zero;
-         GameServerConnectionManager.Instance.gamePools.ForEach(pool => {
+         PoolsManager.gamePools.ForEach(pool => {
             if(pool.Pool.OwnerId == skillInfo.ownerId && !usedPools.Contains(pool.Id)){
                 vfxPosition =  Utils.transformBackendOldPositionToFrontendPosition(pool.Position);
                 diameter = Utils.TransformBackenUnitToClientUnit(pool.Radius) * 2;

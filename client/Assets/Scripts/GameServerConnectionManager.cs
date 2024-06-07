@@ -12,7 +12,6 @@ public class GameServerConnectionManager : MonoBehaviour
 {
     public List<GameObject> players;
     public Dictionary<int, GameObject> projectiles = new Dictionary<int, GameObject>();
-    public Dictionary<string, GameObject> poolsVFXs = new Dictionary<string, GameObject>();
 
     [Tooltip("Session ID to connect to. If empty, a new session will be created")]
     public string sessionId = "";
@@ -27,7 +26,6 @@ public class GameServerConnectionManager : MonoBehaviour
     public List<Entity> gamePlayers;
     public List<Entity> gameProjectiles;
     public List<Entity> gamePowerUps;
-    public List<Entity> gamePools;
     public List<Entity> gameLoots;
     public List<Entity> gameCrates;
 
@@ -200,7 +198,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.gamePlayers = gameState.Players.Values.ToList();
                     this.gameProjectiles = gameState.Projectiles.Values.ToList();
                     this.gamePowerUps = gameState.PowerUps.Values.ToList();
-                    this.gamePools = gameState.Pools.Values.ToList();
+                    PoolsManager.UpdatePools(gameState.Pools.Values.ToList());
                     this.gameLoots = gameState.Items.Values.ToList();
                     this.gameCrates = gameState.Crates.Values.ToList();
                     this.obstacles = gameState.Obstacles.Values.ToList();
