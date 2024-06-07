@@ -765,6 +765,8 @@ public class Battle : MonoBehaviour
     public void ToggleZone()
     {
         zoneActive = !zoneActive;
+        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        GameServerConnectionManager.Instance.SendToggleZone(timestamp);
     }
 
     private void SpawnClientPredictionGhost()
