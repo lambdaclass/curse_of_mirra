@@ -243,7 +243,7 @@ public static class ServerUtils
     {
         // You can replace central-europe-testing.curseofmirra.com with some ngrok for
         // testing purposes.
-        string url = MakeGatewayHTTPUrl("/auth/google/token/" + tokenID);
+        string url = MakeGatewayHTTPUrl("/auth/google/token/" + tokenID + "/" + GetClientId());
 
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
