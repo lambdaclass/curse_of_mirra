@@ -24,9 +24,7 @@ public class PoolsManager : MonoBehaviour
     {
         if(poolsVFXs.TryGetValue($"{finishedPoolId}_1", out var poolVFX))
         {
-            Debug.Log("pool", poolVFX);
-            Debug.Break();
-            // Destroy(poolVFX);
+            Destroy(poolVFX);
         }
     }
 }
