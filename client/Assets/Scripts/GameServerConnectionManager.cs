@@ -37,6 +37,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public uint currentPing;
 
     public float serverTickRate_ms;
+    public int bountyPickTime_ms;
     public string serverHash;
     public GameStatus gameStatus;
     public float gameCountdown;
@@ -174,6 +175,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.playerId = gameEvent.Joined.PlayerId;
                     this.config = gameEvent.Joined.Config;
                     this.bounties = gameEvent.Joined.Bounties.ToList();
+                    this.bountyPickTime_ms = (int)gameEvent.Joined.Config.Game.BountyPickTimeMs/1000;
                     this.timestampDifferenceSamplesToCheckWarning = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.TimestampDifferenceSamplesToCheckWarning;
                     this.timestampDifferencesSamplesMaxLength = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.TimestampDifferencesSamplesMaxLength;
                     this.showWarningThreshold = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.ShowWarningThreshold;

@@ -43,7 +43,6 @@ public class PrepareForBattleAnimations : MonoBehaviour
     Vector3 playerPosition;
     GameObject player;
     const float CAMERA_START_OFFSET = 30f;
-    const int BOUNTIES_DURATION = 5;
     const float PREPARE_FOR_BATTLE_DURATION = 3f;
     const float CHARACTERS_DISPLAY_DURATION = 4f;
     float TIME_UNTIL_GAME_STARTS = 0f;
@@ -113,23 +112,28 @@ public class PrepareForBattleAnimations : MonoBehaviour
 
     IEnumerator BountiesAnimation()
     {
-        GenerateBounties();
         bountiesContainer.GetComponent<CanvasGroup>().alpha = 1f;
 
-        foreach (GameObject bounty in bountiesList)
+        if (GameServerConnectionManager.Instance.bounties.Count > 0 && GameServerConnectionManager.Instance.bounties != null) 
         {
-            RectTransform rectTransform = bounty.GetComponent<RectTransform>();
+            GenerateBounties();
 
-            // Use initial position as the final one
-            Vector2 finalPosition = rectTransform.anchoredPosition;
-            
-            rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -1000f);
-            bounty.SetActive(true);
-            rectTransform.DOAnchorPos(finalPosition, .5f);
+            foreach (GameObject bounty in bountiesList)
+            {
+                RectTransform rectTransform = bounty.GetComponent<RectTransform>();
 
-            // Wait before starting the next animation
-            yield return new WaitForSeconds(.1f);
-        }
+                // Use initial position as the final one
+                Vector2 finalPosition = rectTransform.anchoredPosition;
+                
+                rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -1000f);
+                bounty.SetActive(true);
+                rectTransform.DOAnchorPos(finalPosition, .5f);
+
+                // Wait before starting the next animation
+                yield return new WaitForSeconds(.1f);
+            }
+        } 
+
         StartCoroutine(BountiesCountdown());
         yield return new WaitUntil(
             () => bountiesCountdownDone
@@ -144,7 +148,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .Append(countDown.transform.DOScale(originalCountdownScale + 0.2f, .5f))
             .SetLoops(-1, LoopType.Yoyo)
             .SetEase(Ease.Linear);
-        for (int i = BOUNTIES_DURATION; i > 0; i--)
+        for (int i = GameServerConnectionManager.Instance.bountyPickTime_ms; i > 0; i--)
         {
             bountiesCountDown.text = i.ToString();
             bountiesCountDownCG.alpha = 1; 
@@ -349,7 +353,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
 
     void GenerateBounties()
     {
-        for (int i = 0; i < 3; i ++) {
+        for (int i = 0; i < GameServerConnectionManager.Instance.bounties.Count; i ++) {
             GameObject bountyGameObject = bountiesList[i];
             BountyInfo bountyInfo = GameServerConnectionManager.Instance.bounties[i];
 
