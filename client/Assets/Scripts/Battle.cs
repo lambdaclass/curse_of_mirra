@@ -89,7 +89,7 @@ public class Battle : MonoBehaviour
         accumulatedTime = 0;
         showClientPredictionGhost = false;
         showInterpolationGhosts = false;
-        zoneActive = false;
+        zoneActive = true;
     }
 
     private IEnumerator SetupPlayersReferences()
