@@ -35,7 +35,7 @@ public static class ServerUtils
         // locally you will need to manually change this otherwise it will fail for you
     #if UNITY_EDITOR
         Debug.Log("REMEMBER Gateway URL is set to localhost, change if live testing is intended");
-        return "https://central-europe-testing.curseofmirra.com" + path;
+        return "http://localhost:4001" + path;
     #else
         return "https://central-europe-testing.curseofmirra.com" + path;
     #endif
