@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311924, g: 0.38073963, b: 0.3587269, a: 1}
+  m_IndirectSpecularColor: {r: 0.3708708, g: 0.37838137, b: 0.35725543, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -165,8 +165,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 787a84722d1f84aa6ab1a3668798e7ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   userName: {fileID: 1516450510}
   statusText: {fileID: 445723375}
   loggedInScreen: {fileID: 1365717061}
@@ -199,30 +199,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b1b2377bba7144919b8136a8792b4fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serverName: 
-  serverIp: 
-  GameSession: 
-  LobbySession: 
+  m_Name:
+  m_EditorClassIdentifier:
+  serverName:
+  serverIp:
+  GameSession:
+  LobbySession:
   playerId: 0
   playerCount: 0
   simulatedPlayerCount: 0
   lobbyCapacity: 0
   serverTickRate_ms: 0
-  serverHash: 
+  serverHash:
   gameStarted: 0
   errorOngoingGame: 0
   errorConnection: 0
-  clientId: 
+  clientId:
   reconnect: 0
   reconnectPossible: 0
   reconnectToCharacterSelection: 0
   reconnectPlayerCount: 0
-  reconnectServerHash: 
-  reconnectGameId: 
+  reconnectServerHash:
+  reconnectGameId:
   reconnectPlayerId: 0
-  selectedCharacterName: 
+  selectedCharacterName:
 --- !u!4 &334481343
 Transform:
   m_ObjectHideFlags: 0
@@ -248,8 +248,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1001 &568503406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -329,8 +329,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9251a9f35d2c384a9e26195e0c63ee9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!114 &756652005 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6402302390796776229, guid: 74e8f34655b5949b69f18c0ed42a7d46,
@@ -341,8 +341,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87a286771fa86194e979f187a1691a2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1001 &906187207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -358,7 +358,7 @@ PrefabInstance:
     - target: {fileID: 5376578583088809354, guid: 74e8f34655b5949b69f18c0ed42a7d46,
         type: 3}
       propertyPath: m_Camera
-      value: 
+      value:
       objectReference: {fileID: 0}
     - target: {fileID: 5376578583088809355, guid: 74e8f34655b5949b69f18c0ed42a7d46,
         type: 3}
@@ -523,17 +523,17 @@ PrefabInstance:
     - target: {fileID: 6402302390796776229, guid: 74e8f34655b5949b69f18c0ed42a7d46,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
+      value:
       objectReference: {fileID: 756652005}
     - target: {fileID: 6402302390796776229, guid: 74e8f34655b5949b69f18c0ed42a7d46,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
+      value:
       objectReference: {fileID: 756652004}
     - target: {fileID: 6402302390796776229, guid: 74e8f34655b5949b69f18c0ed42a7d46,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[2].m_Target
-      value: 
+      value:
       objectReference: {fileID: 947791991}
     - target: {fileID: 6402302390796776229, guid: 74e8f34655b5949b69f18c0ed42a7d46,
         type: 3}
@@ -613,7 +613,7 @@ PrefabInstance:
     - target: {fileID: 8485951908308750496, guid: 74e8f34655b5949b69f18c0ed42a7d46,
         type: 3}
       propertyPath: m_sharedMaterial
-      value: 
+      value:
       objectReference: {fileID: -454114100604712519, guid: 63470853e7d0e44829e6eb09f139b030,
         type: 2}
     - target: {fileID: 8485951908308750496, guid: 74e8f34655b5949b69f18c0ed42a7d46,
@@ -624,12 +624,12 @@ PrefabInstance:
     - target: {fileID: 8527848005455240905, guid: 74e8f34655b5949b69f18c0ed42a7d46,
         type: 3}
       propertyPath: reconnectError
-      value: 
+      value:
       objectReference: {fileID: 906187208}
     - target: {fileID: 8527848005455240905, guid: 74e8f34655b5949b69f18c0ed42a7d46,
         type: 3}
       propertyPath: signInContainer
-      value: 
+      value:
       objectReference: {fileID: 906187209}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74e8f34655b5949b69f18c0ed42a7d46, type: 3}
@@ -643,8 +643,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &906187209 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6126008040852918713, guid: 74e8f34655b5949b69f18c0ed42a7d46,
@@ -661,8 +661,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 426b96caa5ca040d08977cf95b33ce77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!114 &989244444 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
@@ -673,8 +673,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87a286771fa86194e979f187a1691a2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1001 &1365717056
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -725,12 +725,12 @@ PrefabInstance:
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1608732373}
+      value:
+      objectReference: {fileID: 1365717057}
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
+      value:
       objectReference: {fileID: 989244444}
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
@@ -745,7 +745,7 @@ PrefabInstance:
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SignIn
+      value: ChangeToMainscreen
       objectReference: {fileID: 0}
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
@@ -760,12 +760,12 @@ PrefabInstance:
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
+      value:
       objectReference: {fileID: 989244444}
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
+      value:
       objectReference: {fileID: 989244444}
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
@@ -785,7 +785,7 @@ PrefabInstance:
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GuestSignInController, CurseOfMirra
+      value: TitleScreenController, CurseOfMirra
       objectReference: {fileID: 0}
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
@@ -985,22 +985,22 @@ PrefabInstance:
     - target: {fileID: 3388620271801624170, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
+      value:
       objectReference: {fileID: 78456883}
     - target: {fileID: 3423845015464949587, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: SingInContainer
-      value: 
+      value:
       objectReference: {fileID: 1365717065}
     - target: {fileID: 3423845015464949587, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: SingOutContainer
-      value: 
+      value:
       objectReference: {fileID: 1365717066}
     - target: {fileID: 3981586368016215060, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
+      value:
       objectReference: {fileID: 78456883}
     - target: {fileID: 4865202050172921010, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
@@ -1110,7 +1110,7 @@ PrefabInstance:
     - target: {fileID: 7290255275568464139, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
+      value:
       objectReference: {fileID: 78456883}
     - target: {fileID: 8596238037512918453, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
@@ -1174,8 +1174,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb12624f6ffeb4f8588bfac3b71f1faf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &1365717060 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6924736768973907674, guid: d126b369faf0c43198f047c8765666f0,
@@ -1222,54 +1222,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1608732372
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1608732374}
-  - component: {fileID: 1608732373}
-  m_Layer: 0
-  m_Name: GuestSignInController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1608732373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1608732372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95284b14e95334ed9a0890f8a3bee6ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  userName: {fileID: 0}
-  statusText: {fileID: 0}
-  loggedInScreen: {fileID: 0}
-  loggedOutScreen: {fileID: 0}
-  titleScreenController: {fileID: 1365717057}
---- !u!4 &1608732374
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1608732372}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 34.799007, y: 17.513632, z: 74.76202}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Name:
+  m_EditorClassIdentifier:
