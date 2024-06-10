@@ -28,7 +28,7 @@ public class KillFeedManager : MonoBehaviour
         KillFeedManager.instance = this;
     }
 
-    public void putEvents(List<KillEntry> newFeedEvent)
+    public void PutEvents(List<KillEntry> newFeedEvent)
     {
         newFeedEvent.ForEach((killEvent) => feedEvents.Enqueue(killEvent));
     }
@@ -95,6 +95,13 @@ public class KillFeedManager : MonoBehaviour
             if (killerPlayerId == ZONE_ID)
             {
                 killerPlayerName = ZONE_ID.ToString();
+
+                var alivePlayers = Utils.GetAlivePlayers();
+                if(alivePlayers.Count() > 0)
+                {
+                    saveKillerId = alivePlayers.ElementAt(0).Id;
+                    currentTrackedPlayer = saveKillerId;
+                }
             }
             else
             {
@@ -108,19 +115,14 @@ public class KillFeedManager : MonoBehaviour
             GameObject item = Instantiate(killFeedItem.gameObject, transform);
             Destroy(item, 3.0f);
         }
-
-        if (Utils.GetGamePlayer(currentTrackedPlayer)?.Player.Health <= 0 && killEvent == null)
-        {
-            currentTrackedPlayer = ZONE_ID;
-        }
     }
 
-    public ulong GetSaveKillderId()
+    public ulong GetSaveKillerId()
     {
         return this.saveKillerId;
     }
 
-    public void SetSaveKillderId(ulong newSaveKillderId)
+    public void SetSaveKillerId(ulong newSaveKillderId)
     {
         this.saveKillerId = newSaveKillderId;
     }

@@ -567,16 +567,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1127152431320996403, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 186
-      objectReference: {fileID: 0}
-    - target: {fileID: 1127152431320996403, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -46
-      objectReference: {fileID: 0}
     - target: {fileID: 1398261209358541037, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: battle
@@ -1575,7 +1565,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71fcf6d3f24bc456881a731063c95c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unstableConnection: 0
 --- !u!114 &8472880970037954473
 MonoBehaviour:
   m_ObjectHideFlags: 0
