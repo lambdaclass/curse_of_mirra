@@ -206,6 +206,9 @@ public class GoogleSignInController : MonoBehaviour
                         task.Result.IdToken,
                         response =>
                         {
+                            ServerUtil.TokenResponse response = JsonUtility.FromJson<ServerUtil.TokenResponse>(raw_response);
+                            PlayerPrefs.SetString("gateway_jwt", response.gateway_jwt);
+
                             if (PlayerPrefs.GetString("GoogleUserId") == "")
                             {
                                 PlayerPrefs.SetString("GoogleUserName", task.Result.DisplayName);
@@ -259,6 +262,3 @@ public class GoogleSignInController : MonoBehaviour
         // statusText.text = text;
     }
 }
-
-
-
