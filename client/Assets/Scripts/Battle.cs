@@ -743,14 +743,14 @@ public class Battle : MonoBehaviour
     {
         int poolId;
         VisualEffect poolVFX;
-        Color red = new Color(.85f, .075f, .1f, 0f);
-        Color blue = new Color(0, 0, .75f, 0f);
+        Color purple = new Color(1f, 0f, .68f, 0f);
+        Color lile = new Color(.21f, .20f, .67f, 0f);
         foreach(Entity pool in PoolsManager.gamePools.Where(pool => pool.Pool.Effects.Any(effect => effect.Name == "buff_singularity")))
         {
             poolId = (int)pool.Id;
             poolVFX = PoolsManager.poolsVFXs[$"{poolId}_1"].GetComponentInChildren<VisualEffect>();
-            poolVFX.SetVector4("Color A", red);
-            poolVFX.SetVector4("Color B", blue);
+            poolVFX.SetVector4("Color A", purple);
+            poolVFX.SetVector4("Color B", lile);
         }
     }
 
