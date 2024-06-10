@@ -363,7 +363,7 @@ public class Battle : MonoBehaviour
                                     currentPlayer,
                                     playerAction.Action,
                                     serverPlayerUpdate,
-                                    playerAction.Duration,
+                                    // playerAction.Duration,
                                     playerAction.Destination
                                 );
                             }
@@ -412,7 +412,7 @@ public class Battle : MonoBehaviour
         GameObject currentPlayer,
         PlayerActionType playerAction,
         Entity entity,
-        ulong skillDuration,
+        // ulong skillDuration,
         Position destination
     )
     {
@@ -424,19 +424,19 @@ public class Battle : MonoBehaviour
             case PlayerActionType.ExecutingSkill1:
                 currentPlayer
                     .GetComponent<Skill1>()
-                    .ExecuteFeedbacks(skillDuration, true, destination);
+                    .ExecuteFeedbacks(true, destination);
                 character.RotatePlayer(direction);
                 break;
             case PlayerActionType.ExecutingSkill2:
                 currentPlayer
                     .GetComponent<Skill2>()
-                    .ExecuteFeedbacks(skillDuration, true, destination);
+                    .ExecuteFeedbacks(true, destination);
                 character.RotatePlayer(direction);
                 break;
             case PlayerActionType.ExecutingSkill3:
                 currentPlayer
                     .GetComponent<Skill3>()
-                    .ExecuteFeedbacks(skillDuration, true, destination);
+                    .ExecuteFeedbacks(true, destination);
                 character.RotatePlayer(direction);
                 break;
         }
