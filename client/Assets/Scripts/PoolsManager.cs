@@ -15,7 +15,6 @@ public class PoolsManager : MonoBehaviour
         var finishedPoolIds = gamePools.Select(gamePools => gamePools.Id).Except(pools.Select(pool => pool.Id));
         foreach(var finishedPoolId in finishedPoolIds)
         {
-            Debug.Log($"{finishedPoolId} died");
             DestroyPool(finishedPoolId);
         }
         gamePools = pools;
@@ -23,6 +22,11 @@ public class PoolsManager : MonoBehaviour
 
     private static void DestroyPool(ulong finishedPoolId)
     {
-        Destroy(poolsVFXs[$"{finishedPoolId}_1"]);
+        if(poolsVFXs.TryGetValue($"{finishedPoolId}_1", out var poolVFX))
+        {
+            Debug.Log("pool", poolVFX);
+            Debug.Break();
+            // Destroy(poolVFX);
+        }
     }
 }
