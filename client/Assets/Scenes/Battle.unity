@@ -126,6 +126,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &81856485 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6756379049546803284, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2856279044554654229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &165324771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -201,6 +213,54 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 165324771}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &214607392 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4639003369136744722, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2856279044554654229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &411040909 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 481287483473433333, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2856279044554654229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &411040910 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8640736277438457497, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2856279044554654229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &411040911 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8187045902678543215, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2856279044554654229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c06c43989e05f4032acf988d173b4f82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &598334956
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,6 +392,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1403709945 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6389809029683203636, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2856279044554654229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1457117232 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3345182782616191052, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2856279044554654229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2053005125 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114381032681085342, guid: 9edcf7e494cf3e640b18cb7495fb179a,
@@ -507,6 +591,61 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 102403071247917090, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 102403071247917090, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 102403071247917090, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8472880970037954469}
+    - target: {fileID: 102403071247917090, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2856279044554654237}
+    - target: {fileID: 102403071247917090, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 102403071247917090, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TogleGrid
+      objectReference: {fileID: 0}
+    - target: {fileID: 102403071247917090, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ToggleGrid
+      objectReference: {fileID: 0}
+    - target: {fileID: 102403071247917090, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Battle, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 102403071247917090, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BattleSettingsController, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 102403071247917090, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 102403071247917090, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 224495582061553100, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -567,6 +706,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 295859488487123287, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2856279044554654237}
+    - target: {fileID: 295859488487123287, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ToggleCustomLogs
+      objectReference: {fileID: 0}
+    - target: {fileID: 295859488487123287, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BattleSettingsController, CurseOfMirra
+      objectReference: {fileID: 0}
     - target: {fileID: 321843953934511620, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -612,6 +766,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 462296585442566470, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 616049115442027655, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -651,6 +810,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 809333859422549542, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_Name
+      value: OnSpriteStateZone
       objectReference: {fileID: 0}
     - target: {fileID: 827444107495718215, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -1382,6 +1546,61 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2429908567890793697, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429908567890793697, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429908567890793697, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429908567890793697, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2491999282791594406, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8472880970037954469}
+    - target: {fileID: 2491999282791594406, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2856279044554654237}
+    - target: {fileID: 2491999282791594406, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleAnimations
+      objectReference: {fileID: 0}
+    - target: {fileID: 2491999282791594406, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ToggleAnimations
+      objectReference: {fileID: 0}
+    - target: {fileID: 2491999282791594406, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Battle, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 2491999282791594406, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BattleSettingsController, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 2491999282791594406, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2555107153036472474, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1481,6 +1700,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2882487808325826943, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_Name
+      value: OnSpriteStateCustomLogs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951809265787001711, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2856279044554654237}
+    - target: {fileID: 2951809265787001711, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ToggleConsoleLogs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951809265787001711, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BattleSettingsController, CurseOfMirra
       objectReference: {fileID: 0}
     - target: {fileID: 2960094221198867859, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -1872,6 +2111,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3954512949654254282, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: battle
+      value: 
+      objectReference: {fileID: 8472880970037954469}
+    - target: {fileID: 3954512949654254282, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: clientPrediction
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3980214715154413608, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1967,6 +2216,11 @@ PrefabInstance:
       propertyPath: battle
       value: 
       objectReference: {fileID: 8472880970037954469}
+    - target: {fileID: 4101547291818761874, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_Name
+      value: OnSpriteStateInterpolation
+      objectReference: {fileID: 0}
     - target: {fileID: 4147439995384893009, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2002,6 +2256,11 @@ PrefabInstance:
       propertyPath: uiSoundManager
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4245066871559419359, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_Name
+      value: OnSpriteStateClientPredictionGhost
+      objectReference: {fileID: 0}
     - target: {fileID: 4318616086084684951, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2018,6 +2277,26 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4318616086084684951, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4554094249420667834, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4554094249420667834, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4554094249420667834, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4554094249420667834, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
@@ -2172,6 +2451,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5102509943608458683, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_Name
+      value: OnSpriteStateConsoleLogs
+      objectReference: {fileID: 0}
+    - target: {fileID: 5156557641019272619, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_Name
+      value: OnSpriteStateGrid
+      objectReference: {fileID: 0}
     - target: {fileID: 5173742534381508071, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2237,11 +2526,26 @@ PrefabInstance:
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8472880970037954469}
+    - target: {fileID: 5394359466573599441, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2856279044554654237}
     - target: {fileID: 5394359466573599441, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ToggleClientPrediction
       objectReference: {fileID: 0}
+    - target: {fileID: 5394359466573599441, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ToggleClientPrediction
+      objectReference: {fileID: 0}
+    - target: {fileID: 5394359466573599441, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BattleSettingsController, CurseOfMirra
+      objectReference: {fileID: 0}
     - target: {fileID: 5427553805931090084, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2289,13 +2593,28 @@ PrefabInstance:
       objectReference: {fileID: 8472880970037954469}
     - target: {fileID: 5457095807654103781, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2856279044554654237}
+    - target: {fileID: 5457095807654103781, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleClientPredictionGhost
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457095807654103781, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ToggleClientPredictionGhost
       objectReference: {fileID: 0}
     - target: {fileID: 5457095807654103781, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Battle, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457095807654103781, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BattleSettingsController, CurseOfMirra
       objectReference: {fileID: 0}
     - target: {fileID: 5457095807654103781, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -2321,6 +2640,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673860473739743336, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_Name
+      value: OnSpriteStateAnimations
       objectReference: {fileID: 0}
     - target: {fileID: 5675222889262675052, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -2349,13 +2673,28 @@ PrefabInstance:
       objectReference: {fileID: 8472880970037954469}
     - target: {fileID: 5786648715878193564, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2856279044554654237}
+    - target: {fileID: 5786648715878193564, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ToggleClientPredictionGhost
+      value: ToggleInterpolationGhosts
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786648715878193564, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ToggleInterpolationGhosts
       objectReference: {fileID: 0}
     - target: {fileID: 5786648715878193564, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Battle, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786648715878193564, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BattleSettingsController, CurseOfMirra
       objectReference: {fileID: 0}
     - target: {fileID: 5786648715878193564, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -2441,6 +2780,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6001336277939686384, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2856279044554654237}
+    - target: {fileID: 6001336277939686384, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleMetrics
+      objectReference: {fileID: 0}
+    - target: {fileID: 6001336277939686384, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BattleSettingsController, CurseOfMirra
       objectReference: {fileID: 0}
     - target: {fileID: 6022131892397320066, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -2667,6 +3021,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6684109427344370977, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6684109427344370977, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6684109427344370977, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6684109427344370977, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6756379049546803284, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: battle
@@ -2822,6 +3196,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7029941665888258478, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_Name
+      value: OnSpriteStateClientPrediction
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140855225753378453, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7166926483379251168, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2953,6 +3337,26 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7522350908692792759, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7547704818012444918, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7547704818012444918, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7547704818012444918, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7547704818012444918, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
@@ -3094,13 +3498,28 @@ PrefabInstance:
       objectReference: {fileID: 8472880970037954469}
     - target: {fileID: 7974698093773899264, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2856279044554654237}
+    - target: {fileID: 7974698093773899264, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleZone
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974698093773899264, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ToggleZone
       objectReference: {fileID: 0}
     - target: {fileID: 7974698093773899264, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Battle, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974698093773899264, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BattleSettingsController, CurseOfMirra
       objectReference: {fileID: 0}
     - target: {fileID: 7974698093773899264, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -3387,6 +3806,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8748654816961966010, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_Name
+      value: OnSpriteStateMetrics
+      objectReference: {fileID: 0}
     - target: {fileID: 8754655254219074891, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3547,6 +3971,48 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 2856279044554654229}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2856279044554654232 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3954512949654254282, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2856279044554654229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2856279044554654233 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4046499232661944362, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2856279044554654229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2856279044554654234 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8412392637807881450, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2856279044554654229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2856279044554654235 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5896717544972452817, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2856279044554654229}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2856279044554654236 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2856279044554654236, guid: 9edcf7e494cf3e640b18cb7495fb179a,
@@ -3559,6 +4025,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed55c2d4eb1847f783705bf4cffb82f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2856279044554654237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2856279044554654235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b51f3a9884f4b30bd14fa0c47b2fda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battle: {fileID: 8472880970037954469}
+  customLogs: {fileID: 411040911}
+  animationsButton: {fileID: 2856279044554654232}
+  zoneButton: {fileID: 2856279044554654233}
+  clientPredictionGhostButton: {fileID: 81856485}
+  interpolationGhostButton: {fileID: 214607392}
+  gridButton: {fileID: 1457117232}
+  metricsButton: {fileID: 1403709945}
+  clientPredictionButton: {fileID: 2856279044554654234}
+  consoleLogsButton: {fileID: 411040910}
+  customLogsButton: {fileID: 411040909}
 --- !u!1001 &8472880970037954468
 PrefabInstance:
   m_ObjectHideFlags: 0
