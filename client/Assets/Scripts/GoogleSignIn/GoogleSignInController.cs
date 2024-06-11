@@ -204,9 +204,9 @@ public class GoogleSignInController : MonoBehaviour
                 StartCoroutine(
                     ServerUtils.GetTokenIdValidation(
                         task.Result.IdToken,
-                        response =>
+                        rawResponse =>
                         {
-                            ServerUtil.TokenResponse response = JsonUtility.FromJson<ServerUtil.TokenResponse>(raw_response);
+                            ServerUtils.TokenResponse response = JsonUtility.FromJson<ServerUtils.TokenResponse>(rawResponse);
                             PlayerPrefs.SetString("gateway_jwt", response.gateway_jwt);
 
                             if (PlayerPrefs.GetString("GoogleUserId") == "")
