@@ -33,6 +33,7 @@ public class ToggleButton : MonoBehaviour
             transform.parent.GetComponent<MMTouchButton>().ReturnToInitialSpriteAutomatically =
                 false;
         }
+        // This toggles are to start the buttons as enabled, since they are always disabled (off) by default.
         if (customLogs != null)
         {
             if (console)
@@ -46,6 +47,7 @@ public class ToggleButton : MonoBehaviour
         }
         if (battle != null)
         {
+            ToggleZone();
             if (clientPrediction)
             {
                 ToggleClientPrediction();
@@ -82,6 +84,26 @@ public class ToggleButton : MonoBehaviour
     public void ToggleClientPredictionGhost()
     {
         ToggleUIState(battle.showClientPredictionGhost);
+    }
+
+    public void ToggleZone()
+    {
+        bool zoneActive = battle.zoneActive;
+        if (zoneActive)
+        {
+            if (textState != null)
+            {
+                textState.text = "On";
+            }
+        }
+        else
+        {
+            if (textState != null)
+            {
+                textState.text = "Off";
+            }
+        }
+        ToggleUIState(zoneActive);
     }
 
     public void ToggleInterpolationGhosts()
