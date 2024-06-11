@@ -3,6 +3,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 internal class DynamicFontAssetAutoCleaner : AssetModificationProcessor
 {
     static string[] OnWillSaveAssets(string[] paths)
@@ -44,3 +45,4 @@ internal class DynamicFontAssetAutoCleaner : AssetModificationProcessor
         return paths;
     }
 }
+#endif
