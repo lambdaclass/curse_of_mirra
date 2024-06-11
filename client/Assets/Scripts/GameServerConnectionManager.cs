@@ -265,7 +265,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
     public void SendToggleBots(long timestamp)
     {
-        ToggleBots toggleBots = new ToggleBots {};
+        ToggleBots toggleBots = new ToggleBots { };
         GameAction gameAction = new GameAction { ToggleBots = toggleBots, Timestamp = timestamp };
         SendGameAction(gameAction);
     }
