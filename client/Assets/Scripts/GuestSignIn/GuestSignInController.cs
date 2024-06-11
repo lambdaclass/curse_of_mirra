@@ -16,10 +16,6 @@ public class GuestSignInController : MonoBehaviour
     [SerializeField]
     TitleScreenController titleScreenController;
 
-    void Awake()
-    {
-    }
-
     void Start()
     {
         Init();
@@ -43,24 +39,22 @@ public class GuestSignInController : MonoBehaviour
 
     public async void SignIn()
     {
-        Action<string> successCallback = raw_response => {
-            ServerUtils.TokenResponse response = JsonUtility.FromJson<ServerUtils.TokenResponse>(raw_response);
-            PlayerPrefs.SetString("gateway_jwt", response.gateway_jwt);
-            PlayerPrefs.SetString("user_id", response.user_id);
+        Action<string> successCallback = rawResponse => {
+            ServerUtils.TokenResponse response = JsonUtility.FromJson<ServerUtils.TokenResponse>(rawResponse);
+            ServerUtils.SetGatewayToken(response.gateway_jwt);
             titleScreenController.ChangeToMainscreen();
         };
         Action<string> errorCallback = error => {
             Debug.Log(error);
         };
 
-        if (PlayerPrefs.HasKey("gateway_jwt"))
+        if (string.IsNullOrEmpty(ServerUtils.GetGatewayToken()))
         {
-            StartCoroutine(ServerUtils.RefreshToken(successCallback, errorCallback));
+            StartCoroutine(ServerUtils.CreateGuestUser(successCallback, errorCallback));
         }
         else
         {
-            StartCoroutine(ServerUtils.CreateGuestUser(successCallback, errorCallback));
-
+            StartCoroutine(ServerUtils.RefreshToken(successCallback, errorCallback));
         }
     }
 }

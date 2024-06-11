@@ -55,7 +55,13 @@ public static class ServerUtils
     public static string GetGatewayToken()
     {
 
-        return PlayerPrefs.GetString("gateway_jwt");
+        return PlayerPrefs.GetString("gatewayJwt");
+    }
+
+    public static void SetGatewayToken(string value)
+    {
+
+        PlayerPrefs.SetString("gatewayJwt", value);
     }
 
     public static IEnumerator GetSelectedCharacter(
@@ -345,10 +351,9 @@ public static class ServerUtils
         if (!isGatewayTokenValid())
         {
             RefreshToken(
-                raw_response => {
-                    TokenResponse response = JsonUtility.FromJson<TokenResponse>(raw_response);
-                    PlayerPrefs.SetString("gateway_jwt", response.gateway_jwt);
-                    PlayerPrefs.SetString("user_id", response.user_id);
+                rawResponse => {
+                    TokenResponse response = JsonUtility.FromJson<TokenResponse>(rawResponse);
+                    ServerUtils.SetGatewayToken(response.gateway_jwt);
                 },
                 error => {
                     Debug.Log("Error refreshing token: " + error);
@@ -356,7 +361,7 @@ public static class ServerUtils
             );
         }
 
-        string gateway_jwt = PlayerPrefs.GetString("gateway_jwt");
+        string gateway_jwt = ServerUtils.GetGatewayToken();
         string urlWithJwt = url + "?gateway_jwt=" + gateway_jwt;
         return new WebSocket(urlWithJwt);
     }
