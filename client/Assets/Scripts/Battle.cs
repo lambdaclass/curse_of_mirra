@@ -644,8 +644,7 @@ public class Battle : MonoBehaviour
     {
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
         // it'll be changed.
-        float tickRate = 1000f / GameServerConnectionManager.Instance.serverTickRate_ms;
-        float velocity = tickRate * characterSpeed;
+        float velocity = characterSpeed;
 
         var frontendPosition = Utils.transformBackendOldPositionToFrontendPosition(
             playerUpdate.Position
@@ -704,7 +703,7 @@ public class Battle : MonoBehaviour
             // If, on the other hand, its `x` coordinate is negative, we take newPosition.x = max(frontendPosition.x, newPosition.x)
             // The exact same thing applies to `z`
             Vector3 newPosition =
-                player.transform.position + movementDirection * velocity * Time.deltaTime;
+                player.transform.position + movementDirection * velocity * (Time.deltaTime * 1000f);
 
             if (movementDirection.x > 0)
             {

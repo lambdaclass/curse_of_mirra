@@ -91,7 +91,6 @@ public class ClientPrediction
     {
         var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         var characterSpeed = player.Speed;
-        float tickRate = GameServerConnectionManager.Instance.serverTickRate_ms;
 
         Position currentPosition = startingPosition;
         Direction currentDirection = player.Direction;
@@ -99,7 +98,7 @@ public class ClientPrediction
         pendingPlayerInputs.ForEach(input =>
         {
             long endTimestamp = (input.endTimestamp == 0) ? now : input.endTimestamp;
-            float ticks = (endTimestamp - input.startTimestamp) / tickRate;
+            float deltaTime = endTimestamp - input.startTimestamp;
 
             Vector2 movementDirection = new Vector2(input.joystick_x_value, input.joystick_y_value);
 
@@ -113,7 +112,7 @@ public class ClientPrediction
             }
 
             movementDirection.Normalize();
-            Vector2 movementVector = movementDirection * characterSpeed * ticks;
+            Vector2 movementVector = movementDirection * characterSpeed * deltaTime;
 
             float positionX = currentPosition.X + (float)(movementVector.x);
             float positionY = currentPosition.Y + (float)(movementVector.y);
