@@ -258,8 +258,15 @@ public class GameServerConnectionManager : MonoBehaviour
 
     public void SendToggleZone(long timestamp)
     {
-        ToggleZone toggleZone = new ToggleZone { Zone = "toggle" };
+        ToggleZone toggleZone = new ToggleZone {};
         GameAction gameAction = new GameAction { ToggleZone = toggleZone, Timestamp = timestamp };
+        SendGameAction(gameAction);
+    }
+
+    public void SendToggleBots(long timestamp)
+    {
+        ClientToggleBots toggleBots = new ClientToggleBots {};
+        GameAction gameAction = new GameAction { ClientToggleBots = toggleBots, Timestamp = timestamp };
         SendGameAction(gameAction);
     }
 

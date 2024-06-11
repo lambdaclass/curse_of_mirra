@@ -48,6 +48,7 @@ public class ToggleButton : MonoBehaviour
         if (battle != null)
         {
             ToggleZone();
+            ToggleBots();
             if (clientPrediction)
             {
                 ToggleClientPrediction();
@@ -88,22 +89,12 @@ public class ToggleButton : MonoBehaviour
 
     public void ToggleZone()
     {
-        bool zoneActive = battle.zoneActive;
-        if (zoneActive)
-        {
-            if (textState != null)
-            {
-                textState.text = "On";
-            }
-        }
-        else
-        {
-            if (textState != null)
-            {
-                textState.text = "Off";
-            }
-        }
-        ToggleUIState(zoneActive);
+        ToggleUIState(battle.zoneActive);
+    }
+
+    public void ToggleBots()
+    {
+        ToggleUIState(battle.botsActive);
     }
 
     public void ToggleInterpolationGhosts()
