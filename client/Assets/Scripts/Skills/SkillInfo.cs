@@ -19,7 +19,6 @@ public class SkillInfo : ScriptableObject
     public UIIndicatorType indicatorType;
     public bool hasProjectile;
     public bool hasSkillPool;
-    public ulong executionDurationMs;
 
     [MMCondition("hasProjectile", true)]
     public GameObject projectilePrefab;
@@ -59,6 +58,5 @@ public class SkillInfo : ScriptableObject
         this.skillAreaRadius =  Utils.TransformBackenUnitToClientUnit(configSkill.TargettingRadius);
         this.ownerId = Convert.ToUInt64(id);
         this.staminaCost = useCooldown ? 0 : configSkill.StaminaCost;
-        this.executionDurationMs = configSkill.ExecutionDurationMs;
     }
 }
