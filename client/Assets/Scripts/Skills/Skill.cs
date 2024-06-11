@@ -116,7 +116,7 @@ public class Skill : CharacterAbility
         }
     }
 
-    public void ExecuteFeedbacks(bool blockMovement, Position destination)
+    public void ExecuteFeedbacks(ulong duration, bool blockMovement, Position destination)
     {
         ClearAnimator();
 
@@ -130,9 +130,9 @@ public class Skill : CharacterAbility
         if (skillInfo.animationList.Count > 0)
         {
             List<AnimationStep> animationList = new List<AnimationStep>(skillInfo.animationList);
-            StartCoroutine(ExecuteChainedAnimation(animationList, (skillInfo.executionDurationMs / 1000f)));
+            StartCoroutine(ExecuteChainedAnimation(animationList, (duration / 1000f)));
         }
-        StartCoroutine(AutoEndSkillAnimation(skillId, skillInfo.executionDurationMs / 1000f));
+        StartCoroutine(AutoEndSkillAnimation(skillId, duration / 1000f));
 
         // Visual effects
         foreach (var vfxStep in skillInfo.vfxList)
@@ -181,9 +181,6 @@ public class Skill : CharacterAbility
         pendingAnimations.RemoveAt(0);
 
         float animationDuration = nextAnimation.durationPercent * totalDuration;
-
-        Debug.Log(animationDuration + "");
-
         float animationStep = previousAnimationStep + 1;
         string animationStepId = skillId + "_s" + animationStep;
 
