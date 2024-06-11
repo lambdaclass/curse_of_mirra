@@ -78,17 +78,12 @@ public class BattleSettingsController : MonoBehaviour
         bool useClientPrediction = battle.useClientPrediction;
         if (useClientPrediction)
         {
-            if (clientPredictionButton.textState != null)
-            {
-                clientPredictionButton.textState.text = "On";
-            }
+
+            clientPredictionButton.textState.text = "On";
         }
         else
         {
-            if (clientPredictionButton.textState != null)
-            {
-                clientPredictionButton.textState.text = "Off";
-            }
+            clientPredictionButton.textState.text = "Off";
         }
         clientPredictionButton.ToggleUIState(useClientPrediction);
     }
