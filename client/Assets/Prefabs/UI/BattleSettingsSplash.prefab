@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1507366063711903033}
   - component: {fileID: 8701070787044077224}
   m_Layer: 5
-  m_Name: OnSpriteState
+  m_Name: OnSpriteStateInterpolation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,9 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textState: {fileID: 256406155319127568}
-  battle: {fileID: 0}
-  customLogs: {fileID: 0}
-  clientPrediction: 0
   console: 0
 --- !u!1 &34429020880089006
 GameObject:
@@ -678,7 +675,7 @@ GameObject:
   - component: {fileID: 196340468999211755}
   - component: {fileID: 7305436495481335790}
   m_Layer: 5
-  m_Name: OnSpriteState
+  m_Name: OnSpriteStateClientPredictionGhost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -767,9 +764,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textState: {fileID: 6074990335289241018}
-  battle: {fileID: 0}
-  customLogs: {fileID: 0}
-  clientPrediction: 0
   console: 0
 --- !u!1 &185356649984314035
 GameObject:
@@ -2568,9 +2562,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textState: {fileID: 4438123299652061408}
-  battle: {fileID: 0}
-  customLogs: {fileID: 0}
-  clientPrediction: 0
   console: 0
 --- !u!1 &1198452659989888709
 GameObject:
@@ -2586,7 +2577,7 @@ GameObject:
   - component: {fileID: 7133497486599131171}
   - component: {fileID: 4471095113097975119}
   m_Layer: 5
-  m_Name: OnSpriteState
+  m_Name: OnSpriteStateCustomLogs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2675,9 +2666,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textState: {fileID: 9081243200524280454}
-  battle: {fileID: 0}
-  customLogs: {fileID: 0}
-  clientPrediction: 0
   console: 0
 --- !u!1 &1228709624257423453
 GameObject:
@@ -5204,8 +5192,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4471095113097975119}
-        m_TargetAssemblyTypeName: ToggleButton, CurseOfMirra
+      - m_Target: {fileID: 1153095642711790286}
+        m_TargetAssemblyTypeName: BattleSettingsController, CurseOfMirra
         m_MethodName: ToggleCustomLogs
         m_Mode: 1
         m_Arguments:
@@ -5905,8 +5893,20 @@ MonoBehaviour:
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1643003798276360182}
-        m_TargetAssemblyTypeName: ToggleButton, CurseOfMirra
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BattleSettingsController, CurseOfMirra
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1153095642711790286}
+        m_TargetAssemblyTypeName: BattleSettingsController, CurseOfMirra
         m_MethodName: ToggleGrid
         m_Mode: 1
         m_Arguments:
@@ -5954,7 +5954,7 @@ GameObject:
   - component: {fileID: 7011958503520060806}
   - component: {fileID: 38677140035780496}
   m_Layer: 5
-  m_Name: OnSpriteState
+  m_Name: OnSpriteStateZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6043,9 +6043,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textState: {fileID: 2712833217895207972}
-  battle: {fileID: 0}
-  customLogs: {fileID: 0}
-  clientPrediction: 0
   console: 0
 --- !u!1 &3754913160228557855
 GameObject:
@@ -6619,8 +6616,8 @@ MonoBehaviour:
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6920990628451961230}
-        m_TargetAssemblyTypeName: ToggleButton, CurseOfMirra
+      - m_Target: {fileID: 1153095642711790286}
+        m_TargetAssemblyTypeName: BattleSettingsController, CurseOfMirra
         m_MethodName: ToggleMetrics
         m_Mode: 2
         m_Arguments:
@@ -7177,9 +7174,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5713778090824098083}
-        m_TargetAssemblyTypeName: ToggleButton, CurseOfMirra
-        m_MethodName: ToggleAllLogs
+      - m_Target: {fileID: 1153095642711790286}
+        m_TargetAssemblyTypeName: BattleSettingsController, CurseOfMirra
+        m_MethodName: ToggleConsoleLogs
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7900,7 +7897,7 @@ GameObject:
   - component: {fileID: 8020828849919270620}
   - component: {fileID: 6920990628451961230}
   m_Layer: 5
-  m_Name: OnSpriteState
+  m_Name: OnSpriteStateMetrics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7989,9 +7986,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textState: {fileID: 1354357938401524763}
-  battle: {fileID: 0}
-  customLogs: {fileID: 0}
-  clientPrediction: 0
   console: 0
 --- !u!1 &4770055195845314886
 GameObject:
@@ -8322,7 +8316,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: BattleSettingsController, CurseOfMirra
         m_MethodName: 
         m_Mode: 1
         m_Arguments:
@@ -8333,8 +8327,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 38677140035780496}
-        m_TargetAssemblyTypeName: ToggleButton, CurseOfMirra
+      - m_Target: {fileID: 1153095642711790286}
+        m_TargetAssemblyTypeName: BattleSettingsController, CurseOfMirra
         m_MethodName: ToggleZone
         m_Mode: 1
         m_Arguments:
@@ -10245,8 +10239,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1026862122512217456}
-        m_TargetAssemblyTypeName: ToggleButton, CurseOfMirra
+      - m_Target: {fileID: 1153095642711790286}
+        m_TargetAssemblyTypeName: BattleSettingsController, CurseOfMirra
         m_MethodName: ToggleAnimations
         m_Mode: 1
         m_Arguments:
@@ -10639,7 +10633,7 @@ GameObject:
   - component: {fileID: 7101295636682565229}
   - component: {fileID: 5485304850819345232}
   m_Layer: 5
-  m_Name: OnSpriteState
+  m_Name: OnSpriteStateClientPrediction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10728,9 +10722,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textState: {fileID: 1888387392519925202}
-  battle: {fileID: 0}
-  customLogs: {fileID: 0}
-  clientPrediction: 1
   console: 0
 --- !u!1 &6438506284298550403
 GameObject:
@@ -11734,8 +11725,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8701070787044077224}
-        m_TargetAssemblyTypeName: ToggleButton, CurseOfMirra
+      - m_Target: {fileID: 1153095642711790286}
+        m_TargetAssemblyTypeName: BattleSettingsController, CurseOfMirra
         m_MethodName: ToggleInterpolationGhosts
         m_Mode: 1
         m_Arguments:
@@ -12503,8 +12494,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5485304850819345232}
-        m_TargetAssemblyTypeName: ToggleButton, CurseOfMirra
+      - m_Target: {fileID: 1153095642711790286}
+        m_TargetAssemblyTypeName: BattleSettingsController, CurseOfMirra
         m_MethodName: ToggleClientPrediction
         m_Mode: 1
         m_Arguments:
@@ -12661,6 +12652,7 @@ GameObject:
   - component: {fileID: 7233870788083149467}
   - component: {fileID: 3066248745392356953}
   - component: {fileID: 6119893883542623736}
+  - component: {fileID: 1153095642711790286}
   m_Layer: 5
   m_Name: OptionsContainer
   m_TagString: Untagged
@@ -12728,6 +12720,29 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2
+--- !u!114 &1153095642711790286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7598764884269171819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b51f3a9884f4b30bd14fa0c47b2fda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battle: {fileID: 0}
+  customLogs: {fileID: 0}
+  animationsButton: {fileID: 1026862122512217456}
+  zoneButton: {fileID: 38677140035780496}
+  clientPredictionGhostButton: {fileID: 7305436495481335790}
+  interpolationGhostButton: {fileID: 8701070787044077224}
+  gridButton: {fileID: 1643003798276360182}
+  metricsButton: {fileID: 6920990628451961230}
+  clientPredictionButton: {fileID: 5485304850819345232}
+  consoleLogsButton: {fileID: 5713778090824098083}
+  customLogsButton: {fileID: 4471095113097975119}
 --- !u!1 &7708686241424991133
 GameObject:
   m_ObjectHideFlags: 0
@@ -13789,8 +13804,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7305436495481335790}
-        m_TargetAssemblyTypeName: ToggleButton, CurseOfMirra
+      - m_Target: {fileID: 1153095642711790286}
+        m_TargetAssemblyTypeName: BattleSettingsController, CurseOfMirra
         m_MethodName: ToggleClientPredictionGhost
         m_Mode: 1
         m_Arguments:
@@ -13928,7 +13943,7 @@ GameObject:
   - component: {fileID: 3095030869297692233}
   - component: {fileID: 1026862122512217456}
   m_Layer: 5
-  m_Name: OnSpriteState
+  m_Name: OnSpriteStateAnimations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14017,9 +14032,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textState: {fileID: 8728614312151179021}
-  battle: {fileID: 0}
-  customLogs: {fileID: 0}
-  clientPrediction: 0
   console: 0
 --- !u!1 &8550882255136506942
 GameObject:
@@ -14951,7 +14963,7 @@ GameObject:
   - component: {fileID: 304117613037393568}
   - component: {fileID: 5713778090824098083}
   m_Layer: 5
-  m_Name: OnSpriteState
+  m_Name: OnSpriteStateConsoleLogs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15040,9 +15052,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textState: {fileID: 7696112322192611172}
-  battle: {fileID: 0}
-  customLogs: {fileID: 0}
-  clientPrediction: 0
   console: 1
 --- !u!1 &9142845390500824065
 GameObject:
@@ -15161,7 +15170,7 @@ GameObject:
   - component: {fileID: 5458811083261441252}
   - component: {fileID: 1643003798276360182}
   m_Layer: 5
-  m_Name: OnSpriteState
+  m_Name: OnSpriteStateGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15250,9 +15259,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textState: {fileID: 4736788439782380975}
-  battle: {fileID: 0}
-  customLogs: {fileID: 0}
-  clientPrediction: 0
   console: 0
 --- !u!1 &9167762309616203604
 GameObject:

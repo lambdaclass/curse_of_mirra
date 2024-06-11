@@ -771,7 +771,7 @@ public class Battle : MonoBehaviour
         GameServerConnectionManager.Instance.SendToggleZone(timestamp);
     }
 
-    public void TogleGrid()
+    public void ToggleGrid()
     {
         mapGrid.SetActive(!mapGrid.activeSelf);
     }

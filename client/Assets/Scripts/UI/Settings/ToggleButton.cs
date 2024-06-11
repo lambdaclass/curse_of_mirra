@@ -8,10 +8,6 @@ public class ToggleButton : MonoBehaviour
     [SerializeField]
     public TextMeshProUGUI textState;
 
-    // This is a quick fix until a refactor on this is done
-    [Tooltip("Check this if the toogle is the console toggle")]
-    public bool console;
-
     void Start()
     {
         if (GetComponent<MMTouchButton>())
