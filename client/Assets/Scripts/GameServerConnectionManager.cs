@@ -188,7 +188,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
                     eventsBuffer.AddEvent(gameState);
 
-                    KillFeedManager.instance.putEvents(gameState.Killfeed.ToList());
+                    KillFeedManager.instance.PutEvents(gameState.Killfeed.ToList());
                     this.playableRadius = gameState.Zone.Radius;
                     this.zoneShrinkTime =
                         gameState.Zone.NextZoneChangeTimestamp - gameState.ServerTimestamp;
@@ -258,7 +258,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
     public void SendToggleZone(long timestamp)
     {
-        ToggleZone toggleZone = new ToggleZone { Zone = "toggle" };
+        ToggleZone toggleZone = new ToggleZone { };
         GameAction gameAction = new GameAction { ToggleZone = toggleZone, Timestamp = timestamp };
         SendGameAction(gameAction);
     }
