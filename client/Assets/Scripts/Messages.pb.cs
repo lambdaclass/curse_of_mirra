@@ -117,37 +117,38 @@ public static partial class MessagesReflection {
           "OwoHUG93ZXJVcBIQCghvd25lcl9pZBgBIAEoBBIeCgZzdGF0dXMYAiABKA4y",
           "Di5Qb3dlclVwc3RhdHVzIlIKBUNyYXRlEg4KBmhlYWx0aBgBIAEoBBIbChNh",
           "bW91bnRfb2ZfcG93ZXJfdXBzGAIgASgEEhwKBnN0YXR1cxgDIAEoDjIMLkNy",
-          "YXRlU3RhdHVzIjIKBFBvb2wSEAoIb3duZXJfaWQYASABKAQSGAoHZWZmZWN0",
-          "cxgCIAMoCzIHLkVmZmVjdCIGCgRCdXNoIkMKBFRyYXASEAoIb3duZXJfaWQY",
-          "ASABKAQSDAoEbmFtZRgCIAEoCRIbCgZzdGF0dXMYAyABKA4yCy5UcmFwU3Rh",
-          "dHVzIoEBCgxQbGF5ZXJBY3Rpb24SIQoGYWN0aW9uGAEgASgOMhEuUGxheWVy",
-          "QWN0aW9uVHlwZRIQCghkdXJhdGlvbhgCIAEoBBIeCgtkZXN0aW5hdGlvbhgD",
-          "IAEoCzIJLlBvc2l0aW9uEhwKCWRpcmVjdGlvbhgEIAEoCzIJLlBvc2l0aW9u",
-          "IiUKBE1vdmUSHQoJZGlyZWN0aW9uGAEgASgLMgouRGlyZWN0aW9uIj4KBkF0",
-          "dGFjaxINCgVza2lsbBgBIAEoCRIlCgpwYXJhbWV0ZXJzGAIgASgLMhEuQXR0",
-          "YWNrUGFyYW1ldGVycyIuChBBdHRhY2tQYXJhbWV0ZXJzEhoKBnRhcmdldBgB",
-          "IAEoCzIKLkRpcmVjdGlvbiIXCgdVc2VJdGVtEgwKBGl0ZW0YASABKAQiJwoM",
-          "U2VsZWN0Qm91bnR5EhcKD2JvdW50eV9xdWVzdF9pZBgBIAEoCSKmAQoKR2Ft",
-          "ZUFjdGlvbhIVCgRtb3ZlGAEgASgLMgUuTW92ZUgAEhkKBmF0dGFjaxgCIAEo",
-          "CzIHLkF0dGFja0gAEhwKCHVzZV9pdGVtGAQgASgLMgguVXNlSXRlbUgAEiYK",
-          "DXNlbGVjdF9ib3VudHkYBSABKAsyDS5TZWxlY3RCb3VudHlIABIRCgl0aW1l",
-          "c3RhbXAYAyABKANCDQoLYWN0aW9uX3R5cGUiXgoEWm9uZRIOCgZyYWRpdXMY",
-          "ASABKAISDwoHZW5hYmxlZBgCIAEoCBIiChpuZXh0X3pvbmVfY2hhbmdlX3Rp",
-          "bWVzdGFtcBgDIAEoAxIRCglzaHJpbmtpbmcYBCABKAgiMQoJS2lsbEVudHJ5",
-          "EhEKCWtpbGxlcl9pZBgBIAEoBBIRCgl2aWN0aW1faWQYAiABKAQiYgoKQm91",
-          "bnR5SW5mbxIKCgJpZBgBIAEoCRITCgtkZXNjcmlwdGlvbhgCIAEoCRISCgpx",
-          "dWVzdF90eXBlGAMgASgJEh8KBnJld2FyZBgEIAEoCzIPLkN1cnJlbmN5UmV3",
-          "YXJkIjIKDkN1cnJlbmN5UmV3YXJkEhAKCGN1cnJlbmN5GAEgASgJEg4KBmFt",
-          "b3VudBgCIAEoAypJCgpHYW1lU3RhdHVzEg0KCVBSRVBBUklORxAAEgsKB1JV",
-          "Tk5JTkcQARIJCgVFTkRFRBACEhQKEFNFTEVDVElOR19CT1VOVFkQAyo6ChBQ",
-          "cm9qZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExPREVEEAESDAoI",
-          "Q09OU1VNRUQQAiomCgtDcmF0ZVN0YXR1cxIICgRGSU5FEAASDQoJREVTVFJP",
-          "WUVEEAEqKQoNUG93ZXJVcHN0YXR1cxINCglBVkFJTEFCTEUQABIJCgVUQUtF",
-          "ThABKo8BChBQbGF5ZXJBY3Rpb25UeXBlEgoKBk1PVklORxAAEhQKEFNUQVJU",
-          "SU5HX1NLSUxMXzEQARIUChBTVEFSVElOR19TS0lMTF8yEAISFQoRRVhFQ1VU",
-          "SU5HX1NLSUxMXzEQAxIVChFFWEVDVVRJTkdfU0tJTExfMhAEEhUKEUVYRUNV",
-          "VElOR19TS0lMTF8zEAUqQAoKVHJhcFN0YXR1cxILCgdQRU5ESU5HEAASDAoI",
-          "UFJFUEFSRUQQARINCglUUklHR0VSRUQQAhIICgRVU0VEEANiBnByb3RvMw=="));
+          "YXRlU3RhdHVzIkUKBFBvb2wSEAoIb3duZXJfaWQYASABKAQSGAoHZWZmZWN0",
+          "cxgCIAMoCzIHLkVmZmVjdBIRCglza2lsbF9rZXkYAyABKAkiBgoEQnVzaCJD",
+          "CgRUcmFwEhAKCG93bmVyX2lkGAEgASgEEgwKBG5hbWUYAiABKAkSGwoGc3Rh",
+          "dHVzGAMgASgOMgsuVHJhcFN0YXR1cyKBAQoMUGxheWVyQWN0aW9uEiEKBmFj",
+          "dGlvbhgBIAEoDjIRLlBsYXllckFjdGlvblR5cGUSEAoIZHVyYXRpb24YAiAB",
+          "KAQSHgoLZGVzdGluYXRpb24YAyABKAsyCS5Qb3NpdGlvbhIcCglkaXJlY3Rp",
+          "b24YBCABKAsyCS5Qb3NpdGlvbiIlCgRNb3ZlEh0KCWRpcmVjdGlvbhgBIAEo",
+          "CzIKLkRpcmVjdGlvbiI+CgZBdHRhY2sSDQoFc2tpbGwYASABKAkSJQoKcGFy",
+          "YW1ldGVycxgCIAEoCzIRLkF0dGFja1BhcmFtZXRlcnMiLgoQQXR0YWNrUGFy",
+          "YW1ldGVycxIaCgZ0YXJnZXQYASABKAsyCi5EaXJlY3Rpb24iFwoHVXNlSXRl",
+          "bRIMCgRpdGVtGAEgASgEIicKDFNlbGVjdEJvdW50eRIXCg9ib3VudHlfcXVl",
+          "c3RfaWQYASABKAkipgEKCkdhbWVBY3Rpb24SFQoEbW92ZRgBIAEoCzIFLk1v",
+          "dmVIABIZCgZhdHRhY2sYAiABKAsyBy5BdHRhY2tIABIcCgh1c2VfaXRlbRgE",
+          "IAEoCzIILlVzZUl0ZW1IABImCg1zZWxlY3RfYm91bnR5GAUgASgLMg0uU2Vs",
+          "ZWN0Qm91bnR5SAASEQoJdGltZXN0YW1wGAMgASgDQg0KC2FjdGlvbl90eXBl",
+          "Il4KBFpvbmUSDgoGcmFkaXVzGAEgASgCEg8KB2VuYWJsZWQYAiABKAgSIgoa",
+          "bmV4dF96b25lX2NoYW5nZV90aW1lc3RhbXAYAyABKAMSEQoJc2hyaW5raW5n",
+          "GAQgASgIIjEKCUtpbGxFbnRyeRIRCglraWxsZXJfaWQYASABKAQSEQoJdmlj",
+          "dGltX2lkGAIgASgEImIKCkJvdW50eUluZm8SCgoCaWQYASABKAkSEwoLZGVz",
+          "Y3JpcHRpb24YAiABKAkSEgoKcXVlc3RfdHlwZRgDIAEoCRIfCgZyZXdhcmQY",
+          "BCABKAsyDy5DdXJyZW5jeVJld2FyZCIyCg5DdXJyZW5jeVJld2FyZBIQCghj",
+          "dXJyZW5jeRgBIAEoCRIOCgZhbW91bnQYAiABKAMqSQoKR2FtZVN0YXR1cxIN",
+          "CglQUkVQQVJJTkcQABILCgdSVU5OSU5HEAESCQoFRU5ERUQQAhIUChBTRUxF",
+          "Q1RJTkdfQk9VTlRZEAMqOgoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQ",
+          "ABIMCghFWFBMT0RFRBABEgwKCENPTlNVTUVEEAIqJgoLQ3JhdGVTdGF0dXMS",
+          "CAoERklORRAAEg0KCURFU1RST1lFRBABKikKDVBvd2VyVXBzdGF0dXMSDQoJ",
+          "QVZBSUxBQkxFEAASCQoFVEFLRU4QASqPAQoQUGxheWVyQWN0aW9uVHlwZRIK",
+          "CgZNT1ZJTkcQABIUChBTVEFSVElOR19TS0lMTF8xEAESFAoQU1RBUlRJTkdf",
+          "U0tJTExfMhACEhUKEUVYRUNVVElOR19TS0lMTF8xEAMSFQoRRVhFQ1VUSU5H",
+          "X1NLSUxMXzIQBBIVChFFWEVDVVRJTkdfU0tJTExfMxAFKkAKClRyYXBTdGF0",
+          "dXMSCwoHUEVORElORxAAEgwKCFBSRVBBUkVEEAESDQoJVFJJR0dFUkVEEAIS",
+          "CAoEVVNFRBADYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameStatus), typeof(global::ProjectileStatus), typeof(global::CrateStatus), typeof(global::PowerUpstatus), typeof(global::PlayerActionType), typeof(global::TrapStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -177,7 +178,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::Obstacle), global::Obstacle.Parser, new[]{ "Color" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::PowerUp), global::PowerUp.Parser, new[]{ "OwnerId", "Status" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Crate), global::Crate.Parser, new[]{ "Health", "AmountOfPowerUps", "Status" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Pool), global::Pool.Parser, new[]{ "OwnerId", "Effects" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Pool), global::Pool.Parser, new[]{ "OwnerId", "Effects", "SkillKey" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Bush), global::Bush.Parser, null, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Trap), global::Trap.Parser, new[]{ "OwnerId", "Name", "Status" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::PlayerAction), global::PlayerAction.Parser, new[]{ "Action", "Duration", "Destination", "Direction" }, null, null, null, null),
@@ -8753,6 +8754,7 @@ public sealed partial class Pool : pb::IMessage<Pool>
   public Pool(Pool other) : this() {
     ownerId_ = other.ownerId_;
     effects_ = other.effects_.Clone();
+    skillKey_ = other.skillKey_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -8785,6 +8787,18 @@ public sealed partial class Pool : pb::IMessage<Pool>
     get { return effects_; }
   }
 
+  /// <summary>Field number for the "skill_key" field.</summary>
+  public const int SkillKeyFieldNumber = 3;
+  private string skillKey_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string SkillKey {
+    get { return skillKey_; }
+    set {
+      skillKey_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -8802,6 +8816,7 @@ public sealed partial class Pool : pb::IMessage<Pool>
     }
     if (OwnerId != other.OwnerId) return false;
     if(!effects_.Equals(other.effects_)) return false;
+    if (SkillKey != other.SkillKey) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -8811,6 +8826,7 @@ public sealed partial class Pool : pb::IMessage<Pool>
     int hash = 1;
     if (OwnerId != 0UL) hash ^= OwnerId.GetHashCode();
     hash ^= effects_.GetHashCode();
+    if (SkillKey.Length != 0) hash ^= SkillKey.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -8834,6 +8850,10 @@ public sealed partial class Pool : pb::IMessage<Pool>
       output.WriteUInt64(OwnerId);
     }
     effects_.WriteTo(output, _repeated_effects_codec);
+    if (SkillKey.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(SkillKey);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -8849,6 +8869,10 @@ public sealed partial class Pool : pb::IMessage<Pool>
       output.WriteUInt64(OwnerId);
     }
     effects_.WriteTo(ref output, _repeated_effects_codec);
+    if (SkillKey.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(SkillKey);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -8863,6 +8887,9 @@ public sealed partial class Pool : pb::IMessage<Pool>
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(OwnerId);
     }
     size += effects_.CalculateSize(_repeated_effects_codec);
+    if (SkillKey.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(SkillKey);
+    }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -8879,6 +8906,9 @@ public sealed partial class Pool : pb::IMessage<Pool>
       OwnerId = other.OwnerId;
     }
     effects_.Add(other.effects_);
+    if (other.SkillKey.Length != 0) {
+      SkillKey = other.SkillKey;
+    }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -8906,6 +8936,10 @@ public sealed partial class Pool : pb::IMessage<Pool>
           effects_.AddEntriesFrom(input, _repeated_effects_codec);
           break;
         }
+        case 26: {
+          SkillKey = input.ReadString();
+          break;
+        }
       }
     }
   #endif
@@ -8931,6 +8965,10 @@ public sealed partial class Pool : pb::IMessage<Pool>
         }
         case 18: {
           effects_.AddEntriesFrom(ref input, _repeated_effects_codec);
+          break;
+        }
+        case 26: {
+          SkillKey = input.ReadString();
           break;
         }
       }
