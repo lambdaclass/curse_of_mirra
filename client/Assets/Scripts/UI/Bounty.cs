@@ -7,7 +7,6 @@ using DG.Tweening;
 
 public class Bounty : MonoBehaviour
 {
-    string id;
     BountyInfo bountyInfo;
 
     [SerializeField] 
@@ -35,7 +34,6 @@ public class Bounty : MonoBehaviour
         {
             bountyContainer.SetActive(false);
         } else {
-            id = bounty.Id;
             bountyInfo = bounty;
             descriptionText.text = bounty.Description;
             rewardText.text = bounty.Reward.Amount.ToString();
@@ -68,7 +66,7 @@ public class Bounty : MonoBehaviour
         float bounceDuration = .5f; 
         float bounceScale = 1.12f; 
 
-        GameServerConnectionManager.Instance.SendSelectBounty(id);
+        GameServerConnectionManager.Instance.SendSelectBounty(bountyInfo.Id);
         GameServerConnectionManager.Instance.bountySelected = bountyInfo;
 
         Vector2 targetPosition = new Vector2(0, rectTransform.anchoredPosition.y); 
