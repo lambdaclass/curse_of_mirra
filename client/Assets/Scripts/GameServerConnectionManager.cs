@@ -37,7 +37,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public uint currentPing;
 
     public float serverTickRate_ms;
-    public int bountyPickTime_ms;
+    public float bountyPickTime_ms;
     public string serverHash;
     public GameStatus gameStatus;
     public float gameCountdown;
@@ -175,7 +175,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.playerId = gameEvent.Joined.PlayerId;
                     this.config = gameEvent.Joined.Config;
                     this.bounties = gameEvent.Joined.Bounties.ToList();
-                    this.bountyPickTime_ms = (int)gameEvent.Joined.Config.Game.BountyPickTimeMs/1000;
+                    this.bountyPickTime_ms = gameEvent.Joined.Config.Game.BountyPickTimeMs;
                     this.timestampDifferenceSamplesToCheckWarning = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.TimestampDifferenceSamplesToCheckWarning;
                     this.timestampDifferencesSamplesMaxLength = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.TimestampDifferencesSamplesMaxLength;
                     this.showWarningThreshold = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.ShowWarningThreshold;
@@ -197,7 +197,7 @@ public class GameServerConnectionManager : MonoBehaviour
                         gameState.Zone.NextZoneChangeTimestamp - gameState.ServerTimestamp;
                     this.zoneEnabled = gameState.Zone.Enabled;
                     this.gameStatus = gameState.Status;
-                    this.gameCountdown = gameState.StartGameTimestamp - gameState.ServerTimestamp;
+                    this.gameCountdown = gameState.StartGameTimestamp - gameState.ServerTimestamp + this.bountyPickTime_ms;
                     var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();
                     this.gameProjectiles = gameState.Projectiles.Values.ToList();

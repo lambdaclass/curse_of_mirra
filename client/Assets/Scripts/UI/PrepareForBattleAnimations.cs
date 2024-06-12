@@ -46,6 +46,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
     const float PREPARE_FOR_BATTLE_DURATION = 3f;
     const float CHARACTERS_DISPLAY_DURATION = 4f;
     float TIME_UNTIL_GAME_STARTS = 0f;
+    int BOUNTIES_PICK_TIME;
     const float SURVIVE_DURATION = 1.2f;
 
     bool countdownDone = false;
@@ -148,7 +149,9 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .Append(countDown.transform.DOScale(originalCountdownScale + 0.2f, .5f))
             .SetLoops(-1, LoopType.Yoyo)
             .SetEase(Ease.Linear);
-        for (int i = GameServerConnectionManager.Instance.bountyPickTime_ms; i > 0; i--)
+        BOUNTIES_PICK_TIME =
+(int)(GameServerConnectionManager.Instance.bountyPickTime_ms / 1000);
+        for (int i = BOUNTIES_PICK_TIME; i > 0; i--)
         {
             bountiesCountDown.text = i.ToString();
             bountiesCountDownCG.alpha = 1; 
