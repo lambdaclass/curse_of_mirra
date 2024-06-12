@@ -266,6 +266,13 @@ public class GameServerConnectionManager : MonoBehaviour
         SendGameAction(gameAction);
     }
 
+    public void SendToggleZone(long timestamp)
+    {
+        ToggleZone toggleZone = new ToggleZone { };
+        GameAction gameAction = new GameAction { ToggleZone = toggleZone, Timestamp = timestamp };
+        SendGameAction(gameAction);
+    }
+
     private void SendGameAction<T>(IMessage<T> action)
         where T : IMessage<T>
     {
