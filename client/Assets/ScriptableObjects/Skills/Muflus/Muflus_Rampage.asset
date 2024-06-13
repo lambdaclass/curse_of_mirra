@@ -21,7 +21,6 @@ MonoBehaviour:
   indicatorType: 2
   hasProjectile: 0
   hasSkillPool: 0
-  executionDurationMs: 0
   projectilePrefab: {fileID: 0}
   skillKey: 
   animationSpeedMultiplier: 1

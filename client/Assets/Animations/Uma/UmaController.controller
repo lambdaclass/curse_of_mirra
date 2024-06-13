@@ -277,7 +277,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: bbb6a3f96dc014f45a5d020fd83c4cfb, type: 2}
   m_Tag: 
-  m_SpeedParameter: Dash2_speed_multiplier
+  m_SpeedParameter: Skill3_s2_speed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -305,7 +305,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 558649c7fd2af4455b47c58dc48862a1, type: 2}
   m_Tag: 
-  m_SpeedParameter: Dash3_speed_multiplier
+  m_SpeedParameter: Skill3_s3_speed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -332,7 +332,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: efe36758844564e48a1b9dae5ad94e22, type: 2}
   m_Tag: 
-  m_SpeedParameter: Dash1_speed_multiplier
+  m_SpeedParameter: Skill3_s1_speed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -436,6 +436,24 @@ AnimatorController:
     m_Controller: {fileID: 0}
   - m_Name: Skill3_s3
     m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Skill3_s1_speed
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Skill3_s2_speed
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Skill3_s3_speed
+    m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
