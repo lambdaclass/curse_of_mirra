@@ -131,7 +131,7 @@ public class GameServerConnectionManager : MonoBehaviour
             "/play/" + SessionParameters.GameId + "/" + SessionParameters.PlayerId
         );
         print(url);
-        ws = new WebSocket(url);
+        ws = ServerUtils.CreateWebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
         ws.OnClose += OnWebsocketClose;
         ws.OnError += (e) =>
