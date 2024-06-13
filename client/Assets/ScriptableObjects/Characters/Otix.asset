@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Otix
   m_EditorClassIdentifier: 
   name: Otix
-  description: Iron fist ruler
+  description: TO DO
   characterSprite: {fileID: 21300000, guid: 25c6ba19deae14da8a58d506552bf1fe, type: 3}
   characterIcon: {fileID: 21300000, guid: da2ff610a11d24b47932594035d1b758, type: 3}
   artWork: {fileID: 21300000, guid: 06dbb91af72c34e7c85ad2f236c0cc9a, type: 3}
@@ -27,11 +27,11 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4278212607
   skillsInfo:
-  - {fileID: 11400000, guid: b85740503d2ad400bb28c59054d8d089, type: 2}
-  - {fileID: 11400000, guid: 542e844de648b45dd8b52a23be8a3877, type: 2}
-  - {fileID: 11400000, guid: 7c58f719f3dac44b3bc1b64703d764bb, type: 2}
-  skillBasicInfo: {fileID: 11400000, guid: b85740503d2ad400bb28c59054d8d089, type: 2}
-  UIModel: {fileID: 5292451684004020288, guid: 5293da9c6bf3c4395a3df7be93b6bda4, type: 3}
+  - {fileID: 11400000, guid: dc95b84c54a0246ab82f69da740e9b37, type: 2}
+  - {fileID: 11400000, guid: 563d88b896b704cd0aefa535bd06e833, type: 2}
+  - {fileID: 11400000, guid: 8f5b7dfefca074456af02a6a0bc0ea25, type: 2}
+  skillBasicInfo: {fileID: 11400000, guid: dc95b84c54a0246ab82f69da740e9b37, type: 2}
+  UIModel: {fileID: 4147817903686763577, guid: e069a047b074545ec982e8cb7ac19db3, type: 3}
   shadowScaleValues: {x: 1.5, y: 1.1, z: 1}
   battleCharacterCard: {fileID: 21300000, guid: 47d963482512d4625b5e6a08b0d2f7ba,
     type: 3}
