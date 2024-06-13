@@ -3,7 +3,12 @@ guid: 8c0da60a650ba4e28974f906fca8ec93
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Minion_A_Rig_Final_ Otix
+    second: {fileID: 2100000, guid: 9efb991b6927f4d3cbebc1cdeed62622, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
