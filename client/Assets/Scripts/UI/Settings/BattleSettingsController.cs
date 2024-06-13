@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
+
 
 public class BattleSettingsController : MonoBehaviour
 {
@@ -21,6 +23,9 @@ public class BattleSettingsController : MonoBehaviour
     public ToggleButton clientPredictionButton;
     public ToggleButton consoleLogsButton;
     public ToggleButton customLogsButton;
+
+    public Slider tickrateSlider;
+    public TextMeshProUGUI tickrateText;
 
     void Start()
     {
@@ -96,5 +101,13 @@ public class BattleSettingsController : MonoBehaviour
     public void ToggleCustomLogs()
     {
         customLogsButton.ToggleUIState(CustomLogs.allowCustomDebug);
+    }
+
+    public void ChangeTickrate()
+    {
+        long tickrate = (long)(tickrateSlider.value);
+        tickrateText.text = tickrate.ToString() + " ms";
+        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        GameServerConnectionManager.Instance.SendChangeTickrate(tickrate, timestamp);
     }
 }
