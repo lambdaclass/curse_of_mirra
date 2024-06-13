@@ -54,6 +54,7 @@ public class CrateItem : MonoBehaviour
 
     public void ExecuteOpenedFeedback()
     {
+        health.SetHealth(0);
         PlayAnimation("Open");
     }
 
