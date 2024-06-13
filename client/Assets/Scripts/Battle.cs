@@ -104,14 +104,10 @@ public class Battle : MonoBehaviour
             playerReference.player = player;
             playerReference.character = player.GetComponent<CustomCharacter>();
             playerReference.characterFeedbacks = player.GetComponent<CharacterFeedbacks>();
-            playerReference.feedbackManager = playerReference
-                .character
-                .characterBase
-                .GetComponent<CharacterFeedbackManager>();
-            playerReference.modelAnimator = playerReference
-                .character
-                .CharacterModel
-                .GetComponent<Animator>();
+            playerReference.feedbackManager =
+                playerReference.character.characterBase.GetComponent<CharacterFeedbackManager>();
+            playerReference.modelAnimator =
+                playerReference.character.CharacterModel.GetComponent<Animator>();
             playersReferences.Add(serverPlayer.Id, playerReference);
         }
         playersSetupCompleted = true;
@@ -140,7 +136,6 @@ public class Battle : MonoBehaviour
 
     void Update()
     {
-        // MoveEntities();
         if (
             playersSetupCompleted
             && GameServerConnectionManager.Instance.gamePlayers != null
@@ -148,7 +143,7 @@ public class Battle : MonoBehaviour
             && GameServerConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
-            SetAccumulatedTime();
+            // SetAccumulatedTime();
             UpdateBattleState();
         }
 
@@ -262,154 +257,220 @@ public class Battle : MonoBehaviour
         }
     }
 
-    void UpdatePlayerActions()
+    private void UpdatePlayersButMe(List<Entity> gamePlayers, long pastTime)
     {
-        long currentTime;
-        long pastTime;
-        GameObject interpolationGhost = null;
-        EventsBuffer buffer = GameServerConnectionManager.Instance.eventsBuffer;
-        GameState gameEvent;
-
-        currentTime = buffer.firstTimestamp + accumulatedTime;
-        pastTime = currentTime - buffer.deltaInterpolationTime;
-
-        if (buffer.firstTimestamp == 0)
+        foreach (Entity player in gamePlayers)
         {
-            buffer.firstTimestamp = buffer.lastEvent().ServerTimestamp;
-        }
-
-        foreach (Entity player in GameServerConnectionManager.Instance.gamePlayers)
-        {
-            if (showInterpolationGhosts)
+            if (player.Id != (ulong)GameServerConnectionManager.Instance.playerId)
             {
-                interpolationGhost = FindGhostPlayer(player.Id.ToString());
-            }
-
-            if (
-                useInterpolation
-                && (
-                    GameServerConnectionManager.Instance.playerId != player.Id
-                    || !useClientPrediction
-                )
-            )
-            {
-                gameEvent = buffer.getNextEventToRender(pastTime).Item1;
-            }
-            else
-            {
-                gameEvent = buffer.lastEvent();
-            }
-
-            // There are a few frames during which this is outdated and produces an error
-            if (GameServerConnectionManager.Instance.gamePlayers.Count == gameEvent.Players.Count)
-            {
-                // This call to `new` here is extremely important for client prediction. If we don't make a copy,
-                // prediction will modify the player in place, which is not what we want.
-                Entity serverPlayerUpdate = new Entity(gameEvent.Players[player.Id]);
-                if (
-                    serverPlayerUpdate.Id == (ulong)GameServerConnectionManager.Instance.playerId
-                    && useClientPrediction
-                    && serverPlayerUpdate.Player.Health > 0
-                )
-                {
-                    // Move the ghost BEFORE client prediction kicks in, so it only moves up until
-                    // the last server update.
-                    if (clientPredictionGhost != null)
-                    {
-                        UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
-                    }
-
-                    GameServerConnectionManager
-                        .Instance
-                        .clientPrediction
-                        .SimulatePlayerState(
-                            serverPlayerUpdate,
-                            gameEvent.PlayerTimestamps[player.Id],
-                            gameEvent.ServerTimestamp
-                        );
-                }
-
-                if (interpolationGhost != null)
-                {
-                    UpdatePlayer(
-                        interpolationGhost,
-                        buffer.lastEvent().Players[player.Id],
-                        pastTime
-                    );
-                }
-
-                GameObject currentPlayer = playersReferences[serverPlayerUpdate.Id].player;
-                // TODO: try to optimize GetComponent calls
-                CustomCharacter playerCharacter = playersReferences[
-                    serverPlayerUpdate.Id
-                ].character;
-
+                GameObject currentPlayer = playersReferences[player.Id].player;
                 if (currentPlayer.activeSelf)
                 {
-                    UpdatePlayer(currentPlayer, serverPlayerUpdate, pastTime);
-
-                    if (!buffer.timestampAlreadySeen(player.Id, gameEvent.ServerTimestamp))
-                    {
-                        foreach (
-                            PlayerAction playerAction in serverPlayerUpdate.Player.CurrentActions
-                        )
-                        {
-                            if (
-                                (
-                                    playerCharacter.MovementState.CurrentState
-                                        == CharacterStates.MovementStates.Pushing
-                                    || PlayerMovementAuthorized(playerCharacter)
-                                ) && !playerCharacter.currentActions.Contains(playerAction)
-                            )
-                            {
-                                playerCharacter.currentActions.Add(playerAction);
-                                ExecuteSkillFeedback(
-                                    currentPlayer,
-                                    playerAction.Action,
-                                    serverPlayerUpdate,
-                                    playerAction.Duration,
-                                    playerAction.Destination
-                                );
-                            }
-
-                            if (playerAction.Destination != null) // Maybe add playerAction key to differentiate ?
-                            {
-                                playerCharacter.IsTeleporting = true;
-                                playerCharacter.TeleportingDestination = playerAction.Destination;
-                            }
-                        }
-
-                        List<PlayerAction> actionsToDelete = playerCharacter
-                            .currentActions
-                            .Except(serverPlayerUpdate.Player.CurrentActions)
-                            .ToList();
-
-                        foreach (PlayerAction playerAction in actionsToDelete)
-                        {
-                            playerCharacter.currentActions.Remove(playerAction);
-                        }
-
-                        buffer.setLastTimestampSeen(player.Id, gameEvent.ServerTimestamp);
-                    }
-
-                    playerCharacter.HandleTeleport(serverPlayerUpdate.Position);
+                    UpdatePlayer(currentPlayer, player, pastTime);
                 }
-
-                playerCharacter.UpdatePowerUpsCount(serverPlayerUpdate.Player.PowerUps);
-
-                if (serverPlayerUpdate.Player.Health <= 0)
-                {
-                    playerCharacter.SetPlayerDead();
-                }
-
-                Transform hitbox = playerCharacter.characterBase.Hitbox.transform;
-                playerCharacter.GetComponent<CharacterController>().radius =
-                    serverPlayerUpdate.Radius / 100;
-                float hitboxSize =
-                    Utils.TransformBackenUnitToClientUnit(serverPlayerUpdate.Radius) * 2;
-                hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
             }
         }
+    }
+
+    private void UpdateInterpolationGhosts(List<Entity> gamePlayers)
+    {
+        if (showInterpolationGhosts)
+        {
+            foreach (Entity player in gamePlayers)
+            {
+                GameObject interpolationGhost = FindGhostPlayer(player.Id.ToString());
+                if (interpolationGhost != null)
+                {
+                    UpdatePlayer(interpolationGhost, player);
+                }
+            }
+        }
+    }
+
+    private void UpdateMyself(List<Entity> gamePlayers)
+    {
+        foreach (Entity player in gamePlayers)
+        {
+            if (player.Id == (ulong)GameServerConnectionManager.Instance.playerId)
+            {
+                GameObject currentPlayer = playersReferences[player.Id].player;
+                if (currentPlayer.activeSelf)
+                {
+                    UpdatePlayer(currentPlayer, player);
+
+                    // CustomCharacter playerCharacter =
+                    //     playersReferences[serverPlayerUpdate.Id].character
+                    //     + playersReferences[serverPlayerUpdate.Id].character;
+                }
+            }
+        }
+    }
+
+    private GameState GetGameStateToRender(EventsBuffer eventsBuffer, long now)
+    {
+        return eventsBuffer.getNextEventToRender(now - eventsBuffer.deltaInterpolationTime).Item1;
+    }
+
+    void UpdatePlayerActions()
+    {
+        long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        EventsBuffer eventsBuffer = GameServerConnectionManager.Instance.eventsBuffer;
+        GameState gameStateToRender = GetGameStateToRender(eventsBuffer, now);
+        List<Entity> gamePlayersToRender = gameStateToRender.Players.Values.ToList();
+
+        GameState gameStateLast = eventsBuffer.lastEvent();
+        List<Entity> gamePlayersLast = gameStateLast.Players.Values.ToList();
+
+        UpdateInterpolationGhosts(gamePlayersLast);
+        UpdatePlayersButMe(gamePlayersToRender, now - eventsBuffer.deltaInterpolationTime);
+        UpdateMyself(gamePlayersLast);
+
+        // long currentTime;
+        // long pastTime;
+        // GameObject interpolationGhost = null;
+        // EventsBuffer buffer = GameServerConnectionManager.Instance.eventsBuffer;
+        // GameState gameEvent;
+
+        // currentTime = buffer.firstTimestamp + accumulatedTime;
+        // pastTime = currentTime - buffer.deltaInterpolationTime;
+
+        // if (buffer.firstTimestamp == 0)
+        // {
+        //     buffer.firstTimestamp = buffer.lastEvent().ServerTimestamp;
+        // }
+
+        // foreach (Entity player in GameServerConnectionManager.Instance.gamePlayers)
+        // {
+        //     // if (showInterpolationGhosts)
+        //     // {
+        //     //     interpolationGhost = FindGhostPlayer(player.Id.ToString());
+        //     // }
+
+        //     // if (
+        //     //     useInterpolation
+        //     //     && (
+        //     //         GameServerConnectionManager.Instance.playerId != player.Id
+        //     //         || !useClientPrediction
+        //     //     )
+        //     // )
+        //     // {
+        //     //     gameEvent = buffer.getNextEventToRender(pastTime).Item1;
+        //     // }
+        //     // else
+        //     // {
+        //     //     gameEvent = buffer.lastEvent();
+        //     // }
+
+        //     // There are a few frames during which this is outdated and produces an error
+        //     if (GameServerConnectionManager.Instance.gamePlayers.Count == gameEvent.Players.Count)
+        //     {
+        //         // This call to `new` here is extremely important for client prediction. If we don't make a copy,
+        //         // prediction will modify the player in place, which is not what we want.
+        //         // Entity serverPlayerUpdate = new Entity(gameEvent.Players[player.Id]);
+        //         // if (
+        //         //     serverPlayerUpdate.Id == (ulong)GameServerConnectionManager.Instance.playerId
+        //         //     && useClientPrediction
+        //         //     && serverPlayerUpdate.Player.Health > 0
+        //         // )
+        //         // {
+        //         //     // Move the ghost BEFORE client prediction kicks in, so it only moves up until
+        //         //     // the last server update.
+        //         //     if (clientPredictionGhost != null)
+        //         //     {
+        //         //         UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
+        //         //     }
+
+        //         //     GameServerConnectionManager
+        //         //         .Instance
+        //         //         .clientPrediction
+        //         //         .SimulatePlayerState(
+        //         //             serverPlayerUpdate,
+        //         //             gameEvent.PlayerTimestamps[player.Id],
+        //         //             gameEvent.ServerTimestamp
+        //         //         );
+        //         // }
+
+        //         if (interpolationGhost != null)
+        //         {
+        //             UpdatePlayer(
+        //                 interpolationGhost,
+        //                 buffer.lastEvent().Players[player.Id],
+        //                 pastTime
+        //             );
+        //         }
+
+        //         // GameObject currentPlayer = playersReferences[serverPlayerUpdate.Id].player;
+        //         // // TODO: try to optimize GetComponent calls
+        //         // CustomCharacter playerCharacter = playersReferences[
+        //         //     serverPlayerUpdate.Id
+        //         // ].character;
+
+        //         // if (currentPlayer.activeSelf)
+        //         // {
+        //         //     UpdatePlayer(currentPlayer, serverPlayerUpdate, pastTime);
+
+        //         //     if (!buffer.timestampAlreadySeen(player.Id, gameEvent.ServerTimestamp))
+        //         //     {
+        //         //         foreach (
+        //         //             PlayerAction playerAction in serverPlayerUpdate.Player.CurrentActions
+        //         //         )
+        //         //         {
+        //         //             if (
+        //         //                 (
+        //         //                     playerCharacter.MovementState.CurrentState
+        //         //                         == CharacterStates.MovementStates.Pushing
+        //         //                     || PlayerMovementAuthorized(playerCharacter)
+        //         //                 ) && !playerCharacter.currentActions.Contains(playerAction)
+        //         //             )
+        //         //             {
+        //         //                 playerCharacter.currentActions.Add(playerAction);
+        //         //                 ExecuteSkillFeedback(
+        //         //                     currentPlayer,
+        //         //                     playerAction.Action,
+        //         //                     serverPlayerUpdate,
+        //         //                     playerAction.Duration,
+        //         //                     playerAction.Destination
+        //         //                 );
+        //         //             }
+
+        //         //             if (playerAction.Destination != null) // Maybe add playerAction key to differentiate ?
+        //         //             {
+        //         //                 playerCharacter.IsTeleporting = true;
+        //         //                 playerCharacter.TeleportingDestination = playerAction.Destination;
+        //         //             }
+        //         //         }
+
+        //         //         List<PlayerAction> actionsToDelete = playerCharacter
+        //         //             .currentActions
+        //         //             .Except(serverPlayerUpdate.Player.CurrentActions)
+        //         //             .ToList();
+
+        //         //         foreach (PlayerAction playerAction in actionsToDelete)
+        //         //         {
+        //         //             playerCharacter.currentActions.Remove(playerAction);
+        //         //         }
+
+        //         //         buffer.setLastTimestampSeen(player.Id, gameEvent.ServerTimestamp);
+        //         //     }
+
+        //         //     playerCharacter.HandleTeleport(serverPlayerUpdate.Position);
+        //         // }
+
+        //         playerCharacter.UpdatePowerUpsCount(serverPlayerUpdate.Player.PowerUps);
+
+        //         if (serverPlayerUpdate.Player.Health <= 0)
+        //         {
+        //             playerCharacter.SetPlayerDead();
+        //         }
+
+        //         Transform hitbox = playerCharacter.characterBase.Hitbox.transform;
+        //         playerCharacter.GetComponent<CharacterController>().radius =
+        //             serverPlayerUpdate.Radius / 100;
+        //         float hitboxSize =
+        //             Utils.TransformBackenUnitToClientUnit(serverPlayerUpdate.Radius) * 2;
+        //         hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
+        //     }
+        // }
     }
 
     private void ExecuteSkillFeedback(
@@ -550,7 +611,7 @@ public class Battle : MonoBehaviour
         }
     }
 
-    private void UpdatePlayer(GameObject player, Entity playerUpdate, long pastTime)
+    private void UpdatePlayer(GameObject player, Entity playerUpdate, long pastTime = 0)
     {
         /*
         Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
@@ -664,19 +725,19 @@ public class Battle : MonoBehaviour
             walking =
                 (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
                     ? (InputsAreBeingUsed())
-                    : GameServerConnectionManager
-                        .Instance
-                        .eventsBuffer
-                        .playerIsMoving(playerUpdate.Id, (long)pastTime);
+                    : GameServerConnectionManager.Instance.eventsBuffer.playerIsMoving(
+                        playerUpdate.Id,
+                        (long)pastTime
+                    );
         }
         else
         {
             if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
             {
-                walking = GameServerConnectionManager
-                    .Instance
-                    .eventsBuffer
-                    .playerIsMoving(playerUpdate.Id, (long)pastTime);
+                walking = GameServerConnectionManager.Instance.eventsBuffer.playerIsMoving(
+                    playerUpdate.Id,
+                    (long)pastTime
+                );
             }
         }
 
@@ -788,10 +849,8 @@ public class Battle : MonoBehaviour
     {
         GameObject player = playersReferences[GameServerConnectionManager.Instance.playerId].player;
         clientPredictionGhost = Instantiate(player, player.transform.position, Quaternion.identity);
-        clientPredictionGhost.GetComponent<CustomCharacter>().PlayerID = GameServerConnectionManager
-            .Instance
-            .playerId
-            .ToString();
+        clientPredictionGhost.GetComponent<CustomCharacter>().PlayerID =
+            GameServerConnectionManager.Instance.playerId.ToString();
         clientPredictionGhost.GetComponent<CustomCharacter>().name =
             $"Client Prediction Ghost {GameServerConnectionManager.Instance.playerId}";
         showClientPredictionGhost = true;
@@ -880,8 +939,8 @@ public class Battle : MonoBehaviour
 
     private GameObject FindGhostPlayer(string playerId)
     {
-        return InterpolationGhosts.Find(
-            g => g.GetComponent<CustomCharacter>().PlayerID == playerId
+        return InterpolationGhosts.Find(g =>
+            g.GetComponent<CustomCharacter>().PlayerID == playerId
         );
     }
 
