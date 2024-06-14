@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Quests.unity
     guid: 831c22b71b04d48e4a0d67dc6c10fc83
+  - enabled: 1
+    path: Assets/Scenes/Profile.unity
+    guid: a6dcf7c7f767f4a3da718ed2767bef3a
   m_configObjects: {}

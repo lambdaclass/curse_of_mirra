@@ -7,9 +7,6 @@ using UnityEngine.UI;
 /// </summary>
 public class PingCounter : MonoBehaviour
 {
-    /// the frequency at which the PING counter should update
-    public float updateInterval = 5f;
-    protected float _timeLeftToUpdate;
     protected Text _pingText;
 
     /// <summary>
@@ -23,7 +20,6 @@ public class PingCounter : MonoBehaviour
             return;
         }
         _pingText = GetComponent<Text>();
-        _timeLeftToUpdate = updateInterval;
     }
 
     /// <summary>
@@ -32,11 +28,6 @@ public class PingCounter : MonoBehaviour
     /// </summary>
     protected virtual void Update()
     {
-        _timeLeftToUpdate = _timeLeftToUpdate - Time.deltaTime;
-        if (_timeLeftToUpdate <= 0.0)
-        {
-            _timeLeftToUpdate = updateInterval;
-            _pingText.text = "PING " + GameServerConnectionManager.Instance.currentPing.ToString();
-        }
+        _pingText.text = "PING " + GameServerConnectionManager.Instance.currentPing;
     }
 }
