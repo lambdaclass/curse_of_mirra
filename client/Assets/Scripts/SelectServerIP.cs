@@ -51,7 +51,7 @@ public class SelectServerIP : MonoBehaviour
                 string serverAndGatewayIp = IP.GetComponent<InputField>().text.Trim();
                 if (!serverAndGatewayIp.Contains(" "))
                 {
-                    Debug.LogError("Custom server needs: ARENA_IP GATEWAY_IP (see space between both). You sent: " + serverAndGatewayIp);
+                    Debug.LogError("Custom server needs: ARENA_IP https://GATEWAY_IP (see space between both and http for GATEWAY_IP). You sent: " + serverAndGatewayIp);
                     break;
                 }
                 string[] Ips = serverAndGatewayIp.Split(" ");
