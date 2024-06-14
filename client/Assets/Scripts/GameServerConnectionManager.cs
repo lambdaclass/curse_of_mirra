@@ -217,6 +217,9 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.gamePlayers = gameEvent.Finished.Players.Values.ToList();
                     OnMatchFinished?.Invoke();
                     break;
+                // This event is for bot clients only, we'll do nothing.
+                case GameEvent.EventOneofCase.ToggleBots:
+                    break;
                 default:
                     print("Message received is: " + gameEvent.EventCase);
                     break;
