@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 39761d9fb2702431c98f8b8a6380740e
+guid: 171c79e8ee1df496087acfcfd69e26ec
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,7 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Default_Material
+      name: h4ck
     second: {fileID: 2100000, guid: 0004981cdbc34438dbd6750036329e10, type: 2}
   materials:
     materialImportMode: 2
