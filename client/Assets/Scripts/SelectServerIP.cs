@@ -47,10 +47,19 @@ public class SelectServerIP : MonoBehaviour
                 gatewayIp = "http://localhost:4001";
                 gatewayJwtPref = "GatewayJwtLocalhost";
                 break;
-            // case "CUSTOM":
-            //     serverIp = IP.GetComponent<Text>().text.Trim();
-            //     serverNameString = "CUSTOM";
-            //     break;
+            case "CUSTOM":
+                string serverAndGatewayIp = IP.GetComponent<InputField>().text.Trim();
+                if (!serverAndGatewayIp.Contains(" "))
+                {
+                    Debug.LogError("Custom server needs: ARENA_IP GATEWAY_IP (see space between both). You sent: " + serverAndGatewayIp);
+                    break;
+                }
+                string[] Ips = serverAndGatewayIp.Split(" ");
+                serverNameString = "CUSTOM";
+                serverIp = Ips[0];
+                gatewayIp = Ips[1];
+                gatewayJwtPref = "GatewayJwtCustom";
+                break;
             default:
                 Debug.LogError("Server selection not supported: " + server);
                 break;
