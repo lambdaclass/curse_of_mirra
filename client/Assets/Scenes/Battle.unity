@@ -3217,7 +3217,7 @@ PrefabInstance:
     - target: {fileID: 6925156021903361451, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeTickrate
+      value: ChangeTickrateText
       objectReference: {fileID: 0}
     - target: {fileID: 6925156021903361451, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
