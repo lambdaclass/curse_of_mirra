@@ -103,10 +103,15 @@ public class BattleSettingsController : MonoBehaviour
         customLogsButton.ToggleUIState(CustomLogs.allowCustomDebug);
     }
 
-    public void ChangeTickrate()
+    public void ChangeTickrateText()
     {
         long tickrate = (long)(tickrateSlider.value);
         tickrateText.text = tickrate.ToString() + " ms";
+    }
+
+    public void SendChangeTickrateMessage()
+    {
+        long tickrate = (long)(tickrateSlider.value);
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         GameServerConnectionManager.Instance.SendChangeTickrate(tickrate, timestamp);
     }
