@@ -67,6 +67,7 @@ public class Battle : MonoBehaviour
         InitBlockingStates();
         SetupInitialState();
         StartCoroutine(InitializeProjectiles());
+        StartCoroutine(poolHandler.SetUpPoolsSkills());
         StartCoroutine(SetupPlayersReferences());
         loot = GetComponent<Loot>();
         cratesManager = GetComponent<CratesManager>();
@@ -497,7 +498,7 @@ public class Battle : MonoBehaviour
                 ulong skillOwner = gameProjectiles[i].Projectile.OwnerId;
 
                 SkillInfo info = skillInfoSet
-                    .Where(el => el.skillKey == projectileKey && el.ownerId == skillOwner)
+                    .Where(el => el.projectileSkillKey == projectileKey && el.ownerId == skillOwner)
                     .FirstOrDefault();
 
                 if (info != null)

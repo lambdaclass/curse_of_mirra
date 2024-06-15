@@ -8,13 +8,25 @@ public class PoolHandler : MonoBehaviour
 {
     public List<MMSimpleObjectPooler> objectPoolerList;
 
+    HashSet<SkillInfo> poolSkillsInfo;
+
     public Dictionary<int, GameObject> poolsGameObjects = new Dictionary<int, GameObject>();
 
-    public void UpdatePoolsActions()
+    public IEnumerator SetUpPoolsSkills()
     {
-        List<Entity> poolsStates = GameServerConnectionManager.Instance.gamePools;
-        ClearPools(poolsStates);
-        UpdatePools(poolsStates);
+        yield return new WaitUntil(() => GameServerConnectionManager.Instance.players.Count > 0);
+
+        poolSkillsInfo = new HashSet<SkillInfo>();
+        foreach (GameObject player in GameServerConnectionManager.Instance.players)
+        {
+            poolSkillsInfo.UnionWith(
+                player
+                    .GetComponents<Skill>()
+                    .Select(skill => skill.GetSkillInfo())
+                    .Where(skill => skill.hasSkillPool)
+            );
+        }
+        CreatePoolsPoolers(poolSkillsInfo);
     }
 
     public void CreatePoolsPoolers(HashSet<SkillInfo> skillInfoSet)
@@ -32,16 +44,11 @@ public class PoolHandler : MonoBehaviour
         }
     }
 
-    public GameObject InstancePool(GameObject skillPool, Vector3 initialPosition)
+    public void UpdatePoolsActions()
     {
-        MMSimpleObjectPooler projectileFromPooler = objectPoolerList.Find(
-            objectPooler => objectPooler.name.Contains(skillPool.name)
-        );
-        GameObject pooledGameObject = projectileFromPooler.GetPooledGameObject();
-        pooledGameObject.transform.position = initialPosition;
-        pooledGameObject.SetActive(true);
-
-        return pooledGameObject;
+        List<Entity> poolsStates = GameServerConnectionManager.Instance.gamePools;
+        ClearPools(poolsStates);
+        UpdatePools(poolsStates);
     }
 
     private void ClearPools(List<Entity> poolsStates)
@@ -60,9 +67,43 @@ public class PoolHandler : MonoBehaviour
 
     private void UpdatePools(List<Entity> poolsStates)
     {
-        // Find if there are pools that exist in state but not as a game object
-        // if there are, create game objects for them
+        foreach(Entity poolState in poolsStates)
+        {
+            if(!poolsGameObjects.Keys.Contains((int)poolState.Id))
+            {
+                Vector3 backToFrontPosition = Utils.transformBackendOldPositionToFrontendPosition(
+                    poolState.Position
+                );
 
-        // if pools in the state have effect, react to those effects accordingly
+                string poolSkillKey = poolState.Pool.SkillKey;
+                ulong skillOwner = poolState.Pool.OwnerId;
+
+                SkillInfo info = poolSkillsInfo
+                    .Where(el => el.poolSkillKey == poolSkillKey && el.ownerId == skillOwner)
+                    .FirstOrDefault();
+
+                GameObject poolFeedback = InstantiatePool(
+                    info.poolPrefab,
+                    new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
+                );
+
+                poolsGameObjects.Add((int)poolState.Id, poolFeedback);
+            }
+        }
+
+
+        // if pools in the state have effect, react to those effects accordingly (DIVIDE IN ANOTHER METHOD?)
+    }
+
+    public GameObject InstantiatePool(GameObject skillPool, Vector3 initialPosition)
+    {
+        MMSimpleObjectPooler projectileFromPooler = objectPoolerList.Find(
+            objectPooler => objectPooler.name.Contains(skillPool.name)
+        );
+        GameObject pooledGameObject = projectileFromPooler.GetPooledGameObject();
+        pooledGameObject.transform.position = initialPosition;
+        pooledGameObject.SetActive(true);
+
+        return pooledGameObject;
     }
 }
