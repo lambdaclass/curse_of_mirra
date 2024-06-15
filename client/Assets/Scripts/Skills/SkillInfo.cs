@@ -20,11 +20,15 @@ public class SkillInfo : ScriptableObject
     public bool hasProjectile;
     public bool hasSkillPool;
 
+    [MMCondition("hasProjectile || hasSkillPool", true)]
+    public string skillKey;
+
     [MMCondition("hasProjectile", true)]
     public GameObject projectilePrefab;
 
-    [MMCondition("hasProjectile", true)]
-    public string skillKey;
+    [MMCondition("hasSkillPool", true)]
+    public GameObject poolPrefab;
+
     public float animationSpeedMultiplier;
     public AudioClip abilityStartSfx;
 
