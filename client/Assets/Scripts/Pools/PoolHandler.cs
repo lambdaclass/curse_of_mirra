@@ -10,10 +10,11 @@ public class PoolHandler : MonoBehaviour
 
     public Dictionary<int, GameObject> poolsGameObjects = new Dictionary<int, GameObject>();
 
-    public void UpdatePools()
+    public void UpdatePoolsActions()
     {
         List<Entity> poolsStates = GameServerConnectionManager.Instance.gamePools;
         ClearPools(poolsStates);
+        UpdatePools(poolsStates);
     }
 
     public void CreatePoolsPoolers(HashSet<SkillInfo> skillInfoSet)
@@ -49,9 +50,19 @@ public class PoolHandler : MonoBehaviour
         {
             if (!poolsStates.Exists(x => (int)x.Id == poolId))
             {
-                poolsGameObjects[poolId].GetComponent<SkillProjectile>().Remove();
+                // is this line needed?
+                // poolsGameObjects[poolId].GetComponent<SkillProjectile>().Remove();
+
                 poolsGameObjects.Remove(poolId);
             }
         }
+    }
+
+    private void UpdatePools(List<Entity> poolsStates)
+    {
+        // Find if there are pools that exist in state but not as a game object
+        // if there are, create game objects for them
+
+        // if pools in the state have effect, react to those effects accordingly
     }
 }

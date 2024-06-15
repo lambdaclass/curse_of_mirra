@@ -180,6 +180,7 @@ public class Battle : MonoBehaviour
     {
         UpdatePlayerActions();
         UpdateProjectileActions();
+        poolHandler.UpdatePoolsActions();
         loot.UpdateLoots();
         cratesManager.UpdateCrates();
         powerUpsManager.UpdatePowerUps();
