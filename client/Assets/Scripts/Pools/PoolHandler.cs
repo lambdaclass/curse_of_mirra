@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PoolHandler : MonoBehaviour
 {
@@ -10,7 +11,13 @@ public class PoolHandler : MonoBehaviour
 
     HashSet<SkillInfo> poolSkillsInfo;
 
-    public Dictionary<int, GameObject> poolsGameObjects = new Dictionary<int, GameObject>();
+    public Dictionary<int, (GameObject vfx, List<string> effects)> poolsFeedbacks = new Dictionary<int, (GameObject, List<string>)>();
+
+    private readonly Color PURPLE = new Color(1f, 0f, .68f, 0f);
+    private readonly Color LILE = new Color(.21f, .20f, .67f, 0f);
+
+    private readonly Color ORIGINAL_COLOR_A = new Color(.3372549f, .172549f, .3803922f, 0f);
+    private readonly Color ORIGINAL_COLOR_B = new Color(.2704863f, .8907394f, .8487674f, 0f);
 
     public IEnumerator SetUpPoolsSkills()
     {
@@ -48,28 +55,29 @@ public class PoolHandler : MonoBehaviour
     {
         List<Entity> poolsStates = GameServerConnectionManager.Instance.gamePools;
         ClearPools(poolsStates);
-        UpdatePools(poolsStates);
+        SpawnPools(poolsStates);
+        HandlePoolsEffects(poolsStates);
     }
 
     private void ClearPools(List<Entity> poolsStates)
     {
-        foreach (int poolId in poolsGameObjects.Keys.ToList())
+        foreach (int poolId in poolsFeedbacks.Keys.ToList())
         {
             if (!poolsStates.Exists(x => (int)x.Id == poolId))
             {
                 // is this line needed?
                 // poolsGameObjects[poolId].GetComponent<SkillProjectile>().Remove();
 
-                poolsGameObjects.Remove(poolId);
+                poolsFeedbacks.Remove(poolId);
             }
         }
     }
 
-    private void UpdatePools(List<Entity> poolsStates)
+    private void SpawnPools(List<Entity> poolsStates)
     {
         foreach(Entity poolState in poolsStates)
         {
-            if(!poolsGameObjects.Keys.Contains((int)poolState.Id))
+            if(!poolsFeedbacks.Keys.Contains((int)poolState.Id))
             {
                 Vector3 backToFrontPosition = Utils.transformBackendOldPositionToFrontendPosition(
                     poolState.Position
@@ -87,12 +95,37 @@ public class PoolHandler : MonoBehaviour
                     new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
                 );
 
-                poolsGameObjects.Add((int)poolState.Id, poolFeedback);
+                poolsFeedbacks.Add((int)poolState.Id, (poolFeedback, new List<string>()));
             }
         }
+    }
 
+    private void HandlePoolsEffects(List<Entity> poolsStates)
+    {
+        // First iteration, hardcoded to work only with Valtimer's ultimate
+        foreach(Entity poolState in poolsStates)
+        {
+            var poolFeedback = poolsFeedbacks[(int)poolState.Id];
+            var newEffects = poolState.Pool.Effects.Select(effect => effect.Name).Where(effect => effect == "buff_singularity").Except(poolFeedback.effects);
 
-        // if pools in the state have effect, react to those effects accordingly (DIVIDE IN ANOTHER METHOD?)
+            foreach(string newEffect in newEffects)
+            {
+                VisualEffect poolVFX = poolFeedback.vfx.GetComponentInChildren<VisualEffect>();
+                poolFeedback.effects.Add(newEffect);
+            }
+        }
+    }
+
+    private IEnumerator BuffSingularity(VisualEffect poolVFX)
+    {
+        Debug.Log("buff singularity");
+        poolVFX.SetVector4("Color A", PURPLE);
+        poolVFX.SetVector4("Color B", LILE);
+
+        yield return new WaitForSeconds(1f);
+
+        poolVFX.SetVector4("Color A", ORIGINAL_COLOR_A);
+        poolVFX.SetVector4("Color B", ORIGINAL_COLOR_B);
     }
 
     public GameObject InstantiatePool(GameObject skillPool, Vector3 initialPosition)
