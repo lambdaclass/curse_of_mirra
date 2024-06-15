@@ -11,7 +11,7 @@ public class PoolHandler : MonoBehaviour
 
     HashSet<SkillInfo> poolSkillsInfo;
 
-    public Dictionary<int, (GameObject vfx, List<string> effects)> poolsFeedbacks = new Dictionary<int, (GameObject, List<string>)>();
+    public Dictionary<int, (GameObject vfx, List<string> effects, Coroutine effectCoroutine)> poolsFeedbacks = new Dictionary<int, (GameObject, List<string>, Coroutine)>();
 
     private readonly Color PURPLE = new Color(1f, 0f, .68f, 0f);
     private readonly Color LILE = new Color(.21f, .20f, .67f, 0f);
@@ -65,9 +65,7 @@ public class PoolHandler : MonoBehaviour
         {
             if (!poolsStates.Exists(x => (int)x.Id == poolId))
             {
-                // is this line needed?
-                // poolsGameObjects[poolId].GetComponent<SkillProjectile>().Remove();
-
+                poolsFeedbacks[poolId].vfx.SetActive(false);
                 poolsFeedbacks.Remove(poolId);
             }
         }
@@ -95,7 +93,7 @@ public class PoolHandler : MonoBehaviour
                     new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
                 );
 
-                poolsFeedbacks.Add((int)poolState.Id, (poolFeedback, new List<string>()));
+                poolsFeedbacks.Add((int)poolState.Id, (poolFeedback, new List<string>(), null));
             }
         }
     }
@@ -106,19 +104,54 @@ public class PoolHandler : MonoBehaviour
         foreach(Entity poolState in poolsStates)
         {
             var poolFeedback = poolsFeedbacks[(int)poolState.Id];
-            var newEffects = poolState.Pool.Effects.Select(effect => effect.Name).Where(effect => effect == "buff_singularity").Except(poolFeedback.effects);
+            Dictionary<string, int> newEffectsInPool = new Dictionary<string, int>();
+            
+            foreach(string effectName in poolState.Pool.Effects
+                                            .Where(effect => effect.Name == "buff_singularity")
+                                            .Select(effect => effect.Name)
+                                        )
+            {
+                if (newEffectsInPool.ContainsKey(effectName))
+                {
+                    newEffectsInPool[effectName]++;
+                }
+                else
+                {
+                    newEffectsInPool[effectName] = 1;
+                }
+            }
 
-            foreach(string newEffect in newEffects)
+            foreach(string existingEffect in poolFeedback.effects)
+            {
+                if(newEffectsInPool[existingEffect] == 1)
+                {
+                    newEffectsInPool.Remove(existingEffect);
+                }
+                else
+                {
+                    newEffectsInPool[existingEffect]--;
+                }
+            }
+
+            foreach(string newEffect in newEffectsInPool.Keys)
             {
                 VisualEffect poolVFX = poolFeedback.vfx.GetComponentInChildren<VisualEffect>();
                 poolFeedback.effects.Add(newEffect);
+
+                if(poolFeedback.effectCoroutine != null)
+                {
+                    StopCoroutine(poolFeedback.effectCoroutine);
+                }
+                
+                poolFeedback.effectCoroutine = StartCoroutine(BuffSingularity(poolVFX));
             }
+
+            poolsFeedbacks[(int)poolState.Id] = poolFeedback;
         }
     }
 
     private IEnumerator BuffSingularity(VisualEffect poolVFX)
     {
-        Debug.Log("buff singularity");
         poolVFX.SetVector4("Color A", PURPLE);
         poolVFX.SetVector4("Color B", LILE);
 
