@@ -43,6 +43,9 @@ public class Battle : MonoBehaviour
     private PowerUpsManager powerUpsManager;
     private CustomCharacter myClientCharacter = null;
 
+    [SerializeField]
+    private PoolHandler poolHandler;
+
     public Dictionary<ulong, PlayerReferences> playersReferences =
         new Dictionary<ulong, PlayerReferences>();
 
