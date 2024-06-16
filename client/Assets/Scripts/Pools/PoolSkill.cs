@@ -29,6 +29,7 @@ public class PoolSkill : MonoBehaviour
     {
         Dictionary<string, int> newEffectsInPool = new Dictionary<string, int>();
             
+        // First iteration, hardcoded to work only with Valtimer's ultimate
         foreach(string effectName in effects
                                         .Where(effect => effect.Name == "buff_singularity")
                                         .Select(effect => effect.Name)

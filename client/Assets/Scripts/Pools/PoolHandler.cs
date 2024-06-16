@@ -94,7 +94,6 @@ public class PoolHandler : MonoBehaviour
 
     private void HandlePoolsEffects(List<Entity> poolsStates)
     {
-        // First iteration, hardcoded to work only with Valtimer's ultimate
         foreach(Entity poolState in poolsStates)
         {
             PoolSkill poolFeedback = poolsFeedbacks[(int)poolState.Id];
