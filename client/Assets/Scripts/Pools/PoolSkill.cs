@@ -19,8 +19,12 @@ public class PoolSkill : MonoBehaviour
     private readonly Color BUFFED_COLOR_A = new Color(1f, 0f, .68f, 0f);
     private readonly Color BUFFED_COLOR_B = new Color(.21f, .20f, .67f, 0f);
 
+    private const float ORIGINAL_DURATION = 5f;
+    private const float ORIGINAL_EFFECT_DIAMETER = 10f;
+
     public void TurnOff()
     {
+        RestartParameterValues(vfx);
         currentEffects.Clear();
         gameObject.SetActive(false);
     }
@@ -72,17 +76,57 @@ public class PoolSkill : MonoBehaviour
 
     private IEnumerator BuffSingularity(VisualEffect poolVFX, float durationAddition)
     {
-        poolVFX.SetVector4("Color A", BUFFED_COLOR_A);
-        poolVFX.SetVector4("Color B", BUFFED_COLOR_B);
-        poolVFX.SetFloat("EffectDiameter", 11f);
-        
-        float oldDuration = poolVFX.GetFloat("Duration");
-        poolVFX.SetFloat("Duration", oldDuration + durationAddition);
+        Color colorABeforeBuff = poolVFX.GetVector4("Color A");
+        Color colorBBeforeBuff = poolVFX.GetVector4("Color B");
+        float diameterBeforeBuff = poolVFX.GetFloat("EffectDiameter");
+        float originalDuration = poolVFX.GetFloat("Duration");
 
-        yield return new WaitForSeconds(durationAddition);
+        Color buffedColorA = BUFFED_COLOR_A;
+        Color buffedColorB = BUFFED_COLOR_B;
+        float buffedEffectDiameter = ORIGINAL_EFFECT_DIAMETER + 1f;
+        float newDuration = originalDuration + durationAddition;
 
+        float transitionTime = durationAddition / 2;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < transitionTime)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / transitionTime;
+
+            poolVFX.SetVector4("Color A", Color.Lerp(colorABeforeBuff, buffedColorA, t));
+            poolVFX.SetVector4("Color B", Color.Lerp(colorBBeforeBuff, buffedColorB, t));
+            poolVFX.SetFloat("EffectDiameter", Mathf.Lerp(diameterBeforeBuff, buffedEffectDiameter, t));
+            poolVFX.SetFloat("Duration", Mathf.Lerp(originalDuration, newDuration, t));
+
+            yield return null;
+        }
+
+        poolVFX.SetVector4("Color A", buffedColorA);
+        poolVFX.SetVector4("Color B", buffedColorB);
+        poolVFX.SetFloat("EffectDiameter", buffedEffectDiameter);
+        poolVFX.SetFloat("Duration", newDuration);
+
+        elapsedTime = 0f;
+        while (elapsedTime < transitionTime)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / transitionTime;
+
+            poolVFX.SetVector4("Color A", Color.Lerp(buffedColorA, ORIGINAL_COLOR_A, t));
+            poolVFX.SetVector4("Color B", Color.Lerp(buffedColorB, ORIGINAL_COLOR_B, t));
+            poolVFX.SetFloat("EffectDiameter", Mathf.Lerp(buffedEffectDiameter, ORIGINAL_EFFECT_DIAMETER, t));
+
+            yield return null;
+        }
+    }
+
+
+    private void RestartParameterValues(VisualEffect poolVFX)
+    {
         poolVFX.SetVector4("Color A", ORIGINAL_COLOR_A);
         poolVFX.SetVector4("Color B", ORIGINAL_COLOR_B);
-        poolVFX.SetFloat("EffectDiameter", 10f);
+        poolVFX.SetFloat("EffectDiameter", ORIGINAL_EFFECT_DIAMETER);
+        poolVFX.SetFloat("Duration", ORIGINAL_DURATION);
     }
 }
