@@ -68,11 +68,6 @@ public class PoolsHandler : MonoBehaviour
         {
             if(!poolsFeedbacks.Keys.Contains((int)poolState.Id))
             {
-
-                Vector3 backToFrontPosition = Utils.transformBackendOldPositionToFrontendPosition(
-                    poolState.Position
-                );
-
                 string poolSkillKey = poolState.Pool.SkillKey;
                 ulong skillOwner = poolState.Pool.OwnerId;
 
@@ -82,7 +77,7 @@ public class PoolsHandler : MonoBehaviour
 
                 PoolSkill poolFeedback = InstantiatePool(
                     skillInfo,
-                    new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2]),
+                    Utils.transformBackendOldPositionToFrontendPosition(poolState.Position),
                     Utils.TransformBackenUnitToClientUnit(poolState.Radius)
                 );
 
