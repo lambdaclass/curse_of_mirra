@@ -1466,6 +1466,11 @@ PrefabInstance:
       objectReference: {fileID: 2856279044554654230}
     - target: {fileID: 8472880968890490899, guid: 62eb30154c76d4e0fb902ff01db61581,
         type: 3}
+      propertyPath: poolsHandler
+      value: 
+      objectReference: {fileID: 8472880970037954474}
+    - target: {fileID: 8472880968890490899, guid: 62eb30154c76d4e0fb902ff01db61581,
+        type: 3}
       propertyPath: CustomGUIManager
       value: 
       objectReference: {fileID: 2856279044554654236}
