@@ -8,6 +8,8 @@ using UnityEngine.VFX;
 
 public class PoolSkill : MonoBehaviour
 {
+    private SkillInfo skillInfo;
+
     [SerializeField]
     VisualEffect vfx;
     List<string> currentEffects = new List<string>();
@@ -20,11 +22,31 @@ public class PoolSkill : MonoBehaviour
     private readonly Color BUFFED_COLOR_B = new Color(.21f, .20f, .67f, 0f);
 
     private const float ORIGINAL_DURATION = 5f;
-    private const float ORIGINAL_EFFECT_DIAMETER = 10f;
+    private float originalEffectDiameter;
+
+    public void Initialize(SkillInfo skillInfo, Vector3 initialPosition, float radius)
+    {
+        this.skillInfo = skillInfo;
+
+        originalEffectDiameter = radius * 2;
+        if(vfx.HasFloat("EffectDiameter"))
+        {
+            vfx.SetFloat("EffectDiameter", originalEffectDiameter);
+        }
+        else if(vfx.HasFloat("EffectRadius"))
+        {
+            vfx.SetFloat("EffectRadius", radius);
+        }
+        transform.position = initialPosition;
+        gameObject.SetActive(true);
+    }
 
     public void TurnOff()
     {
-        RestartParameterValues(vfx);
+        if(skillInfo.name == "SINGULARITY")
+        {
+            RestartParameterValues(vfx);
+        }
         currentEffects.Clear();
         gameObject.SetActive(false);
     }
@@ -83,7 +105,7 @@ public class PoolSkill : MonoBehaviour
 
         Color buffedColorA = BUFFED_COLOR_A;
         Color buffedColorB = BUFFED_COLOR_B;
-        float buffedEffectDiameter = ORIGINAL_EFFECT_DIAMETER + 1f;
+        float buffedEffectDiameter = originalEffectDiameter + 1f;
         float newDuration = originalDuration + durationAddition;
 
         float transitionTime = durationAddition / 2;
@@ -115,18 +137,18 @@ public class PoolSkill : MonoBehaviour
 
             poolVFX.SetVector4("Color A", Color.Lerp(buffedColorA, ORIGINAL_COLOR_A, t));
             poolVFX.SetVector4("Color B", Color.Lerp(buffedColorB, ORIGINAL_COLOR_B, t));
-            poolVFX.SetFloat("EffectDiameter", Mathf.Lerp(buffedEffectDiameter, ORIGINAL_EFFECT_DIAMETER, t));
+            poolVFX.SetFloat("EffectDiameter", Mathf.Lerp(buffedEffectDiameter, originalEffectDiameter, t));
 
             yield return null;
         }
     }
 
-
+    // This only works for Valtimer's ultimate since this properties are specific to that VFX. That's why it's only called when the skill's name is "SINGULARITY"
     private void RestartParameterValues(VisualEffect poolVFX)
     {
         poolVFX.SetVector4("Color A", ORIGINAL_COLOR_A);
         poolVFX.SetVector4("Color B", ORIGINAL_COLOR_B);
-        poolVFX.SetFloat("EffectDiameter", ORIGINAL_EFFECT_DIAMETER);
+        poolVFX.SetFloat("EffectDiameter", originalEffectDiameter);
         poolVFX.SetFloat("Duration", ORIGINAL_DURATION);
     }
 }

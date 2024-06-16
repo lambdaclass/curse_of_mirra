@@ -76,13 +76,14 @@ public class PoolsHandler : MonoBehaviour
                 string poolSkillKey = poolState.Pool.SkillKey;
                 ulong skillOwner = poolState.Pool.OwnerId;
 
-                SkillInfo info = poolSkillsInfo
+                SkillInfo skillInfo = poolSkillsInfo
                     .Where(el => el.poolSkillKey == poolSkillKey && el.ownerId == skillOwner)
                     .FirstOrDefault();
 
                 PoolSkill poolFeedback = InstantiatePool(
-                    info.name,
-                    new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
+                    skillInfo,
+                    new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2]),
+                    Utils.TransformBackenUnitToClientUnit(poolState.Radius)
                 );
 
                 poolsFeedbacks.Add((int)poolState.Id, poolFeedback);
@@ -101,13 +102,12 @@ public class PoolsHandler : MonoBehaviour
         }
     }
 
-    public PoolSkill InstantiatePool(string skillName, Vector3 initialPosition)
+    public PoolSkill InstantiatePool(SkillInfo skillInfo, Vector3 initialPosition, float radius)
     {
-        MMSimpleObjectPooler poolsPooler = poolsPoolers[$"{skillName}_Pooler"];
-        GameObject pooledGameObject = poolsPooler.GetPooledGameObject();
-        pooledGameObject.transform.position = initialPosition;
-        pooledGameObject.SetActive(true);
+        MMSimpleObjectPooler poolsPooler = poolsPoolers[$"{skillInfo.name}_Pooler"];
+        PoolSkill poolSkill = poolsPooler.GetPooledGameObject().GetComponent<PoolSkill>();
+        poolSkill.Initialize(skillInfo, initialPosition, radius);
 
-        return pooledGameObject.GetComponent<PoolSkill>();
+        return poolSkill;
     }
 }
