@@ -7,17 +7,11 @@ using UnityEngine.VFX;
 
 public class PoolHandler : MonoBehaviour
 {
-    public List<MMSimpleObjectPooler> objectPoolerList;
+    private Dictionary<string, MMSimpleObjectPooler> poolsPoolers;
 
     HashSet<SkillInfo> poolSkillsInfo;
 
-    public Dictionary<int, (GameObject vfx, List<string> effects, Coroutine effectCoroutine)> poolsFeedbacks = new Dictionary<int, (GameObject, List<string>, Coroutine)>();
-
-    private readonly Color PURPLE = new Color(1f, 0f, .68f, 0f);
-    private readonly Color LILE = new Color(.21f, .20f, .67f, 0f);
-
-    private readonly Color ORIGINAL_COLOR_A = new Color(.3372549f, .172549f, .3803922f, 0f);
-    private readonly Color ORIGINAL_COLOR_B = new Color(.2704863f, .8907394f, .8487674f, 0f);
+    public Dictionary<int, PoolSkill> poolsFeedbacks = new Dictionary<int, PoolSkill>();
 
     public IEnumerator SetUpPoolsSkills()
     {
@@ -38,16 +32,15 @@ public class PoolHandler : MonoBehaviour
 
     public void CreatePoolsPoolers(HashSet<SkillInfo> skillInfoSet)
     {
-        objectPoolerList = new List<MMSimpleObjectPooler>();
+        poolsPoolers = new Dictionary<string, MMSimpleObjectPooler>();
         foreach (SkillInfo skillInfo in skillInfoSet)
         {
-            GameObject poolFromSkill = skillInfo.poolPrefab;
-            MMSimpleObjectPooler objectPooler = Utils.SimpleObjectPooler(
-                poolFromSkill.name + "Pooler",
+            MMSimpleObjectPooler poolsPooler = Utils.SimpleObjectPooler(
+                skillInfo.name + "_Pooler",
                 transform.parent,
-                poolFromSkill
+                skillInfo.poolPrefab
             );
-            objectPoolerList.Add(objectPooler);
+            poolsPoolers.Add($"{skillInfo.name}_Pooler", poolsPooler);
         }
     }
 
@@ -65,7 +58,7 @@ public class PoolHandler : MonoBehaviour
         {
             if (!poolsStates.Exists(x => (int)x.Id == poolId))
             {
-                poolsFeedbacks[poolId].vfx.SetActive(false);
+                poolsFeedbacks[poolId].TurnOff();
                 poolsFeedbacks.Remove(poolId);
             }
         }
@@ -77,6 +70,7 @@ public class PoolHandler : MonoBehaviour
         {
             if(!poolsFeedbacks.Keys.Contains((int)poolState.Id))
             {
+
                 Vector3 backToFrontPosition = Utils.transformBackendOldPositionToFrontendPosition(
                     poolState.Position
                 );
@@ -88,12 +82,12 @@ public class PoolHandler : MonoBehaviour
                     .Where(el => el.poolSkillKey == poolSkillKey && el.ownerId == skillOwner)
                     .FirstOrDefault();
 
-                GameObject poolFeedback = InstantiatePool(
-                    info.poolPrefab,
+                PoolSkill poolFeedback = InstantiatePool(
+                    info.name,
                     new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
                 );
 
-                poolsFeedbacks.Add((int)poolState.Id, (poolFeedback, new List<string>(), null));
+                poolsFeedbacks.Add((int)poolState.Id, poolFeedback);
             }
         }
     }
@@ -103,78 +97,20 @@ public class PoolHandler : MonoBehaviour
         // First iteration, hardcoded to work only with Valtimer's ultimate
         foreach(Entity poolState in poolsStates)
         {
-            var poolFeedback = poolsFeedbacks[(int)poolState.Id];
-            Dictionary<string, int> newEffectsInPool = new Dictionary<string, int>();
-            
-            foreach(string effectName in poolState.Pool.Effects
-                                            .Where(effect => effect.Name == "buff_singularity")
-                                            .Select(effect => effect.Name)
-                                        )
-            {
-                if (newEffectsInPool.ContainsKey(effectName))
-                {
-                    newEffectsInPool[effectName]++;
-                }
-                else
-                {
-                    newEffectsInPool[effectName] = 1;
-                }
-            }
-
-            foreach(string existingEffect in poolFeedback.effects)
-            {
-                if(newEffectsInPool[existingEffect] == 1)
-                {
-                    newEffectsInPool.Remove(existingEffect);
-                }
-                else
-                {
-                    newEffectsInPool[existingEffect]--;
-                }
-            }
-
-            foreach(string newEffect in newEffectsInPool.Keys)
-            {
-                VisualEffect poolVFX = poolFeedback.vfx.GetComponentInChildren<VisualEffect>();
-                poolFeedback.effects.Add(newEffect);
-
-                if(poolFeedback.effectCoroutine != null)
-                {
-                    StopCoroutine(poolFeedback.effectCoroutine);
-                }
-                
-                poolFeedback.effectCoroutine = StartCoroutine(BuffSingularity(poolVFX, 1f));
-            }
+            PoolSkill poolFeedback = poolsFeedbacks[(int)poolState.Id];
+            poolFeedback.HandlePoolEffects(poolState.Pool.Effects);
 
             poolsFeedbacks[(int)poolState.Id] = poolFeedback;
         }
     }
 
-    private IEnumerator BuffSingularity(VisualEffect poolVFX, float durationAddition)
+    public PoolSkill InstantiatePool(string skillName, Vector3 initialPosition)
     {
-        poolVFX.SetVector4("Color A", PURPLE);
-        poolVFX.SetVector4("Color B", LILE);
-        poolVFX.SetFloat("EffectDiameter", 11f);
-        
-        float oldDuration = poolVFX.GetFloat("Duration");
-        poolVFX.SetFloat("Duration", oldDuration + durationAddition);
-
-        yield return new WaitForSeconds(durationAddition);
-
-        poolVFX.SetVector4("Color A", ORIGINAL_COLOR_A);
-        poolVFX.SetVector4("Color B", ORIGINAL_COLOR_B);
-        poolVFX.SetFloat("EffectDiameter", 10f);
-    }
-
-    public GameObject InstantiatePool(GameObject skillPool, Vector3 initialPosition)
-    {
-        MMSimpleObjectPooler projectileFromPooler = objectPoolerList.Find(
-            objectPooler => objectPooler.name.Contains(skillPool.name)
-        );
-        GameObject pooledGameObject = projectileFromPooler.GetPooledGameObject();
+        MMSimpleObjectPooler poolsPooler = poolsPoolers[$"{skillName}_Pooler"];
+        GameObject pooledGameObject = poolsPooler.GetPooledGameObject();
         pooledGameObject.transform.position = initialPosition;
         pooledGameObject.SetActive(true);
 
-        return pooledGameObject;
+        return pooledGameObject.GetComponent<PoolSkill>();
     }
 }
