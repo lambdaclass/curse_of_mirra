@@ -44,7 +44,7 @@ public class Battle : MonoBehaviour
     private CustomCharacter myClientCharacter = null;
 
     [SerializeField]
-    private PoolHandler poolHandler;
+    private PoolsHandler poolsHandler;
 
     public Dictionary<ulong, PlayerReferences> playersReferences =
         new Dictionary<ulong, PlayerReferences>();
@@ -67,7 +67,7 @@ public class Battle : MonoBehaviour
         InitBlockingStates();
         SetupInitialState();
         StartCoroutine(InitializeProjectiles());
-        StartCoroutine(poolHandler.SetUpPoolsSkills());
+        StartCoroutine(poolsHandler.SetUpPoolsSkills());
         StartCoroutine(SetupPlayersReferences());
         loot = GetComponent<Loot>();
         cratesManager = GetComponent<CratesManager>();
@@ -181,7 +181,7 @@ public class Battle : MonoBehaviour
     {
         UpdatePlayerActions();
         UpdateProjectileActions();
-        poolHandler.UpdatePoolsActions();
+        poolsHandler.UpdatePoolsActions();
         loot.UpdateLoots();
         cratesManager.UpdateCrates();
         powerUpsManager.UpdatePowerUps();

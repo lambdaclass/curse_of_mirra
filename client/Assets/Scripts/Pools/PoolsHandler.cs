@@ -5,7 +5,7 @@ using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class PoolHandler : MonoBehaviour
+public class PoolsHandler : MonoBehaviour
 {
     private Dictionary<string, MMSimpleObjectPooler> poolsPoolers;
 
@@ -24,7 +24,7 @@ public class PoolHandler : MonoBehaviour
                 player
                     .GetComponents<Skill>()
                     .Select(skill => skill.GetSkillInfo())
-                    .Where(skill => skill.hasSkillPool)
+                    .Where(skill => skill.poolPrefab != null)
             );
         }
         CreatePoolsPoolers(poolSkillsInfo);
