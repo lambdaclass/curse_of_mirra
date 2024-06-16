@@ -125,16 +125,14 @@ public class Battle : MonoBehaviour
 
     void CreateProjectilesPoolers()
     {
-        skillInfoSet = new HashSet<SkillInfo>();
-        foreach (GameObject player in GameServerConnectionManager.Instance.players)
-        {
-            skillInfoSet.UnionWith(
-                player
-                    .GetComponents<Skill>()
-                    .Select(skill => skill.GetSkillInfo())
-                    .Where(skill => skill.projectilePrefab != null)
-            );
-        }
+        skillInfoSet = GameServerConnectionManager.Instance.players
+            .SelectMany(player => player.GetComponents<Skill>())
+            .Select(skill => skill.GetSkillInfo())
+            .Where(skill => skill.hasProjectile)
+            .GroupBy(skill => skill.name)
+            .Select(group => group.First())
+            .ToHashSet();
+
         GetComponent<ProjectileHandler>().CreateProjectilesPoolers(skillInfoSet);
     }
 

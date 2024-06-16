@@ -17,23 +17,21 @@ public class PoolsHandler : MonoBehaviour
     {
         yield return new WaitUntil(() => GameServerConnectionManager.Instance.players.Count > 0);
 
-        poolSkillsInfo = new HashSet<SkillInfo>();
-        foreach (GameObject player in GameServerConnectionManager.Instance.players)
-        {
-            poolSkillsInfo.UnionWith(
-                player
-                    .GetComponents<Skill>()
-                    .Select(skill => skill.GetSkillInfo())
-                    .Where(skill => skill.poolPrefab != null)
-            );
-        }
+        poolSkillsInfo = GameServerConnectionManager.Instance.players
+            .SelectMany(player => player.GetComponents<Skill>())
+            .Select(skill => skill.GetSkillInfo())
+            .Where(skill => skill.hasSkillPool)
+            .GroupBy(skill => skill.name)
+            .Select(group => group.First())
+            .ToHashSet();
+
         CreatePoolsPoolers(poolSkillsInfo);
     }
 
-    public void CreatePoolsPoolers(HashSet<SkillInfo> skillInfoSet)
+    public void CreatePoolsPoolers(HashSet<SkillInfo> skillsInfo)
     {
         poolsPoolers = new Dictionary<string, MMSimpleObjectPooler>();
-        foreach (SkillInfo skillInfo in skillInfoSet)
+        foreach (SkillInfo skillInfo in skillsInfo)
         {
             MMSimpleObjectPooler poolsPooler = Utils.SimpleObjectPooler(
                 skillInfo.poolPrefab.name + "_Pooler",
