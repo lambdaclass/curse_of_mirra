@@ -154,6 +154,7 @@ public class PoolHandler : MonoBehaviour
     {
         poolVFX.SetVector4("Color A", PURPLE);
         poolVFX.SetVector4("Color B", LILE);
+        poolVFX.SetFloat("EffectDiameter", 11f);
         
         float oldDuration = poolVFX.GetFloat("Duration");
         poolVFX.SetFloat("Duration", oldDuration + durationAddition);
@@ -162,6 +163,7 @@ public class PoolHandler : MonoBehaviour
 
         poolVFX.SetVector4("Color A", ORIGINAL_COLOR_A);
         poolVFX.SetVector4("Color B", ORIGINAL_COLOR_B);
+        poolVFX.SetFloat("EffectDiameter", 10f);
     }
 
     public GameObject InstantiatePool(GameObject skillPool, Vector3 initialPosition)
