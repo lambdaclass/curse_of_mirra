@@ -36,7 +36,7 @@ public class PoolsHandler : MonoBehaviour
         foreach (SkillInfo skillInfo in skillInfoSet)
         {
             MMSimpleObjectPooler poolsPooler = Utils.SimpleObjectPooler(
-                skillInfo.name + "_Pooler",
+                skillInfo.poolPrefab.name + "_Pooler",
                 transform.parent,
                 skillInfo.poolPrefab
             );
