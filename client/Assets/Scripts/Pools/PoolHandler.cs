@@ -143,19 +143,23 @@ public class PoolHandler : MonoBehaviour
                     StopCoroutine(poolFeedback.effectCoroutine);
                 }
                 
-                poolFeedback.effectCoroutine = StartCoroutine(BuffSingularity(poolVFX));
+                poolFeedback.effectCoroutine = StartCoroutine(BuffSingularity(poolVFX, 1f));
             }
 
             poolsFeedbacks[(int)poolState.Id] = poolFeedback;
         }
     }
 
-    private IEnumerator BuffSingularity(VisualEffect poolVFX)
+    private IEnumerator BuffSingularity(VisualEffect poolVFX, float durationAddition)
     {
         poolVFX.SetVector4("Color A", PURPLE);
         poolVFX.SetVector4("Color B", LILE);
+        
+        float oldDuration = poolVFX.GetFloat("Duration");
+        Debug.Log($"singularity duration: {oldDuration + durationAddition}");
+        poolVFX.SetFloat("Duration", oldDuration + durationAddition);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(durationAddition);
 
         poolVFX.SetVector4("Color A", ORIGINAL_COLOR_A);
         poolVFX.SetVector4("Color B", ORIGINAL_COLOR_B);
