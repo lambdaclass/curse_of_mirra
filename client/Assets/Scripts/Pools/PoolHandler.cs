@@ -156,7 +156,6 @@ public class PoolHandler : MonoBehaviour
         poolVFX.SetVector4("Color B", LILE);
         
         float oldDuration = poolVFX.GetFloat("Duration");
-        Debug.Log($"singularity duration: {oldDuration + durationAddition}");
         poolVFX.SetFloat("Duration", oldDuration + durationAddition);
 
         yield return new WaitForSeconds(durationAddition);
