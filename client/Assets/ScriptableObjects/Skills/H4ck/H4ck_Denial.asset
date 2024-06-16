@@ -23,8 +23,7 @@ MonoBehaviour:
   hasSkillPool: 1
   projectileSkillKey: 
   poolSkillKey: 2
-  projectilePrefab: {fileID: 5269552939558784490, guid: 64e26cf3287d24acca520873be768293,
-    type: 3}
+  projectilePrefab: {fileID: 0}
   poolPrefab: {fileID: 9197403966285785662, guid: 732fdbae74040b44f9c6d1195edfe069,
     type: 3}
   animationSpeedMultiplier: 3
