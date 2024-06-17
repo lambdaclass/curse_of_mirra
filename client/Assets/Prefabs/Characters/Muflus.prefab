@@ -100,6 +100,7 @@ MonoBehaviour:
   CharacterBrain: {fileID: 0}
   OptimizeForMobile: 1
   characterBase: {fileID: 2652388771225506753}
+  healthBar: {fileID: 8711474442059621043}
 --- !u!143 &1787465996332106810
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2290,6 +2291,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 801619787089428216, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
+      propertyPath: TextValueMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 801619787089428216, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
       propertyPath: BumpScaleAnimationCurve.m_Curve.Array.data[0].time
       value: 0.0059616566
       objectReference: {fileID: 0}
@@ -2510,6 +2516,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 109596721387173020, guid: 9c582c2a18d474af0bdf1dc9882cb5f2,
         type: 2}
+    - target: {fileID: 4135251525570941671, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4487882357122734067, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 4753853157942056578, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_AnchorMax.x

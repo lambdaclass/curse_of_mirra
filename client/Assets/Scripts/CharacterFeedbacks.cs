@@ -170,6 +170,7 @@ public class CharacterFeedbacks : MonoBehaviour
             }
             this.ChangePlayerTextureOnDamage(clientHealth, serverPlayerHealth);
             this.healthBar.BumpOnDecrease = true;
+            this.healthBar.TextValueMultiplier = serverPlayerHealth;
         }
         if (clientHealth < serverPlayerHealth)
         {

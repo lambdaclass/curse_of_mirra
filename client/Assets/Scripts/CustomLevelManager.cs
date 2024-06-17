@@ -153,7 +153,8 @@ public class CustomLevelManager : LevelManager
             newPlayer.characterBase.PlayerName.GetComponent<TextMeshProUGUI>().text = player.Name;
             SetPlayerHealthBar(
                 GameServerConnectionManager.Instance.playerId == player.Id,
-                newPlayer
+                newPlayer,
+                player.Player.Health
             );
             GameServerConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
@@ -295,15 +296,12 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetPlayerHealthBar(bool isClientId, Character character)
+    private void SetPlayerHealthBar(bool isClientId, Character character, float health)
     {
-        Image healthBarFront = character
-            .GetComponent<MMHealthBar>()
-            .TargetProgressBar
-            .ForegroundBar
-            .GetComponent<Image>();
-
+        MMProgressBar healthBar = character.GetComponent<MMHealthBar>().TargetProgressBar;
+        Image healthBarFront = healthBar.ForegroundBar.GetComponent<Image>();
         healthBarFront.color = isClientId ? Utils.healthBarGreen : Utils.healthBarRed;
+        healthBar.PercentageTextMeshPro.text = health + "";
     }
 
     private IEnumerator ShowDeathSplash(GameObject player)

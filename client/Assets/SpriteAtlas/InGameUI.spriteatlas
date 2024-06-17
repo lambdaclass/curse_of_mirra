@@ -55,6 +55,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7a457ad213602408fa9c8b626b1e509b, type: 3}
   - {fileID: 21300000, guid: ce72fde2956b145a5b6ffecced3eafe2, type: 3}
   - {fileID: 21300000, guid: e802e653be6f545aa96092866ab8f767, type: 3}
+  - {fileID: 21300000, guid: cc891463f7ce946679bab3069f1051c4, type: 3}
   - {fileID: 21300000, guid: bbc83e73a539e48f2a49cdd4169b997f, type: 3}
   - {fileID: 21300000, guid: df64a9447a18b4291b85eb515c74ebd2, type: 3}
   - {fileID: 21300000, guid: d72ff864afdb848fe8bc6f20a0679065, type: 3}
@@ -66,7 +67,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: dc480059705a34887912b8aa9e5db7c5, type: 3}
   - {fileID: 21300000, guid: 8598d97aa78864f24b5635cabc949f81, type: 3}
   - {fileID: 21300000, guid: d5f280ba182e544b4b3d2b2b67ba3173, type: 3}
-  - {fileID: 21300000, guid: 58c5b2ba7289848799e486a6d866171a, type: 3}
   - {fileID: 21300000, guid: be74397bea6cf445f94a4906f318baad, type: 3}
   - {fileID: 21300000, guid: 19ab588b5db054bfbad31e56c4ea1440, type: 3}
   - {fileID: 21300000, guid: 0d5da8ab1670f437e8d9d1bda2b88792, type: 3}
@@ -86,6 +86,7 @@ SpriteAtlas:
   - icon
   - orientation-indicator
   - 0
+  - container
   - stamina-empty
   - muflus
   - settings_bg
@@ -97,7 +98,6 @@ SpriteAtlas:
   - toggle_off
   - slider-handle
   - stamina
-  - 1
   - timer
   - setings
   - kills
