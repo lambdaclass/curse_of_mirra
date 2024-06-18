@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3708708, g: 0.37838137, b: 0.35725543, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311924, g: 0.38073963, b: 0.3587269, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -702,6 +702,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 99460208226340218, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 99460208226340218, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SelectServerIP, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 99460208226340218, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: LOCALHOST
+      objectReference: {fileID: 0}
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
@@ -726,7 +741,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1365717057}
+      objectReference: {fileID: 1608732373}
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -745,7 +760,7 @@ PrefabInstance:
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeToMainscreen
+      value: SignIn
       objectReference: {fileID: 0}
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
@@ -785,7 +800,7 @@ PrefabInstance:
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: TitleScreenController, CurseOfMirra
+      value: GuestSignInController, CurseOfMirra
       objectReference: {fileID: 0}
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
@@ -816,6 +831,21 @@ PrefabInstance:
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 946439947379194195, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 946439947379194195, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SelectServerIP, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 946439947379194195, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: EUROPE
       objectReference: {fileID: 0}
     - target: {fileID: 1261905053734839374, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
@@ -1002,6 +1032,31 @@ PrefabInstance:
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 78456883}
+    - target: {fileID: 4115833512755757586, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4115833512755757586, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: CUSTOM
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347787105897863107, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347787105897863107, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SelectServerIP, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347787105897863107, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: BRAZIL
+      objectReference: {fileID: 0}
     - target: {fileID: 4865202050172921010, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: m_IsActive
@@ -1224,3 +1279,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1608732372
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1608732374}
+  - component: {fileID: 1608732373}
+  m_Layer: 0
+  m_Name: GuestSignInController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1608732373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608732372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95284b14e95334ed9a0890f8a3bee6ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleScreenController: {fileID: 1365717057}
+--- !u!4 &1608732374
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608732372}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 34.799007, y: 17.513632, z: 74.76202}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

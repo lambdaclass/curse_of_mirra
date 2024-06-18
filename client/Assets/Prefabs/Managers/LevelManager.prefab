@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4421236017967322550}
   - component: {fileID: 4421236017082313434}
   - component: {fileID: 4421236017082313433}
+  - component: {fileID: 2570863274842571039}
   m_Layer: 14
   m_Name: LevelManager
   m_TagString: Untagged
@@ -142,3 +143,18 @@ MonoBehaviour:
   camera: {fileID: 0}
   colliderPrefab: {fileID: 7411665003070985544, guid: dccf3322a53ba4c07a4e76b6569236f5,
     type: 3}
+--- !u!114 &2570863274842571039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4421236017967322551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b56053c0bf34f4dd3b727de954b7d822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unstableConnection: 0
+  disconnect: 0
+  pingValue: 

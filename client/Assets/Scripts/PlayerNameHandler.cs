@@ -29,6 +29,9 @@ public class PlayerNameHandler : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI currentPlayerName;
 
+    [SerializeField]
+    TextMeshProUGUI profilePlayerName;
+
     private string playerName;
 
     const string NAME_LENGHT_MESSAGE = "Player Name should contain more than 3 characters.";
@@ -69,6 +72,16 @@ public class PlayerNameHandler : MonoBehaviour
         {
             topLeftPlayerName.text = PlayerPrefs.GetString("playerName");  
             currentPlayerName.text = "Current name: " + PlayerPrefs.GetString("playerName"); 
+            Hide();
+        }
+    }
+
+    public void ChangePlayersNameProfile() 
+    {
+        SetPlayerName();
+        if (!this.errorMessage.activeSelf) 
+        {
+            profilePlayerName.text = PlayerPrefs.GetString("playerName");  
             Hide();
         }
     }
