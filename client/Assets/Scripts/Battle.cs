@@ -257,22 +257,24 @@ public class Battle : MonoBehaviour
         }
     }
 
-    private void UpdatePlayersButMe(List<Entity> gamePlayers, long pastTime)
+    private void UpdatePlayersButMe(List<Entity> gamePlayers, long timestamp, long pastTime)
     {
         foreach (Entity player in gamePlayers)
         {
             if (player.Id != (ulong)GameServerConnectionManager.Instance.playerId)
             {
                 GameObject currentPlayer = playersReferences[player.Id].player;
+                CustomCharacter currentCharacter = playersReferences[player.Id].character;
                 if (currentPlayer.activeSelf)
                 {
                     UpdatePlayer(currentPlayer, player, pastTime);
+                    HandleAnimations(player, currentPlayer, currentCharacter, timestamp);
                 }
             }
         }
     }
 
-    private void UpdateInterpolationGhosts(List<Entity> gamePlayers)
+    private void UpdateInterpolationGhosts(List<Entity> gamePlayers, long pastTime)
     {
         if (showInterpolationGhosts)
         {
@@ -281,26 +283,24 @@ public class Battle : MonoBehaviour
                 GameObject interpolationGhost = FindGhostPlayer(player.Id.ToString());
                 if (interpolationGhost != null)
                 {
-                    UpdatePlayer(interpolationGhost, player);
+                    UpdatePlayer(interpolationGhost, player, pastTime);
                 }
             }
         }
     }
 
-    private void UpdateMyself(List<Entity> gamePlayers)
+    private void UpdateMyself(List<Entity> gamePlayers, long timestamp, long pastTime)
     {
         foreach (Entity player in gamePlayers)
         {
             if (player.Id == (ulong)GameServerConnectionManager.Instance.playerId)
             {
                 GameObject currentPlayer = playersReferences[player.Id].player;
+                CustomCharacter currentCharacter = playersReferences[player.Id].character;
                 if (currentPlayer.activeSelf)
                 {
-                    UpdatePlayer(currentPlayer, player);
-
-                    // CustomCharacter playerCharacter =
-                    //     playersReferences[serverPlayerUpdate.Id].character
-                    //     + playersReferences[serverPlayerUpdate.Id].character;
+                    UpdatePlayer(currentPlayer, player, pastTime);
+                    HandleAnimations(player, currentPlayer, currentCharacter, timestamp);
                 }
             }
         }
@@ -309,6 +309,70 @@ public class Battle : MonoBehaviour
     private GameState GetGameStateToRender(EventsBuffer eventsBuffer, long now)
     {
         return eventsBuffer.getNextEventToRender(now - eventsBuffer.deltaInterpolationTime).Item1;
+    }
+
+    private void HandleAnimations(
+        Entity currentEntity,
+        GameObject currentPlayer,
+        CustomCharacter currentCharacter,
+        long timestamp
+    )
+    {
+        EventsBuffer eventsBuffer = GameServerConnectionManager.Instance.eventsBuffer;
+        if (!eventsBuffer.timestampAlreadySeen(currentEntity.Id, timestamp))
+        {
+            foreach (PlayerAction playerAction in currentEntity.Player.CurrentActions)
+            {
+                if (
+                    (
+                        currentCharacter.MovementState.CurrentState
+                            == CharacterStates.MovementStates.Pushing
+                        || PlayerMovementAuthorized(currentCharacter)
+                    ) && !currentCharacter.currentActions.Contains(playerAction)
+                )
+                {
+                    currentCharacter.currentActions.Add(playerAction);
+                    ExecuteSkillFeedback(
+                        currentPlayer,
+                        playerAction.Action,
+                        currentEntity,
+                        playerAction.Duration,
+                        playerAction.Destination
+                    );
+                }
+
+                if (playerAction.Destination != null) // Maybe add playerAction key to differentiate ?
+                {
+                    currentCharacter.IsTeleporting = true;
+                    currentCharacter.TeleportingDestination = playerAction.Destination;
+                }
+            }
+
+            List<PlayerAction> actionsToDelete = currentCharacter
+                .currentActions.Except(currentEntity.Player.CurrentActions)
+                .ToList();
+
+            foreach (PlayerAction playerAction in actionsToDelete)
+            {
+                currentCharacter.currentActions.Remove(playerAction);
+            }
+
+            eventsBuffer.setLastTimestampSeen(currentEntity.Id, timestamp);
+        }
+
+        currentCharacter.HandleTeleport(currentEntity.Position);
+
+        currentCharacter.UpdatePowerUpsCount(currentEntity.Player.PowerUps);
+
+        if (currentEntity.Player.Health <= 0)
+        {
+            currentCharacter.SetPlayerDead();
+        }
+
+        Transform hitbox = currentCharacter.characterBase.Hitbox.transform;
+        currentCharacter.GetComponent<CharacterController>().radius = currentEntity.Radius / 100;
+        float hitboxSize = Utils.TransformBackenUnitToClientUnit(currentEntity.Radius) * 2;
+        hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
     }
 
     void UpdatePlayerActions()
@@ -321,156 +385,13 @@ public class Battle : MonoBehaviour
         GameState gameStateLast = eventsBuffer.lastEvent();
         List<Entity> gamePlayersLast = gameStateLast.Players.Values.ToList();
 
-        UpdateInterpolationGhosts(gamePlayersLast);
-        UpdatePlayersButMe(gamePlayersToRender, now - eventsBuffer.deltaInterpolationTime);
-        UpdateMyself(gamePlayersLast);
-
-        // long currentTime;
-        // long pastTime;
-        // GameObject interpolationGhost = null;
-        // EventsBuffer buffer = GameServerConnectionManager.Instance.eventsBuffer;
-        // GameState gameEvent;
-
-        // currentTime = buffer.firstTimestamp + accumulatedTime;
-        // pastTime = currentTime - buffer.deltaInterpolationTime;
-
-        // if (buffer.firstTimestamp == 0)
-        // {
-        //     buffer.firstTimestamp = buffer.lastEvent().ServerTimestamp;
-        // }
-
-        // foreach (Entity player in GameServerConnectionManager.Instance.gamePlayers)
-        // {
-        //     // if (showInterpolationGhosts)
-        //     // {
-        //     //     interpolationGhost = FindGhostPlayer(player.Id.ToString());
-        //     // }
-
-        //     // if (
-        //     //     useInterpolation
-        //     //     && (
-        //     //         GameServerConnectionManager.Instance.playerId != player.Id
-        //     //         || !useClientPrediction
-        //     //     )
-        //     // )
-        //     // {
-        //     //     gameEvent = buffer.getNextEventToRender(pastTime).Item1;
-        //     // }
-        //     // else
-        //     // {
-        //     //     gameEvent = buffer.lastEvent();
-        //     // }
-
-        //     // There are a few frames during which this is outdated and produces an error
-        //     if (GameServerConnectionManager.Instance.gamePlayers.Count == gameEvent.Players.Count)
-        //     {
-        //         // This call to `new` here is extremely important for client prediction. If we don't make a copy,
-        //         // prediction will modify the player in place, which is not what we want.
-        //         // Entity serverPlayerUpdate = new Entity(gameEvent.Players[player.Id]);
-        //         // if (
-        //         //     serverPlayerUpdate.Id == (ulong)GameServerConnectionManager.Instance.playerId
-        //         //     && useClientPrediction
-        //         //     && serverPlayerUpdate.Player.Health > 0
-        //         // )
-        //         // {
-        //         //     // Move the ghost BEFORE client prediction kicks in, so it only moves up until
-        //         //     // the last server update.
-        //         //     if (clientPredictionGhost != null)
-        //         //     {
-        //         //         UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
-        //         //     }
-
-        //         //     GameServerConnectionManager
-        //         //         .Instance
-        //         //         .clientPrediction
-        //         //         .SimulatePlayerState(
-        //         //             serverPlayerUpdate,
-        //         //             gameEvent.PlayerTimestamps[player.Id],
-        //         //             gameEvent.ServerTimestamp
-        //         //         );
-        //         // }
-
-        //         if (interpolationGhost != null)
-        //         {
-        //             UpdatePlayer(
-        //                 interpolationGhost,
-        //                 buffer.lastEvent().Players[player.Id],
-        //                 pastTime
-        //             );
-        //         }
-
-        //         // GameObject currentPlayer = playersReferences[serverPlayerUpdate.Id].player;
-        //         // // TODO: try to optimize GetComponent calls
-        //         // CustomCharacter playerCharacter = playersReferences[
-        //         //     serverPlayerUpdate.Id
-        //         // ].character;
-
-        //         // if (currentPlayer.activeSelf)
-        //         // {
-        //         //     UpdatePlayer(currentPlayer, serverPlayerUpdate, pastTime);
-
-        //         //     if (!buffer.timestampAlreadySeen(player.Id, gameEvent.ServerTimestamp))
-        //         //     {
-        //         //         foreach (
-        //         //             PlayerAction playerAction in serverPlayerUpdate.Player.CurrentActions
-        //         //         )
-        //         //         {
-        //         //             if (
-        //         //                 (
-        //         //                     playerCharacter.MovementState.CurrentState
-        //         //                         == CharacterStates.MovementStates.Pushing
-        //         //                     || PlayerMovementAuthorized(playerCharacter)
-        //         //                 ) && !playerCharacter.currentActions.Contains(playerAction)
-        //         //             )
-        //         //             {
-        //         //                 playerCharacter.currentActions.Add(playerAction);
-        //         //                 ExecuteSkillFeedback(
-        //         //                     currentPlayer,
-        //         //                     playerAction.Action,
-        //         //                     serverPlayerUpdate,
-        //         //                     playerAction.Duration,
-        //         //                     playerAction.Destination
-        //         //                 );
-        //         //             }
-
-        //         //             if (playerAction.Destination != null) // Maybe add playerAction key to differentiate ?
-        //         //             {
-        //         //                 playerCharacter.IsTeleporting = true;
-        //         //                 playerCharacter.TeleportingDestination = playerAction.Destination;
-        //         //             }
-        //         //         }
-
-        //         //         List<PlayerAction> actionsToDelete = playerCharacter
-        //         //             .currentActions
-        //         //             .Except(serverPlayerUpdate.Player.CurrentActions)
-        //         //             .ToList();
-
-        //         //         foreach (PlayerAction playerAction in actionsToDelete)
-        //         //         {
-        //         //             playerCharacter.currentActions.Remove(playerAction);
-        //         //         }
-
-        //         //         buffer.setLastTimestampSeen(player.Id, gameEvent.ServerTimestamp);
-        //         //     }
-
-        //         //     playerCharacter.HandleTeleport(serverPlayerUpdate.Position);
-        //         // }
-
-        //         playerCharacter.UpdatePowerUpsCount(serverPlayerUpdate.Player.PowerUps);
-
-        //         if (serverPlayerUpdate.Player.Health <= 0)
-        //         {
-        //             playerCharacter.SetPlayerDead();
-        //         }
-
-        //         Transform hitbox = playerCharacter.characterBase.Hitbox.transform;
-        //         playerCharacter.GetComponent<CharacterController>().radius =
-        //             serverPlayerUpdate.Radius / 100;
-        //         float hitboxSize =
-        //             Utils.TransformBackenUnitToClientUnit(serverPlayerUpdate.Radius) * 2;
-        //         hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
-        //     }
-        // }
+        UpdateInterpolationGhosts(gamePlayersLast, now);
+        UpdatePlayersButMe(
+            gamePlayersToRender,
+            gameStateToRender.ServerTimestamp,
+            now - eventsBuffer.deltaInterpolationTime
+        );
+        UpdateMyself(gamePlayersLast, gameStateLast.ServerTimestamp, now);
     }
 
     private void ExecuteSkillFeedback(
@@ -522,7 +443,7 @@ public class Battle : MonoBehaviour
         GameObject projectile;
         for (int i = 0; i < gameProjectiles.Count; i++)
         {
-            Vector3 backToFrontPosition = Utils.transformBackendOldPositionToFrontendPosition(
+            Vector3 backToFrontPosition = Utils.TransformBackendToFrontendPosition(
                 gameProjectiles[i].Position
             );
             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
@@ -611,105 +532,72 @@ public class Battle : MonoBehaviour
         }
     }
 
-    private void UpdatePlayer(GameObject player, Entity playerUpdate, long pastTime = 0)
+    private void UpdatePlayer(GameObject player, Entity playerUpdate, long pastTime)
     {
-        /*
-        Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
-        There are 50 ticks per second. A player's velocity is 50 * 0.3f
+        PlayerReferences playerReference = playersReferences[playerUpdate.Id];
+        playerReference.feedbackManager.ManageStateFeedbacks(
+            playerUpdate,
+            playerReference.character
+        );
+        playerReference.feedbackManager.HandlePickUpItemFeedback(
+            playerUpdate,
+            playerReference.characterFeedbacks
+        );
 
-        In general, if a player's velocity is n tiles per tick, their unity velocity
-        is 50 * (n / 10f)
-
-        The above is the player's velocity's magnitude. Their velocity's direction
-        is the direction of deltaX, which we can calculate (assumming we haven't lost socket
-        frames, but that's fine).
-        */
-
-        CharacterFeedbacks characterFeedbacks = playersReferences[
-            playerUpdate.Id
-        ].characterFeedbacks;
-        CustomCharacter character = playersReferences[playerUpdate.Id].character;
-        CharacterFeedbackManager feedbackManager = playersReferences[
-            playerUpdate.Id
-        ].feedbackManager;
-        Animator modelAnimator = playersReferences[playerUpdate.Id].modelAnimator;
-
-        var characterSpeed = playerUpdate.Speed / 100f;
-
-        feedbackManager.ManageStateFeedbacks(playerUpdate, character);
-        feedbackManager.HandlePickUpItemFeedback(playerUpdate, characterFeedbacks);
-
+        playerReference.modelAnimator.SetBool("Walking", false);
         if (!GameServerConnectionManager.Instance.GameHasEnded() && playerUpdate.Player.Health > 0)
         {
-            HandleMovement(player, playerUpdate, pastTime, characterSpeed);
-        }
-        else
-        {
-            modelAnimator.SetBool("Walking", false);
+            HandleMovement(player, playerUpdate, pastTime);
         }
 
-        character.HandlePlayerHealth(playerUpdate);
+        playerReference.character.HandlePlayerHealth(playerUpdate);
 
         if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
         {
             if (GameServerConnectionManager.Instance.damageDone.ContainsKey(playerUpdate.Id))
             {
-                character.HandleHit(
+                playerReference.character.HandleHit(
                     GameServerConnectionManager.Instance.damageDone[playerUpdate.Id]
                 );
             }
-            /*
-                - We divided the milliseconds time in two parts because
-                - rustler can't handle u128, so instead of developing those functions
-                - we decided to use 2 u64 fields to represent the time in milliseconds
-
-                - If you need to use complete time in milliseconds, you should use both
-                - If you need to use remaining time in milliseconds, you can use only low field
-                - because high field will be 0
-            */
-
-            float skill2Cooldown =
-                playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "2").Value
-                / 1000.0f;
-            float skill3Cooldown =
-                playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "3").Value
-                / 1000.0f;
-
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill1,
-                // (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
-                0f,
-                player.GetComponent<Skill1>().GetSkillInfo().useCooldown
-            );
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill2,
-                // (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
-                skill2Cooldown,
-                player.GetComponent<Skill2>().GetSkillInfo().useCooldown
-            );
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill3,
-                // (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
-                skill3Cooldown,
-                player.GetComponent<Skill3>().GetSkillInfo().useCooldown
-            );
+            HandleSkillCooldowns(player, playerUpdate);
         }
     }
 
-    private void HandleMovement(
-        GameObject player,
-        Entity playerUpdate,
-        long pastTime,
-        float characterSpeed
-    )
+    private float GetSkillCooldownValue(string skillKey, Entity playerUpdate)
     {
-        // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
-        // it'll be changed.
-        float velocity = characterSpeed;
+        return playerUpdate
+                .Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == skillKey)
+                .Value / 1000.0f;
+    }
 
-        var frontendPosition = Utils.transformBackendOldPositionToFrontendPosition(
-            playerUpdate.Position
+    private void HandleSkillCooldowns(GameObject player, Entity playerUpdate)
+    {
+        float skill2Cooldown = GetSkillCooldownValue("2", playerUpdate);
+        float skill3Cooldown = GetSkillCooldownValue("3", playerUpdate);
+
+        InputManager.CheckSkillCooldown(
+            UIControls.Skill1,
+            0f,
+            player.GetComponent<Skill1>().GetSkillInfo().useCooldown
         );
+        InputManager.CheckSkillCooldown(
+            UIControls.Skill2,
+            skill2Cooldown,
+            player.GetComponent<Skill2>().GetSkillInfo().useCooldown
+        );
+        InputManager.CheckSkillCooldown(
+            UIControls.Skill3,
+            skill3Cooldown,
+            player.GetComponent<Skill3>().GetSkillInfo().useCooldown
+        );
+    }
+
+    private void HandleMovement(GameObject player, Entity playerUpdate, long pastTime)
+    {
+        var velocity = playerUpdate.Speed / 100f;
+
+        var frontendPosition = Utils.TransformBackendToFrontendPosition(playerUpdate.Position);
 
         float xChange = frontendPosition.x - player.transform.position.x;
         float yChange = frontendPosition.z - player.transform.position.z;
@@ -718,28 +606,7 @@ public class Battle : MonoBehaviour
 
         Animator modelAnimator = playersReferences[playerUpdate.Id].modelAnimator;
 
-        bool walking = false;
-
-        if (useClientPrediction)
-        {
-            walking =
-                (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
-                    ? (InputsAreBeingUsed())
-                    : GameServerConnectionManager.Instance.eventsBuffer.playerIsMoving(
-                        playerUpdate.Id,
-                        (long)pastTime
-                    );
-        }
-        else
-        {
-            if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
-            {
-                walking = GameServerConnectionManager.Instance.eventsBuffer.playerIsMoving(
-                    playerUpdate.Id,
-                    (long)pastTime
-                );
-            }
-        }
+        bool walking = PlayerIsMoving(playerUpdate, pastTime);
 
         Vector2 movementChange = new Vector2(xChange, yChange);
 
@@ -799,6 +666,25 @@ public class Battle : MonoBehaviour
         character.RotateCharacterOrientation();
 
         modelAnimator.SetBool("Walking", walking);
+    }
+
+    private bool PlayerIsMoving(Entity playerUpdate, long pastTime = 0)
+    {
+        if (useClientPrediction && playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
+        {
+            return InputsAreBeingUsed();
+        }
+        else
+        {
+            if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
+            {
+                print(pastTime);
+            }
+            return GameServerConnectionManager.Instance.eventsBuffer.playerIsMoving(
+                playerUpdate.Id,
+                (long)pastTime
+            );
+        }
     }
 
     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
