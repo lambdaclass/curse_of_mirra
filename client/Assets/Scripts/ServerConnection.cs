@@ -166,7 +166,7 @@ public class ServerConnection : MonoBehaviour
         string player_name = PlayerPrefs.GetString("playerName");
         string url = makeWebsocketUrl("/" + join_action + "/" + id + "/" + character_name + "/" + player_name);
         print(url);
-        ws = new WebSocket(url);
+        ws = ServerUtils.CreateWebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
         ws.OnClose += OnWebsocketClose;
         ws.OnOpen += () =>
