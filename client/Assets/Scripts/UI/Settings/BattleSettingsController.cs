@@ -16,6 +16,7 @@ public class BattleSettingsController : MonoBehaviour
 
     public ToggleButton animationsButton;
     public ToggleButton zoneButton;
+    public ToggleButton botsButton;
     public ToggleButton clientPredictionGhostButton;
     public ToggleButton interpolationGhostButton;
     public ToggleButton gridButton;
@@ -36,6 +37,7 @@ public class BattleSettingsController : MonoBehaviour
     {
         yield return new WaitUntil(() => battle != null);
         ToggleZone();
+        ToggleBots();
         ToggleAnimations();
         ToggleClientPredictionGhost();
         ToggleInterpolationGhosts();
@@ -49,6 +51,11 @@ public class BattleSettingsController : MonoBehaviour
     public void ToggleZone()
     {
         zoneButton.ToggleUIState(battle.zoneActive);
+    }
+
+    public void ToggleBots()
+    {
+        botsButton.ToggleUIState(battle.botsActive);
     }
 
     public void ToggleAnimations()
