@@ -702,6 +702,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 99460208226340218, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 99460208226340218, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SelectServerIP, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 99460208226340218, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: LOCALHOST
+      objectReference: {fileID: 0}
     - target: {fileID: 196815887905347332, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
@@ -816,6 +831,21 @@ PrefabInstance:
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 946439947379194195, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 946439947379194195, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SelectServerIP, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 946439947379194195, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: EUROPE
       objectReference: {fileID: 0}
     - target: {fileID: 1261905053734839374, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
@@ -1002,6 +1032,31 @@ PrefabInstance:
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 78456883}
+    - target: {fileID: 4115833512755757586, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4115833512755757586, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: CUSTOM
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347787105897863107, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347787105897863107, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SelectServerIP, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347787105897863107, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: BRAZIL
+      objectReference: {fileID: 0}
     - target: {fileID: 4865202050172921010, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: m_IsActive
@@ -1253,10 +1308,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95284b14e95334ed9a0890f8a3bee6ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userName: {fileID: 0}
-  statusText: {fileID: 0}
-  loggedInScreen: {fileID: 0}
-  loggedOutScreen: {fileID: 0}
   titleScreenController: {fileID: 1365717057}
 --- !u!4 &1608732374
 Transform:
