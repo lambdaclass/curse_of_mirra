@@ -22,10 +22,15 @@ public class VFXCharacterTransformController : MonoBehaviour
         scaleCoroutine(duration);
     }
 
-    private void scaleCoroutine(float duration)
+    public void resetScale()
     {
         if(transform_coroutine != null)
             StopCoroutine(transform_coroutine);
+    }
+
+    private void scaleCoroutine(float duration)
+    {
+        resetScale();
 
         transform_coroutine = impl();
         StartCoroutine(transform_coroutine);
