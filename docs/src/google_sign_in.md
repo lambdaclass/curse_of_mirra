@@ -62,8 +62,8 @@ When you’re done with the credentials, you must set in the code the following:
 
 ### Publishing settings
 
-- Activated Custom Main Gandle Template
-- Activated Custom Base Gandle Template
+- Activated Custom Main Gradle Template
+- Activated Custom Base Gradle Template
 - Activated Custom Properties Template
 
 ## Future improvements
