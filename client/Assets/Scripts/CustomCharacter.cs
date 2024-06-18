@@ -27,6 +27,7 @@ public class CustomCharacter : Character
     }
 
     CharacterFeedbacks characterFeedbacks;
+    Health healthComponent;
 
     protected override void Initialization()
     {
@@ -36,6 +37,7 @@ public class CustomCharacter : Character
             this.characterBase.gameObject.AddComponent<AudioSource>();
         }
         characterFeedbacks = this.GetComponent<CharacterFeedbacks>();
+        healthComponent = this.GetComponent<Health>();
     }
 
     public void RotatePlayer(Direction direction)
@@ -72,17 +74,13 @@ public class CustomCharacter : Character
 
     public void HandlePlayerHealth(Entity playerUpdate)
     {
-        Health healthComponent = this.GetComponent<Health>();
-        CharacterFeedbacks characterFeedbacks = this.GetComponent<CharacterFeedbacks>();
-
-        characterFeedbacks.DamageFeedback(
-            healthComponent.CurrentHealth,
-            playerUpdate.Player.Health,
-            playerUpdate.Id
-        );
-
         if (playerUpdate.Player.Health != healthComponent.CurrentHealth)
         {
+            characterFeedbacks.ExecuteHealthFeedback(
+                healthComponent.CurrentHealth,
+                playerUpdate.Player.Health,
+                playerUpdate.Id
+            );
             healthComponent.SetHealth(playerUpdate.Player.Health);
         }
     }

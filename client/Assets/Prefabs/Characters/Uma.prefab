@@ -480,7 +480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aad69d9b41024b9e8f313a6dce47cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterModel: {fileID: 217334022260642486}
+  characterModel: {fileID: 6466736679547723502}
   weaponModel: {fileID: 0}
   feedbacksStatesPrefabs:
   - {fileID: 1492691713028552250}
@@ -4686,6 +4686,12 @@ Transform:
 --- !u!137 &5700785624977269805 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -4550874608163451958, guid: a55c98142baf942e686933101f5fe3f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1136395800524287975}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6466736679547723502 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2991727936671796983, guid: a55c98142baf942e686933101f5fe3f4,
     type: 3}
   m_PrefabInstance: {fileID: 1136395800524287975}
   m_PrefabAsset: {fileID: 0}

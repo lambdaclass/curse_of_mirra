@@ -511,7 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aad69d9b41024b9e8f313a6dce47cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterModel: {fileID: 1787465996332106805}
+  characterModel: {fileID: 1763304114960480897}
   weaponModel: {fileID: 0}
   feedbacksStatesPrefabs:
   - {fileID: 6880168384479574166}
@@ -1902,6 +1902,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c75644781daa4f89b2db0bb683cc47e, type: 3}
+--- !u!1 &1763304114960480897 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4819223349682164798, guid: 2c75644781daa4f89b2db0bb683cc47e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2694892166158291267}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2516552699787638440 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2c75644781daa4f89b2db0bb683cc47e,

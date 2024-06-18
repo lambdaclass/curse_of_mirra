@@ -16,7 +16,6 @@ public class CharacterFeedbacks : MonoBehaviour
 {
     [Header("Setup")]
     public GameObject characterModel;
-    public GameObject weaponModel;
 
     [Header("Feedbacks")]
     [SerializeField]
@@ -37,20 +36,11 @@ public class CharacterFeedbacks : MonoBehaviour
 
     [SerializeField]
     MMProgressBar healthBar;
-
-    [SerializeField]
-    Color damageOverlayColor;
-
-    [SerializeField]
-    Color healOverlayColor;
-
-    Color baseOverlayColor;
-    Color currentOverlayColor;
-    float overlayTime = 0;
-    float overlayDuration = 5f;
-    bool restoreBaseOverlayColor = true;
     private bool didPickUp = false;
     private ulong playerID;
+    private Material characterMaterial;
+    private float overlayMultiplier = 0f;
+    private float overlayEffectSpeed = 3f;
 
     // didPickUp value should ideally come from backend
     public bool DidPickUp()
@@ -61,38 +51,17 @@ public class CharacterFeedbacks : MonoBehaviour
     void Start()
     {
         playerID = GameServerConnectionManager.Instance.playerId;
-        damageOverlayColor = new Color(1, 0, 0, 1);
-        currentOverlayColor = new Color(1, 1, 1, 1);
-        baseOverlayColor = new Color(1, 1, 1, 1);
-        healOverlayColor = new Color(0.4f, .8f, .4f, 1);
+        characterMaterial = characterModel.GetComponent<SkinnedMeshRenderer>().materials[0];
     }
 
     void Update()
     {
-        if (restoreBaseOverlayColor && !currentOverlayColor.Equals(baseOverlayColor))
+        if (overlayMultiplier > 0)
         {
-            if (overlayTime < 1)
-            {
-                overlayTime += (Time.deltaTime / overlayDuration);
-            }
-            Color nextColor = Color.Lerp(currentOverlayColor, baseOverlayColor, overlayTime);
-
-            ChangeModelsOverlayColor(currentOverlayColor);
-            currentOverlayColor = nextColor;
+            overlayMultiplier -= Time.deltaTime * overlayEffectSpeed;
+            overlayMultiplier = Mathf.Clamp01(overlayMultiplier);
+            characterMaterial.SetFloat("_OverlayColorIntensity", overlayMultiplier);
         }
-
-        PlayHapticDamageFeedback();
-    }
-
-    private void PlayHapticDamageFeedback()
-    {
-        ulong damage;
-        if (GameServerConnectionManager.Instance.damageDone.TryGetValue(playerID, out damage))
-        {
-            HapticFeedbackType hapticFeedbackType = GetHapticTypeByDamage(damage);
-            TriggerHapticFeedback(hapticFeedbackType);
-        }
-        ;
     }
 
     private HapticFeedbackType GetHapticTypeByDamage(ulong damage) =>
@@ -101,13 +70,6 @@ public class CharacterFeedbacks : MonoBehaviour
             < 70 => HapticFeedbackType.Light,
             >= 70 => HapticFeedbackType.Heavy,
         };
-
-    public void SetColorOverlayAlpha(float currentAlpha)
-    {
-        damageOverlayColor.a = currentAlpha;
-        currentOverlayColor.a = currentAlpha;
-        baseOverlayColor.a = currentAlpha;
-    }
 
     public void SetActiveStateFeedback(string name, bool active)
     {
@@ -118,11 +80,6 @@ public class CharacterFeedbacks : MonoBehaviour
     public List<GameObject> GetFeedbackStateList()
     {
         return feedbacksStatesPrefabs;
-    }
-
-    public void ExecuteFeedback(GameObject feedback)
-    {
-        feedback.SetActive(true);
     }
 
     public void PlayDeathFeedback()
@@ -156,7 +113,7 @@ public class CharacterFeedbacks : MonoBehaviour
         pickUpFeedback.SetActive(state);
     }
 
-    public void DamageFeedback(float clientHealth, float serverPlayerHealth, ulong playerId)
+    public void ExecuteHealthFeedback(float clientHealth, float serverPlayerHealth, ulong playerId)
     {
         if (serverPlayerHealth < clientHealth)
         {
@@ -168,7 +125,7 @@ public class CharacterFeedbacks : MonoBehaviour
                 );
                 TriggerHapticFeedback(feedbackType);
             }
-            this.ChangePlayerTextureOnDamage(clientHealth, serverPlayerHealth);
+            ApplyDamageOverlay();
             this.healthBar.BumpOnDecrease = true;
         }
         if (clientHealth < serverPlayerHealth)
@@ -181,19 +138,10 @@ public class CharacterFeedbacks : MonoBehaviour
         }
     }
 
-    public void ChangePlayerTextureOnDamage(float clientHealth, float playerHealth)
+    public void ApplyDamageOverlay()
     {
-        if (clientHealth != playerHealth)
-        {
-            if (playerHealth < clientHealth)
-            {
-                ApplyColorFeedback(damageOverlayColor);
-            }
-            if (playerHealth > clientHealth)
-            {
-                ApplyColorFeedback(healOverlayColor);
-            }
-        }
+        overlayMultiplier = 1f;
+        UpdateOverlayColor(overlayMultiplier);
     }
 
     public void TriggerHapticFeedback(HapticFeedbackType hapticType)
@@ -209,44 +157,9 @@ public class CharacterFeedbacks : MonoBehaviour
         }
     }
 
-    public void ApplyZoneDamage()
+    private void UpdateOverlayColor(float colorIntensity)
     {
-        ChangeModelsOverlayColor(damageOverlayColor);
-        currentOverlayColor = damageOverlayColor;
-    }
-
-    private void ApplyColorFeedback(Color color)
-    {
-        ChangeModelsOverlayColor(color);
-        currentOverlayColor = color;
-        ResetOverlay();
-    }
-
-    public void ResetOverlay()
-    {
-        overlayTime = 0f;
-        restoreBaseOverlayColor = false;
-        StartCoroutine(RemoveModelFeedback());
-    }
-
-    public void ChangeModelsOverlayColor(Color color)
-    {
-        SkinnedMeshRenderer[] skinnedMeshFilter =
-            characterModel.GetComponentsInChildren<SkinnedMeshRenderer>();
-        foreach (var meshFilter in skinnedMeshFilter)
-        {
-            foreach (var material in meshFilter.materials)
-            {
-                material.color = color;
-                material.SetColor("_TintColor", color);
-            }
-        }
-    }
-
-    IEnumerator RemoveModelFeedback()
-    {
-        yield return new WaitForSeconds(.1f);
-        restoreBaseOverlayColor = true;
+        characterMaterial.SetFloat("_OverlayColorIntensity", colorIntensity);
     }
 
     public void SetActiveFeedback(GameObject player, string feedbackName, bool value)
