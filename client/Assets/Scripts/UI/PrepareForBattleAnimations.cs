@@ -153,12 +153,27 @@ public class PrepareForBattleAnimations : MonoBehaviour
         for (int i = bountiesPickTime; i > 0; i--)
         {
             bountiesCountDown.text = i.ToString();
-            bountiesCountDownCG.alpha = 1; 
-            bountiesCountDownCG.DOFade(0, 1f); 
             yield return new WaitForSeconds(1f);
         }
         bountiesCountdownDone = true;
     }
+
+//     IEnumerator Countdown()
+//     {
+//         Sequence displaySequence = DOTween.Sequence();
+//         displaySequence
+//             .Append(countDown.transform.DOScale(originalCountdownScale + 0.2f, .5f))
+//             .SetLoops(-1, LoopType.Yoyo)
+//             .SetEase(Ease.Linear);
+//         TIME_UNTIL_GAME_STARTS =
+// (int)(GameServerConnectionManager.Instance.gameCountdown / 1000);
+//         for (int i = 0; i < TIME_UNTIL_GAME_STARTS; i++)
+//         {
+//             countDown.text = (TIME_UNTIL_GAME_STARTS - i).ToString();
+//             yield return new WaitForSeconds(1f);
+//         }
+//         countdownDone = true;
+//     }
 
     IEnumerator PrepareForBattleAnimation()
     {
