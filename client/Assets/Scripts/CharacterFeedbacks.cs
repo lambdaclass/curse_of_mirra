@@ -65,6 +65,7 @@ public class CharacterFeedbacks : MonoBehaviour
         currentOverlayColor = new Color(1, 1, 1, 1);
         baseOverlayColor = new Color(1, 1, 1, 1);
         healOverlayColor = new Color(0.4f, .8f, .4f, 1);
+        setInitialHealth();
     }
 
     void Update()
@@ -82,6 +83,11 @@ public class CharacterFeedbacks : MonoBehaviour
         }
 
         PlayHapticDamageFeedback();
+    }
+
+    private void setInitialHealth() {
+        Entity entity = Utils.GetGamePlayer(playerID);
+        this.healthBar.TextValueMultiplier = entity.Player.Health;
     }
 
     private void PlayHapticDamageFeedback()
