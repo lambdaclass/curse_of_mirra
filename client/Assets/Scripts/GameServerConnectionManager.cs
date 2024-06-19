@@ -172,12 +172,33 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.playerId = gameEvent.Joined.PlayerId;
                     this.config = gameEvent.Joined.Config;
 
-                    this.timestampDifferenceSamplesToCheckWarning = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.TimestampDifferenceSamplesToCheckWarning;
-                    this.timestampDifferencesSamplesMaxLength = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.TimestampDifferencesSamplesMaxLength;
-                    this.showWarningThreshold = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.ShowWarningThreshold;
-                    this.stopWarningThreshold = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.StopWarningThreshold;
-                    this.msWithoutUpdateShowWarning = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.MsWithoutUpdateShowWarning;
-                    this.msWithoutUpdateDisconnect = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.MsWithoutUpdateDisconnect;
+                    this.timestampDifferenceSamplesToCheckWarning = (int)
+                        gameEvent
+                            .Joined
+                            .Config
+                            .ClientConfig
+                            .ServerUpdate
+                            .TimestampDifferenceSamplesToCheckWarning;
+                    this.timestampDifferencesSamplesMaxLength = (int)
+                        gameEvent
+                            .Joined
+                            .Config
+                            .ClientConfig
+                            .ServerUpdate
+                            .TimestampDifferencesSamplesMaxLength;
+                    this.showWarningThreshold = (int)
+                        gameEvent.Joined.Config.ClientConfig.ServerUpdate.ShowWarningThreshold;
+                    this.stopWarningThreshold = (int)
+                        gameEvent.Joined.Config.ClientConfig.ServerUpdate.StopWarningThreshold;
+                    this.msWithoutUpdateShowWarning = (int)
+                        gameEvent
+                            .Joined
+                            .Config
+                            .ClientConfig
+                            .ServerUpdate
+                            .MsWithoutUpdateShowWarning;
+                    this.msWithoutUpdateDisconnect = (int)
+                        gameEvent.Joined.Config.ClientConfig.ServerUpdate.MsWithoutUpdateDisconnect;
 
                     break;
                 case GameEvent.EventOneofCase.Ping:
@@ -209,7 +230,9 @@ public class GameServerConnectionManager : MonoBehaviour
                     {
                         [this.playerId] = position
                     };
-                    OnGameEventTimestampChanged?.Invoke(DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
+                    OnGameEventTimestampChanged?.Invoke(
+                        DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+                    );
                     break;
                 case GameEvent.EventOneofCase.Finished:
                     winnerPlayer.Item1 = gameEvent.Finished.Winner;

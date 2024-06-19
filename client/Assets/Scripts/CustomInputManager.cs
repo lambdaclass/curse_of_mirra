@@ -194,7 +194,6 @@ public class CustomInputManager : InputManager
         // FIXME: Using harcoded value for testing, Value should be set dinamically
         //TODO : Add the spread area (amgle) depeding of the skill.json
         activeJoystick = joystick;
-
     }
 
     public void AimAoeSkill(Vector2 aoePosition, CustomMMTouchJoystick joystick)
@@ -212,7 +211,6 @@ public class CustomInputManager : InputManager
     public void ExecuteAoeSkill(Vector2 aoePosition, Skill skill)
     {
         directionIndicator.DeactivateIndicator();
-
 
         activeJoystick = null;
         EnableButtons();
@@ -296,12 +294,10 @@ public class CustomInputManager : InputManager
 
     private Vector2 GetPlayerOrientation()
     {
-        CharacterOrientation3D characterOrientation =
-            _player.GetComponent<CharacterOrientation3D>();
-        return new Vector2(
-            characterOrientation.ForcedRotationDirection.x,
-            characterOrientation.ForcedRotationDirection.z
-        );
+        Vector3 characterOrientation = this.GetComponent<CustomCharacter>()
+            .CharacterRotation()
+            .eulerAngles;
+        return new Vector2(characterOrientation.x, characterOrientation.z);
     }
 
     public void CheckSkillCooldown(UIControls control, float cooldown, bool useCooldown)
@@ -311,7 +307,7 @@ public class CustomInputManager : InputManager
         TMP_Text cooldownText = cooldownContainer.GetComponentInChildren<TMP_Text>();
         if (useCooldown)
         {
-            if ( cooldown > 0f)
+            if (cooldown > 0f)
             {
                 button.DisableButton();
                 cooldownContainer.SetActive(true);

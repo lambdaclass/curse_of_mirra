@@ -35,9 +35,11 @@ public class AimDirection : MonoBehaviour
     public int rayCount = 50;
     public float angleIncrease;
     private float hitbox;
-    void Awake(){
 
-        hitbox = (Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId).Radius / 100) * 2;
+    void Awake()
+    {
+        hitbox =
+            (Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId).Radius / 100) * 2;
     }
 
     public void InitIndicator(Skill skill, Color32 color)
@@ -50,8 +52,9 @@ public class AimDirection : MonoBehaviour
         characterFeedbackColor = color;
         initialPosition = transform.localPosition;
 
-
-        float circleArea = skill.GetSkillInfo().usesHitboxAsArea ? hitbox : skill.GetSkillAreaRadius();
+        float circleArea = skill.GetSkillInfo().usesHitboxAsArea
+            ? hitbox
+            : skill.GetSkillAreaRadius();
 
         this.area.transform.localScale = new Vector3(circleArea, 0, circleArea);
 
@@ -154,9 +157,9 @@ public class AimDirection : MonoBehaviour
             player.transform.position
         );
         Vector3 targetDirection = player.transform.position - currentPlayer.transform.position;
-        Vector3 attackDirection = currentPlayer
-            .GetComponent<CharacterOrientation3D>()
-            .ForcedRotationDirection;
+        Vector3 attackDirection = this.GetComponent<CustomCharacter>()
+            .CharacterRotation()
+            .eulerAngles;
         float playersAngle = Vector3.Angle(attackDirection, targetDirection);
 
         return distance <= viewDistance && playersAngle <= skillAngle / 2;
