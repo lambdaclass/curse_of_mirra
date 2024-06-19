@@ -334,7 +334,7 @@ MonoBehaviour:
   PercentageTextMeshPro: {fileID: 8131447475418241771}
   TextPrefix: 
   TextSuffix: 
-  TextValueMultiplier: 0
+  TextValueMultiplier: 1
   TextFormat: 0
   DisplayTotal: 0
   TotalSeparator: ' / '

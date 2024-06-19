@@ -106,6 +106,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 275895088561918517, guid: 20e098dcba25946b6b2853c408723ff3,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 275895088561918517, guid: 20e098dcba25946b6b2853c408723ff3,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 275895088561918517, guid: 20e098dcba25946b6b2853c408723ff3,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 275895088561918517, guid: 20e098dcba25946b6b2853c408723ff3,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -147,7 +162,7 @@ PrefabInstance:
     - target: {fileID: 275895088561918517, guid: 20e098dcba25946b6b2853c408723ff3,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 275895088561918517, guid: 20e098dcba25946b6b2853c408723ff3,
         type: 3}
@@ -169,6 +184,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Name
       objectReference: {fileID: 0}
+    - target: {fileID: 8176175189547941344, guid: 20e098dcba25946b6b2853c408723ff3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 73eaf078ee0ea46d6bbdeb5cf7de9809,
+        type: 2}
+    - target: {fileID: 8176175189547941344, guid: 20e098dcba25946b6b2853c408723ff3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4481737446651699523, guid: 73eaf078ee0ea46d6bbdeb5cf7de9809,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20e098dcba25946b6b2853c408723ff3, type: 3}
 --- !u!224 &2245846734177326035 stripped
@@ -406,7 +433,7 @@ PrefabInstance:
     - target: {fileID: 7532905112430061776, guid: 16b4b3e9634b348afa88ded7a31ac1f8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.03
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 7532905112430061776, guid: 16b4b3e9634b348afa88ded7a31ac1f8,
         type: 3}

@@ -271,6 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serverId: 0
   animator: {fileID: 659511061871439231}
+  healthBar: {fileID: 7246952729317780137}
 --- !u!1 &4788270679985939146
 GameObject:
   m_ObjectHideFlags: 0

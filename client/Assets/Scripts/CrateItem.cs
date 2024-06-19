@@ -10,6 +10,10 @@ public class CrateItem : MonoBehaviour
 
     [SerializeField]
     Animator animator;
+
+    [SerializeField]
+    MMProgressBar healthBar;
+
     Health health;
     private Dictionary<string, int> animationHashes;
 
@@ -35,6 +39,8 @@ public class CrateItem : MonoBehaviour
         health.CurrentHealth = item.Crate.Health;
         health.InitialHealth = item.Crate.Health;
         health.MaximumHealth = item.Crate.Health;
+        healthBar.TextValueMultiplier = item.Crate.Health;
+       
         gameObject.SetActive(true);
     }
 
@@ -43,6 +49,7 @@ public class CrateItem : MonoBehaviour
         if (updatedHealth != health.CurrentHealth)
         {
             health.SetHealth(updatedHealth);
+            healthBar.TextValueMultiplier = updatedHealth;
             ExecuteHitFeedback();
         }
     }
