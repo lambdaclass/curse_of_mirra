@@ -184,10 +184,12 @@ public class Skill : CharacterAbility
         float animationStep = previousAnimationStep + 1;
         string animationStepId = skillId + "_s" + animationStep;
         string speedId = skillId + "_s" + animationStep + "_speed";
-
         string previousAnimationStepId = skillId + "_s" + previousAnimationStep;
-        
-        SetSpeed(speedId, 1f + nextAnimation.durationPercent);
+
+        float animationClipDuration = nextAnimation.animation.length;
+        float animationSpeed = animationClipDuration / animationDuration;
+
+        SetSpeed(speedId, animationSpeed);
         SetAnimation(previousAnimationStepId, false);
         SetAnimation(animationStepId, true);
 

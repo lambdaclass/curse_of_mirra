@@ -37,6 +37,7 @@ MonoBehaviour:
   vfxList: []
   animationList:
   - durationPercent: 0.3
+    animation: {fileID: 7400000, guid: 733025e91c6ec4cf38f3499247a8aea5, type: 2}
     triggersVfx: 1
     vfxStep:
       vfx: {fileID: 5842915733016833727, guid: a21b6ad8bdb6b0a48bab30fd0e50d921, type: 3}
@@ -45,6 +46,7 @@ MonoBehaviour:
       instantiateVfxOnModel: 1
       hasDestination: 0
   - durationPercent: 0.4
+    animation: {fileID: 7400000, guid: 503886755733f40dc9a51e1461d7440b, type: 2}
     triggersVfx: 0
     vfxStep:
       vfx: {fileID: 0}
@@ -53,6 +55,7 @@ MonoBehaviour:
       instantiateVfxOnModel: 0
       hasDestination: 0
   - durationPercent: 0.3
+    animation: {fileID: 7400000, guid: daf49bc239df340849d28bc91cef5973, type: 2}
     triggersVfx: 0
     vfxStep:
       vfx: {fileID: 0}
