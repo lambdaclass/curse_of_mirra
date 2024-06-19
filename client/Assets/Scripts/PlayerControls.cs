@@ -12,7 +12,7 @@ public class PlayerControls : MonoBehaviour
                 y,
                 GameServerConnectionManager.Instance.clientPrediction.lastXSent,
                 GameServerConnectionManager.Instance.clientPrediction.lastYSent
-            ) 
+            )
         )
         {
             var valuesToSend = new Direction { X = x, Y = y };
@@ -34,7 +34,7 @@ public class PlayerControls : MonoBehaviour
 
     bool ShouldSendMovement(float x, float y, float lastXSent, float lastYSent)
     {
-        float movementThreshold = 1f;
+        float movementThreshold = 0.1f;
         //Fetch the first GameObject's position
         Vector2 currentDirection = new Vector2(x, y);
         //Fetch the second GameObject's position

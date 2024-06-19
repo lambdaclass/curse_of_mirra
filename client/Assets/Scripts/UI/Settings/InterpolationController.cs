@@ -19,7 +19,7 @@ public class InterpolationController : MonoBehaviour
     // Update is called once per frame
     public void changeDeltaInterpolationTime()
     {
-        long value = (long)(deltaInterpolationSlider.value * 1000);
+        long value = (long)(deltaInterpolationSlider.value * 100);
         interpolationText.text = value.ToString() + " ms";
         GameServerConnectionManager.Instance.eventsBuffer.deltaInterpolationTime = value;
     }
