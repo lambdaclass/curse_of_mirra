@@ -49,13 +49,18 @@ When you’re done with the credentials, you must set in the code the following:
 - Copy Client ID (Web) and replace it in `client/Assets/Scripts/GoogleSignIn/GoogleSignInController.cs`, `webClientIdGoogle` variable.
 - Under iOS OAuth credentials, download the .plist file and replace its content in `client/Assets/StreamingAssets/GoogleService-Info.plist` .
 
-## Unity Config (project settings)
+## Unity Config (Project Settings > Player)
 
 ### Other Settings tab
 
+#### Android tab
+
 - Scripting backend: IL2CPP.
 - Target Architectures: add ARM64.
-- (iOS tab) Supported URL schemes:
+
+#### iOS tab
+
+- Supported URL schemes:
     - Size: 1
     - Element 0: {REVERSED_CLIENT_ID}
         - You can find the REVERSED_CLIENT_ID in the .plist file downloaded from iOS OAuth credentials.
