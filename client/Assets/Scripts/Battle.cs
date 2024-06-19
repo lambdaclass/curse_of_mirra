@@ -291,7 +291,7 @@ public class Battle : MonoBehaviour
         }
     }
 
-    private void UpdateMyself(List<Entity> gamePlayers, long timestamp, long pastTime)
+    private void UpdateMyself(List<Entity> gamePlayers, long serverTimestamp, long pastTime, GameState gameEventToRender)
     {
         foreach (Entity player in gamePlayers)
         {
@@ -299,10 +299,13 @@ public class Battle : MonoBehaviour
             {
                 GameObject currentPlayer = playersReferences[player.Id].player;
                 CustomCharacter currentCharacter = playersReferences[player.Id].character;
+                if(useClientPrediction){
+                    GameServerConnectionManager.Instance.clientPrediction.SimulatePlayerState(player, gameEventToRender.PlayerTimestamps[player.Id], serverTimestamp);
+                };
                 if (currentPlayer.activeSelf)
                 {
                     UpdatePlayer(currentPlayer, player, pastTime);
-                    HandleAnimations(player, currentPlayer, currentCharacter, timestamp);
+                    HandleAnimations(player, currentPlayer, currentCharacter, serverTimestamp);
                 }
             }
         }
@@ -393,7 +396,7 @@ public class Battle : MonoBehaviour
             gameStateToRender.ServerTimestamp,
             now - eventsBuffer.deltaInterpolationTime
         );
-        UpdateMyself(gamePlayersLast, gameStateLast.ServerTimestamp, now);
+        UpdateMyself(gamePlayersLast, gameStateLast.ServerTimestamp, now, gameStateToRender);
     }
 
     private void ExecuteSkillFeedback(
