@@ -61,7 +61,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaMultiplier: 0.7
+    - _AlphaMultiplier: 0.4
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     - _BlendOp: 0
@@ -81,7 +81,7 @@ Material:
     - _FlipbookMode: 0
     - _LightingEnabled: 0
     - _Mode: 0
-    - _Progress: 0.4673913
+    - _Progress: 0.074172504
     - _QueueControl: 0
     - _QueueOffset: 1
     - _SoftFactor: 0.2

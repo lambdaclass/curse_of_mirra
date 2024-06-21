@@ -64,16 +64,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaMultiplier: 0.74
-    - _AlphaPower: 1.1
+    - _AlphaMultiplier: 0.95
+    - _AlphaPower: 0.95
     - _EdgeNoiseIntensity: 4.95
     - _EdgePower: 46.45
-    - _Progress: 0.6879712
+    - _Progress: 0.074172504
     - _QueueControl: 0
     - _QueueOffset: 2
     - _SkewUV: 0.44
-    - _SupportNoiseMin: 0.08
-    - _SupportNoiseMultiplier: 4
+    - _SupportNoiseMin: -0.02
+    - _SupportNoiseMultiplier: 3.51
     - _VertexOffestSpeed: 0.48
     - _VertexOffsetDensity: 16.04
     - _VertexOffsetMultiplier: 0.1

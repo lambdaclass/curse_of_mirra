@@ -53,7 +53,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _AlphaMultiplier: 0.95
+    - _AlphaMultiplier: 0.82
     - _AlphaPower: 0.7
     - _Blend: 0
     - _CastShadows: 0
