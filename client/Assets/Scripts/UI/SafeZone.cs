@@ -28,7 +28,7 @@ public class SafeZone : MonoBehaviour
         yield return new WaitForSeconds(1f);
         float parameterValue = 0.0f;
         float currentValue = dangerZone.sharedMaterial.GetFloat("_AlphaMultiplier");
-        if (currentValue == 0.93f)
+        if (currentValue >= 0.93f)
             yield break;
         currentValue += 0.05f;
         parameterValue = Mathf.Round(currentValue * 100) / 100f;
