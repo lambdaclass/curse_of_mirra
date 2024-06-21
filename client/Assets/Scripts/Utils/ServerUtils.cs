@@ -330,6 +330,36 @@ public static class ServerUtils
         }
     }
 
+    // public static IEnumerator ClaimDailyReward(
+    //     Action<string> successCallback,
+    //     Action<string> errorCallback
+    // )
+    // {
+    //     // Construct the URL with the user ID
+    //     string url = MakeHTTPUrl($"/users/" + GetClientId() + "/claim_daily_reward");
+
+    //     // Create the form data (if any additional data is needed, it can be added here)
+    //     List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+
+    //     // Send the POST request
+    //     using (UnityWebRequest webRequest = UnityWebRequest.Post(url, formData))
+    //     {
+    //         // Wait for the request to complete
+    //         yield return webRequest.SendWebRequest();
+
+    //         // Handle the response based on the result
+    //         switch (webRequest.result)
+    //         {
+    //             case UnityWebRequest.Result.Success:
+    //                 successCallback?.Invoke(webRequest.downloadHandler.text);
+    //                 break;
+    //             default:
+    //                 errorCallback?.Invoke(webRequest.error);
+    //                 break;
+    //         }
+    //     }
+    // }
+
     public static bool isGatewayTokenValid()
     {
         string gatewayToken = GetGatewayToken();

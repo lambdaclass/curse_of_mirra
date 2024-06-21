@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 public class TitleScreenController : MonoBehaviour
 {
-    private const string TITLE_SCENE_NAME = "MainScreen";
+    private const string TITLE_SCENE_NAME = "DailyRewards";
 
     [SerializeField]
     CanvasGroup ButtonsCanvas;
