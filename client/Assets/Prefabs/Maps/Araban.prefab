@@ -316,6 +316,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dangerZone: {fileID: 8222605594406543587}
+  dangerZoneRing: {fileID: 7155833603555617735}
+  dangerZoneShadow: {fileID: 3491222318131716623}
 --- !u!114 &9072365715193338854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -624,6 +626,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82db4dd499ebdca43b99f68c8c3003e5, type: 3}
+--- !u!23 &3491222318131716623 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1033623741550268051, guid: 82db4dd499ebdca43b99f68c8c3003e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 4479809917110955164}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7155833603555617735 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6730026963514672987, guid: 82db4dd499ebdca43b99f68c8c3003e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 4479809917110955164}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7178229243073121381 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6752384668338381049, guid: 82db4dd499ebdca43b99f68c8c3003e5,

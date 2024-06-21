@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_SandRing
+  m_Shader: {fileID: -6465566751694194690, guid: a66d0c95dadc06e4c9f7717c1541ab44,
+    type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3001
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainNoise:
+        m_Texture: {fileID: 2800000, guid: 9d8306599e456b44a87f5177ffef3b6e, type: 3}
+        m_Scale: {x: 8, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SandTexture:
+        m_Texture: {fileID: 2800000, guid: b8932ddd69c160048b5897562ea16fd0, type: 3}
+        m_Scale: {x: 20, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SupportNoise:
+        m_Texture: {fileID: 2800000, guid: bb8aff1726a3344499d97e5b7ba45e80, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _VertexNoise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaClip: 0
+    - _AlphaMultiplier: 0.95
+    - _AlphaPower: 0.7
+    - _Blend: 0
+    - _CastShadows: 0
+    - _Cull: 1
+    - _Distance: 0
+    - _DstBlend: 10
+    - _EdgeNoiseIntensity: 6
+    - _EdgePower: 159
+    - _NegativeOffset: -4.58
+    - _OffsetAmount: 3.58
+    - _Progress: 0.5652174
+    - _QueueControl: 0
+    - _QueueOffset: 1
+    - _RingHight: 6.15
+    - _SkewUV: 0.2
+    - _SrcBlend: 5
+    - _SupportNoiseMin: 0.08
+    - _SupportNoiseMultiplier: 4
+    - _Surface: 1
+    - _VertexColorChannelID: 1
+    - _VertexOffestSpeed: 1
+    - _VertexOffsetDensity: 10
+    - _VertexOffsetMultiplier: 0
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
+    m_Colors:
+    - _MainColor: {r: 0.07450981, g: 0.003921569, b: 0, a: 0}
+    - _MainNoiseSpeed: {r: -0.048, g: 0.12, b: 0, a: 0}
+    - _ScrollSpeed: {r: 0.016, g: 0.1, b: 0, a: 0}
+    - _SupportColor: {r: 0, g: 0, b: 0, a: 0}
+    - _SupportNoiseSpeed: {r: 0.02, g: 0.03, b: 0, a: 0}
+    - _TintColor: {r: 0.7075472, g: 0.67083484, b: 0.67083484, a: 0}
+    - _VertexOffsetDiraction: {r: 0.05, g: 0.05, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!114 &8854914280063750119
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
