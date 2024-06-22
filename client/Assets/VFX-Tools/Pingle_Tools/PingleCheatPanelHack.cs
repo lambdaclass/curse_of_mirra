@@ -7,8 +7,19 @@ using UnityEngine;
 public class PingleCheatPanelHack : MonoBehaviour
 {
   public GameObject skill1_vfx = null;
+
   public GameObject skill2_vfx_init = null;
   public GameObject skill2_vfx = null;
+
+  public GameObject test1_skill2_vfx_init = null;
+  public GameObject test1_skill2_vfx = null;
+
+  public GameObject test2_skill2_vfx_init = null;
+  public GameObject test2_skill2_vfx = null;
+
+  public GameObject test3_skill2_vfx_init = null;
+  public GameObject test3_skill2_vfx = null;
+
   public float skill2_vfx_dis = 10.0f;
   public float projectile_speed = 4.0f;
   public float spawn_pivot_height = 1.2f;
@@ -25,6 +36,7 @@ public class PingleCheatPanelHack : MonoBehaviour
   private void Start()
   {
       StartCoroutine( moveProjectiles() );
+      init();
   }
   public void init()
   {
@@ -47,17 +59,20 @@ public class PingleCheatPanelHack : MonoBehaviour
 
   private void OnGUI()
   {
-      if (GUI.Button(new Rect( 100, 100, 80, 80 ), "init"))
-          init();
+      //if (GUI.Button(new Rect( 100, 100, 80, 80 ), "init"))
+      //    init();
 
-      if (GUI.Button(new Rect( 200, 100, 80, 80 ), "Skill_1"))
-          activateSkill1();
-
-      if (GUI.Button(new Rect( 300, 100, 80, 80 ), "Skill_2"))
+      if (GUI.Button(new Rect( 200, 100, 80, 80 ), "Test1"))
           activateSkill2();
 
-      if (GUI.Button(new Rect( 400, 100, 80, 80 ), "Skill_3"))
-          activateSkill3();
+      if (GUI.Button(new Rect( 300, 100, 80, 80 ), "Test2"))
+          activateSkill2Test1();
+
+      if (GUI.Button(new Rect( 400, 100, 80, 80 ), "Test3"))
+          activateSkill2Test2();
+
+      if (GUI.Button(new Rect( 500, 100, 80, 80 ), "Test4"))
+          activateSkill2Test3();
   }
 
   private void activateSkill1()
@@ -73,6 +88,28 @@ public class PingleCheatPanelHack : MonoBehaviour
       clearPool();
       StartCoroutine(skill2());
   }
+
+  private void activateSkill2Test1()
+  {
+      resetAnims();
+      clearPool();
+      StartCoroutine(skill2Test1());
+  }
+
+  private void activateSkill2Test2()
+  {
+      resetAnims();
+      clearPool();
+      StartCoroutine(skill2Test2());
+  }
+
+  private void activateSkill2Test3()
+  {
+      resetAnims();
+      clearPool();
+      StartCoroutine(skill2Test3());
+  }
+
 
   private IEnumerator skill1()
   {
@@ -118,6 +155,78 @@ public class PingleCheatPanelHack : MonoBehaviour
       new_pos.y += 0.3f;
 
       cached_vfx = Instantiate( skill2_vfx, new_pos, hack_instance.transform.rotation );
+
+      yield return new WaitForSeconds( 0.4f );
+
+      hack_instance.CharacterAnimator.ResetTrigger("Skill2");
+  }
+
+  private IEnumerator skill2Test1()
+  {
+      hack_instance.CharacterAnimator.SetTrigger("Skill2");
+
+      yield return new WaitForSeconds( 0.2f );
+
+      GameObject cached_vfx = null;
+      Vector3 new_pos = Vector3.zero;
+      new_pos = hack_instance.transform.position;
+      cached_vfx = Instantiate( test1_skill2_vfx_init, new_pos, hack_instance.transform.rotation );
+
+      yield return new WaitForSeconds( 0.3f );
+
+      new_pos = hack_instance.transform.position;
+      new_pos.x += skill2_vfx_dis;
+      new_pos.y += 0.3f;
+
+      cached_vfx = Instantiate( test1_skill2_vfx, new_pos, hack_instance.transform.rotation );
+
+      yield return new WaitForSeconds( 0.4f );
+
+      hack_instance.CharacterAnimator.ResetTrigger("Skill2");
+  }
+  
+  private IEnumerator skill2Test2()
+  {
+      hack_instance.CharacterAnimator.SetTrigger("Skill2");
+
+      yield return new WaitForSeconds( 0.2f );
+
+      GameObject cached_vfx = null;
+      Vector3 new_pos = Vector3.zero;
+      new_pos = hack_instance.transform.position;
+      cached_vfx = Instantiate( test2_skill2_vfx_init, new_pos, hack_instance.transform.rotation );
+
+      yield return new WaitForSeconds( 0.3f );
+
+      new_pos = hack_instance.transform.position;
+      new_pos.x += skill2_vfx_dis;
+      new_pos.y += 0.3f;
+
+      cached_vfx = Instantiate( test2_skill2_vfx, new_pos, hack_instance.transform.rotation );
+
+      yield return new WaitForSeconds( 0.4f );
+
+      hack_instance.CharacterAnimator.ResetTrigger("Skill2");
+  }
+
+  private IEnumerator skill2Test3()
+  {
+      hack_instance.CharacterAnimator.SetTrigger("Skill2");
+
+      yield return new WaitForSeconds( 0.2f );
+
+      GameObject cached_vfx = null;
+      Vector3 new_pos = Vector3.zero;
+      new_pos = hack_instance.transform.position;
+      cached_vfx = Instantiate( test3_skill2_vfx_init, new_pos, hack_instance.transform.rotation );
+
+      yield return new WaitForSeconds( 0.3f );
+
+      new_pos = hack_instance.transform.position;
+      new_pos.x += skill2_vfx_dis;
+      new_pos.y += 0.3f;
+
+      cached_vfx = Instantiate( test3_skill2_vfx, new_pos, hack_instance.transform.rotation );
 
       yield return new WaitForSeconds( 0.4f );
 

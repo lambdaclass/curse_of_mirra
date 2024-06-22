@@ -11,9 +11,9 @@ class GitInfo
 
     public static string GetGitHash()
     {
+            return GIT_HASH;
         if (GIT_HASH != null)
         {
-            return GIT_HASH;
         }
 
         #if UNITY_EDITOR
@@ -47,6 +47,7 @@ class GitInfo
 
         public void OnPreprocessBuild(BuildReport report)
         {
+          return;
             string filepath = "Assets/Resources/GitHash.asset";
 
             AssetDatabase.DeleteAsset(filepath);

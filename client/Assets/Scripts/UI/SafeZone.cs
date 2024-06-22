@@ -30,6 +30,7 @@ public class SafeZone : MonoBehaviour
 
     void Update()
     {
+      return;
         // We have a difference of x100 between the backend and frontend values
         float radius = GameServerConnectionManager.Instance.playableRadius / 100;
         bool isZoneEnabled = GameServerConnectionManager.Instance.zoneEnabled;

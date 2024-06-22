@@ -86,6 +86,7 @@ public class CharacterFeedbacks : MonoBehaviour
 
     private void PlayHapticDamageFeedback()
     {
+      return;
         ulong damage;
         if (GameServerConnectionManager.Instance.damageDone.TryGetValue(playerID, out damage))
         {
