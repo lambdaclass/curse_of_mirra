@@ -266,6 +266,13 @@ public class GameServerConnectionManager : MonoBehaviour
         SendGameAction(gameAction);
     }
 
+    public void SendChangeTickrate(long tickrate, long timestamp)
+    {
+        ChangeTickrate changeTickrate = new ChangeTickrate { Tickrate = tickrate };
+        GameAction gameAction = new GameAction { ChangeTickrate = changeTickrate, Timestamp = timestamp };
+        SendGameAction(gameAction);
+    }
+    
     public void SendToggleBots(long timestamp)
     {
         ToggleBots toggleBots = new ToggleBots { };
