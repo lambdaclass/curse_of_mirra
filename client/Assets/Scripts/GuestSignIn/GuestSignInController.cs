@@ -41,6 +41,7 @@ public class GuestSignInController : MonoBehaviour
     {
         Action<string> successCallback = rawResponse => {
             ServerUtils.TokenResponse response = JsonUtility.FromJson<ServerUtils.TokenResponse>(rawResponse);
+            ServerUtils.SetUserId(response.user_id);
             ServerUtils.SetGatewayToken(response.gateway_jwt);
             titleScreenController.ChangeToMainscreen();
         };

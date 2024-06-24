@@ -1089,6 +1089,7 @@ GameObject:
   - component: {fileID: 8748072216551908753}
   - component: {fileID: 7417390480890307742}
   - component: {fileID: 6777247579464883826}
+  - component: {fileID: 7247227605375598976}
   m_Layer: 5
   m_Name: Rewards
   m_TagString: Untagged
@@ -1212,6 +1213,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 116d36ea48b3d49f98e90e76e435b20e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7247227605375598976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5516936866737757404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9251a9f35d2c384a9e26195e0c63ee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneName: MainScreen
+  LoadingSceneMode: 0
 --- !u!1 &5731663195217986147
 GameObject:
   m_ObjectHideFlags: 0
@@ -3096,6 +3111,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579158152923713088, guid: 9c6eb4680a7104e2eb387882eabf9b95,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6777247579464883826}
+    - target: {fileID: 5579158152923713088, guid: 9c6eb4680a7104e2eb387882eabf9b95,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClaimDailyReward
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579158152923713088, guid: 9c6eb4680a7104e2eb387882eabf9b95,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DailyRewardsController, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579158152923713088, guid: 9c6eb4680a7104e2eb387882eabf9b95,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8703585247290951865, guid: 9c6eb4680a7104e2eb387882eabf9b95,
         type: 3}
