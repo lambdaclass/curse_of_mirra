@@ -12,7 +12,7 @@ public class PlayerControls : MonoBehaviour
                 y,
                 GameServerConnectionManager.Instance.clientPrediction.lastXSent,
                 GameServerConnectionManager.Instance.clientPrediction.lastYSent
-            ) 
+            )
         )
         {
             var valuesToSend = new Direction { X = x, Y = y };
@@ -45,6 +45,19 @@ public class PlayerControls : MonoBehaviour
         bool movedFromStatic = (lastXSent == 0 && lastYSent == 0 && (x != 0 || y != 0));
         bool stoppedMoving = (x == 0 && y == 0 && (lastXSent != 0 || lastYSent != 0));
         bool changedDirection = (angleBetweenDirections > movementThreshold);
+
+        Vector2 movementDirection = new Vector2(x, y);
+        movementDirection.Normalize();
+
+        PlayerMovement.Movement movement = new PlayerMovement.Movement
+        {
+            direction_x = movementDirection.x,
+            direction_y = movementDirection.y,
+            speed = 0.63f // NO
+        };
+        GameServerConnectionManager.Instance.playerMovement.AddMovement(movement);
+
+        GameServerConnectionManager.Instance.playerMovement.MovePlayer();
         // Here we can add a validaion to check if
         // the movement is significant enough to be sent to the server
         return (movedFromStatic || stoppedMoving || changedDirection);

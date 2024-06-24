@@ -39,7 +39,7 @@ public class Loot : MonoBehaviour
     {
         if (!ExistInLoots(item.Id))
         {
-            var position = Utils.transformBackendOldPositionToFrontendPosition(item.Position);
+            var position = Utils.TransformBackendToFrontendPosition(item.Position);
             position.y = 0;
             LootItem LootItem = new LootItem();
             LootItem.lootObject = objectPooler.GetPooledGameObject();

@@ -23,9 +23,7 @@ public class PowerUpsManager : MonoBehaviour
 
     public void UpdatePowerUps()
     {
-        List<Entity> powerUpslist = GameServerConnectionManager
-            .Instance
-            .gamePowerUps;
+        List<Entity> powerUpslist = GameServerConnectionManager.Instance.gamePowerUps;
 
         for (int i = 0; i < powerUpslist.Count; i++)
         {
@@ -47,29 +45,30 @@ public class PowerUpsManager : MonoBehaviour
             {
                 RemovePowerUp(powerupEntity);
             }
-        };
+        }
+        ;
     }
 
     private void CreateNewPowerUp(Entity powerupEntity, PowerUp powerUp)
     {
-        Vector3 powerUpPosition = Utils.transformBackendOldPositionToFrontendPosition(
-            powerupEntity.Position
-        );
+        Vector3 powerUpPosition = Utils.TransformBackendToFrontendPosition(powerupEntity.Position);
 
         if (Utils.GetPlayer(powerUp.OwnerId) != null)
         {
             Vector3 previusOwnerPosition = Utils.GetPlayer(powerUp.OwnerId).transform.position;
             GameObject powerupGameObject = Instantiate(
-            powerUpItem,
-            previusOwnerPosition,
-            Quaternion.identity
-        );
+                powerUpItem,
+                previusOwnerPosition,
+                Quaternion.identity
+            );
             StartCoroutine(AnimatePowerUpPosition(powerupGameObject, powerUpPosition));
             availablePowerUps.Add(powerupEntity.Id, powerupGameObject);
         }
         if (Utils.GetCrate(powerUp.OwnerId) != null)
         {
-            Vector3 previusOwnerPosition = Utils.transformBackendOldPositionToFrontendPosition(Utils.GetCrate(powerUp.OwnerId).Position);
+            Vector3 previusOwnerPosition = Utils.TransformBackendToFrontendPosition(
+                Utils.GetCrate(powerUp.OwnerId).Position
+            );
             GameObject powerupGameObject = Instantiate(
                 powerUpItem,
                 previusOwnerPosition,
@@ -124,6 +123,7 @@ public class PowerUpsManager : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-        if (powerUp) powerUp.transform.position = targetPosition;
+        if (powerUp)
+            powerUp.transform.position = targetPosition;
     }
 }

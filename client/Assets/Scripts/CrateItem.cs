@@ -27,7 +27,7 @@ public class CrateItem : MonoBehaviour
     {
         serverId = item.Id;
 
-        var position = Utils.transformBackendOldPositionToFrontendPosition(item.Position);
+        var position = Utils.TransformBackendToFrontendPosition(item.Position);
         position.y = 0;
         transform.position = position;
 

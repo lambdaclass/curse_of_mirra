@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Google.Protobuf.Collections;
 using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
-using MoreMountains.TopDownEngine;
 
 public class Utils
 {
@@ -18,7 +18,7 @@ public class Utils
 
     private const string LOBBIES_BACKGROUND_MUSIC = "LobbiesBackgroundMusic";
 
-    public static Vector3 transformBackendOldPositionToFrontendPosition(Position position)
+    public static Vector3 TransformBackendToFrontendPosition(Position position)
     {
         var x = (float)position?.X / 100f;
         var y = (float)position?.Y / 100f;
@@ -41,10 +41,7 @@ public class Utils
 
     public static Entity GetCrate(ulong id)
     {
-        return GameServerConnectionManager
-            .Instance
-            .gameCrates
-            .Find(crate => crate.Id == id);
+        return GameServerConnectionManager.Instance.gameCrates.Find(crate => crate.Id == id);
     }
 
     public static CustomCharacter GetCharacter(ulong id)
@@ -154,7 +151,11 @@ public class Utils
         SceneManager.LoadScene(goToScene);
     }
 
-    public static IEnumerator WaitForBattleCreation(string currentSceneName, string battleSceneName, string action_action)
+    public static IEnumerator WaitForBattleCreation(
+        string currentSceneName,
+        string battleSceneName,
+        string action_action
+    )
     {
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == currentSceneName);
         ServerConnection.Instance.JoinGame(action_action);
