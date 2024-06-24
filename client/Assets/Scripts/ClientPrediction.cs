@@ -92,6 +92,8 @@ public class ClientPrediction
         var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         var characterSpeed = player.Speed;
 
+        Debug.Log(characterSpeed);
+
         Position currentPosition = startingPosition;
         Direction currentDirection = player.Direction;
 

@@ -34,7 +34,7 @@ public class PlayerControls : MonoBehaviour
 
     bool ShouldSendMovement(float x, float y, float lastXSent, float lastYSent)
     {
-        float movementThreshold = 0.1f;
+        float movementThreshold = 1f;
         //Fetch the first GameObject's position
         Vector2 currentDirection = new Vector2(x, y);
         //Fetch the second GameObject's position
@@ -45,6 +45,19 @@ public class PlayerControls : MonoBehaviour
         bool movedFromStatic = (lastXSent == 0 && lastYSent == 0 && (x != 0 || y != 0));
         bool stoppedMoving = (x == 0 && y == 0 && (lastXSent != 0 || lastYSent != 0));
         bool changedDirection = (angleBetweenDirections > movementThreshold);
+
+        Vector2 movementDirection = new Vector2(x, y);
+        movementDirection.Normalize();
+
+        PlayerMovement.Movement movement = new PlayerMovement.Movement
+        {
+            direction_x = movementDirection.x,
+            direction_y = movementDirection.y,
+            speed = 0.63f // NO
+        };
+        GameServerConnectionManager.Instance.playerMovement.AddMovement(movement);
+
+        GameServerConnectionManager.Instance.playerMovement.MovePlayer();
         // Here we can add a validaion to check if
         // the movement is significant enough to be sent to the server
         return (movedFromStatic || stoppedMoving || changedDirection);

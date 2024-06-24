@@ -147,6 +147,7 @@ public class CustomLevelManager : LevelManager
                 );
                 GameServerConnectionManager.Instance.clientPrediction.startingPosition =
                     player.Position;
+                GameServerConnectionManager.Instance.playerMovement.SetPlayer(player);
             }
             newPlayer.CharacterHealth.CurrentHealth = player.Player.Health;
             newPlayer.CharacterHealth.InitialHealth = player.Player.Health;
