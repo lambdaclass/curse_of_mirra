@@ -173,6 +173,8 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.playerId = gameEvent.Joined.PlayerId;
                     this.config = gameEvent.Joined.Config;
 
+                    this.playerMovement.mapRadius = gameEvent.Joined.Config.Map.Radius;
+
                     this.timestampDifferenceSamplesToCheckWarning = (int)
                         gameEvent
                             .Joined

@@ -17,6 +17,8 @@ public class PlayerMovement
 
     public long lastTimestamp = 0;
 
+    public float mapRadius;
+
     public void MovePlayer()
     {
         if (movements.Count > 0)
@@ -27,6 +29,14 @@ public class PlayerMovement
                 movements[movements.Count - 1].direction_x * player.Speed * deltaTime;
             player.Position.Y +=
                 movements[movements.Count - 1].direction_y * player.Speed * deltaTime;
+
+            // Refactor this {
+            Vector3 newPosition = new Vector3(player.Position.X, 0, player.Position.Y);
+            newPosition = ClampIfOutOfMap(newPosition, player.Radius);
+
+            player.Position.X = newPosition.x;
+            player.Position.Y = newPosition.z;
+            // }
 
             player.Direction.X = movements[movements.Count - 1].direction_x;
             player.Direction.Y = movements[movements.Count - 1].direction_y;
@@ -43,5 +53,21 @@ public class PlayerMovement
     public void SetPlayer(Entity player)
     {
         this.player = player;
+    }
+
+    private Vector3 ClampIfOutOfMap(Vector3 newPosition, float playerRadius)
+    {
+        Vector3 mapCenterPosition = new Vector3(0, 0, 0);
+        float playerDistanceFromMapCenter =
+            Vector3.Distance(newPosition, mapCenterPosition) + playerRadius;
+
+        if (playerDistanceFromMapCenter > mapRadius)
+        {
+            Vector3 fromOriginToObject = newPosition - mapCenterPosition;
+            fromOriginToObject *= mapRadius / playerDistanceFromMapCenter;
+            newPosition = mapCenterPosition + fromOriginToObject;
+        }
+
+        return newPosition;
     }
 }
