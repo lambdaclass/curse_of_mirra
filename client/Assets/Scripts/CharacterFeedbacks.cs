@@ -175,5 +175,6 @@ public class CharacterFeedbacks : MonoBehaviour
     public void PlayHitFeedback()
     {
         hitFeedback.GetComponent<MMF_Player>().PlayFeedbacks();
+        HapticFeedback.LightFeedback();
     }
 }
