@@ -19,6 +19,7 @@ public class Battle : MonoBehaviour
     CustomGUIManager CustomGUIManager;
     public bool showClientPredictionGhost;
     public bool zoneActive;
+    public bool botsActive;
     public bool showInterpolationGhosts;
     public bool animationsEnabled;
     public List<GameObject> InterpolationGhosts = new List<GameObject>();
@@ -91,6 +92,7 @@ public class Battle : MonoBehaviour
         showClientPredictionGhost = false;
         showInterpolationGhosts = false;
         zoneActive = true;
+        botsActive = true;
         animationsEnabled = true;
     }
 
@@ -769,6 +771,13 @@ public class Battle : MonoBehaviour
         zoneActive = !zoneActive;
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         GameServerConnectionManager.Instance.SendToggleZone(timestamp);
+    }
+
+    public void ToggleBots()
+    {
+        botsActive = !botsActive;
+        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        GameServerConnectionManager.Instance.SendToggleBots(timestamp);
     }
 
     public void ToggleGrid()
