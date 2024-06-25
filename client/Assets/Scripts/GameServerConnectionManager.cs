@@ -21,8 +21,6 @@ public class GameServerConnectionManager : MonoBehaviour
 
     public static GameServerConnectionManager Instance;
 
-    public Dictionary<ulong, Position> playersIdPosition = new Dictionary<ulong, Position>();
-
     public List<Entity> gamePlayers;
     public List<Entity> gameProjectiles;
     public List<Entity> gamePowerUps;
@@ -219,7 +217,6 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.zoneEnabled = gameState.Zone.Enabled;
                     this.gameStatus = gameState.Status;
                     this.gameCountdown = gameState.StartGameTimestamp - gameState.ServerTimestamp;
-                    var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();
                     this.gameProjectiles = gameState.Projectiles.Values.ToList();
                     this.gamePowerUps = gameState.PowerUps.Values.ToList();
@@ -229,10 +226,16 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.obstacles = gameState.Obstacles.Values.ToList();
                     this.damageDone = gameState.DamageDone.ToDictionary(x => x.Key, x => x.Value);
                     this.shrinking = gameState.Zone.Shrinking;
-                    this.playersIdPosition = new Dictionary<ulong, Position>
+
+                    this.playerMovement.SetSpeed(gameState.Players[this.playerId].Speed);
+                    this.playerMovement.SetForcedMovement(
+                        gameState.Players[this.playerId].Player.ForcedMovement
+                    );
+                    if (gameState.Players[this.playerId].Player.ForcedMovement)
                     {
-                        [this.playerId] = position
-                    };
+                        this.playerMovement.SetPlayer(gameState.Players[this.playerId]);
+                    }
+
                     OnGameEventTimestampChanged?.Invoke(
                         DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
                     );

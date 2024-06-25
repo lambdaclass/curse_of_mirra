@@ -166,14 +166,6 @@ public class Battle : MonoBehaviour
         }
     }
 
-    // private void MoveEntities()
-    // {
-    //     // TODO: For now we hardcode to only move entity 1 which is the single spawned player entity
-    //     var entity = levelManager.PlayerPrefabs[0];
-    //     var playerOnePosition = GameServerConnectionManager.Instance.playersIdPosition[1];
-    //     entity.transform.position = new Vector3(playerOnePosition.X, 0f, playerOnePosition.Y);
-    // }
-
     void UpdateBattleState()
     {
         UpdatePlayerActions();
@@ -269,7 +261,14 @@ public class Battle : MonoBehaviour
                 CustomCharacter currentCharacter = playersReferences[player.Id].character;
                 if (currentPlayer.activeSelf)
                 {
-                    UpdatePlayer(currentPlayer, player, pastTime);
+                    UpdatePlayer(
+                        currentPlayer,
+                        player,
+                        player.Speed,
+                        player.Position,
+                        player.Direction,
+                        pastTime
+                    );
                     HandleAnimations(player, currentPlayer, currentCharacter, timestamp);
                 }
             }
@@ -285,7 +284,14 @@ public class Battle : MonoBehaviour
                 GameObject interpolationGhost = FindGhostPlayer(player.Id.ToString());
                 if (interpolationGhost != null)
                 {
-                    UpdatePlayer(interpolationGhost, player, pastTime);
+                    UpdatePlayer(
+                        interpolationGhost,
+                        player,
+                        player.Speed,
+                        player.Position,
+                        player.Direction,
+                        pastTime
+                    );
                 }
             }
         }
@@ -304,35 +310,37 @@ public class Battle : MonoBehaviour
             {
                 if (showClientPredictionGhost)
                 {
-                    UpdatePlayer(clientPredictionGhost, player, pastTime);
+                    UpdatePlayer(
+                        clientPredictionGhost,
+                        player,
+                        player.Speed,
+                        player.Position,
+                        player.Direction,
+                        pastTime
+                    );
                 }
                 GameObject currentPlayer = playersReferences[player.Id].player;
                 CustomCharacter currentCharacter = playersReferences[player.Id].character;
 
-                if (useClientPrediction)
+                float speed = player.Speed;
+                Position position = player.Position;
+                Direction direction = player.Direction;
+
+                if (useClientPrediction && !player.Player.ForcedMovement)
                 {
-                    if (currentPlayer.activeSelf)
-                    {
-                        UpdatePlayer(
-                            currentPlayer,
-                            GameServerConnectionManager.Instance.playerMovement.player,
-                            pastTime
-                        );
-                        HandleAnimations(
-                            GameServerConnectionManager.Instance.playerMovement.player,
-                            currentPlayer,
-                            currentCharacter,
-                            serverTimestamp
-                        );
-                    }
+                    speed = GameServerConnectionManager.Instance.playerMovement.player.Speed;
+                    position = GameServerConnectionManager.Instance.playerMovement.player.Position;
+                    direction = GameServerConnectionManager
+                        .Instance
+                        .playerMovement
+                        .player
+                        .Direction;
                 }
-                else
+
+                if (currentPlayer.activeSelf)
                 {
-                    if (currentPlayer.activeSelf)
-                    {
-                        UpdatePlayer(currentPlayer, player, pastTime);
-                        HandleAnimations(player, currentPlayer, currentCharacter, serverTimestamp);
-                    }
+                    UpdatePlayer(currentPlayer, player, speed, position, direction, pastTime);
+                    HandleAnimations(player, currentPlayer, currentCharacter, serverTimestamp);
                 }
             }
         }
@@ -471,7 +479,6 @@ public class Battle : MonoBehaviour
 
     void UpdateProjectiles(Dictionary<int, GameObject> projectiles, List<Entity> gameProjectiles)
     {
-        float tickRate = 1000f / GameServerConnectionManager.Instance.serverTickRate_ms;
         GameObject projectile;
         for (int i = 0; i < gameProjectiles.Count; i++)
         {
@@ -480,7 +487,7 @@ public class Battle : MonoBehaviour
             );
             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
             {
-                float velocity = tickRate * gameProjectiles[i].Speed / 100f;
+                float velocity = gameProjectiles[i].Speed / 100f;
                 Vector3 movementDirection = new Vector3(
                     gameProjectiles[i].Direction.X,
                     0f,
@@ -488,7 +495,8 @@ public class Battle : MonoBehaviour
                 );
                 movementDirection.Normalize();
                 Vector3 newProjectilePosition =
-                    projectile.transform.position + movementDirection * velocity * Time.deltaTime;
+                    projectile.transform.position
+                    + movementDirection * velocity * (Time.deltaTime * 1000f);
                 projectile
                     .GetComponent<SkillProjectile>()
                     .UpdatePosition(
@@ -564,7 +572,14 @@ public class Battle : MonoBehaviour
         }
     }
 
-    private void UpdatePlayer(GameObject player, Entity playerUpdate, long pastTime)
+    private void UpdatePlayer(
+        GameObject player,
+        Entity playerUpdate,
+        float playerSpeed,
+        Position playerPosition,
+        Direction playerDirection,
+        long pastTime
+    )
     {
         PlayerReferences playerReference = playersReferences[playerUpdate.Id];
         playerReference.feedbackManager.ManageStateFeedbacks(
@@ -579,7 +594,14 @@ public class Battle : MonoBehaviour
         playerReference.modelAnimator.SetBool("Walking", false);
         if (!GameServerConnectionManager.Instance.GameHasEnded() && playerUpdate.Player.Health > 0)
         {
-            HandleMovement(player, playerUpdate, pastTime);
+            HandleMovement(
+                player,
+                playerUpdate.Id,
+                playerSpeed,
+                playerPosition,
+                playerDirection,
+                pastTime
+            );
         }
 
         playerReference.character.HandlePlayerHealth(playerUpdate);
@@ -625,20 +647,27 @@ public class Battle : MonoBehaviour
         );
     }
 
-    private void HandleMovement(GameObject player, Entity playerUpdate, long pastTime)
+    private void HandleMovement(
+        GameObject player,
+        ulong playerId,
+        float playerSpeed,
+        Position playerPosition,
+        Direction playerDirection,
+        long pastTime
+    )
     {
-        var velocity = playerUpdate.Speed / 100f;
+        var velocity = playerSpeed / 100f;
 
-        var frontendPosition = Utils.TransformBackendToFrontendPosition(playerUpdate.Position);
+        var frontendPosition = Utils.TransformBackendToFrontendPosition(playerPosition);
 
         float xChange = frontendPosition.x - player.transform.position.x;
         float yChange = frontendPosition.z - player.transform.position.z;
 
-        CustomCharacter character = playersReferences[playerUpdate.Id].character;
+        CustomCharacter character = playersReferences[playerId].character;
 
-        Animator modelAnimator = playersReferences[playerUpdate.Id].modelAnimator;
+        Animator modelAnimator = playersReferences[playerId].modelAnimator;
 
-        bool walking = PlayerIsMoving(playerUpdate, pastTime);
+        bool walking = PlayerIsMoving(playerId, pastTime);
 
         Vector2 movementChange = new Vector2(xChange, yChange);
 
@@ -685,13 +714,9 @@ public class Battle : MonoBehaviour
 
             player.transform.position = new Vector3(newPosition.x, 0, newPosition.z);
 
-            // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
-            // if the player is in attacking state, movement rotation from movement should be ignored
-            Direction direction = GetPlayerDirection(playerUpdate);
-
             if (PlayerMovementAuthorized(character))
             {
-                character.RotatePlayer(direction);
+                character.RotatePlayer(playerDirection);
             }
         }
 
@@ -700,20 +725,20 @@ public class Battle : MonoBehaviour
         modelAnimator.SetBool("Walking", walking);
     }
 
-    private bool PlayerIsMoving(Entity playerUpdate, long pastTime = 0)
+    private bool PlayerIsMoving(ulong playerId, long pastTime = 0)
     {
-        if (useClientPrediction && playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
+        if (useClientPrediction && playerId == GameServerConnectionManager.Instance.playerId)
         {
             return InputsAreBeingUsed();
         }
         else
         {
-            if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
+            if (playerId == GameServerConnectionManager.Instance.playerId)
             {
                 print(pastTime);
             }
             return GameServerConnectionManager.Instance.eventsBuffer.playerIsMoving(
-                playerUpdate.Id,
+                playerId,
                 (long)pastTime
             );
         }
@@ -855,11 +880,6 @@ public class Battle : MonoBehaviour
                 || (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
                 || (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
             );
-    }
-
-    public Direction GetPlayerDirection(Entity playerUpdate)
-    {
-        return playerUpdate.Direction;
     }
 
     private GameObject FindGhostPlayer(string playerId)

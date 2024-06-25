@@ -21,6 +21,10 @@ public class PlayerMovement
 
     public void MovePlayer()
     {
+        if (player.Player.ForcedMovement)
+        {
+            return;
+        }
         if (movements.Count > 0)
         {
             long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -47,12 +51,37 @@ public class PlayerMovement
 
     public void AddMovement(Movement movement)
     {
+        if (player.Player.ForcedMovement)
+        {
+            return;
+        }
         movements.Add(movement);
+    }
+
+    public void SetForcedMovement(bool forcedMovement)
+    {
+        this.player.Player.ForcedMovement = forcedMovement;
     }
 
     public void SetPlayer(Entity player)
     {
         this.player = player;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        this.player.Speed = speed;
+    }
+
+    public void StopMovement()
+    {
+        PlayerMovement.Movement movement = new PlayerMovement.Movement
+        {
+            direction_x = 0f,
+            direction_y = 0f,
+            speed = player.Speed
+        };
+        AddMovement(movement);
     }
 
     private Vector3 ClampIfOutOfMap(Vector3 newPosition, float playerRadius)
