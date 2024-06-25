@@ -20,7 +20,7 @@ using UnityEngine;
 // 1: bool = true if the entities are colliding
 // 2: Position = nomalized line of collision
 // 3: f32 = the minimum amount of overlap between the shapes that would solve the collision
-public class SAT : MonoBehaviour
+public class SAT
 {
     
     public static (bool, Position, float) IntersectCirclePolygon(
@@ -54,9 +54,9 @@ public class SAT : MonoBehaviour
             Position currentVertex = polygon.Vertices[i];
             Position nextVertex = polygon.Vertices[nextVertexIndex];
 
-             Position currentLine = SubPosition(currentVertex, nextVertex);
+             Position currentLine = PositionUtils.SubPosition(currentVertex, nextVertex);
             // the axis will be the perpendicular line drawn from the current line of the polygon
-            axis = NormalizedPosition(new Position {
+            axis = PositionUtils.NormalizedPosition(new Position {
                 X = -currentLine.Y,
                 Y = currentLine.X
             });
@@ -91,7 +91,7 @@ public class SAT : MonoBehaviour
 
     // Check normal and depth for center
     Position closestVertex = FindClosestVertex(circle.Position, vertexList);
-    axis = NormalizedPosition(SubPosition(closestVertex, circle.Position));
+    axis = PositionUtils.NormalizedPosition(PositionUtils.SubPosition(closestVertex, circle.Position));
 
     (minPolygonCastPoint, maxPolygonCastPoint) = ProjectVertices(vertexList, axis);
     (minCircleCastPoint, maxCircleCastPoint) = ProjectCircle(circle, axis);
@@ -130,7 +130,7 @@ public class SAT : MonoBehaviour
         float max = float.MinValue;
         foreach (Position position in vertices)
         {
-            float projection = Dot(position, axis);
+            float projection = PositionUtils.Dot(position, axis);
 
             if(projection < min){
                 min = projection;
@@ -152,11 +152,11 @@ public class SAT : MonoBehaviour
             Y = axis.Y * circle.Radius
         };
 
-        Position positionPlusRadius = AddPosition(circle.Position, directionRadius);
-        Position positionSubRadius = SubPosition(circle.Position, directionRadius);
+        Position positionPlusRadius = PositionUtils.AddPosition(circle.Position, directionRadius);
+        Position positionSubRadius = PositionUtils.SubPosition(circle.Position, directionRadius);
 
-        min = Dot(positionPlusRadius, axis);
-        max = Dot(positionSubRadius, axis);
+        min = PositionUtils.Dot(positionPlusRadius, axis);
+        max = PositionUtils.Dot(positionSubRadius, axis);
 
         if(min > max){
             var temp = min;
@@ -172,7 +172,7 @@ public class SAT : MonoBehaviour
         float minDistance = float.MaxValue;
 
         foreach (Position currentPosition in vertices){
-            float distance = DistanceToPosition(center, currentPosition);
+            float distance = PositionUtils.DistanceToPosition(center, currentPosition);
 
             if(distance < minDistance){
                 minDistance = distance;
@@ -180,38 +180,5 @@ public class SAT : MonoBehaviour
             }
         }
         return result;
-    }
-
-
-
-    public static  float Dot(Position firstPosition, Position secondPosition){
-        return firstPosition.X * secondPosition.X + firstPosition.Y * secondPosition.Y;
-    }
-
-    public static Position SubPosition(Position firstPosition, Position secondPosition){
-        return new Position{
-            X = firstPosition.X - secondPosition.X,
-            Y = firstPosition.Y - secondPosition.Y,
-        };
-    }
-
-    public static Position AddPosition(Position firstPosition, Position secondPosition){
-        return new Position{
-            X = firstPosition.X + secondPosition.X,
-            Y = firstPosition.Y + secondPosition.Y,
-        };
-    }
-
-    public static Position NormalizedPosition(Position position){
-        float length = (float)Math.Sqrt(Math.Pow(position.X, 2.0f) + Math.Pow(position.Y, 2.0f));
-        return new Position{
-            X = position.X / length,
-            Y = position.Y / length
-        };
-    }
-
-    public static float DistanceToPosition(Position firstPosition, Position secondPosition){
-        Position resultPosition =  SubPosition(firstPosition, secondPosition);
-        return (float)Math.Sqrt(Math.Pow(resultPosition.X, 2.0f) + Math.Pow(resultPosition.Y, 2.0f));
     }
 }
