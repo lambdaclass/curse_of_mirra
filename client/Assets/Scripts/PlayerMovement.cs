@@ -40,15 +40,7 @@ public class PlayerMovement
 
             player.Position.X = newPosition.x;
             player.Position.Y = newPosition.z;
-            foreach (Entity obstacle in GameServerConnectionManager.Instance.obstacles)
-            {
-                (bool collided, Position direction, float depth) = SAT.IntersectCirclePolygon(player, obstacle);
-
-                if (collided){
-                    player.Position.X = player.Position.X + direction.X * depth;
-                    player.Position.Y = player.Position.Y + direction.Y * depth;
-                }
-            }
+            processCollisions();
             // }
 
             player.Direction.X = movements[movements.Count - 1].direction_x;
@@ -107,5 +99,39 @@ public class PlayerMovement
         }
 
         return newPosition;
+    }
+
+    private void processCollisions(){
+        foreach (Entity obstacle in GameServerConnectionManager.Instance.obstacles)
+            {
+                switch (obstacle.Shape)
+                {
+                    case "circle":
+                        float distance = PositionUtils.DistanceToPosition(player.Position, obstacle.Position);
+                        if (distance <= player.Radius + obstacle.Radius)
+                        {
+                            Position normalized_direction = PositionUtils.NormalizedPosition(
+                                PositionUtils.SubPosition(player.Position, obstacle.Position)
+                            );
+                            player.Position.X = obstacle.Position.X + (normalized_direction.X * player.Radius) + (normalized_direction.X * obstacle.Radius);
+                            player.Position.Y = obstacle.Position.Y + (normalized_direction.Y * player.Radius) + (normalized_direction.Y * obstacle.Radius);
+                        }
+
+                        break;
+                    case "polygon":
+                        (bool collided, Position direction, float depth) = SAT.IntersectCirclePolygon(player, obstacle);
+
+                        if (collided)
+                        {
+                            player.Position.X += direction.X * depth;
+                            player.Position.Y += direction.Y * depth;
+                        }
+
+                        break;
+                    default:
+                        Debug.Log("Missing obstacle shape");
+                        break;
+                }
+            }
     }
 }
