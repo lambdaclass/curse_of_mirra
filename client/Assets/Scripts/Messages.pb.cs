@@ -129,29 +129,31 @@ public static partial class MessagesReflection {
           "cGFyYW1ldGVycxgCIAEoCzIRLkF0dGFja1BhcmFtZXRlcnMiLgoQQXR0YWNr",
           "UGFyYW1ldGVycxIaCgZ0YXJnZXQYASABKAsyCi5EaXJlY3Rpb24iFwoHVXNl",
           "SXRlbRIMCgRpdGVtGAEgASgEIicKDFNlbGVjdEJvdW50eRIXCg9ib3VudHlf",
-          "cXVlc3RfaWQYASABKAkiDAoKVG9nZ2xlWm9uZSIMCgpUb2dnbGVCb3RzIu4B",
-          "CgpHYW1lQWN0aW9uEhUKBG1vdmUYASABKAsyBS5Nb3ZlSAASGQoGYXR0YWNr",
-          "GAIgASgLMgcuQXR0YWNrSAASHAoIdXNlX2l0ZW0YBCABKAsyCC5Vc2VJdGVt",
-          "SAASJgoNc2VsZWN0X2JvdW50eRgFIAEoCzINLlNlbGVjdEJvdW50eUgAEiIK",
-          "C3RvZ2dsZV96b25lGAYgASgLMgsuVG9nZ2xlWm9uZUgAEiIKC3RvZ2dsZV9i",
-          "b3RzGAcgASgLMgsuVG9nZ2xlQm90c0gAEhEKCXRpbWVzdGFtcBgDIAEoA0IN",
-          "CgthY3Rpb25fdHlwZSJeCgRab25lEg4KBnJhZGl1cxgBIAEoAhIPCgdlbmFi",
-          "bGVkGAIgASgIEiIKGm5leHRfem9uZV9jaGFuZ2VfdGltZXN0YW1wGAMgASgD",
-          "EhEKCXNocmlua2luZxgEIAEoCCIxCglLaWxsRW50cnkSEQoJa2lsbGVyX2lk",
-          "GAEgASgEEhEKCXZpY3RpbV9pZBgCIAEoBCJiCgpCb3VudHlJbmZvEgoKAmlk",
-          "GAEgASgJEhMKC2Rlc2NyaXB0aW9uGAIgASgJEhIKCnF1ZXN0X3R5cGUYAyAB",
-          "KAkSHwoGcmV3YXJkGAQgASgLMg8uQ3VycmVuY3lSZXdhcmQiMgoOQ3VycmVu",
-          "Y3lSZXdhcmQSEAoIY3VycmVuY3kYASABKAkSDgoGYW1vdW50GAIgASgDKkkK",
-          "CkdhbWVTdGF0dXMSDQoJUFJFUEFSSU5HEAASCwoHUlVOTklORxABEgkKBUVO",
-          "REVEEAISFAoQU0VMRUNUSU5HX0JPVU5UWRADKjoKEFByb2plY3RpbGVTdGF0",
-          "dXMSCgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQARIMCghDT05TVU1FRBACKiYK",
-          "C0NyYXRlU3RhdHVzEggKBEZJTkUQABINCglERVNUUk9ZRUQQASopCg1Qb3dl",
-          "clVwc3RhdHVzEg0KCUFWQUlMQUJMRRAAEgkKBVRBS0VOEAEqjwEKEFBsYXll",
-          "ckFjdGlvblR5cGUSCgoGTU9WSU5HEAASFAoQU1RBUlRJTkdfU0tJTExfMRAB",
-          "EhQKEFNUQVJUSU5HX1NLSUxMXzIQAhIVChFFWEVDVVRJTkdfU0tJTExfMRAD",
-          "EhUKEUVYRUNVVElOR19TS0lMTF8yEAQSFQoRRVhFQ1VUSU5HX1NLSUxMXzMQ",
-          "BSpACgpUcmFwU3RhdHVzEgsKB1BFTkRJTkcQABIMCghQUkVQQVJFRBABEg0K",
-          "CVRSSUdHRVJFRBACEggKBFVTRUQQA2IGcHJvdG8z"));
+          "cXVlc3RfaWQYASABKAkiDAoKVG9nZ2xlWm9uZSIMCgpUb2dnbGVCb3RzIiIK",
+          "DkNoYW5nZVRpY2tyYXRlEhAKCHRpY2tyYXRlGAEgASgDIpoCCgpHYW1lQWN0",
+          "aW9uEhUKBG1vdmUYASABKAsyBS5Nb3ZlSAASGQoGYXR0YWNrGAIgASgLMgcu",
+          "QXR0YWNrSAASHAoIdXNlX2l0ZW0YBCABKAsyCC5Vc2VJdGVtSAASJgoNc2Vs",
+          "ZWN0X2JvdW50eRgFIAEoCzINLlNlbGVjdEJvdW50eUgAEiIKC3RvZ2dsZV96",
+          "b25lGAYgASgLMgsuVG9nZ2xlWm9uZUgAEiIKC3RvZ2dsZV9ib3RzGAcgASgL",
+          "MgsuVG9nZ2xlQm90c0gAEioKD2NoYW5nZV90aWNrcmF0ZRgIIAEoCzIPLkNo",
+          "YW5nZVRpY2tyYXRlSAASEQoJdGltZXN0YW1wGAMgASgDQg0KC2FjdGlvbl90",
+          "eXBlIl4KBFpvbmUSDgoGcmFkaXVzGAEgASgCEg8KB2VuYWJsZWQYAiABKAgS",
+          "IgoabmV4dF96b25lX2NoYW5nZV90aW1lc3RhbXAYAyABKAMSEQoJc2hyaW5r",
+          "aW5nGAQgASgIIjEKCUtpbGxFbnRyeRIRCglraWxsZXJfaWQYASABKAQSEQoJ",
+          "dmljdGltX2lkGAIgASgEImIKCkJvdW50eUluZm8SCgoCaWQYASABKAkSEwoL",
+          "ZGVzY3JpcHRpb24YAiABKAkSEgoKcXVlc3RfdHlwZRgDIAEoCRIfCgZyZXdh",
+          "cmQYBCABKAsyDy5DdXJyZW5jeVJld2FyZCIyCg5DdXJyZW5jeVJld2FyZBIQ",
+          "CghjdXJyZW5jeRgBIAEoCRIOCgZhbW91bnQYAiABKAMqSQoKR2FtZVN0YXR1",
+          "cxINCglQUkVQQVJJTkcQABILCgdSVU5OSU5HEAESCQoFRU5ERUQQAhIUChBT",
+          "RUxFQ1RJTkdfQk9VTlRZEAMqOgoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJ",
+          "VkUQABIMCghFWFBMT0RFRBABEgwKCENPTlNVTUVEEAIqJgoLQ3JhdGVTdGF0",
+          "dXMSCAoERklORRAAEg0KCURFU1RST1lFRBABKikKDVBvd2VyVXBzdGF0dXMS",
+          "DQoJQVZBSUxBQkxFEAASCQoFVEFLRU4QASqPAQoQUGxheWVyQWN0aW9uVHlw",
+          "ZRIKCgZNT1ZJTkcQABIUChBTVEFSVElOR19TS0lMTF8xEAESFAoQU1RBUlRJ",
+          "TkdfU0tJTExfMhACEhUKEUVYRUNVVElOR19TS0lMTF8xEAMSFQoRRVhFQ1VU",
+          "SU5HX1NLSUxMXzIQBBIVChFFWEVDVVRJTkdfU0tJTExfMxAFKkAKClRyYXBT",
+          "dGF0dXMSCwoHUEVORElORxAAEgwKCFBSRVBBUkVEEAESDQoJVFJJR0dFUkVE",
+          "EAISCAoEVVNFRBADYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameStatus), typeof(global::ProjectileStatus), typeof(global::CrateStatus), typeof(global::PowerUpstatus), typeof(global::PlayerActionType), typeof(global::TrapStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -192,7 +194,8 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::SelectBounty), global::SelectBounty.Parser, new[]{ "BountyQuestId" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ToggleZone), global::ToggleZone.Parser, null, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ToggleBots), global::ToggleBots.Parser, null, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "Attack", "UseItem", "SelectBounty", "ToggleZone", "ToggleBots", "Timestamp" }, new[]{ "ActionType" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::ChangeTickrate), global::ChangeTickrate.Parser, new[]{ "Tickrate" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "Attack", "UseItem", "SelectBounty", "ToggleZone", "ToggleBots", "ChangeTickrate", "Timestamp" }, new[]{ "ActionType" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Zone), global::Zone.Parser, new[]{ "Radius", "Enabled", "NextZoneChangeTimestamp", "Shrinking" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::KillEntry), global::KillEntry.Parser, new[]{ "KillerId", "VictimId" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::BountyInfo), global::BountyInfo.Parser, new[]{ "Id", "Description", "QuestType", "Reward" }, null, null, null, null),
@@ -10892,6 +10895,196 @@ public sealed partial class ToggleBots : pb::IMessage<ToggleBots>
 }
 
 [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+public sealed partial class ChangeTickrate : pb::IMessage<ChangeTickrate>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<ChangeTickrate> _parser = new pb::MessageParser<ChangeTickrate>(() => new ChangeTickrate());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<ChangeTickrate> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MessagesReflection.Descriptor.MessageTypes[37]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ChangeTickrate() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ChangeTickrate(ChangeTickrate other) : this() {
+    tickrate_ = other.tickrate_;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ChangeTickrate Clone() {
+    return new ChangeTickrate(this);
+  }
+
+  /// <summary>Field number for the "tickrate" field.</summary>
+  public const int TickrateFieldNumber = 1;
+  private long tickrate_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public long Tickrate {
+    get { return tickrate_; }
+    set {
+      tickrate_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as ChangeTickrate);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(ChangeTickrate other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (Tickrate != other.Tickrate) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Tickrate != 0L) hash ^= Tickrate.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (Tickrate != 0L) {
+      output.WriteRawTag(8);
+      output.WriteInt64(Tickrate);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (Tickrate != 0L) {
+      output.WriteRawTag(8);
+      output.WriteInt64(Tickrate);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (Tickrate != 0L) {
+      size += 1 + pb::CodedOutputStream.ComputeInt64Size(Tickrate);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(ChangeTickrate other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Tickrate != 0L) {
+      Tickrate = other.Tickrate;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 8: {
+          Tickrate = input.ReadInt64();
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 8: {
+          Tickrate = input.ReadInt64();
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class GameAction : pb::IMessage<GameAction>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -10906,7 +11099,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[37]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[38]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -10945,6 +11138,9 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
         break;
       case ActionTypeOneofCase.ToggleBots:
         ToggleBots = other.ToggleBots.Clone();
+        break;
+      case ActionTypeOneofCase.ChangeTickrate:
+        ChangeTickrate = other.ChangeTickrate.Clone();
         break;
     }
 
@@ -11029,6 +11225,18 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     }
   }
 
+  /// <summary>Field number for the "change_tickrate" field.</summary>
+  public const int ChangeTickrateFieldNumber = 8;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::ChangeTickrate ChangeTickrate {
+    get { return actionTypeCase_ == ActionTypeOneofCase.ChangeTickrate ? (global::ChangeTickrate) actionType_ : null; }
+    set {
+      actionType_ = value;
+      actionTypeCase_ = value == null ? ActionTypeOneofCase.None : ActionTypeOneofCase.ChangeTickrate;
+    }
+  }
+
   /// <summary>Field number for the "timestamp" field.</summary>
   public const int TimestampFieldNumber = 3;
   private long timestamp_;
@@ -11051,6 +11259,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     SelectBounty = 5,
     ToggleZone = 6,
     ToggleBots = 7,
+    ChangeTickrate = 8,
   }
   private ActionTypeOneofCase actionTypeCase_ = ActionTypeOneofCase.None;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -11087,6 +11296,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     if (!object.Equals(SelectBounty, other.SelectBounty)) return false;
     if (!object.Equals(ToggleZone, other.ToggleZone)) return false;
     if (!object.Equals(ToggleBots, other.ToggleBots)) return false;
+    if (!object.Equals(ChangeTickrate, other.ChangeTickrate)) return false;
     if (Timestamp != other.Timestamp) return false;
     if (ActionTypeCase != other.ActionTypeCase) return false;
     return Equals(_unknownFields, other._unknownFields);
@@ -11102,6 +11312,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     if (actionTypeCase_ == ActionTypeOneofCase.SelectBounty) hash ^= SelectBounty.GetHashCode();
     if (actionTypeCase_ == ActionTypeOneofCase.ToggleZone) hash ^= ToggleZone.GetHashCode();
     if (actionTypeCase_ == ActionTypeOneofCase.ToggleBots) hash ^= ToggleBots.GetHashCode();
+    if (actionTypeCase_ == ActionTypeOneofCase.ChangeTickrate) hash ^= ChangeTickrate.GetHashCode();
     if (Timestamp != 0L) hash ^= Timestamp.GetHashCode();
     hash ^= (int) actionTypeCase_;
     if (_unknownFields != null) {
@@ -11150,6 +11361,10 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
       output.WriteRawTag(58);
       output.WriteMessage(ToggleBots);
     }
+    if (actionTypeCase_ == ActionTypeOneofCase.ChangeTickrate) {
+      output.WriteRawTag(66);
+      output.WriteMessage(ChangeTickrate);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -11188,6 +11403,10 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
       output.WriteRawTag(58);
       output.WriteMessage(ToggleBots);
     }
+    if (actionTypeCase_ == ActionTypeOneofCase.ChangeTickrate) {
+      output.WriteRawTag(66);
+      output.WriteMessage(ChangeTickrate);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -11215,6 +11434,9 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     }
     if (actionTypeCase_ == ActionTypeOneofCase.ToggleBots) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(ToggleBots);
+    }
+    if (actionTypeCase_ == ActionTypeOneofCase.ChangeTickrate) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(ChangeTickrate);
     }
     if (Timestamp != 0L) {
       size += 1 + pb::CodedOutputStream.ComputeInt64Size(Timestamp);
@@ -11270,6 +11492,12 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
           ToggleBots = new global::ToggleBots();
         }
         ToggleBots.MergeFrom(other.ToggleBots);
+        break;
+      case ActionTypeOneofCase.ChangeTickrate:
+        if (ChangeTickrate == null) {
+          ChangeTickrate = new global::ChangeTickrate();
+        }
+        ChangeTickrate.MergeFrom(other.ChangeTickrate);
         break;
     }
 
@@ -11346,6 +11574,15 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
           ToggleBots = subBuilder;
           break;
         }
+        case 66: {
+          global::ChangeTickrate subBuilder = new global::ChangeTickrate();
+          if (actionTypeCase_ == ActionTypeOneofCase.ChangeTickrate) {
+            subBuilder.MergeFrom(ChangeTickrate);
+          }
+          input.ReadMessage(subBuilder);
+          ChangeTickrate = subBuilder;
+          break;
+        }
       }
     }
   #endif
@@ -11419,6 +11656,15 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
           ToggleBots = subBuilder;
           break;
         }
+        case 66: {
+          global::ChangeTickrate subBuilder = new global::ChangeTickrate();
+          if (actionTypeCase_ == ActionTypeOneofCase.ChangeTickrate) {
+            subBuilder.MergeFrom(ChangeTickrate);
+          }
+          input.ReadMessage(subBuilder);
+          ChangeTickrate = subBuilder;
+          break;
+        }
       }
     }
   }
@@ -11441,7 +11687,7 @@ public sealed partial class Zone : pb::IMessage<Zone>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[38]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[39]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -11742,7 +11988,7 @@ public sealed partial class KillEntry : pb::IMessage<KillEntry>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[39]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[40]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -11969,7 +12215,7 @@ public sealed partial class BountyInfo : pb::IMessage<BountyInfo>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[40]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[41]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -12279,7 +12525,7 @@ public sealed partial class CurrencyReward : pb::IMessage<CurrencyReward>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[41]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[42]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
