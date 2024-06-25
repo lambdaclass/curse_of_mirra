@@ -12,6 +12,7 @@ public class PinnedEffectsController : MonoBehaviour
 
     private void Start()
     {
+        pinned_effects_manager = FindFirstObjectByType<PinnedEffectsManager>();// FOR TEST CASES ONLY! REMOVE BEFORE MERGE
         Play(pinned_effects_manager);
     }
 
