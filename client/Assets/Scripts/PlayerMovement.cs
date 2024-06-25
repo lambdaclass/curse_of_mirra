@@ -40,6 +40,15 @@ public class PlayerMovement
 
             player.Position.X = newPosition.x;
             player.Position.Y = newPosition.z;
+            foreach (Entity obstacle in GameServerConnectionManager.Instance.obstacles)
+            {
+                (bool collided, Position direction, float depth) = SAT.IntersectCirclePolygon(player, obstacle);
+
+                if (collided){
+                    player.Position.X = player.Position.X + direction.X * depth;
+                    player.Position.Y = player.Position.Y + direction.Y * depth;
+                }
+            }
             // }
 
             player.Direction.X = movements[movements.Count - 1].direction_x;
