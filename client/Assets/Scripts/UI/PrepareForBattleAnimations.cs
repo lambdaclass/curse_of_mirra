@@ -32,7 +32,9 @@ public class PrepareForBattleAnimations : MonoBehaviour
         bountiesCountDown;
 
     [SerializeField]
-    CanvasGroup bountiesCountDownCG;
+    CanvasGroup bountiesCountDownCG,
+        bountiesTitleCG,
+        bountiesSecondsCG;
 
     [SerializeField]
     CinemachineVirtualCamera cinemachineVirtualCamera;
@@ -112,6 +114,8 @@ public class PrepareForBattleAnimations : MonoBehaviour
 
     IEnumerator BountiesAnimation()
     {
+        bountiesTitleCG.DOFade(1, 0.5f); 
+        bountiesSecondsCG.DOFade(1, 0.5f); 
         bountiesContainer.GetComponent<CanvasGroup>().alpha = 1f;
 
         if (GameServerConnectionManager.Instance.bounties.Count > 0 && GameServerConnectionManager.Instance.bounties != null) 
