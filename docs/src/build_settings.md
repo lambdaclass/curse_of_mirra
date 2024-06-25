@@ -21,7 +21,7 @@ The `player settings` option can be found at the bottom left corner of the build
 
 ## 4 - Basic player settings:
 
-Here you can find common settings shared across devices such as the name of the build (Product Name) and the icon to be shown (Default Icon). Builds with different names won't override each other, making builds from different branches to compare much easier.
+Here you can find common settings shared across devices such as the name of the build (Product Name) and the icon to be shown (Default Icon).
 
 ## 5 - Device specific settings:
 
