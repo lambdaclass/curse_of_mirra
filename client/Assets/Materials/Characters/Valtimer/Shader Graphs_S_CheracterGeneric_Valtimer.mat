@@ -89,6 +89,7 @@ Material:
     - _AORemapMin: 0.57
     - _AlphaCutoff: -41.33
     - _AmbientOcclusion: 0.8
+    - _DamageColorIntensity: 0
     - _DetailAlbedoScale: 0.988
     - _DetailNormalScale: 0.965
     - _DetailSmoothnessScale: 1
@@ -97,6 +98,7 @@ Material:
     - _FresnelEffectAmount: 0
     - _FresnelPower: 6
     - _FresnelValue: 3
+    - _ISTRANSPARENT: 0
     - _LinkDetailsWithBase: 1
     - _MetalicChannelID: 2
     - _Metallic: 0.585
@@ -118,6 +120,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 0}
     - _BaseColorMap_TO: {r: 1, g: 1, b: 0, a: 0}
+    - _DamageColor: {r: 0.41509432, g: 0, b: 0, a: 1}
     - _DetailMap_TO: {r: 1, g: 1, b: 0, a: 0}
     - _EmissiveColor: {r: 1, g: 1, b: 1, a: 0}
     - _EmissiveNoiseSpeed: {r: 1, g: 1, b: 0, a: 0}
