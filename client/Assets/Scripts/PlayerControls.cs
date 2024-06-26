@@ -57,7 +57,6 @@ public class PlayerControls : MonoBehaviour
         };
         GameServerConnectionManager.Instance.playerMovement.AddMovement(movement);
 
-        GameServerConnectionManager.Instance.playerMovement.MovePlayer();
         // Here we can add a validaion to check if
         // the movement is significant enough to be sent to the server
         return (movedFromStatic || stoppedMoving || changedDirection);
