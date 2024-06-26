@@ -27,8 +27,6 @@ public class SAT
         Entity circle,
         Entity polygon
     ){
-
-
         List<Entity> obstacles = GameServerConnectionManager.Instance.obstacles;
         List<Position> vertexList = new List<Position>(polygon.Vertices);
         // The normal will be the vector in which the polygons should move to stop colliding
