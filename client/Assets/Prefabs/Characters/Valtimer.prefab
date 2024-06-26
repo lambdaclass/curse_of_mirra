@@ -396,6 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterModel: {fileID: 3927301614853615125}
+  weaponModel: {fileID: 0}
   feedbacksStatesPrefabs:
   - {fileID: 6880168384479574166}
   - {fileID: 6362123941699143047}
