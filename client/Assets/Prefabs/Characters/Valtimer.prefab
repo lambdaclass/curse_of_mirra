@@ -52,6 +52,7 @@ GameObject:
   - component: {fileID: 3975715648245094208}
   - component: {fileID: 3848229883583172591}
   - component: {fileID: 4367255950604289525}
+  - component: {fileID: 8710803073102610870}
   m_Layer: 10
   m_Name: Valtimer
   m_TagString: Player
@@ -514,7 +515,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterModel: {fileID: 3927301614853615125}
-  weaponModel: {fileID: 0}
   feedbacksStatesPrefabs:
   - {fileID: 6880168384479574166}
   - {fileID: 6362123941699143047}
@@ -531,9 +531,9 @@ MonoBehaviour:
     type: 3}
   myrrasBlessingVFX: {fileID: 5796624995586497347, guid: ed64eeaf76997fc4891dd40c05a751a3,
     type: 3}
+  giantFruitVFX: {fileID: 3374547286696385216, guid: 32d61c1261ec02f428edf1235d24da34,
+    type: 3}
   healthBar: {fileID: 8711474442059621043}
-  damageOverlayColor: {r: 0, g: 0, b: 0, a: 0}
-  healOverlayColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &3848229883583172591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,6 +568,79 @@ MonoBehaviour:
   renderers:
   - {fileID: 5805871567372683905}
   holder: {fileID: 11400000, guid: 237a49ef543f64e49a8dbb07adffb439, type: 2}
+--- !u!114 &8710803073102610870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787465996332106805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aedeca35cda34794eaf10b38e97bfc69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale_curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0017370554
+      value: 1.0010141
+      inSlope: 0.5092114
+      outSlope: 0.5092114
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.143338
+      value: 1.074888
+      inSlope: 0.31552294
+      outSlope: 0.31552294
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.3763107
+    - serializedVersion: 3
+      time: 0.3500992
+      value: 1.1193179
+      inSlope: 0.25416213
+      outSlope: 0.25416213
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5773937
+      value: 1.186015
+      inSlope: 0.23474811
+      outSlope: 0.23474811
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7660355
+      value: 1.2192267
+      inSlope: 0.16440414
+      outSlope: 0.16440414
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.41099986
+    - serializedVersion: 3
+      time: 0.99791026
+      value: 1.26472
+      inSlope: 0.034225427
+      outSlope: 0.034225427
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.5480975
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  scaling_duration: 0.5
 --- !u!1 &2177724367458675729
 GameObject:
   m_ObjectHideFlags: 0

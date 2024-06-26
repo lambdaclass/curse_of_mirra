@@ -52,6 +52,8 @@ public class Battle : MonoBehaviour
     [SerializeField]
     MeshFilter mesh;
 
+    float previousPlayerRadius = 0;
+
     public struct PlayerReferences
     {
         public GameObject player;
@@ -593,6 +595,26 @@ public class Battle : MonoBehaviour
 
         if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
         {
+            VFXCharacterTransformController scaleController = player.GetComponent<VFXCharacterTransformController>();
+
+            // scale logic
+            if (playerUpdate.Radius != previousPlayerRadius)
+            {
+                float radiusDiff = playerUpdate.Radius - previousPlayerRadius;
+                if (radiusDiff > 0 && previousPlayerRadius != 0)
+                {
+                    // scale up
+                    StartCoroutine(scaleController.scaleUp());
+                }
+                else
+                {
+                    //scale down
+                    StartCoroutine(scaleController.scaleDown());
+                }
+                previousPlayerRadius = playerUpdate.Radius;
+                //scaleController.scaleCharacter();
+            }
+
             if (GameServerConnectionManager.Instance.damageDone.ContainsKey(playerUpdate.Id))
             {
                 character.HandleHit(

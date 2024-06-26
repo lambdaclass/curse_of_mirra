@@ -5,7 +5,7 @@ using UnityEngine;
 public class VFXCharacterTransformController : MonoBehaviour
 {
     [SerializeField] private AnimationCurve scale_curve = null;
-    [SerializeField] private float scaling_duration = 1.0f;
+    [SerializeField] private float scaling_duration = 0.5f;
 
     private IEnumerator transform_coroutine = null;
     private float cached_duration = 0;
@@ -14,7 +14,6 @@ public class VFXCharacterTransformController : MonoBehaviour
 
     void Start()
     {
-        scaleCharacter();//Test case! Remove before merge
     }
 
     public void scaleCharacter(float duration = DEFAULT_SCALE_DURATION)
@@ -24,7 +23,7 @@ public class VFXCharacterTransformController : MonoBehaviour
 
     public void resetScale()
     {
-        if(transform_coroutine != null)
+        if (transform_coroutine != null)
             StopCoroutine(transform_coroutine);
     }
 
@@ -44,34 +43,34 @@ public class VFXCharacterTransformController : MonoBehaviour
         }
     }
 
-    private IEnumerator scaleUp()
+    public IEnumerator scaleUp()
     {
-        while(cached_duration < scaling_duration)
+        while (cached_duration < scaling_duration)
         {
-          cached_vector.x = scale_curve.Evaluate(cached_duration / scaling_duration);
-          cached_vector.y = cached_vector.x;
-          cached_vector.z = cached_vector.x;
+            cached_vector.x = scale_curve.Evaluate(cached_duration / scaling_duration);
+            cached_vector.y = cached_vector.x;
+            cached_vector.z = cached_vector.x;
 
-          transform.parent.transform.localScale = cached_vector;
+            this.transform.localScale = cached_vector;
 
-          yield return null;
-          cached_duration += Time.deltaTime;
+            cached_duration += Time.deltaTime;
+            yield return null;
         }
     }
 
-    private IEnumerator scaleDown()
+    public IEnumerator scaleDown()
     {
         cached_duration = scaling_duration;
-        while(cached_duration > 0)
+        while (cached_duration > 0)
         {
-          cached_vector.x = scale_curve.Evaluate(cached_duration / scaling_duration);
-          cached_vector.y = cached_vector.x;
-          cached_vector.z = cached_vector.x;
+            cached_vector.x = scale_curve.Evaluate(cached_duration / scaling_duration);
+            cached_vector.y = cached_vector.x;
+            cached_vector.z = cached_vector.x;
 
-          transform.parent.transform.localScale = cached_vector;
+            this.transform.localScale = cached_vector;
 
-          yield return null;
-          cached_duration -= Time.deltaTime;
+            yield return null;
+            cached_duration -= Time.deltaTime;
         }
     }
 }

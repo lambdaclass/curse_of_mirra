@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using CandyCoded.HapticFeedback;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
@@ -32,7 +31,8 @@ public class CharacterFeedbacks : MonoBehaviour
     [SerializeField]
     GameObject goldenClockVFX,
         magicBootsVFX,
-        myrrasBlessingVFX;
+        myrrasBlessingVFX,
+        giantFruitVFX;
 
     [SerializeField]
     MMProgressBar healthBar;
@@ -101,7 +101,7 @@ public class CharacterFeedbacks : MonoBehaviour
             case "golden_clock_effect":
                 return goldenClockVFX;
             case "giant_effect":
-                return goldenClockVFX;
+                return giantFruitVFX;
             default:
                 return null;
         }
