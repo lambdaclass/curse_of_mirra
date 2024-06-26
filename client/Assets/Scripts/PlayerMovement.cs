@@ -21,10 +21,6 @@ public class PlayerMovement
 
     public void MovePlayer()
     {
-        if (player.Player.ForcedMovement)
-        {
-            return;
-        }
         if (movements.Count > 0)
         {
             long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -55,6 +51,11 @@ public class PlayerMovement
         {
             return;
         }
+        movements.Add(movement);
+    }
+
+    public void AddForcedMovement(Movement movement)
+    {
         movements.Add(movement);
     }
 

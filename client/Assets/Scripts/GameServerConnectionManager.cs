@@ -233,7 +233,13 @@ public class GameServerConnectionManager : MonoBehaviour
                     );
                     if (gameState.Players[this.playerId].Player.ForcedMovement)
                     {
-                        this.playerMovement.SetPlayer(gameState.Players[this.playerId]);
+                        PlayerMovement.Movement movement = new PlayerMovement.Movement
+                        {
+                            direction_x = gameState.Players[this.playerId].Direction.X,
+                            direction_y = gameState.Players[this.playerId].Direction.Y,
+                            speed = 0.63f // NO
+                        };
+                        this.playerMovement.AddForcedMovement(movement);
                     }
 
                     OnGameEventTimestampChanged?.Invoke(

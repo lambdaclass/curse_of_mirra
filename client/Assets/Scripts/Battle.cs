@@ -162,6 +162,7 @@ public class Battle : MonoBehaviour
             {
                 SendPlayerMovement();
                 lastMovementUpdate = nowMiliseconds;
+                GameServerConnectionManager.Instance.playerMovement.MovePlayer();
             }
         }
     }
@@ -326,7 +327,7 @@ public class Battle : MonoBehaviour
                 Position position = player.Position;
                 Direction direction = player.Direction;
 
-                if (useClientPrediction && !player.Player.ForcedMovement)
+                if (useClientPrediction)
                 {
                     speed = GameServerConnectionManager.Instance.playerMovement.player.Speed;
                     position = GameServerConnectionManager.Instance.playerMovement.player.Position;
