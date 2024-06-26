@@ -41,7 +41,7 @@ MonoBehaviour:
     delay: 0
     instantiateVfxOnModel: 1
     hasDestination: 0
-  - vfx: {fileID: 9197403966285785662, guid: 732fdbae74040b44f9c6d1195edfe069, type: 3}
+  - vfx: {fileID: 8011961694304540528, guid: ef6a079d340ab0e49b8ee956a9d70ad6, type: 3}
     duration: 2.5
     delay: 0.6
     instantiateVfxOnModel: 0
