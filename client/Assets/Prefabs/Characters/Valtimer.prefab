@@ -513,7 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aad69d9b41024b9e8f313a6dce47cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterModel: {fileID: 7019730323277001932}
+  characterModel: {fileID: 3927301614853615125}
   weaponModel: {fileID: 0}
   feedbacksStatesPrefabs:
   - {fileID: 6880168384479574166}
@@ -766,6 +766,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: -4811841980228074724, guid: 229af38c1b5d84986b523df36e2b7502,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8b7e7b3d29879e24b9366e61bbb99312, type: 2}
     - target: {fileID: -4614660997913481848, guid: 229af38c1b5d84986b523df36e2b7502,
         type: 3}
       propertyPath: m_Layer
@@ -1207,6 +1212,12 @@ Transform:
 --- !u!4 &3006879017491392698 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4318693856630677209, guid: 229af38c1b5d84986b523df36e2b7502,
+    type: 3}
+  m_PrefabInstance: {fileID: 7902267415113468317}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3927301614853615125 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6569320680264918920, guid: 229af38c1b5d84986b523df36e2b7502,
     type: 3}
   m_PrefabInstance: {fileID: 7902267415113468317}
   m_PrefabAsset: {fileID: 0}
