@@ -47,6 +47,7 @@ MonoBehaviour:
     hasDestination: 1
   animationList:
   - durationPercent: 1
+    animation: {fileID: 7400000, guid: e9eb1970c3ef8494ca352d506d634d95, type: 2}
     triggersVfx: 0
     vfxStep:
       vfx: {fileID: 0}
@@ -55,6 +56,7 @@ MonoBehaviour:
       instantiateVfxOnModel: 0
       hasDestination: 0
   - durationPercent: 0.5
+    animation: {fileID: 7400000, guid: aeb4d6c00c9854d3ca119daba1890577, type: 2}
     triggersVfx: 0
     vfxStep:
       vfx: {fileID: 0}

@@ -131,7 +131,7 @@ public class GameServerConnectionManager : MonoBehaviour
             "/play/" + SessionParameters.GameId + "/" + SessionParameters.PlayerId
         );
         print(url);
-        ws = new WebSocket(url);
+        ws = ServerUtils.CreateWebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
         ws.OnClose += OnWebsocketClose;
         ws.OnError += (e) =>
@@ -188,7 +188,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
                     eventsBuffer.AddEvent(gameState);
 
-                    KillFeedManager.instance.putEvents(gameState.Killfeed.ToList());
+                    KillFeedManager.instance.PutEvents(gameState.Killfeed.ToList());
                     this.playableRadius = gameState.Zone.Radius;
                     this.zoneShrinkTime =
                         gameState.Zone.NextZoneChangeTimestamp - gameState.ServerTimestamp;
@@ -216,6 +216,9 @@ public class GameServerConnectionManager : MonoBehaviour
                     winnerPlayer.Item2 = gameEvent.Finished.Winner.Player.KillCount;
                     this.gamePlayers = gameEvent.Finished.Players.Values.ToList();
                     OnMatchFinished?.Invoke();
+                    break;
+                // This event is for bot clients only, we'll do nothing.
+                case GameEvent.EventOneofCase.ToggleBots:
                     break;
                 default:
                     print("Message received is: " + gameEvent.EventCase);
@@ -253,6 +256,27 @@ public class GameServerConnectionManager : MonoBehaviour
         //      Once that is a reality we should receive as part of the parameters
         UseItem useItem = new UseItem { Item = 0 };
         GameAction gameAction = new GameAction { UseItem = useItem, Timestamp = timestamp };
+        SendGameAction(gameAction);
+    }
+
+    public void SendToggleZone(long timestamp)
+    {
+        ToggleZone toggleZone = new ToggleZone { };
+        GameAction gameAction = new GameAction { ToggleZone = toggleZone, Timestamp = timestamp };
+        SendGameAction(gameAction);
+    }
+
+    public void SendChangeTickrate(long tickrate, long timestamp)
+    {
+        ChangeTickrate changeTickrate = new ChangeTickrate { Tickrate = tickrate };
+        GameAction gameAction = new GameAction { ChangeTickrate = changeTickrate, Timestamp = timestamp };
+        SendGameAction(gameAction);
+    }
+    
+    public void SendToggleBots(long timestamp)
+    {
+        ToggleBots toggleBots = new ToggleBots { };
+        GameAction gameAction = new GameAction { ToggleBots = toggleBots, Timestamp = timestamp };
         SendGameAction(gameAction);
     }
 

@@ -204,8 +204,11 @@ public class GoogleSignInController : MonoBehaviour
                 StartCoroutine(
                     ServerUtils.GetTokenIdValidation(
                         task.Result.IdToken,
-                        response =>
+                        rawResponse =>
                         {
+                            ServerUtils.TokenResponse response = JsonUtility.FromJson<ServerUtils.TokenResponse>(rawResponse);
+                            ServerUtils.SetGatewayToken(response.gateway_jwt);
+
                             if (PlayerPrefs.GetString("GoogleUserId") == "")
                             {
                                 PlayerPrefs.SetString("GoogleUserName", task.Result.DisplayName);
@@ -259,6 +262,3 @@ public class GoogleSignInController : MonoBehaviour
         // statusText.text = text;
     }
 }
-
-
-

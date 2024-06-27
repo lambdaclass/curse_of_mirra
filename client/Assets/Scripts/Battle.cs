@@ -18,7 +18,10 @@ public class Battle : MonoBehaviour
     [SerializeField]
     CustomGUIManager CustomGUIManager;
     public bool showClientPredictionGhost;
+    public bool zoneActive;
+    public bool botsActive;
     public bool showInterpolationGhosts;
+    public bool animationsEnabled;
     public List<GameObject> InterpolationGhosts = new List<GameObject>();
     public GameObject clientPredictionGhost;
     public bool useClientPrediction;
@@ -92,6 +95,9 @@ public class Battle : MonoBehaviour
         accumulatedTime = 0;
         showClientPredictionGhost = false;
         showInterpolationGhosts = false;
+        zoneActive = true;
+        botsActive = true;
+        animationsEnabled = true;
     }
 
     private IEnumerator SetupPlayersReferences()
@@ -129,8 +135,8 @@ public class Battle : MonoBehaviour
             .SelectMany(player => player.GetComponents<Skill>())
             .Select(skill => skill.GetSkillInfo())
             .Where(skill => skill.hasProjectile)
-            .GroupBy(skill => skill.name)
-            .Select(group => group.First())
+            // .GroupBy(skill => skill.name)
+            // .Select(group => group.First())
             .ToHashSet();
 
         GetComponent<ProjectileHandler>().CreateProjectilesPoolers(skillInfoSet);
@@ -763,6 +769,34 @@ public class Battle : MonoBehaviour
         }
     }
 
+    public void ToggleZone()
+    {
+        zoneActive = !zoneActive;
+        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        GameServerConnectionManager.Instance.SendToggleZone(timestamp);
+    }
+
+    public void ToggleBots()
+    {
+        botsActive = !botsActive;
+        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        GameServerConnectionManager.Instance.SendToggleBots(timestamp);
+    }
+
+    public void ToggleGrid()
+    {
+        mapGrid.SetActive(!mapGrid.activeSelf);
+    }
+
+    public void ToggleAnimations()
+    {
+        animationsEnabled = !animationsEnabled;
+        foreach (var playerReference in playersReferences)
+        {
+            playerReference.Value.modelAnimator.enabled = animationsEnabled;
+        }
+    }
+
     private void SpawnClientPredictionGhost()
     {
         GameObject player = playersReferences[GameServerConnectionManager.Instance.playerId].player;
@@ -790,52 +824,52 @@ public class Battle : MonoBehaviour
         }
     }
 
-    //     // ENTITY INTERPOLATION UTILITY FUNCTIONS, WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
-    //     public void ToggleInterpolationGhosts()
-    //     {
-    //         showInterpolationGhosts = !showInterpolationGhosts;
-    //         if (showInterpolationGhosts)
-    //         {
-    //             SpawnInterpolationGhosts();
-    //         }
-    //         else
-    //         {
-    //             TurnOffInterpolationGhosts();
-    //         }
-    //     }
+    // ENTITY INTERPOLATION UTILITY FUNCTIONS, WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
+    public void ToggleInterpolationGhosts()
+    {
+        showInterpolationGhosts = !showInterpolationGhosts;
+        if (showInterpolationGhosts)
+        {
+            SpawnInterpolationGhosts();
+        }
+        else
+        {
+            TurnOffInterpolationGhosts();
+        }
+    }
 
-    //     private void SpawnInterpolationGhosts()
-    //     {
-    //         for (int i = 0; i < GameServerConnectionManager.Instance.gamePlayers.Count; i++)
-    //         {
-    //             GameObject player = Utils.GetPlayer(
-    //                 GameServerConnectionManager.Instance.gamePlayers[i].Id
-    //             );
-    //             GameObject interpolationGhost;
-    //             interpolationGhost = Instantiate(
-    //                 player,
-    //                 player.transform.position,
-    //                 Quaternion.identity
-    //             );
-    //             interpolationGhost.GetComponent<CustomCharacter>().PlayerID =
-    //                 GameServerConnectionManager.Instance.gamePlayers[i].Id.ToString();
-    //             interpolationGhost.GetComponent<CustomCharacter>().name =
-    //                 $"Interpolation Ghost #{GameServerConnectionManager.Instance.gamePlayers[i].Id}";
+    private void SpawnInterpolationGhosts()
+    {
+        for (int i = 0; i < GameServerConnectionManager.Instance.gamePlayers.Count; i++)
+        {
+            GameObject player = Utils.GetPlayer(
+                GameServerConnectionManager.Instance.gamePlayers[i].Id
+            );
+            GameObject interpolationGhost;
+            interpolationGhost = Instantiate(
+                player,
+                player.transform.position,
+                Quaternion.identity
+            );
+            interpolationGhost.GetComponent<CustomCharacter>().PlayerID =
+                GameServerConnectionManager.Instance.gamePlayers[i].Id.ToString();
+            interpolationGhost.GetComponent<CustomCharacter>().name =
+                $"Interpolation Ghost #{GameServerConnectionManager.Instance.gamePlayers[i].Id}";
 
-    //             InterpolationGhosts.Add(interpolationGhost);
-    //         }
-    //     }
+            InterpolationGhosts.Add(interpolationGhost);
+        }
+    }
 
-    //     private void TurnOffInterpolationGhosts()
-    //     {
-    //         foreach (GameObject interpolationGhost in InterpolationGhosts)
-    //         {
-    //             interpolationGhost.GetComponent<CustomCharacter>().GetComponent<Health>().SetHealth(0);
-    //             interpolationGhost.SetActive(false);
-    //             Destroy(interpolationGhost);
-    //         }
-    //         InterpolationGhosts = new List<GameObject>();
-    //     }
+    private void TurnOffInterpolationGhosts()
+    {
+        foreach (GameObject interpolationGhost in InterpolationGhosts)
+        {
+            interpolationGhost.GetComponent<CustomCharacter>().GetComponent<Health>().SetHealth(0);
+            interpolationGhost.SetActive(false);
+            Destroy(interpolationGhost);
+        }
+        InterpolationGhosts = new List<GameObject>();
+    }
 
     public bool InputsAreBeingUsed()
     {

@@ -18,8 +18,8 @@ public class PoolSkill : MonoBehaviour
     private readonly Color ORIGINAL_COLOR_A = new Color(.3372549f, .172549f, .3803922f, 0f);
     private readonly Color ORIGINAL_COLOR_B = new Color(.2704863f, .8907394f, .8487674f, 0f);
 
-    private readonly Color BUFFED_COLOR_A = new Color(1f, 0f, .68f, 0f);
-    private readonly Color BUFFED_COLOR_B = new Color(.21f, .20f, .67f, 0f);
+    private readonly Color BUFFED_COLOR_A = new Color(0.82f, 0.1f, .49f, 0f);
+    private readonly Color BUFFED_COLOR_B = new Color(.3f, .07f, .63f, 0f);
 
     private const float ORIGINAL_DURATION = 5f;
     private float originalEffectDiameter;
@@ -92,7 +92,7 @@ public class PoolSkill : MonoBehaviour
                 StopCoroutine(effectCoroutine);
             }
             
-            effectCoroutine = StartCoroutine(BuffSingularity(vfx, 1f));
+            effectCoroutine = StartCoroutine(BuffSingularity(vfx, .7f));
         }
     }
 
