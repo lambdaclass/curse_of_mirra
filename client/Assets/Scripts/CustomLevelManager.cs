@@ -7,7 +7,6 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CustomLevelManager : LevelManager
@@ -58,21 +57,29 @@ public class CustomLevelManager : LevelManager
         GameObject player = Utils.GetPlayer(playerId);
         player.GetComponent<Health>().CurrentHealth = gamePlayer.Player.Health;
 
+        Transform hitbox = player.GetComponent<CustomCharacter>().characterBase.Hitbox.transform;
+        player.GetComponent<CharacterController>().radius = gamePlayer.Radius / 100;
+        float hitboxSize = Utils.TransformBackenUnitToClientUnit(gamePlayer.Radius) * 2;
+        hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
+
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
         endGameManager.SetDeathSplashCharacter();
 
-        GameServerConnectionManager.Instance.obstacles.ForEach(el => {
+        GameServerConnectionManager.Instance.obstacles.ForEach(el =>
+        {
             GenerateColliders(el.Vertices.ToList(), el.Name);
         });
     }
 
-    private void GenerateColliders(List<Position> vertices, string name){
+    private void GenerateColliders(List<Position> vertices, string name)
+    {
         GameObject collider = Instantiate(colliderPrefab);
         collider.name = name;
         collider.GetComponent<LineRenderer>().positionCount = vertices.Count;
-        for(int i = 0; i < vertices.Count; i++){
+        for (int i = 0; i < vertices.Count; i++)
+        {
             var vertice = vertices[i];
-            var position = new Vector3(vertice.X/100, 0, vertice.Y/100);
+            var position = new Vector3(vertice.X / 100, 0, vertice.Y / 100);
             collider.GetComponent<LineRenderer>().SetPosition(i, position);
         };
     }
