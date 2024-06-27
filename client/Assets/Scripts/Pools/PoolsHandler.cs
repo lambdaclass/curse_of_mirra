@@ -21,6 +21,8 @@ public class PoolsHandler : MonoBehaviour
             .SelectMany(player => player.GetComponents<Skill>())
             .Select(skill => skill.GetSkillInfo())
             .Where(skill => skill.hasSkillPool)
+            .GroupBy(skill => skill.name)
+            .Select(group => group.First())
             .ToHashSet();
 
         CreatePoolsPoolers(poolSkillsInfo);
@@ -36,7 +38,7 @@ public class PoolsHandler : MonoBehaviour
                 transform.parent,
                 skillInfo.poolPrefab
             );
-            poolsPoolers.Add($"{skillInfo.name}_Pooler_{skillInfo.ownerId}", poolsPooler);
+            poolsPoolers.Add($"{skillInfo.name}_Pooler", poolsPooler);
         }
     }
 
@@ -70,7 +72,7 @@ public class PoolsHandler : MonoBehaviour
                 ulong skillOwner = poolState.Pool.OwnerId;
 
                 SkillInfo skillInfo = poolSkillsInfo
-                    .Where(el => el.poolSkillKey == poolSkillKey && el.ownerId == skillOwner)
+                    .Where(el => el.poolSkillKey == poolSkillKey)
                     .FirstOrDefault();
 
                 PoolSkill poolFeedback = InstantiatePool(
@@ -97,7 +99,7 @@ public class PoolsHandler : MonoBehaviour
 
     public PoolSkill InstantiatePool(SkillInfo skillInfo, Vector3 initialPosition, float radius)
     {
-        MMSimpleObjectPooler poolsPooler = poolsPoolers[$"{skillInfo.name}_Pooler_{skillInfo.ownerId}"];
+        MMSimpleObjectPooler poolsPooler = poolsPoolers[$"{skillInfo.name}_Pooler"];
         PoolSkill poolSkill = poolsPooler.GetPooledGameObject().GetComponent<PoolSkill>();
         poolSkill.Initialize(skillInfo, initialPosition, radius);
 
