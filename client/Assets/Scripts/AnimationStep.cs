@@ -7,7 +7,11 @@ using UnityEngine;
 public class AnimationStep
 {
     [SerializeField]
-    public float durationPercent;
+    public float durationPercent; 
+
+    [SerializeField]
+    public AnimationClip animation;
+
     public bool triggersVfx;
 
     [MMCondition("triggersVfx", true)]

@@ -15,6 +15,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
     GameObject battleScreen,
         loadingScreen,
         loadingIcon,
+        bountiesContainer,
         prepareBattleContainer,
         playersContainer,
         surviveContainer,
@@ -27,10 +28,19 @@ public class PrepareForBattleAnimations : MonoBehaviour
         surviveText;
 
     [SerializeField]
-    TextMeshProUGUI countDown;
+    TextMeshProUGUI countDown,
+        bountiesCountDown;
+
+    [SerializeField]
+    CanvasGroup bountiesCountDownCG,
+        bountiesTitleCG,
+        bountiesSecondsCG;
 
     [SerializeField]
     CinemachineVirtualCamera cinemachineVirtualCamera;
+
+    [SerializeField]
+    List<GameObject> bountiesList;
     Vector3 cameraDistanceFromGround = new Vector3(0, 30f, -18);
     Vector3 playerPosition;
     GameObject player;
@@ -41,6 +51,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
     const float SURVIVE_DURATION = 1.2f;
 
     bool countdownDone = false;
+    bool bountiesCountdownDone = false;
 
     float originalCountdownScale,
         originalCoinScale,
@@ -73,6 +84,10 @@ public class PrepareForBattleAnimations : MonoBehaviour
             cinemachineVirtualCamera.transform.rotation
         );
         loadingScreen.GetComponent<CanvasGroup>().DOFade(0, .1f);
+        StartCoroutine(BountiesAnimation());
+        yield return new WaitUntil(
+            () => bountiesCountdownDone
+        );
         StartCoroutine(PrepareForBattleAnimation());
         yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION + 1f);
         StartCoroutine(PlayersAnimation());
@@ -93,6 +108,59 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .SetEase(Ease.InOutQuart);
         yield return new WaitForSeconds(1.5f);
         loadingComplete = true;
+    }
+
+    IEnumerator BountiesAnimation()
+    {
+        bountiesTitleCG.DOFade(1, 0.5f); 
+        bountiesSecondsCG.DOFade(1, 0.5f); 
+        bountiesContainer.GetComponent<CanvasGroup>().alpha = 1f;
+
+        if (GameServerConnectionManager.Instance.bounties.Count > 0 && GameServerConnectionManager.Instance.bounties != null) 
+        {
+            GenerateBounties();
+
+            foreach (GameObject bounty in bountiesList)
+            {
+                RectTransform rectTransform = bounty.GetComponent<RectTransform>();
+
+                // Use initial position as the final one
+                Vector2 finalPosition = rectTransform.anchoredPosition;
+                
+                rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -1000f);
+                bounty.SetActive(true);
+                rectTransform.DOAnchorPos(finalPosition, .5f);
+
+                // Wait before starting the next animation
+                yield return new WaitForSeconds(.1f);
+            }
+        } 
+
+        StartCoroutine(BountiesCountdown());
+        yield return new WaitUntil(
+            () => bountiesCountdownDone
+        );
+        bountiesContainer.GetComponent<CanvasGroup>().alpha = 0f;
+    }
+
+    IEnumerator BountiesCountdown()
+    {
+        Sequence displaySequence = DOTween.Sequence();
+        displaySequence
+            .Append(countDown.transform.DOScale(originalCountdownScale + 0.2f, .5f))
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetEase(Ease.Linear);
+        int bountiesPickTime =
+(int)(GameServerConnectionManager.Instance.bountyPickTime_ms / 1000);
+        for (int i = bountiesPickTime; i > 0; i--)
+        {
+            bountiesCountDown.text = i.ToString();
+            bountiesCountDownCG.alpha = 1; 
+            yield return new WaitForSeconds(0.5f);
+            bountiesCountDownCG.DOFade(0, 0.4f); 
+            yield return new WaitForSeconds(0.5f);
+        }
+        bountiesCountdownDone = true;
     }
 
     IEnumerator PrepareForBattleAnimation()
@@ -226,10 +294,14 @@ public class PrepareForBattleAnimations : MonoBehaviour
 
     void CoinDisplayAnimation(GameObject coin, float originalScale)
     {
+        RectTransform rectTransform = coin.GetComponent<RectTransform>();
+        Vector2 finalPosition = rectTransform.anchoredPosition;
+        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 1000f);
+        
         Sequence stickerSequence = DOTween.Sequence();
         stickerSequence
-            .AppendInterval(.3f)
-            .Append(coin.GetComponent<CanvasGroup>().DOFade(1, .3f))
+            .Append(coin.GetComponent<CanvasGroup>().DOFade(1f, 0f))
+            .Append(rectTransform.DOAnchorPos(finalPosition, .2f))
             .Insert(0, coin.transform.DOScale(originalScale + .05f, .3f))
             .Append(coin.transform.DOScale(originalScale, .3f))
             .SetEase(Ease.InQuad)
@@ -276,6 +348,16 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .Single()
             .battleCharacterCard;
         item.character.sprite = characterIcon;
+    }
+
+    void GenerateBounties()
+    {
+        for (int i = 0; i < GameServerConnectionManager.Instance.bounties.Count; i ++) {
+            GameObject bountyGameObject = bountiesList[i];
+            BountyInfo bountyInfo = GameServerConnectionManager.Instance.bounties[i];
+
+            bountyGameObject.GetComponent<Bounty>().SetBounty(bountyInfo);
+        }
     }
 
     private void SetCameraToPlayer(ulong playerID)

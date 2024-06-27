@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aad69d9b41024b9e8f313a6dce47cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterModel: {fileID: 7172922750394001502}
+  characterModel: {fileID: 625883019487767432}
   weaponModel: {fileID: 0}
   feedbacksStatesPrefabs:
   - {fileID: 220605700603955422}
@@ -1440,6 +1440,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1936599507587364085, guid: 39761d9fb2702431c98f8b8a6380740e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 222abb179628597459dce05294599a7f, type: 2}
     - target: {fileID: 1997145672077521694, guid: 39761d9fb2702431c98f8b8a6380740e,
         type: 3}
       propertyPath: m_Layer
@@ -1632,6 +1637,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39761d9fb2702431c98f8b8a6380740e, type: 3}
+--- !u!1 &625883019487767432 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1736793345503248761, guid: 39761d9fb2702431c98f8b8a6380740e,
+    type: 3}
+  m_PrefabInstance: {fileID: 8019291275163358479}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2853213154216574415 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -3975947492984575808, guid: 39761d9fb2702431c98f8b8a6380740e,

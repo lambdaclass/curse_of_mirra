@@ -27,6 +27,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public List<Entity> gamePools;
     public List<Entity> gameLoots;
     public List<Entity> gameCrates;
+    public List<BountyInfo> bounties;
 
     public List<Entity> obstacles;
     public Dictionary<ulong, ulong> damageDone = new Dictionary<ulong, ulong>();
@@ -34,6 +35,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public uint currentPing;
 
     public float serverTickRate_ms;
+    public float bountyPickTime_ms;
     public string serverHash;
     public GameStatus gameStatus;
     public float gameCountdown;
@@ -63,6 +65,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public bool shrinking;
     WebSocket ws;
 
+    public BountyInfo bountySelected;
     public Configuration config;
 
     public static Action<long> OnGameEventTimestampChanged;
@@ -201,6 +204,8 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.msWithoutUpdateDisconnect = (int)
                         gameEvent.Joined.Config.ClientConfig.ServerUpdate.MsWithoutUpdateDisconnect;
 
+                    this.bounties = gameEvent.Joined.Bounties.ToList();
+                    this.bountyPickTime_ms = gameEvent.Joined.Config.Game.BountyPickTimeMs;
                     break;
                 case GameEvent.EventOneofCase.Ping:
                     currentPing = (uint)gameEvent.Ping.Latency;
@@ -216,7 +221,8 @@ public class GameServerConnectionManager : MonoBehaviour
                         gameState.Zone.NextZoneChangeTimestamp - gameState.ServerTimestamp;
                     this.zoneEnabled = gameState.Zone.Enabled;
                     this.gameStatus = gameState.Status;
-                    this.gameCountdown = gameState.StartGameTimestamp - gameState.ServerTimestamp;
+                    this.gameCountdown = gameState.StartGameTimestamp - gameState.ServerTimestamp + this.bountyPickTime_ms;
+                    var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();
                     this.gameProjectiles = gameState.Projectiles.Values.ToList();
                     this.gamePowerUps = gameState.PowerUps.Values.ToList();
@@ -294,6 +300,13 @@ public class GameServerConnectionManager : MonoBehaviour
         SendGameAction(gameAction);
     }
 
+    public void SendSelectBounty(string bountyId)
+    {
+        SelectBounty selectBounty = new SelectBounty { BountyQuestId=bountyId };
+        GameAction gameAction = new GameAction { SelectBounty = selectBounty };
+        SendGameAction(gameAction);
+    }
+
     public void SendToggleZone(long timestamp)
     {
         ToggleZone toggleZone = new ToggleZone { };
@@ -301,6 +314,13 @@ public class GameServerConnectionManager : MonoBehaviour
         SendGameAction(gameAction);
     }
 
+    public void SendChangeTickrate(long tickrate, long timestamp)
+    {
+        ChangeTickrate changeTickrate = new ChangeTickrate { Tickrate = tickrate };
+        GameAction gameAction = new GameAction { ChangeTickrate = changeTickrate, Timestamp = timestamp };
+        SendGameAction(gameAction);
+    }
+    
     public void SendToggleBots(long timestamp)
     {
         ToggleBots toggleBots = new ToggleBots { };
