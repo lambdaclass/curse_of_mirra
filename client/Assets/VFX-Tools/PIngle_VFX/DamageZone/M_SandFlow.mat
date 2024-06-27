@@ -64,7 +64,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaMultiplier: 0
+    - _AlphaMultiplier: 0.7
     - _AlphaPower: 0.7
     - _EdgeNoiseIntensity: 6
     - _EdgePower: 159
