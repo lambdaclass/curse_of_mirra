@@ -88,7 +88,6 @@ public class CharacterFeedbackManager : MonoBehaviour
                         vfxList.ForEach(el => el.SetActive(true));
                         feedbacksContainer.SetActive(true);
                         character.characterBase.characterShadow.SetActive(true);
-                        character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(1);
                         skinnedMeshRenderer.shadowCastingMode = ShadowCastingMode.On;
                     }
                 }
@@ -102,7 +101,6 @@ public class CharacterFeedbackManager : MonoBehaviour
         float alpha = isClient ? 0.5f : 0;
         skinnedMeshRenderer.material = transparentMaterial;
         skinnedMeshRenderer.sharedMaterial.SetFloat("_AlphaValue", alpha);
-        character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(alpha);
 
         if (!isClient)
         {

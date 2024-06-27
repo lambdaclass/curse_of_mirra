@@ -30,9 +30,7 @@ public class CustomLevelManager : LevelManager
     public CinemachineCameraController camera;
 
     private bool deathSplashIsShown = false;
-
-    [SerializeField]
-    GameObject colliderPrefab;
+    
     EndGameManager endGameManager;
 
     protected override void Awake()
@@ -61,25 +59,6 @@ public class CustomLevelManager : LevelManager
 
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
         endGameManager.SetDeathSplashCharacter();
-
-        GameServerConnectionManager.Instance.obstacles.ForEach(el =>
-        {
-            GenerateColliders(el.Vertices.ToList(), el.Name);
-        });
-    }
-
-    private void GenerateColliders(List<Position> vertices, string name)
-    {
-        GameObject collider = Instantiate(colliderPrefab);
-        collider.name = name;
-        collider.GetComponent<LineRenderer>().positionCount = vertices.Count;
-        for (int i = 0; i < vertices.Count; i++)
-        {
-            var vertice = vertices[i];
-            var position = new Vector3(vertice.X / 100, 0, vertice.Y / 100);
-            collider.GetComponent<LineRenderer>().SetPosition(i, position);
-        }
-        ;
     }
 
     void Update()

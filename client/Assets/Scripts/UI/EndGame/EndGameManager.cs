@@ -11,9 +11,11 @@ public class EndGameManager : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI rankingText,
-        rankingTextShadow,
         amountOfKillsText,
         defeaterPlayerName;
+
+    [SerializeField] 
+    Image rankIcon;
 
     [SerializeField]
     GameObject defeatedByContainer;
@@ -24,7 +26,7 @@ public class EndGameManager : MonoBehaviour
     [SerializeField]
     public UIModelManager modelManager;
 
-    [SerializeField]
+    [SerializeField] 
     GameObject winnerContainer;
 
     [SerializeField]
@@ -32,6 +34,18 @@ public class EndGameManager : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI winnerCharacterText;
+
+    [SerializeField] 
+    private Sprite goldRank;
+
+    [SerializeField] 
+    private Sprite silverRank;
+
+    [SerializeField] 
+    private Sprite bronzeRank;
+
+    [SerializeField]
+    private Bounty bounty;
 
     private const int WINNER_POS = 1;
     private const int SECOND_PLACE_POS = 2;
@@ -42,6 +56,7 @@ public class EndGameManager : MonoBehaviour
     {
         ShowRankingDisplay();
         ShowMatchInfo();
+        bounty.SetBounty(GameServerConnectionManager.Instance.bountySelected);
     }
 
     public void SetDeathSplashCharacter()
@@ -69,8 +84,21 @@ public class EndGameManager : MonoBehaviour
     void ShowRankingDisplay()
     {
         var ranking = GetRanking();
-        rankingText.text += " # " + ranking.ToString();
-        rankingTextShadow.text += " # " + ranking.ToString();
+
+        switch (ranking)
+        {
+            case 1: 
+                rankIcon.sprite  = goldRank;
+                break;
+            case 2: 
+                rankIcon.sprite  = silverRank;
+                break;
+            case 3: 
+                rankIcon.sprite  = bronzeRank;
+                break;
+        }
+
+        rankingText.text = ranking.ToString();
     }
 
     private int GetRanking()
