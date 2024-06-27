@@ -596,7 +596,6 @@ public class Battle : MonoBehaviour
 
         if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
         {
-
             // scale logic
             if (playerUpdate.Radius != previousPlayerRadius)
             {
@@ -604,7 +603,6 @@ public class Battle : MonoBehaviour
                 if (previousPlayerRadius != 0)
                 {
                     float multiplier = CalculateScaleMultiplier(playerUpdate.Radius, previousPlayerRadius);
-                    // print(multiplier);
                     float newScale = character.transform.localScale.x * multiplier;
                     float scaleAnimationDuration = 0.5f;
                     // scale animation
