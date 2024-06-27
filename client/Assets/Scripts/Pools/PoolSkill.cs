@@ -56,13 +56,17 @@ public class PoolSkill : MonoBehaviour
 
     public void HandlePoolEffects(RepeatedField<Effect> effects)
     {
+        Dictionary<string, int> newEffectsInPool = GetEffectsInPool(effects);
+        RemoveAlreadyExistingEffects(newEffectsInPool);
+        ApplyEffectsToPool(newEffectsInPool);
+    }
+
+    private Dictionary<string, int> GetEffectsInPool(RepeatedField<Effect> effects)
+    {
         Dictionary<string, int> newEffectsInPool = new Dictionary<string, int>();
-            
-        // First iteration, hardcoded to work only with Valtimer's ultimate
-        foreach(string effectName in effects
-                                        .Where(effect => effect.Name == "buff_singularity")
-                                        .Select(effect => effect.Name)
-                                    )
+
+        foreach (string effectName in effects.Where(effect => effect.Name == "buff_singularity")
+                                            .Select(effect => effect.Name))
         {
             if (newEffectsInPool.ContainsKey(effectName))
             {
@@ -74,30 +78,42 @@ public class PoolSkill : MonoBehaviour
             }
         }
 
-        foreach(string existingEffect in currentEffects)
+        return newEffectsInPool;
+    }
+
+    private void RemoveAlreadyExistingEffects(Dictionary<string, int> newEffectsInPool)
+    {
+        foreach (string existingEffect in currentEffects)
         {
-            if(newEffectsInPool[existingEffect] == 1)
+            if (newEffectsInPool.ContainsKey(existingEffect))
             {
-                newEffectsInPool.Remove(existingEffect);
-            }
-            else
-            {
-                newEffectsInPool[existingEffect]--;
+                if (newEffectsInPool[existingEffect] == 1)
+                {
+                    newEffectsInPool.Remove(existingEffect);
+                }
+                else
+                {
+                    newEffectsInPool[existingEffect]--;
+                }
             }
         }
+    }
 
-        foreach(string newEffect in newEffectsInPool.Keys)
+    private void ApplyEffectsToPool(Dictionary<string, int> newEffectsInPool)
+    {
+        foreach (string newEffect in newEffectsInPool.Keys)
         {
             currentEffects.Add(newEffect);
 
-            if(effectCoroutine != null)
+            if (effectCoroutine != null)
             {
                 StopCoroutine(effectCoroutine);
             }
-            
+
             effectCoroutine = StartCoroutine(BuffSingularity(vfx, .7f, 1f));
         }
     }
+
 
     private IEnumerator BuffSingularity(VisualEffect poolVFX, float effectDuration, float durationAddition)
     {
@@ -112,43 +128,39 @@ public class PoolSkill : MonoBehaviour
         float newDuration = originalDuration + durationAddition;
 
         float transitionTime = effectDuration / 2;
+
+        yield return TransitionEffect(poolVFX, transitionTime, colorABeforeBuff, buffedColorA, colorBBeforeBuff, buffedColorB, diameterBeforeBuff, buffedEffectDiameter, true);
+
+        // set final values, to avoid interpolation problems with floating type numbers.
+        poolVFX.SetVector4("Color A", buffedColorA);
+        poolVFX.SetVector4("Color B", buffedColorB);
+        poolVFX.SetFloat("EffectDiameter", buffedEffectDiameter);
+        poolVFX.SetFloat("Duration", newDuration);
+
+        yield return TransitionEffect(poolVFX, transitionTime, buffedColorA, ORIGINAL_COLOR_A, buffedColorB, ORIGINAL_COLOR_B, buffedEffectDiameter, originalEffectDiameter, false);
+    }
+
+    private IEnumerator TransitionEffect(VisualEffect poolVFX, float transitionTime, Color startColorA, Color endColorA, Color startColorB, Color endColorB, float startDiameter, float endDiameter, bool applyImpactColor)
+    {
         float elapsedTime = 0f;
 
         while (elapsedTime < transitionTime)
         {
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / transitionTime;
-            
-            if(elapsedTime < .07f)
+
+            if (applyImpactColor && elapsedTime < 0.07f)
             {
                 poolVFX.SetVector4("Color A", ON_IMPACT_COLOR_A);
                 poolVFX.SetVector4("Color B", ON_IMPACT_COLOR_B);
             }
             else
             {
-                poolVFX.SetVector4("Color A", Color.Lerp(colorABeforeBuff, buffedColorA, t));
-                poolVFX.SetVector4("Color B", Color.Lerp(colorBBeforeBuff, buffedColorB, t));
+                poolVFX.SetVector4("Color A", Color.Lerp(startColorA, endColorA, t));
+                poolVFX.SetVector4("Color B", Color.Lerp(startColorB, endColorB, t));
             }
-            poolVFX.SetFloat("EffectDiameter", Mathf.Lerp(diameterBeforeBuff, buffedEffectDiameter, t));
-            poolVFX.SetFloat("Duration", Mathf.Lerp(originalDuration, newDuration, t));
-
-            yield return null;
-        }
-
-        poolVFX.SetVector4("Color A", buffedColorA);
-        poolVFX.SetVector4("Color B", buffedColorB);
-        poolVFX.SetFloat("EffectDiameter", buffedEffectDiameter);
-        poolVFX.SetFloat("Duration", newDuration);
-
-        elapsedTime = 0f;
-        while (elapsedTime < transitionTime)
-        {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / transitionTime;
-
-            poolVFX.SetVector4("Color A", Color.Lerp(buffedColorA, ORIGINAL_COLOR_A, t));
-            poolVFX.SetVector4("Color B", Color.Lerp(buffedColorB, ORIGINAL_COLOR_B, t));
-            poolVFX.SetFloat("EffectDiameter", Mathf.Lerp(buffedEffectDiameter, originalEffectDiameter, t));
+            
+            poolVFX.SetFloat("EffectDiameter", Mathf.Lerp(startDiameter, endDiameter, t));
 
             yield return null;
         }
