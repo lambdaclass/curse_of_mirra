@@ -194,7 +194,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     KillFeedManager.instance.PutEvents(gameState.Killfeed.ToList());
                     this.playableRadius = gameState.Zone.Radius;
                     this.zoneShrinkTime =
-                        gameState.Zone.NextZoneChangeTimestamp - gameState.ServerTimestamp;
+                        gameState.Zone.NextZoneChangeTimestamp - gameState.ServerTimestamp + (long)this.bountyPickTime_ms;
                     this.zoneEnabled = gameState.Zone.Enabled;
                     this.gameStatus = gameState.Status;
                     this.gameCountdown = gameState.StartGameTimestamp - gameState.ServerTimestamp + this.bountyPickTime_ms;
