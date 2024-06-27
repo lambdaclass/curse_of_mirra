@@ -41,7 +41,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -2497
     y: -2973
-    width: 8141
+    width: 8140
     height: 5429
 --- !u!114 &114350483966674976
 MonoBehaviour:
@@ -995,7 +995,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615116}
   - {fileID: 8926484042661616805}
   dataType: 0
-  capacity: 32
+  capacity: 120
   stripCapacity: 16
   particlePerStripCount: 16
   needsComputeBounds: 0
@@ -1063,8 +1063,7 @@ MonoBehaviour:
       m_SerializableType: UnityEditor.VFX.GPUEvent, Unity.VisualEffectGraph.Editor,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Direction: 0
-  m_LinkedSlots:
-  - {fileID: 8926484042661618151}
+  m_LinkedSlots: []
 --- !u!114 &8926484042661615345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5670,7 +5669,7 @@ MonoBehaviour:
   - {fileID: 8926484042661616947}
   - {fileID: 8926484042661617152}
   dataType: 0
-  capacity: 32
+  capacity: 120
   stripCapacity: 16
   particlePerStripCount: 16
   needsComputeBounds: 0
@@ -5738,8 +5737,7 @@ MonoBehaviour:
       m_SerializableType: UnityEditor.VFX.GPUEvent, Unity.VisualEffectGraph.Editor,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Direction: 0
-  m_LinkedSlots:
-  - {fileID: 8926484042661618151}
+  m_LinkedSlots: []
 --- !u!114 &8926484042661616971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6195,8 +6193,7 @@ MonoBehaviour:
       m_SerializableType: UnityEditor.VFX.GPUEvent, Unity.VisualEffectGraph.Editor,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Direction: 0
-  m_LinkedSlots:
-  - {fileID: 8926484042661618151}
+  m_LinkedSlots: []
 --- !u!114 &8926484042661617054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7005,7 +7002,7 @@ MonoBehaviour:
   - {fileID: 8926484042661617049}
   - {fileID: 8926484042661617117}
   dataType: 0
-  capacity: 32
+  capacity: 120
   stripCapacity: 16
   particlePerStripCount: 16
   needsComputeBounds: 0
@@ -21713,7 +21710,7 @@ MonoBehaviour:
   - {fileID: 8926484042661617806}
   - {fileID: 8926484042661617808}
   dataType: 0
-  capacity: 32
+  capacity: 1
   stripCapacity: 16
   particlePerStripCount: 16
   needsComputeBounds: 0
@@ -21764,7 +21761,7 @@ MonoBehaviour:
   - {fileID: 8926484042661617916}
   - {fileID: 8926484042661617918}
   dataType: 0
-  capacity: 32
+  capacity: 1
   stripCapacity: 16
   particlePerStripCount: 16
   needsComputeBounds: 0
@@ -24375,10 +24372,7 @@ MonoBehaviour:
       m_SerializableType: UnityEditor.VFX.GPUEvent, Unity.VisualEffectGraph.Editor,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Direction: 1
-  m_LinkedSlots:
-  - {fileID: 8926484042661615343}
-  - {fileID: 8926484042661616970}
-  - {fileID: 8926484042661617052}
+  m_LinkedSlots: []
 --- !u!114 &8926484042661618152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28477,7 +28471,7 @@ MonoBehaviour:
   - {fileID: 8926484042661618134}
   - {fileID: 8926484042661618155}
   dataType: 0
-  capacity: 32
+  capacity: 120
   stripCapacity: 16
   particlePerStripCount: 16
   needsComputeBounds: 0
@@ -34475,7 +34469,7 @@ MonoBehaviour:
   - {fileID: 8926484042661618512}
   - {fileID: 8926484042661618533}
   dataType: 0
-  capacity: 32
+  capacity: 120
   stripCapacity: 16
   particlePerStripCount: 16
   needsComputeBounds: 0

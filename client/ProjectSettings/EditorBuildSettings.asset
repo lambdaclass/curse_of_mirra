@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/VFX_H4ck_test_scene.unity
     guid: ad4e87d015e61d249a4bc639cf700f55
+  - enabled: 0
+    path: Assets/Scenes/New Scene.unity
+    guid: 626c940d18cceba46a5f3279c830c6bd
   m_configObjects: {}

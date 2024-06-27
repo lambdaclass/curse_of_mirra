@@ -21,6 +21,8 @@ public class PingleCheatPanelHack : MonoBehaviour
   public GameObject test3_skill2_vfx = null;
 
   public float skill2_vfx_dis = 10.0f;
+  public float skill2_vfx_ofsset = 0.6f;
+  public float skill2_vfx_dur = 5.0f;
   public float projectile_speed = 4.0f;
   public float spawn_pivot_height = 1.2f;
   public int skill3_duration = 80;
@@ -143,10 +145,11 @@ public class PingleCheatPanelHack : MonoBehaviour
 
       yield return new WaitForSeconds( 0.2f );
 
-      GameObject cached_vfx = null;
+      GameObject cached_vfx1 = null;
+      GameObject cached_vfx2 = null;
       Vector3 new_pos = Vector3.zero;
       new_pos = hack_instance.transform.position;
-      cached_vfx = Instantiate( skill2_vfx_init, new_pos, hack_instance.transform.rotation );
+      cached_vfx1 = Instantiate( skill2_vfx_init, new_pos, hack_instance.transform.rotation );
 
       yield return new WaitForSeconds( 0.3f );
 
@@ -154,11 +157,14 @@ public class PingleCheatPanelHack : MonoBehaviour
       new_pos.x += skill2_vfx_dis;
       new_pos.y += 0.3f;
 
-      cached_vfx = Instantiate( skill2_vfx, new_pos, hack_instance.transform.rotation );
+      cached_vfx2 = Instantiate( skill2_vfx, new_pos, hack_instance.transform.rotation );
 
-      yield return new WaitForSeconds( 0.4f );
+      yield return new WaitForSeconds( skill2_vfx_ofsset );
+      Destroy(cached_vfx1);
 
       hack_instance.CharacterAnimator.ResetTrigger("Skill2");
+      yield return new WaitForSeconds( skill2_vfx_dur );
+      Destroy(cached_vfx2);
   }
 
   private IEnumerator skill2Test1()
@@ -167,10 +173,11 @@ public class PingleCheatPanelHack : MonoBehaviour
 
       yield return new WaitForSeconds( 0.2f );
 
-      GameObject cached_vfx = null;
+      GameObject cached_vfx1 = null;
+      GameObject cached_vfx2 = null;
       Vector3 new_pos = Vector3.zero;
       new_pos = hack_instance.transform.position;
-      cached_vfx = Instantiate( test1_skill2_vfx_init, new_pos, hack_instance.transform.rotation );
+      cached_vfx1 = Instantiate( test1_skill2_vfx_init, new_pos, hack_instance.transform.rotation );
 
       yield return new WaitForSeconds( 0.3f );
 
@@ -178,11 +185,14 @@ public class PingleCheatPanelHack : MonoBehaviour
       new_pos.x += skill2_vfx_dis;
       new_pos.y += 0.3f;
 
-      cached_vfx = Instantiate( test1_skill2_vfx, new_pos, hack_instance.transform.rotation );
+      cached_vfx2 = Instantiate( test1_skill2_vfx, new_pos, hack_instance.transform.rotation );
 
-      yield return new WaitForSeconds( 0.4f );
+      yield return new WaitForSeconds( skill2_vfx_ofsset );
+      Destroy(cached_vfx1);
 
       hack_instance.CharacterAnimator.ResetTrigger("Skill2");
+      yield return new WaitForSeconds( skill2_vfx_dur );
+      Destroy(cached_vfx2);
   }
   
   private IEnumerator skill2Test2()
@@ -191,10 +201,11 @@ public class PingleCheatPanelHack : MonoBehaviour
 
       yield return new WaitForSeconds( 0.2f );
 
-      GameObject cached_vfx = null;
+      GameObject cached_vfx1 = null;
+      GameObject cached_vfx2 = null;
       Vector3 new_pos = Vector3.zero;
       new_pos = hack_instance.transform.position;
-      cached_vfx = Instantiate( test2_skill2_vfx_init, new_pos, hack_instance.transform.rotation );
+      cached_vfx1 = Instantiate( test2_skill2_vfx_init, new_pos, hack_instance.transform.rotation );
 
       yield return new WaitForSeconds( 0.3f );
 
@@ -202,11 +213,14 @@ public class PingleCheatPanelHack : MonoBehaviour
       new_pos.x += skill2_vfx_dis;
       new_pos.y += 0.3f;
 
-      cached_vfx = Instantiate( test2_skill2_vfx, new_pos, hack_instance.transform.rotation );
+      cached_vfx2 = Instantiate( test2_skill2_vfx, new_pos, hack_instance.transform.rotation );
 
-      yield return new WaitForSeconds( 0.4f );
+      yield return new WaitForSeconds( skill2_vfx_ofsset );
+      Destroy(cached_vfx1);
 
       hack_instance.CharacterAnimator.ResetTrigger("Skill2");
+      yield return new WaitForSeconds( skill2_vfx_dur );
+      Destroy(cached_vfx2);
   }
 
   private IEnumerator skill2Test3()
@@ -215,10 +229,11 @@ public class PingleCheatPanelHack : MonoBehaviour
 
       yield return new WaitForSeconds( 0.2f );
 
-      GameObject cached_vfx = null;
+      GameObject cached_vfx1 = null;
+      GameObject cached_vfx2 = null;
       Vector3 new_pos = Vector3.zero;
       new_pos = hack_instance.transform.position;
-      cached_vfx = Instantiate( test3_skill2_vfx_init, new_pos, hack_instance.transform.rotation );
+      cached_vfx1 = Instantiate( test3_skill2_vfx_init, new_pos, hack_instance.transform.rotation );
 
       yield return new WaitForSeconds( 0.3f );
 
@@ -226,11 +241,14 @@ public class PingleCheatPanelHack : MonoBehaviour
       new_pos.x += skill2_vfx_dis;
       new_pos.y += 0.3f;
 
-      cached_vfx = Instantiate( test3_skill2_vfx, new_pos, hack_instance.transform.rotation );
+      cached_vfx2 = Instantiate( test3_skill2_vfx, new_pos, hack_instance.transform.rotation );
 
-      yield return new WaitForSeconds( 0.4f );
+      yield return new WaitForSeconds( skill2_vfx_ofsset );
+      Destroy(cached_vfx1);
 
       hack_instance.CharacterAnimator.ResetTrigger("Skill2");
+      yield return new WaitForSeconds( skill2_vfx_dur );
+      Destroy(cached_vfx2);
   }
 
   private IEnumerator moveProjectiles()
