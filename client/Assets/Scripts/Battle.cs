@@ -607,6 +607,16 @@ public class Battle : MonoBehaviour
                     float scaleAnimationDuration = 0.5f;
                     // scale animation
                     character.transform.DOScale(new Vector3(newScale, newScale, newScale), scaleAnimationDuration);
+                    if (radiusDiff > 0)
+                    {
+                        // scale up
+                        modelAnimator.SetFloat("Giant_Speed_Multiplier", 0.5f);
+                    }
+                    else
+                    {
+                        // scale down
+                        modelAnimator.SetFloat("Giant_Speed_Multiplier", 1f);
+                    }
                 }
                 previousPlayerRadius = playerUpdate.Radius;
             }
