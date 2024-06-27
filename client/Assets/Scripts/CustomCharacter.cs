@@ -106,6 +106,9 @@ public class CustomCharacter : Character
         )
         {
             this.IsTeleporting = false;
+
+            GameServerConnectionManager.Instance.playerMovement.SetPlayerPosition(serverPosition.X,  serverPosition.Y);
+            
             this.transform.position = new Vector3(
                 serverPosition.X / 100,
                 this.transform.position.y,

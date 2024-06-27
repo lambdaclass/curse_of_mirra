@@ -85,6 +85,11 @@ public class PlayerMovement
         AddMovement(movement);
     }
 
+    public void SetPlayerPosition(float x, float y){
+        this.player.Position.X = x;
+        this.player.Position.Y = y;
+    }
+
     private Vector3 ClampIfOutOfMap(Vector3 newPosition, float playerRadius)
     {
         Vector3 mapCenterPosition = new Vector3(0, 0, 0);
