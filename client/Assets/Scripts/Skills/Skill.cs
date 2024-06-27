@@ -183,9 +183,13 @@ public class Skill : CharacterAbility
         float animationDuration = nextAnimation.durationPercent * totalDuration;
         float animationStep = previousAnimationStep + 1;
         string animationStepId = skillId + "_s" + animationStep;
-
+        string speedId = skillId + "_s" + animationStep + "_speed";
         string previousAnimationStepId = skillId + "_s" + previousAnimationStep;
 
+        float animationClipDuration = nextAnimation.animation.length;
+        float animationSpeed = animationClipDuration / animationDuration;
+
+        SetSpeed(speedId, animationSpeed);
         SetAnimation(previousAnimationStepId, false);
         SetAnimation(animationStepId, true);
 
@@ -303,6 +307,10 @@ public class Skill : CharacterAbility
     private void SetAnimation(string animationId, bool value)
     {
         _animator.SetBool(animationId, value);
+    }
+
+    private void SetSpeed(string speedId, float value) {
+        _animator.SetFloat(speedId, value);
     }
 
     private void ChangeCharacterState(string animation, bool blockingMovement)
