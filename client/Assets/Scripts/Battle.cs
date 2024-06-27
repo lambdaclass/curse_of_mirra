@@ -135,8 +135,6 @@ public class Battle : MonoBehaviour
             .SelectMany(player => player.GetComponents<Skill>())
             .Select(skill => skill.GetSkillInfo())
             .Where(skill => skill.hasProjectile)
-            // .GroupBy(skill => skill.name)
-            // .Select(group => group.First())
             .ToHashSet();
 
         GetComponent<ProjectileHandler>().CreateProjectilesPoolers(skillInfoSet);

@@ -21,8 +21,6 @@ public class PoolsHandler : MonoBehaviour
             .SelectMany(player => player.GetComponents<Skill>())
             .Select(skill => skill.GetSkillInfo())
             .Where(skill => skill.hasSkillPool)
-            // .GroupBy(skill => skill.name)
-            // .Select(group => group.First())
             .ToHashSet();
 
         CreatePoolsPoolers(poolSkillsInfo);
