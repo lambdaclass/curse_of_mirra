@@ -34,10 +34,32 @@ MonoBehaviour:
   usesHitboxAsArea: 0
   useCooldown: 1
   skillSprite: {fileID: 21300000, guid: 4f36c5ef9696e46ee8b67b161bcea987, type: 3}
-  vfxList:
-  - vfx: {fileID: 1371067997947001578, guid: 31cd86e2ec9638145a9cf5f4567e213d, type: 3}
-    duration: 0.3
-    delay: 0
-    instantiateVfxOnModel: 0
-    hasDestination: 0
-  animationList: []
+  vfxList: []
+  animationList:
+  - durationPercent: 0.3
+    animation: {fileID: 7400000, guid: efe36758844564e48a1b9dae5ad94e22, type: 2}
+    triggersVfx: 1
+    vfxStep:
+      vfx: {fileID: 1371067997947001578, guid: 31cd86e2ec9638145a9cf5f4567e213d, type: 3}
+      duration: 0.3
+      delay: 0
+      instantiateVfxOnModel: 0
+      hasDestination: 0
+  - durationPercent: 0.4
+    animation: {fileID: 7400000, guid: bbb6a3f96dc014f45a5d020fd83c4cfb, type: 2}
+    triggersVfx: 0
+    vfxStep:
+      vfx: {fileID: 1371067997947001578, guid: 31cd86e2ec9638145a9cf5f4567e213d, type: 3}
+      duration: 0.3
+      delay: 0
+      instantiateVfxOnModel: 0
+      hasDestination: 0
+  - durationPercent: 0.3
+    animation: {fileID: 7400000, guid: 558649c7fd2af4455b47c58dc48862a1, type: 2}
+    triggersVfx: 0
+    vfxStep:
+      vfx: {fileID: 1371067997947001578, guid: 31cd86e2ec9638145a9cf5f4567e213d, type: 3}
+      duration: 0.3
+      delay: 0
+      instantiateVfxOnModel: 0
+      hasDestination: 0
