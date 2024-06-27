@@ -129,7 +129,7 @@ public class PoolSkill : MonoBehaviour
 
         float transitionTime = effectDuration / 2;
 
-        yield return TransitionEffect(poolVFX, transitionTime, colorABeforeBuff, buffedColorA, colorBBeforeBuff, buffedColorB, diameterBeforeBuff, buffedEffectDiameter, true);
+        yield return TransitionEffect(poolVFX, transitionTime, colorABeforeBuff, buffedColorA, colorBBeforeBuff, buffedColorB, diameterBeforeBuff, buffedEffectDiameter, true, originalDuration, newDuration);
 
         // set final values, to avoid interpolation problems with floating type numbers.
         poolVFX.SetVector4("Color A", buffedColorA);
@@ -137,10 +137,10 @@ public class PoolSkill : MonoBehaviour
         poolVFX.SetFloat("EffectDiameter", buffedEffectDiameter);
         poolVFX.SetFloat("Duration", newDuration);
 
-        yield return TransitionEffect(poolVFX, transitionTime, buffedColorA, ORIGINAL_COLOR_A, buffedColorB, ORIGINAL_COLOR_B, buffedEffectDiameter, originalEffectDiameter, false);
+        yield return TransitionEffect(poolVFX, transitionTime, buffedColorA, ORIGINAL_COLOR_A, buffedColorB, ORIGINAL_COLOR_B, buffedEffectDiameter, originalEffectDiameter, false, null, null);
     }
 
-    private IEnumerator TransitionEffect(VisualEffect poolVFX, float transitionTime, Color startColorA, Color endColorA, Color startColorB, Color endColorB, float startDiameter, float endDiameter, bool applyImpactColor)
+    private IEnumerator TransitionEffect(VisualEffect poolVFX, float transitionTime, Color startColorA, Color endColorA, Color startColorB, Color endColorB, float startDiameter, float endDiameter, bool applyImpactColor, float? startDuration, float? endDuration)
     {
         float elapsedTime = 0f;
 
@@ -161,6 +161,11 @@ public class PoolSkill : MonoBehaviour
             }
             
             poolVFX.SetFloat("EffectDiameter", Mathf.Lerp(startDiameter, endDiameter, t));
+
+            if(startDuration != null && endDuration != null)
+            {
+                poolVFX.SetFloat("Duration", Mathf.Lerp((float)startDuration, (float)endDuration, t));
+            }
 
             yield return null;
         }
