@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using DG.Tweening;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -52,8 +51,6 @@ public class Battle : MonoBehaviour
 
     [SerializeField]
     MeshFilter mesh;
-
-    float previousPlayerRadius;
 
     public struct PlayerReferences
     {
@@ -548,13 +545,6 @@ public class Battle : MonoBehaviour
         }
     }
 
-    float CalculateScaleMultiplier(float newValue, float previousValue)
-    {
-        float diffPercentage = (newValue * 100) / previousValue;
-        float scaleMultiplier = diffPercentage / 100;
-        return scaleMultiplier;
-    }
-
     private void UpdatePlayer(GameObject player, Entity playerUpdate, long pastTime)
     {
         /*
@@ -578,11 +568,13 @@ public class Battle : MonoBehaviour
         ].feedbackManager;
         Animator modelAnimator = playersReferences[playerUpdate.Id].modelAnimator;
 
-        var characterSpeed = playerUpdate.Speed / 100f;
+        characterFeedbacks.UpdateCharacterScale(playerUpdate.Radius);
 
         feedbackManager.ManageStateFeedbacks(playerUpdate, character);
         feedbackManager.HandlePickUpItemFeedback(playerUpdate, characterFeedbacks);
 
+
+        var characterSpeed = playerUpdate.Speed / 100f;
         if (!GameServerConnectionManager.Instance.GameHasEnded() && playerUpdate.Player.Health > 0)
         {
             HandleMovement(player, playerUpdate, pastTime, characterSpeed);
@@ -596,31 +588,6 @@ public class Battle : MonoBehaviour
 
         if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
         {
-            // scale logic
-            if (playerUpdate.Radius != previousPlayerRadius)
-            {
-                float radiusDiff = playerUpdate.Radius - previousPlayerRadius;
-                if (previousPlayerRadius != 0)
-                {
-                    float multiplier = CalculateScaleMultiplier(playerUpdate.Radius, previousPlayerRadius);
-                    float newScale = character.transform.localScale.x * multiplier;
-                    float scaleAnimationDuration = 0.5f;
-                    // scale animation
-                    character.transform.DOScale(new Vector3(newScale, newScale, newScale), scaleAnimationDuration);
-                    if (radiusDiff > 0)
-                    {
-                        // scale up
-                        modelAnimator.SetFloat("Giant_Speed_Multiplier", 0.5f);
-                    }
-                    else
-                    {
-                        // scale down
-                        modelAnimator.SetFloat("Giant_Speed_Multiplier", 1f);
-                    }
-                }
-                previousPlayerRadius = playerUpdate.Radius;
-            }
-
             if (GameServerConnectionManager.Instance.damageDone.ContainsKey(playerUpdate.Id))
             {
                 character.HandleHit(

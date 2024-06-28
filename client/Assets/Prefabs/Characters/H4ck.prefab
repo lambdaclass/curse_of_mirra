@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aad69d9b41024b9e8f313a6dce47cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterModel: {fileID: 625883019487767432}
+  characterModelBody: {fileID: 625883019487767432}
   feedbacksStatesPrefabs:
   - {fileID: 220605700603955422}
   - {fileID: 305740109525267919}
