@@ -49,13 +49,10 @@ public class PlayerControls : MonoBehaviour
         Vector2 movementDirection = new Vector2(x, y);
         movementDirection.Normalize();
 
-        PlayerMovement.Movement movement = new PlayerMovement.Movement
-        {
-            direction_x = movementDirection.x,
-            direction_y = movementDirection.y,
-            speed = 0.63f // NO
-        };
-        GameServerConnectionManager.Instance.playerMovement.AddMovement(movement);
+        GameServerConnectionManager
+            .Instance
+            .playerMovement
+            .AddMovement(new Direction { X = movementDirection.x, Y = movementDirection.y });
 
         // Here we can add a validaion to check if
         // the movement is significant enough to be sent to the server

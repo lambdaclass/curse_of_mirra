@@ -227,20 +227,22 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.damageDone = gameState.DamageDone.ToDictionary(x => x.Key, x => x.Value);
                     this.shrinking = gameState.Zone.Shrinking;
 
+                    // Refactor this {
                     this.playerMovement.SetSpeed(gameState.Players[this.playerId].Speed);
+                    this.playerMovement.SetGameState(
+                        gameState.Players[this.playerId],
+                        gameState.ServerTimestamp
+                    );
                     this.playerMovement.SetForcedMovement(
                         gameState.Players[this.playerId].Player.ForcedMovement
                     );
                     if (gameState.Players[this.playerId].Player.ForcedMovement)
                     {
-                        PlayerMovement.Movement movement = new PlayerMovement.Movement
-                        {
-                            direction_x = gameState.Players[this.playerId].Direction.X,
-                            direction_y = gameState.Players[this.playerId].Direction.Y,
-                            speed = 0.63f // NO
-                        };
-                        this.playerMovement.AddForcedMovement(movement);
+                        this.playerMovement.AddForcedMovement(
+                            gameState.Players[this.playerId].Direction
+                        );
                     }
+                    // }
 
                     OnGameEventTimestampChanged?.Invoke(
                         DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
