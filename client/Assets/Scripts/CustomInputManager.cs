@@ -194,7 +194,6 @@ public class CustomInputManager : InputManager
         // FIXME: Using harcoded value for testing, Value should be set dinamically
         //TODO : Add the spread area (amgle) depeding of the skill.json
         activeJoystick = joystick;
-
     }
 
     public void AimAoeSkill(Vector2 aoePosition, CustomMMTouchJoystick joystick)
@@ -212,7 +211,6 @@ public class CustomInputManager : InputManager
     public void ExecuteAoeSkill(Vector2 aoePosition, Skill skill)
     {
         directionIndicator.DeactivateIndicator();
-
 
         activeJoystick = null;
         EnableButtons();
@@ -294,16 +292,6 @@ public class CustomInputManager : InputManager
         }
     }
 
-    private Vector2 GetPlayerOrientation()
-    {
-        CharacterOrientation3D characterOrientation =
-            _player.GetComponent<CharacterOrientation3D>();
-        return new Vector2(
-            characterOrientation.ForcedRotationDirection.x,
-            characterOrientation.ForcedRotationDirection.z
-        );
-    }
-
     public void CheckSkillCooldown(UIControls control, float cooldown, bool useCooldown)
     {
         CustomMMTouchButton button = mobileButtons[control];
@@ -311,7 +299,7 @@ public class CustomInputManager : InputManager
         TMP_Text cooldownText = cooldownContainer.GetComponentInChildren<TMP_Text>();
         if (useCooldown)
         {
-            if ( cooldown > 0f)
+            if (cooldown > 0f)
             {
                 button.DisableButton();
                 cooldownContainer.SetActive(true);
@@ -361,52 +349,6 @@ public class CustomInputManager : InputManager
             directionIndicator.ActivateIndicator(indicatorType);
         }
     }
-
-    // private List<GameObject> GetTargetsInSkillRange(Skill skill)
-    // {
-    //     List<GameObject> inRangeTargets = new List<GameObject>();
-
-    //     GameServerConnectionManager
-    //         .Instance
-    //         .players
-    //         .ForEach(p =>
-    //         {
-    //             if (PlayerIsInSkillRange(p, skill))
-    //             {
-    //                 inRangeTargets.Add(p);
-    //             }
-    //         });
-    //     return inRangeTargets;
-    // }
-
-    // private bool PlayerIsInSkillRange(GameObject player, Skill skill)
-    // {
-    //     switch (skill.GetSkillName())
-    //     {
-    //         case "MULTISHOT":
-    //         case "YUGEN'S MARK":
-    //             return PlayerIsInSkillDirectionConeRange(player, skill);
-    //         case "DISARM":
-    //             return PlayerIsInSkillDirectionArrowRange(player, skill);
-    //         default:
-    //             return PlayerIsInSkillProximityRange(player, skill);
-    //     }
-    // }
-
-    // private bool PlayerIsInSkillProximityRange(GameObject player, Skill skill)
-    // {
-    //     return !IsSamePlayer(player) && directionIndicator.IsInProximityRange(player);
-    // }
-
-    // private bool PlayerIsInSkillDirectionConeRange(GameObject player, Skill skill)
-    // {
-    //     return !IsSamePlayer(player) && directionIndicator.IsInsideCone(player);
-    // }
-
-    // private bool PlayerIsInSkillDirectionArrowRange(GameObject player, Skill skill)
-    // {
-    //     return !IsSamePlayer(player) && directionIndicator.IsInArrowLine(player);
-    // }
 
     private bool IsSamePlayer(GameObject player)
     {
