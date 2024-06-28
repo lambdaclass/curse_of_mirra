@@ -86,6 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224000010736761302}
   - component: {fileID: 114091369736583034}
+  - component: {fileID: 6106326016440986259}
   m_Layer: 24
   m_Name: HealthBar
   m_TagString: Untagged
@@ -349,6 +350,27 @@ MonoBehaviour:
   BarTarget: 0.52
   DelayedBarIncreasingProgress: 0.52
   DelayedBarDecreasingProgress: 0.53
+--- !u!114 &6106326016440986259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010797750574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6d2776b2383f4aedb8a44bd4abd2c21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarGreen: {fileID: 21300000, guid: 3cab7a4fdb0d24202ac0a2632fbef6f8, type: 3}
+  healthBarRed: {fileID: 21300000, guid: e8d7f0df5bb314724a2ba332362de4e1, type: 3}
+  yourLose: {fileID: 21300000, guid: f5a176985163349cebdb6d94cb085cb3, type: 3}
+  enemyLose: {fileID: 21300000, guid: 3cfe240cf473b428ca8823fd9cc866d2, type: 3}
+  yourBackground: {fileID: 21300000, guid: 5d434978827c044bea7221452cc355ef, type: 3}
+  enemyBackground: {fileID: 21300000, guid: 43dc27d22c022432783033b93ce307ae, type: 3}
+  front: {fileID: 114000011583259746}
+  damage: {fileID: 2700575606625810454}
+  background: {fileID: 7500831656930159021}
 --- !u!1 &1000011386624708
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,7 +642,7 @@ GameObject:
   - component: {fileID: 7623658857300044646}
   - component: {fileID: 7500831656930159021}
   m_Layer: 24
-  m_Name: HealthBarContainer
+  m_Name: HealthBarBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

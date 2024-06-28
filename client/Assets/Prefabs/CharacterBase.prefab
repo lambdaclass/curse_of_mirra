@@ -142,6 +142,7 @@ MonoBehaviour:
     type: 3}
   powerUps: {fileID: 6157877879879126604}
   characterShadow: {fileID: 8313198474741920727}
+  healthBar: {fileID: 759195242009890988}
   spawnSfx: {fileID: 8300000, guid: 58ab9b9883d694a42bb691eb2dd99d25, type: 3}
   sound3DManager: {fileID: 44719680363781297}
 --- !u!114 &1743729574858777773
@@ -814,6 +815,12 @@ PrefabInstance:
     - {fileID: 6283273754690193740, guid: 1b5803238588347b78c88ecab08cedef, type: 3}
     - {fileID: 6275522562409476376, guid: 1b5803238588347b78c88ecab08cedef, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1b5803238588347b78c88ecab08cedef, type: 3}
+--- !u!1 &759195242009890988 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3164839224369075340, guid: 1b5803238588347b78c88ecab08cedef,
+    type: 3}
+  m_PrefabInstance: {fileID: 2405749641239282720}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3654173184674931120 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1428990921056839056, guid: 1b5803238588347b78c88ecab08cedef,

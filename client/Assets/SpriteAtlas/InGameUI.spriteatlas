@@ -52,6 +52,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e4a23452b0a894b228ffc65f8f4b2c33, type: 3}
   - {fileID: 21300000, guid: b133ce62e7f374246899951a0f032e35, type: 3}
   - {fileID: 21300000, guid: 77e42d722086f443b9f0a004431a46a1, type: 3}
+  - {fileID: 21300000, guid: 43dc27d22c022432783033b93ce307ae, type: 3}
   - {fileID: 21300000, guid: 7a457ad213602408fa9c8b626b1e509b, type: 3}
   - {fileID: 21300000, guid: ce72fde2956b145a5b6ffecced3eafe2, type: 3}
   - {fileID: 21300000, guid: bbc83e73a539e48f2a49cdd4169b997f, type: 3}
@@ -67,15 +68,15 @@ SpriteAtlas:
   - {fileID: 21300000, guid: dc480059705a34887912b8aa9e5db7c5, type: 3}
   - {fileID: 21300000, guid: 8598d97aa78864f24b5635cabc949f81, type: 3}
   - {fileID: 21300000, guid: d5f280ba182e544b4b3d2b2b67ba3173, type: 3}
-  - {fileID: 21300000, guid: 58c5b2ba7289848799e486a6d866171a, type: 3}
   - {fileID: 21300000, guid: be74397bea6cf445f94a4906f318baad, type: 3}
   - {fileID: 21300000, guid: 19ab588b5db054bfbad31e56c4ea1440, type: 3}
   - {fileID: 21300000, guid: 0d5da8ab1670f437e8d9d1bda2b88792, type: 3}
-  - {fileID: 21300000, guid: 0c73ab9c47b36493b8966b0a813f41f6, type: 3}
+  - {fileID: 21300000, guid: 3cfe240cf473b428ca8823fd9cc866d2, type: 3}
   - {fileID: 21300000, guid: 098120dd7167e4221b9f8510402e20fa, type: 3}
   - {fileID: 21300000, guid: 04ae07dd9905f49c0b70082fc6f75dcd, type: 3}
   - {fileID: 21300000, guid: 17a9fa9e2ee3449448c281d24b4c056b, type: 3}
   - {fileID: 21300000, guid: 3cab7a4fdb0d24202ac0a2632fbef6f8, type: 3}
+  - {fileID: 21300000, guid: e8d7f0df5bb314724a2ba332362de4e1, type: 3}
   m_PackedSpriteNamesToIndex:
   - container
   - setting_firstTab_selected
@@ -86,6 +87,7 @@ SpriteAtlas:
   - Underline
   - players
   - toggle_on
+  - enemy-background
   - icon
   - orientation-indicator
   - stamina-empty
@@ -101,15 +103,15 @@ SpriteAtlas:
   - toggle_off
   - slider-handle
   - stamina
-  - 1
   - timer
   - setings
   - kills
-  - background(2)
+  - health enemy lose
   - sidebar
   - dev
   - HB+power-up container
   - your
+  - enemy
   m_RenderDataMap: {}
   m_Tag: InGameUI
   m_IsVariant: 0

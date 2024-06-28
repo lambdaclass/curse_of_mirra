@@ -11,8 +11,6 @@ using MoreMountains.TopDownEngine;
 
 public class Utils
 {
-    public static readonly Color healthBarGreen = new Color32(8, 233, 9, 255);
-    public static readonly Color healthBarRed = new Color32(255, 26, 0, 255);
     public static readonly Color healthBarPoisoned = new Color32(66, 168, 0, 255);
     public static readonly Color burstLoadsBarCharging = new Color32(110, 110, 110, 255);
 
