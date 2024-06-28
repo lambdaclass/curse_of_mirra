@@ -46,7 +46,6 @@ public class CustomCharacter : Character
     public void RotatePlayer(Direction direction)
     {
         Vector3 movementDirection = new Vector3(direction.X, 0f, direction.Y);
-        movementDirection.Normalize();
         modelAnchor.transform.rotation = Quaternion.LookRotation(movementDirection);
     }
 
