@@ -66,26 +66,32 @@ public class PlayerMovement
         {
             index--;
         }
+        Debug.Log("buffer: " + movements[index].timestamp);
+        Debug.Log("buffer+1: " + movements[index + 1].timestamp);
+        Debug.Log("server: " + gameState.timestamp);
+        Debug.Log("==========");
         float distance = Vector3.Distance(
             new Vector3(movements[index].position.X, 0, movements[index].position.Y),
             new Vector3(gameState.player.Position.X, 0, gameState.player.Position.Y)
         );
-        if (distance > player.Radius)
+        if (distance > 150f)
         {
-            Debug.Log("Reconciliating player");
+            Debug.Log("=== Reconciliating player ===");
             player.Position = gameState.player.Position;
             for (int i = index; i < movements.Count; i++)
             {
                 Movement movement = movements[i];
-                long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                long now = lastTimestamp;
                 if (i < movements.Count - 1)
                 {
                     now = movements[i + 1].timestamp;
                 }
-                long deltaTime = now - movement.timestamp;
+                long deltaTime = movement.timestamp - movements[i - 1].timestamp;
+                Debug.Log(deltaTime);
                 player.Position.X += movement.direction.X * movement.speed * deltaTime;
                 player.Position.Y += movement.direction.Y * movement.speed * deltaTime;
             }
+            Debug.Log("=== END Reconciliating player ===");
         }
     }
 
