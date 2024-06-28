@@ -307,7 +307,6 @@ public class Skill : CharacterAbility
             )
             {
                 var rotation = this.GetComponent<CustomCharacter>().CharacterRotation();
-                var negative = rotation.x > 0 ? 1 : -1;
                 vfx.GetComponentInChildren<VisualEffect>().transform.eulerAngles = new Vector3(
                     0,
                     (rotation.x * 90),
