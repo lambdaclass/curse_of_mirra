@@ -292,14 +292,6 @@ public class CustomInputManager : InputManager
         }
     }
 
-    private Vector2 GetPlayerOrientation()
-    {
-        Vector3 characterOrientation = this.GetComponent<CustomCharacter>()
-            .CharacterRotation()
-            .eulerAngles;
-        return new Vector2(characterOrientation.x, characterOrientation.z);
-    }
-
     public void CheckSkillCooldown(UIControls control, float cooldown, bool useCooldown)
     {
         CustomMMTouchButton button = mobileButtons[control];
@@ -357,52 +349,6 @@ public class CustomInputManager : InputManager
             directionIndicator.ActivateIndicator(indicatorType);
         }
     }
-
-    // private List<GameObject> GetTargetsInSkillRange(Skill skill)
-    // {
-    //     List<GameObject> inRangeTargets = new List<GameObject>();
-
-    //     GameServerConnectionManager
-    //         .Instance
-    //         .players
-    //         .ForEach(p =>
-    //         {
-    //             if (PlayerIsInSkillRange(p, skill))
-    //             {
-    //                 inRangeTargets.Add(p);
-    //             }
-    //         });
-    //     return inRangeTargets;
-    // }
-
-    // private bool PlayerIsInSkillRange(GameObject player, Skill skill)
-    // {
-    //     switch (skill.GetSkillName())
-    //     {
-    //         case "MULTISHOT":
-    //         case "YUGEN'S MARK":
-    //             return PlayerIsInSkillDirectionConeRange(player, skill);
-    //         case "DISARM":
-    //             return PlayerIsInSkillDirectionArrowRange(player, skill);
-    //         default:
-    //             return PlayerIsInSkillProximityRange(player, skill);
-    //     }
-    // }
-
-    // private bool PlayerIsInSkillProximityRange(GameObject player, Skill skill)
-    // {
-    //     return !IsSamePlayer(player) && directionIndicator.IsInProximityRange(player);
-    // }
-
-    // private bool PlayerIsInSkillDirectionConeRange(GameObject player, Skill skill)
-    // {
-    //     return !IsSamePlayer(player) && directionIndicator.IsInsideCone(player);
-    // }
-
-    // private bool PlayerIsInSkillDirectionArrowRange(GameObject player, Skill skill)
-    // {
-    //     return !IsSamePlayer(player) && directionIndicator.IsInArrowLine(player);
-    // }
 
     private bool IsSamePlayer(GameObject player)
     {

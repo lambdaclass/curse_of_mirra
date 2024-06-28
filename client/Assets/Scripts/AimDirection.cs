@@ -149,46 +149,6 @@ public class AimDirection : MonoBehaviour
         return (sideAB.normalized + sideAC.normalized).normalized;
     }
 
-    public bool IsInProximityRange(GameObject player)
-    {
-        GameObject currentPlayer = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
-        float distance = Vector3.Distance(
-            currentPlayer.transform.position,
-            player.transform.position
-        );
-        Vector3 targetDirection = player.transform.position - currentPlayer.transform.position;
-        Vector3 attackDirection = this.GetComponent<CustomCharacter>()
-            .CharacterRotation()
-            .eulerAngles;
-        float playersAngle = Vector3.Angle(attackDirection, targetDirection);
-
-        return distance <= viewDistance && playersAngle <= skillAngle / 2;
-    }
-
-    public bool IsInsideCone(GameObject player)
-    {
-        Vector3 bisectorDirection = GetBisectorDirection();
-        Vector3 playerDirection = player.transform.position - cone.transform.position;
-        playerDirection = new Vector3(playerDirection.x, 0f, playerDirection.z);
-        float playerBisectorAngle = Vector3.Angle(playerDirection, bisectorDirection);
-        return playerBisectorAngle <= fov / 2;
-    }
-
-    public bool IsInArrowLine(GameObject player)
-    {
-        GameObject currentPlayer = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
-
-        Vector3 arrowDirection = arrow.transform.position - currentPlayer.transform.position;
-        arrowDirection = new Vector3(arrowDirection.x, 0f, arrowDirection.z);
-
-        Vector3 playerDirection = player.transform.position - currentPlayer.transform.position;
-        playerDirection = new Vector3(playerDirection.x, 0f, playerDirection.z);
-
-        float playerArrowAngle = Vector3.Angle(arrowDirection, playerDirection);
-
-        return playerArrowAngle <= AIMSHOT_AMPLITUDE && playerDirection.magnitude <= viewDistance;
-    }
-
     public Vector3 GetVectorFromAngle(float angle)
     {
         float angleRad = angle * (Mathf.PI / 180f);
