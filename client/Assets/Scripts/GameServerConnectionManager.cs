@@ -176,33 +176,12 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.config = gameEvent.Joined.Config;
                     this.bounties = gameEvent.Joined.Bounties.ToList();
                     this.bountyPickTime_ms = gameEvent.Joined.Config.Game.BountyPickTimeMs;
-                    this.timestampDifferenceSamplesToCheckWarning = (int)
-                        gameEvent
-                            .Joined
-                            .Config
-                            .ClientConfig
-                            .ServerUpdate
-                            .TimestampDifferenceSamplesToCheckWarning;
-                    this.timestampDifferencesSamplesMaxLength = (int)
-                        gameEvent
-                            .Joined
-                            .Config
-                            .ClientConfig
-                            .ServerUpdate
-                            .TimestampDifferencesSamplesMaxLength;
-                    this.showWarningThreshold = (int)
-                        gameEvent.Joined.Config.ClientConfig.ServerUpdate.ShowWarningThreshold;
-                    this.stopWarningThreshold = (int)
-                        gameEvent.Joined.Config.ClientConfig.ServerUpdate.StopWarningThreshold;
-                    this.msWithoutUpdateShowWarning = (int)
-                        gameEvent
-                            .Joined
-                            .Config
-                            .ClientConfig
-                            .ServerUpdate
-                            .MsWithoutUpdateShowWarning;
-                    this.msWithoutUpdateDisconnect = (int)
-                        gameEvent.Joined.Config.ClientConfig.ServerUpdate.MsWithoutUpdateDisconnect;
+                    this.timestampDifferenceSamplesToCheckWarning = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.TimestampDifferenceSamplesToCheckWarning;
+                    this.timestampDifferencesSamplesMaxLength = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.TimestampDifferencesSamplesMaxLength;
+                    this.showWarningThreshold = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.ShowWarningThreshold;
+                    this.stopWarningThreshold = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.StopWarningThreshold;
+                    this.msWithoutUpdateShowWarning = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.MsWithoutUpdateShowWarning;
+                    this.msWithoutUpdateDisconnect = (int)gameEvent.Joined.Config.ClientConfig.ServerUpdate.MsWithoutUpdateDisconnect;
                     break;
                 case GameEvent.EventOneofCase.Ping:
                     currentPing = (uint)gameEvent.Ping.Latency;
@@ -218,10 +197,7 @@ public class GameServerConnectionManager : MonoBehaviour
                         gameState.Zone.NextZoneChangeTimestamp - gameState.ServerTimestamp;
                     this.zoneEnabled = gameState.Zone.Enabled;
                     this.gameStatus = gameState.Status;
-                    this.gameCountdown =
-                        gameState.StartGameTimestamp
-                        - gameState.ServerTimestamp
-                        + this.bountyPickTime_ms;
+                    this.gameCountdown = gameState.StartGameTimestamp - gameState.ServerTimestamp + this.bountyPickTime_ms;
                     var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();
                     this.gameProjectiles = gameState.Projectiles.Values.ToList();
@@ -236,9 +212,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     {
                         [this.playerId] = position
                     };
-                    OnGameEventTimestampChanged?.Invoke(
-                        DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
-                    );
+                    OnGameEventTimestampChanged?.Invoke(DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
                     break;
                 case GameEvent.EventOneofCase.Finished:
                     winnerPlayer.Item1 = gameEvent.Finished.Winner;
@@ -290,7 +264,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
     public void SendSelectBounty(string bountyId)
     {
-        SelectBounty selectBounty = new SelectBounty { BountyQuestId = bountyId };
+        SelectBounty selectBounty = new SelectBounty { BountyQuestId=bountyId };
         GameAction gameAction = new GameAction { SelectBounty = selectBounty };
         SendGameAction(gameAction);
     }
@@ -305,14 +279,10 @@ public class GameServerConnectionManager : MonoBehaviour
     public void SendChangeTickrate(long tickrate, long timestamp)
     {
         ChangeTickrate changeTickrate = new ChangeTickrate { Tickrate = tickrate };
-        GameAction gameAction = new GameAction
-        {
-            ChangeTickrate = changeTickrate,
-            Timestamp = timestamp
-        };
+        GameAction gameAction = new GameAction { ChangeTickrate = changeTickrate, Timestamp = timestamp };
         SendGameAction(gameAction);
     }
-
+    
     public void SendToggleBots(long timestamp)
     {
         ToggleBots toggleBots = new ToggleBots { };
