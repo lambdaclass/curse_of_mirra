@@ -302,7 +302,7 @@ public class CustomLevelManager : LevelManager
         } 
         else 
         {
-            healthBar.setEnemyHelthBar();
+            healthBar.setEnemyCrateHelthBar();
         }
     }
 

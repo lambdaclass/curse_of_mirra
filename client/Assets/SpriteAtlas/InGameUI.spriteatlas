@@ -68,6 +68,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: dc480059705a34887912b8aa9e5db7c5, type: 3}
   - {fileID: 21300000, guid: 8598d97aa78864f24b5635cabc949f81, type: 3}
   - {fileID: 21300000, guid: d5f280ba182e544b4b3d2b2b67ba3173, type: 3}
+  - {fileID: 21300000, guid: 00404d1bd410c40fcb146b34f66a959b, type: 3}
   - {fileID: 21300000, guid: be74397bea6cf445f94a4906f318baad, type: 3}
   - {fileID: 21300000, guid: 19ab588b5db054bfbad31e56c4ea1440, type: 3}
   - {fileID: 21300000, guid: 0d5da8ab1670f437e8d9d1bda2b88792, type: 3}
@@ -103,6 +104,7 @@ SpriteAtlas:
   - toggle_off
   - slider-handle
   - stamina
+  - container-crates
   - timer
   - setings
   - kills

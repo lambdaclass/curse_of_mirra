@@ -24,7 +24,7 @@ public class HealthBarItem : MonoBehaviour
         background.sprite = yourBackground;
     }
 
-    public void setEnemyHelthBar() {
+    public void setEnemyCrateHelthBar() {
         front.sprite = healthBarRed;
         damage.sprite = enemyLose;
         background.sprite = enemyBackground;
