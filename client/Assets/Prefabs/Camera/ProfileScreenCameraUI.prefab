@@ -2115,6 +2115,18 @@ MonoBehaviour:
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1558020149395613510}
+        m_TargetAssemblyTypeName: UnityEngine.UI.InputField, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 1558020148919778017}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -3235,29 +3247,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7126066241210625414, guid: 4538e3b7a6b2341eb85e05d6acbf8e85,
         type: 3}
-      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7126066241210625414, guid: 4538e3b7a6b2341eb85e05d6acbf8e85,
-        type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7126066241210625414, guid: 4538e3b7a6b2341eb85e05d6acbf8e85,
-        type: 3}
-      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7126066241210625414, guid: 4538e3b7a6b2341eb85e05d6acbf8e85,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1558020149395613510}
-    - target: {fileID: 7126066241210625414, guid: 4538e3b7a6b2341eb85e05d6acbf8e85,
-        type: 3}
-      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1558020148919778017}
     - target: {fileID: 7126066241210625414, guid: 4538e3b7a6b2341eb85e05d6acbf8e85,
         type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -3270,23 +3267,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7126066241210625414, guid: 4538e3b7a6b2341eb85e05d6acbf8e85,
         type: 3}
-      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetActive
-      objectReference: {fileID: 0}
-    - target: {fileID: 7126066241210625414, guid: 4538e3b7a6b2341eb85e05d6acbf8e85,
-        type: 3}
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnityEngine.UI.InputField, UnityEngine.UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 7126066241210625414, guid: 4538e3b7a6b2341eb85e05d6acbf8e85,
-        type: 3}
-      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 7126066241210625414, guid: 4538e3b7a6b2341eb85e05d6acbf8e85,
-        type: 3}
-      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4538e3b7a6b2341eb85e05d6acbf8e85, type: 3}
