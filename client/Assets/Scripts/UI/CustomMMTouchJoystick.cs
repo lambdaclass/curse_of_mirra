@@ -7,21 +7,21 @@ using UnityEngine.UI;
 
 public class CustomMMTouchJoystick : MMTouchJoystick
 {
+    const float CANCEL_AREA_VALUE = 0.15f;
+    bool dragged = false;
+    bool cancelable = false;
+    bool didHapticFeedback = false;
+
+    [MMInspectorGroup("Custom", true, 3)]
+    public CustomInputManager inputManager;
     public UnityEvent<Vector2, Skill> newPointerUpEvent;
     public UnityEvent<Vector2, CustomMMTouchJoystick> newDragEvent;
     public UnityEvent<CustomMMTouchJoystick> newPointerDownEvent;
     public Skill skill;
-    const float CANCEL_AREA_VALUE = 0.15f;
-    bool dragged = false;
-    bool cancelable = false;
-    private CustomInputManager inputManager;
-
-    bool didHapticFeedback = false;
 
     public override void Initialize()
     {
         base.Initialize();
-        inputManager = TargetCamera.GetComponent<CustomInputManager>();
     }
 
     public override void OnPointerDown(PointerEventData data)
@@ -108,7 +108,8 @@ public class CustomMMTouchJoystick : MMTouchJoystick
         )
         {
             inputManager.SetCanceled(cancelable, dragged, skill.GetIndicatorType());
-            if(!didHapticFeedback && cancelable == true){
+            if (!didHapticFeedback && cancelable == true)
+            {
                 HapticFeedback.MediumFeedback();
                 didHapticFeedback = true;
             }

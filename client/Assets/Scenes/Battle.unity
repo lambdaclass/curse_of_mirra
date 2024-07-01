@@ -4133,12 +4133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20bee497d0fd1474e87f3c8722ada53f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!20 &2856279044554654231 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 20646998284766860, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-    type: 3}
-  m_PrefabInstance: {fileID: 2856279044554654229}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2856279044554654232 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6925156021903361451, guid: 9edcf7e494cf3e640b18cb7495fb179a,
@@ -4221,7 +4215,7 @@ PrefabInstance:
         type: 3}
       propertyPath: UiCamera
       value: 
-      objectReference: {fileID: 2856279044554654231}
+      objectReference: {fileID: 0}
     - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
         type: 3}
       propertyPath: roundText
@@ -4247,6 +4241,11 @@ PrefabInstance:
       propertyPath: battleScreen
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
+        type: 3}
+      propertyPath: inputManager
+      value: 
+      objectReference: {fileID: 2856279044554654230}
     - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
         type: 3}
       propertyPath: loadinScreen
