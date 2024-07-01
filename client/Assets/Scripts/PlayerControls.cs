@@ -56,7 +56,9 @@ public class PlayerControls : MonoBehaviour
             .playerMovement
             .AddMovement(
                 new Direction { X = movementDirection.x, Y = movementDirection.y },
-                timestamp
+                (movedFromStatic || stoppedMoving || changedDirection)
+                    ? timestamp
+                    : GameServerConnectionManager.Instance.playerMovement.currentTimestamp
             );
 
         // Here we can add a validaion to check if

@@ -12,6 +12,7 @@ public class PlayerMovement
         public long movementTimestamp;
         public long timestamp;
         public long tick;
+        public long deltaTime;
     }
 
     public List<Movement> movements = new List<Movement>();
@@ -61,12 +62,13 @@ public class PlayerMovement
 
         Movement movement = new Movement
         {
-            position = player.Position,
-            direction = player.Direction,
+            position = new Position { X = player.Position.X, Y = player.Position.Y },
+            direction = new Direction { X = player.Direction.X, Y = player.Direction.Y },
             speed = player.Speed,
             movementTimestamp = currentTimestamp,
             timestamp = lastTimestamp,
-            tick = now - GameServerConnectionManager.Instance.clientTimestampStarted
+            tick = now - GameServerConnectionManager.Instance.clientTimestampStarted,
+            deltaTime = deltaTime,
         };
         movements.Add(movement);
         this.tick += 1;
@@ -93,9 +95,9 @@ public class PlayerMovement
             new Vector3(movements[index].position.X, 0, movements[index].position.Y),
             new Vector3(gameState.player.Position.X, 0, gameState.player.Position.Y)
         );
+
         if (distance > reconciliationDistance)
         {
-            Debug.Log("=== Reconciliating player ===");
             player.Position = gameState.player.Position;
             for (int i = index + 1; i < movements.Count; i++)
             {
@@ -105,12 +107,10 @@ public class PlayerMovement
                 {
                     now = movements[i + 1].timestamp;
                 }
-                long deltaTime = now - movement.timestamp;
-                // Debug.Log(deltaTime);
-                player.Position.X += movement.direction.X * movement.speed * deltaTime;
-                player.Position.Y += movement.direction.Y * movement.speed * deltaTime;
+
+                player.Position.X += movement.direction.X * movement.speed * movement.deltaTime;
+                player.Position.Y += movement.direction.Y * movement.speed * movement.deltaTime;
             }
-            // Debug.Log("=== END Reconciliating player ===");
         }
     }
 

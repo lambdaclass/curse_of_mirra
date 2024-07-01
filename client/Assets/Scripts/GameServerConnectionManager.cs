@@ -241,7 +241,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.playerMovement.SetSpeed(gameState.Players[this.playerId].Speed);
                     this.playerMovement.SetGameState(
                         gameState.Players[this.playerId],
-                        gameState.ServerTimestamp
+                        gameState.PlayerTimestamps[this.playerId]
                     );
                     this.playerMovement.SetForcedMovement(
                         gameState.Players[this.playerId].Player.ForcedMovement
