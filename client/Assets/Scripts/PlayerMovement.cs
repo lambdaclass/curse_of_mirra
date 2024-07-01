@@ -70,10 +70,9 @@ public class PlayerMovement
         };
         movements.Add(movement);
         this.tick += 1;
-        ReconciliatePlayer();
     }
 
-    public void ReconciliatePlayer()
+    public void ReconciliatePlayer(float reconciliationDistance)
     {
         int index = 0;
         while (
@@ -94,8 +93,7 @@ public class PlayerMovement
             new Vector3(movements[index].position.X, 0, movements[index].position.Y),
             new Vector3(gameState.player.Position.X, 0, gameState.player.Position.Y)
         );
-
-        if (distance > 150f)
+        if (distance > reconciliationDistance)
         {
             Debug.Log("=== Reconciliating player ===");
             player.Position = gameState.player.Position;

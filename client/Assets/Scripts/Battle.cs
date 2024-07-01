@@ -25,7 +25,9 @@ public class Battle : MonoBehaviour
     public List<GameObject> InterpolationGhosts = new List<GameObject>();
     public GameObject clientPredictionGhost;
     public bool useClientPrediction;
+    public bool useReconciliation;
     public bool useInterpolation;
+    public float reconciliationDistance;
     public CharacterStates.MovementStates[] BlockingMovementStates;
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
     public long accumulatedTime;
@@ -87,8 +89,10 @@ public class Battle : MonoBehaviour
     private void SetupInitialState()
     {
         useClientPrediction = true;
+        useReconciliation = true;
         useInterpolation = true;
         accumulatedTime = 0;
+        reconciliationDistance = 150f;
         showClientPredictionGhost = false;
         showInterpolationGhosts = false;
         zoneActive = true;
@@ -163,6 +167,10 @@ public class Battle : MonoBehaviour
                 SendPlayerMovement();
                 lastMovementUpdate = nowMiliseconds;
                 GameServerConnectionManager.Instance.playerMovement.MovePlayer();
+                if (useReconciliation)
+                {
+                    GameServerConnectionManager.Instance.playerMovement.ReconciliatePlayer(reconciliationDistance);
+                }
             }
         }
     }
@@ -766,6 +774,11 @@ public class Battle : MonoBehaviour
         {
             TurnOffClientPredictionGhost();
         }
+    }
+
+    public void ToggleReconciliation()
+    {
+        useReconciliation = !useReconciliation;
     }
 
     public void ToggleZone()
