@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using MoreMountains.Tools;
+using TMPro;
 
 public class HealthBarItem : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class HealthBarItem : MonoBehaviour
     [SerializeField]
     MMProgressBar healthBarMM;
 
+    [SerializeField]
+    GameObject damageText;
+
     public void setYourHealthBar(ulong health) {
         front.sprite = healthBarGreen;
         damage.sprite = yourLose;
@@ -35,6 +39,13 @@ public class HealthBarItem : MonoBehaviour
         damage.sprite = enemyLose;
         background.sprite = enemyBackground;
         healthBarMM.PercentageTextMeshPro.text = health + "";
+        healthBarMM.TextValueMultiplier = health;
+    }
+
+    public void updateHealthBar(float health, ulong healthDiff) {
+        var damage = Instantiate(damageText, transform.position, Quaternion.identity, transform);
+        damage.GetComponent<TextMeshProUGUI>().text = healthDiff + "";
+        healthBarMM.BumpOnDecrease = true;
         healthBarMM.TextValueMultiplier = health;
     }
 }

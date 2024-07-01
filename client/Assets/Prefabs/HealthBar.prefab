@@ -372,6 +372,8 @@ MonoBehaviour:
   damage: {fileID: 2700575606625810454}
   background: {fileID: 7500831656930159021}
   healthBarMM: {fileID: 114091369736583034}
+  damageText: {fileID: 2341068245665865117, guid: 564845ed86c2c44279548a5681e3fde5,
+    type: 3}
 --- !u!1 &1000011386624708
 GameObject:
   m_ObjectHideFlags: 0
