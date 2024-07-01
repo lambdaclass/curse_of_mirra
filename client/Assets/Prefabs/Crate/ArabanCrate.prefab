@@ -489,6 +489,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CrateCard
       objectReference: {fileID: 0}
+    - target: {fileID: 1428990921056839056, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2950851517037443322, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -513,11 +518,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 1428990921056839056, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2950851517647107188, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
         type: 3}
@@ -576,6 +576,21 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3164839219215374238, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3164839224369075340, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3164839224853288806, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3704430800990506572, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
         type: 3}
       propertyPath: m_IsActive
@@ -621,21 +636,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -81
-      objectReference: {fileID: 0}
-    - target: {fileID: 3164839219215374238, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3164839224369075340, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3164839224853288806, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7373301182641885161, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
         type: 3}
