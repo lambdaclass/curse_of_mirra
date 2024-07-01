@@ -161,7 +161,8 @@ public class CustomLevelManager : LevelManager
             newPlayer.characterBase.PlayerName.GetComponent<TextMeshProUGUI>().text = player.Name;
             SetPlayerHealthBar(
                 GameServerConnectionManager.Instance.playerId == player.Id,
-                newPlayer
+                newPlayer.characterBase.healthBar.GetComponent<HealthBarItem>(),
+                player.Player.Health
             );
             GameServerConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
@@ -302,15 +303,15 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetPlayerHealthBar(bool isClientId, Character character)
+    private void SetPlayerHealthBar(bool isClientId, HealthBarItem healthBar, ulong health)
     {
-        Image healthBarFront = character
-            .GetComponent<MMHealthBar>()
-            .TargetProgressBar
-            .ForegroundBar
-            .GetComponent<Image>();
-
-        healthBarFront.color = isClientId ? Utils.healthBarGreen : Utils.healthBarRed;
+        if (isClientId) {
+            healthBar.setYourHealthBar(health);
+        } 
+        else 
+        {
+            healthBar.setEnemyCrateHealthBar(health);
+        }
     }
 
     private IEnumerator ShowDeathSplash(GameObject player)

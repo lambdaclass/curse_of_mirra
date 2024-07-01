@@ -10,6 +10,10 @@ public class CrateItem : MonoBehaviour
 
     [SerializeField]
     Animator animator;
+
+    [SerializeField]
+    GameObject healthBar;
+
     Health health;
     private Dictionary<string, int> animationHashes;
 
@@ -35,6 +39,9 @@ public class CrateItem : MonoBehaviour
         health.CurrentHealth = item.Crate.Health;
         health.InitialHealth = item.Crate.Health;
         health.MaximumHealth = item.Crate.Health;
+
+        healthBar.GetComponent<HealthBarItem>().setEnemyCrateHealthBar(item.Crate.Health);
+
         gameObject.SetActive(true);
     }
 

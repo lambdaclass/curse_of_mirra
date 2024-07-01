@@ -35,7 +35,7 @@ public class CharacterFeedbacks : MonoBehaviour
         myrrasBlessingVFX;
 
     [SerializeField]
-    MMProgressBar healthBar;
+    HealthBarItem healthBar;
     private bool didPickUp = false;
     private ulong playerID;
     private Material characterMaterial;
@@ -117,16 +117,20 @@ public class CharacterFeedbacks : MonoBehaviour
     {
         if (serverPlayerHealth < clientHealth)
         {
+            ulong healthDiff = (ulong)(clientHealth - serverPlayerHealth);
+
             if (playerId == GameServerConnectionManager.Instance.playerId)
             {
                 damageFeedback.GetComponent<MMF_Player>().PlayFeedbacks();
                 HapticFeedbackType feedbackType = GetHapticTypeByDamage(
-                    (ulong)(clientHealth - serverPlayerHealth)
+                    healthDiff
                 );
                 TriggerHapticFeedback(feedbackType);
             }
             ApplyDamageOverlay();
-            this.healthBar.BumpOnDecrease = true;
+            // this.healthBar.BumpOnDecrease = true;
+            // this.healthBar.TextValueMultiplier = serverPlayerHealth;
+            healthBar.updateHealthBar(serverPlayerHealth, healthDiff);
         }
         if (clientHealth < serverPlayerHealth)
         {

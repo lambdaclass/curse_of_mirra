@@ -52,27 +52,32 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e4a23452b0a894b228ffc65f8f4b2c33, type: 3}
   - {fileID: 21300000, guid: b133ce62e7f374246899951a0f032e35, type: 3}
   - {fileID: 21300000, guid: 77e42d722086f443b9f0a004431a46a1, type: 3}
+  - {fileID: 21300000, guid: 43dc27d22c022432783033b93ce307ae, type: 3}
   - {fileID: 21300000, guid: 7a457ad213602408fa9c8b626b1e509b, type: 3}
   - {fileID: 21300000, guid: ce72fde2956b145a5b6ffecced3eafe2, type: 3}
-  - {fileID: 21300000, guid: e802e653be6f545aa96092866ab8f767, type: 3}
   - {fileID: 21300000, guid: bbc83e73a539e48f2a49cdd4169b997f, type: 3}
   - {fileID: 21300000, guid: df64a9447a18b4291b85eb515c74ebd2, type: 3}
   - {fileID: 21300000, guid: d72ff864afdb848fe8bc6f20a0679065, type: 3}
   - {fileID: 21300000, guid: 66144cf4e79df431d8177b93860e941c, type: 3}
   - {fileID: 21300000, guid: afe27ab68106c410daff1344be11a63c, type: 3}
   - {fileID: 21300000, guid: d5672d38fc9404bfbb60a99a8cbcf1b7, type: 3}
+  - {fileID: 21300000, guid: 5d434978827c044bea7221452cc355ef, type: 3}
+  - {fileID: 21300000, guid: f5a176985163349cebdb6d94cb085cb3, type: 3}
   - {fileID: 21300000, guid: 9e72e2f87cf144d319f745a802ec3c41, type: 3}
   - {fileID: 21300000, guid: 25c6ba19deae14da8a58d506552bf1fe, type: 3}
   - {fileID: 21300000, guid: dc480059705a34887912b8aa9e5db7c5, type: 3}
   - {fileID: 21300000, guid: 8598d97aa78864f24b5635cabc949f81, type: 3}
   - {fileID: 21300000, guid: d5f280ba182e544b4b3d2b2b67ba3173, type: 3}
-  - {fileID: 21300000, guid: 58c5b2ba7289848799e486a6d866171a, type: 3}
+  - {fileID: 21300000, guid: 00404d1bd410c40fcb146b34f66a959b, type: 3}
   - {fileID: 21300000, guid: be74397bea6cf445f94a4906f318baad, type: 3}
   - {fileID: 21300000, guid: 19ab588b5db054bfbad31e56c4ea1440, type: 3}
   - {fileID: 21300000, guid: 0d5da8ab1670f437e8d9d1bda2b88792, type: 3}
-  - {fileID: 21300000, guid: 0c73ab9c47b36493b8966b0a813f41f6, type: 3}
+  - {fileID: 21300000, guid: 3cfe240cf473b428ca8823fd9cc866d2, type: 3}
   - {fileID: 21300000, guid: 098120dd7167e4221b9f8510402e20fa, type: 3}
   - {fileID: 21300000, guid: 04ae07dd9905f49c0b70082fc6f75dcd, type: 3}
+  - {fileID: 21300000, guid: 17a9fa9e2ee3449448c281d24b4c056b, type: 3}
+  - {fileID: 21300000, guid: 3cab7a4fdb0d24202ac0a2632fbef6f8, type: 3}
+  - {fileID: 21300000, guid: e8d7f0df5bb314724a2ba332362de4e1, type: 3}
   m_PackedSpriteNamesToIndex:
   - container
   - setting_firstTab_selected
@@ -83,27 +88,32 @@ SpriteAtlas:
   - Underline
   - players
   - toggle_on
+  - enemy-background
   - icon
   - orientation-indicator
-  - 0
   - stamina-empty
   - muflus
   - settings_bg
   - zone
   - setting_tab_selected
   - underline
+  - your-background
+  - health you lose
   - container
   - zone-icon
   - toggle_off
   - slider-handle
   - stamina
-  - 1
+  - container-crates
   - timer
   - setings
   - kills
-  - background(2)
+  - health enemy lose
   - sidebar
   - dev
+  - HB+power-up container
+  - your
+  - enemy
   m_RenderDataMap: {}
   m_Tag: InGameUI
   m_IsVariant: 0
