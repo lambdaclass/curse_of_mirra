@@ -35,9 +35,11 @@ public class AimDirection : MonoBehaviour
     public int rayCount = 50;
     public float angleIncrease;
     private float hitbox;
-    void Awake(){
 
-        hitbox = (Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId).Radius / 100) * 2;
+    void Awake()
+    {
+        hitbox =
+            (Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId).Radius / 100) * 2;
     }
 
     public void InitIndicator(Skill skill, Color32 color)
@@ -50,8 +52,9 @@ public class AimDirection : MonoBehaviour
         characterFeedbackColor = color;
         initialPosition = transform.localPosition;
 
-
-        float circleArea = skill.GetSkillInfo().usesHitboxAsArea ? hitbox : skill.GetSkillAreaRadius();
+        float circleArea = skill.GetSkillInfo().usesHitboxAsArea
+            ? hitbox
+            : skill.GetSkillAreaRadius();
 
         this.area.transform.localScale = new Vector3(circleArea, 0, circleArea);
 
@@ -144,46 +147,6 @@ public class AimDirection : MonoBehaviour
 
         // return the bisector direction of the triangle's vertex angle
         return (sideAB.normalized + sideAC.normalized).normalized;
-    }
-
-    public bool IsInProximityRange(GameObject player)
-    {
-        GameObject currentPlayer = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
-        float distance = Vector3.Distance(
-            currentPlayer.transform.position,
-            player.transform.position
-        );
-        Vector3 targetDirection = player.transform.position - currentPlayer.transform.position;
-        Vector3 attackDirection = currentPlayer
-            .GetComponent<CharacterOrientation3D>()
-            .ForcedRotationDirection;
-        float playersAngle = Vector3.Angle(attackDirection, targetDirection);
-
-        return distance <= viewDistance && playersAngle <= skillAngle / 2;
-    }
-
-    public bool IsInsideCone(GameObject player)
-    {
-        Vector3 bisectorDirection = GetBisectorDirection();
-        Vector3 playerDirection = player.transform.position - cone.transform.position;
-        playerDirection = new Vector3(playerDirection.x, 0f, playerDirection.z);
-        float playerBisectorAngle = Vector3.Angle(playerDirection, bisectorDirection);
-        return playerBisectorAngle <= fov / 2;
-    }
-
-    public bool IsInArrowLine(GameObject player)
-    {
-        GameObject currentPlayer = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
-
-        Vector3 arrowDirection = arrow.transform.position - currentPlayer.transform.position;
-        arrowDirection = new Vector3(arrowDirection.x, 0f, arrowDirection.z);
-
-        Vector3 playerDirection = player.transform.position - currentPlayer.transform.position;
-        playerDirection = new Vector3(playerDirection.x, 0f, playerDirection.z);
-
-        float playerArrowAngle = Vector3.Angle(arrowDirection, playerDirection);
-
-        return playerArrowAngle <= AIMSHOT_AMPLITUDE && playerDirection.magnitude <= viewDistance;
     }
 
     public Vector3 GetVectorFromAngle(float angle)
