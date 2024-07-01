@@ -68,6 +68,9 @@ public class GameServerConnectionManager : MonoBehaviour
     public static Action<long> OnGameEventTimestampChanged;
     public static Action OnMatchFinished;
 
+    public long serverTimestampStarted = 0;
+    public long clientTimestampStarted = 0;
+
     void Start()
     {
         Init();
@@ -207,6 +210,13 @@ public class GameServerConnectionManager : MonoBehaviour
                     break;
                 case GameEvent.EventOneofCase.Update:
                     GameState gameState = gameEvent.Update;
+
+                    if (serverTimestampStarted == 0)
+                    {
+                        serverTimestampStarted = gameState.ServerTimestamp;
+                        clientTimestampStarted = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                        this.playerMovement.tick = 0;
+                    }
 
                     eventsBuffer.AddEvent(gameState);
 

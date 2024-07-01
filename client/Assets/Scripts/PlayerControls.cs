@@ -6,17 +6,19 @@ public class PlayerControls : MonoBehaviour
 {
     public void SendJoystickValues(float x, float y)
     {
+        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         if (
             ShouldSendMovement(
                 x,
                 y,
                 GameServerConnectionManager.Instance.clientPrediction.lastXSent,
-                GameServerConnectionManager.Instance.clientPrediction.lastYSent
+                GameServerConnectionManager.Instance.clientPrediction.lastYSent,
+                timestamp
             )
         )
         {
             var valuesToSend = new Direction { X = x, Y = y };
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            // var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
             GameServerConnectionManager.Instance.SendMove(x, y, timestamp);
 
@@ -32,7 +34,7 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    bool ShouldSendMovement(float x, float y, float lastXSent, float lastYSent)
+    bool ShouldSendMovement(float x, float y, float lastXSent, float lastYSent, long timestamp)
     {
         float movementThreshold = 1f;
         //Fetch the first GameObject's position
@@ -52,7 +54,10 @@ public class PlayerControls : MonoBehaviour
         GameServerConnectionManager
             .Instance
             .playerMovement
-            .AddMovement(new Direction { X = movementDirection.x, Y = movementDirection.y });
+            .AddMovement(
+                new Direction { X = movementDirection.x, Y = movementDirection.y },
+                timestamp
+            );
 
         // Here we can add a validaion to check if
         // the movement is significant enough to be sent to the server

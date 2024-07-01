@@ -9,7 +9,9 @@ public class PlayerMovement
         public Position position;
         public Direction direction;
         public float speed;
+        public long movementTimestamp;
         public long timestamp;
+        public long tick;
     }
 
     public List<Movement> movements = new List<Movement>();
@@ -17,8 +19,11 @@ public class PlayerMovement
     public Entity player = new Entity();
 
     public long lastTimestamp = 0;
+    public long currentTimestamp = 0;
 
     public float mapRadius;
+
+    public long tick = -1;
 
     public struct ServerInfo
     {
@@ -26,11 +31,18 @@ public class PlayerMovement
         public long timestamp;
     }
 
+    public Dictionary<long, bool> timestampsRead = new Dictionary<long, bool>();
+
     public ServerInfo gameState;
 
     public void MovePlayer()
     {
+        if (this.tick == -1)
+        {
+            return;
+        }
         long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
         long deltaTime = now - lastTimestamp;
 
         player.Position.X += player.Direction.X * player.Speed * deltaTime;
@@ -52,33 +64,42 @@ public class PlayerMovement
             position = player.Position,
             direction = player.Direction,
             speed = player.Speed,
-            timestamp = now
+            movementTimestamp = currentTimestamp,
+            timestamp = lastTimestamp,
+            tick = now - GameServerConnectionManager.Instance.clientTimestampStarted
         };
         movements.Add(movement);
-
+        this.tick += 1;
         ReconciliatePlayer();
     }
 
     public void ReconciliatePlayer()
     {
-        int index = movements.Count - 1;
-        while (movements[index].timestamp > gameState.timestamp)
+        int index = 0;
+        while (
+            movements[index].movementTimestamp < gameState.timestamp && index < movements.Count - 1
+        )
         {
-            index--;
+            index += 1;
         }
-        Debug.Log("buffer: " + movements[index].timestamp);
-        Debug.Log("buffer+1: " + movements[index + 1].timestamp);
-        Debug.Log("server: " + gameState.timestamp);
-        Debug.Log("==========");
+
+        if (timestampsRead.ContainsKey(movements[index].movementTimestamp))
+        {
+            return;
+        }
+
+        timestampsRead[movements[index].movementTimestamp] = true;
+
         float distance = Vector3.Distance(
             new Vector3(movements[index].position.X, 0, movements[index].position.Y),
             new Vector3(gameState.player.Position.X, 0, gameState.player.Position.Y)
         );
+
         if (distance > 150f)
         {
             Debug.Log("=== Reconciliating player ===");
             player.Position = gameState.player.Position;
-            for (int i = index; i < movements.Count; i++)
+            for (int i = index + 1; i < movements.Count; i++)
             {
                 Movement movement = movements[i];
                 long now = lastTimestamp;
@@ -86,16 +107,16 @@ public class PlayerMovement
                 {
                     now = movements[i + 1].timestamp;
                 }
-                long deltaTime = movement.timestamp - movements[i - 1].timestamp;
-                Debug.Log(deltaTime);
+                long deltaTime = now - movement.timestamp;
+                // Debug.Log(deltaTime);
                 player.Position.X += movement.direction.X * movement.speed * deltaTime;
                 player.Position.Y += movement.direction.Y * movement.speed * deltaTime;
             }
-            Debug.Log("=== END Reconciliating player ===");
+            // Debug.Log("=== END Reconciliating player ===");
         }
     }
 
-    public void AddMovement(Direction direction)
+    public void AddMovement(Direction direction, long timestamp)
     {
         if (player.Player.ForcedMovement)
         {
@@ -103,6 +124,7 @@ public class PlayerMovement
         }
         player.Direction.X = direction.X;
         player.Direction.Y = direction.Y;
+        currentTimestamp = timestamp;
     }
 
     public void AddForcedMovement(Direction direction)
@@ -132,10 +154,10 @@ public class PlayerMovement
         this.player.Direction.Y = 0f;
     }
 
-    public void SetGameState(Entity serverPlayer, long serverTimestamp)
+    public void SetGameState(Entity serverPlayer, long timestamp)
     {
         this.gameState.player = serverPlayer;
-        this.gameState.timestamp = serverTimestamp;
+        this.gameState.timestamp = timestamp;
     }
 
     private Vector3 ClampIfOutOfMap(Vector3 newPosition, float playerRadius)
