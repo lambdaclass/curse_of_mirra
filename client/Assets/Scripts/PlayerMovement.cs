@@ -41,14 +41,8 @@ public class PlayerMovement
         player.Position.X += player.Direction.X * player.Speed * deltaTime;
         player.Position.Y += player.Direction.Y * player.Speed * deltaTime;
 
-        // Refactor this: pasamanos de variables {
-        Vector3 newPosition = new Vector3(player.Position.X, 0, player.Position.Y);
-        newPosition = ClampIfOutOfMap(newPosition, player.Radius);
-
-        player.Position.X = newPosition.x;
-        player.Position.Y = newPosition.z;
+        ClampIfOutOfMap();
         processCollisions();
-        // }
 
         lastTimestamp = now;
 
@@ -149,20 +143,22 @@ public class PlayerMovement
         this.gameState.timestamp = timestamp;
     }
 
-    private Vector3 ClampIfOutOfMap(Vector3 newPosition, float playerRadius)
+    private void ClampIfOutOfMap()
     {
         Vector3 mapCenterPosition = new Vector3(0, 0, 0);
+        Vector3 playerPositionVector = new Vector3(player.Position.X, 0, player.Position.Y);
         float playerDistanceFromMapCenter =
-            Vector3.Distance(newPosition, mapCenterPosition) + playerRadius;
+            Vector3.Distance(playerPositionVector, mapCenterPosition) + player.Radius;
 
         if (playerDistanceFromMapCenter > mapRadius)
         {
-            Vector3 fromOriginToObject = newPosition - mapCenterPosition;
+            Vector3 fromOriginToObject = playerPositionVector - mapCenterPosition;
             fromOriginToObject *= mapRadius / playerDistanceFromMapCenter;
-            newPosition = mapCenterPosition + fromOriginToObject;
-        }
+            Vector3 newPosition = mapCenterPosition + fromOriginToObject;
 
-        return newPosition;
+            player.Position.X = newPosition.x;
+            player.Position.Y = newPosition.z;
+        }
     }
 
     private void processCollisions()
