@@ -68,9 +68,6 @@ public class GameServerConnectionManager : MonoBehaviour
     public static Action<long> OnGameEventTimestampChanged;
     public static Action OnMatchFinished;
 
-    public long serverTimestampStarted = 0;
-    public long clientTimestampStarted = 0;
-
     void Start()
     {
         Init();
@@ -211,13 +208,6 @@ public class GameServerConnectionManager : MonoBehaviour
                 case GameEvent.EventOneofCase.Update:
                     GameState gameState = gameEvent.Update;
 
-                    if (serverTimestampStarted == 0)
-                    {
-                        serverTimestampStarted = gameState.ServerTimestamp;
-                        clientTimestampStarted = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-                        this.playerMovement.tick = 0;
-                    }
-
                     eventsBuffer.AddEvent(gameState);
 
                     KillFeedManager.instance.PutEvents(gameState.Killfeed.ToList());
@@ -237,7 +227,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.damageDone = gameState.DamageDone.ToDictionary(x => x.Key, x => x.Value);
                     this.shrinking = gameState.Zone.Shrinking;
 
-                    // Refactor this {
+                    // Refactor this: quzias llamar a 1 funcion sola, quedo mucho lio {
                     this.playerMovement.SetSpeed(gameState.Players[this.playerId].Speed);
                     this.playerMovement.SetGameState(
                         gameState.Players[this.playerId],

@@ -9,9 +9,7 @@ public class PlayerMovement
         public Position position;
         public Direction direction;
         public float speed;
-        public long movementTimestamp;
         public long timestamp;
-        public long tick;
         public long deltaTime;
     }
 
@@ -23,8 +21,6 @@ public class PlayerMovement
     public long currentTimestamp = 0;
 
     public float mapRadius;
-
-    public long tick = -1;
 
     public struct ServerInfo
     {
@@ -38,10 +34,6 @@ public class PlayerMovement
 
     public void MovePlayer()
     {
-        if (this.tick == -1)
-        {
-            return;
-        }
         long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
         long deltaTime = now - lastTimestamp;
@@ -49,7 +41,7 @@ public class PlayerMovement
         player.Position.X += player.Direction.X * player.Speed * deltaTime;
         player.Position.Y += player.Direction.Y * player.Speed * deltaTime;
 
-        // Refactor this {
+        // Refactor this: pasamanos de variables {
         Vector3 newPosition = new Vector3(player.Position.X, 0, player.Position.Y);
         newPosition = ClampIfOutOfMap(newPosition, player.Radius);
 
@@ -60,36 +52,35 @@ public class PlayerMovement
 
         lastTimestamp = now;
 
+        // Refactor this: ESTE VECTOR CRECE AL INFINITO!! BORRAR LAS VIEJAS {
         Movement movement = new Movement
         {
             position = new Position { X = player.Position.X, Y = player.Position.Y },
             direction = new Direction { X = player.Direction.X, Y = player.Direction.Y },
             speed = player.Speed,
-            movementTimestamp = currentTimestamp,
-            timestamp = lastTimestamp,
-            tick = now - GameServerConnectionManager.Instance.clientTimestampStarted,
+            timestamp = currentTimestamp,
             deltaTime = deltaTime,
         };
         movements.Add(movement);
-        this.tick += 1;
+        // }
     }
 
     public void ReconciliatePlayer(float reconciliationDistance)
     {
         int index = 0;
-        while (
-            movements[index].movementTimestamp < gameState.timestamp && index < movements.Count - 1
-        )
+        while (movements[index].timestamp < gameState.timestamp && index < movements.Count - 1)
         {
             index += 1;
         }
 
-        if (timestampsRead.ContainsKey(movements[index].movementTimestamp))
+        // Refactor this: ESTE DICCIONARIO CRECE AL INFINITO!! VER DE USAR UN CAMPO EN EL STRUCT MOVEMENT {
+        if (timestampsRead.ContainsKey(movements[index].timestamp))
         {
             return;
         }
 
-        timestampsRead[movements[index].movementTimestamp] = true;
+        timestampsRead[movements[index].timestamp] = true;
+        // }
 
         float distance = Vector3.Distance(
             new Vector3(movements[index].position.X, 0, movements[index].position.Y),

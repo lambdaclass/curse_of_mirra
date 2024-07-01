@@ -110,10 +110,14 @@ public class Battle : MonoBehaviour
             playerReference.player = player;
             playerReference.character = player.GetComponent<CustomCharacter>();
             playerReference.characterFeedbacks = player.GetComponent<CharacterFeedbacks>();
-            playerReference.feedbackManager =
-                playerReference.character.characterBase.GetComponent<CharacterFeedbackManager>();
-            playerReference.modelAnimator =
-                playerReference.character.CharacterModel.GetComponent<Animator>();
+            playerReference.feedbackManager = playerReference
+                .character
+                .characterBase
+                .GetComponent<CharacterFeedbackManager>();
+            playerReference.modelAnimator = playerReference
+                .character
+                .CharacterModel
+                .GetComponent<Animator>();
             playersReferences.Add(serverPlayer.Id, playerReference);
         }
         playersSetupCompleted = true;
@@ -169,7 +173,10 @@ public class Battle : MonoBehaviour
                 GameServerConnectionManager.Instance.playerMovement.MovePlayer();
                 if (useReconciliation)
                 {
-                    GameServerConnectionManager.Instance.playerMovement.ReconciliatePlayer(reconciliationDistance);
+                    GameServerConnectionManager
+                        .Instance
+                        .playerMovement
+                        .ReconciliatePlayer(reconciliationDistance);
                 }
             }
         }
@@ -313,6 +320,7 @@ public class Battle : MonoBehaviour
         GameState gameEventToRender
     )
     {
+        // Refactor this: estamos recorriendo los 10 players solo para updatearme a mi mismo {
         foreach (Entity player in gamePlayers)
         {
             if (player.Id == (ulong)GameServerConnectionManager.Instance.playerId)
@@ -353,6 +361,7 @@ public class Battle : MonoBehaviour
                 }
             }
         }
+        // }
     }
 
     private GameState GetGameStateToRender(EventsBuffer eventsBuffer, long now)
@@ -398,7 +407,8 @@ public class Battle : MonoBehaviour
             }
 
             List<PlayerAction> actionsToDelete = currentCharacter
-                .currentActions.Except(currentEntity.Player.CurrentActions)
+                .currentActions
+                .Except(currentEntity.Player.CurrentActions)
                 .ToList();
 
             foreach (PlayerAction playerAction in actionsToDelete)
@@ -434,6 +444,7 @@ public class Battle : MonoBehaviour
         GameState gameStateLast = eventsBuffer.lastEvent();
         List<Entity> gamePlayersLast = gameStateLast.Players.Values.ToList();
 
+        // Refactor this: mejorar nombre de funciones {
         UpdateInterpolationGhosts(gamePlayersLast, now);
         UpdatePlayersButMe(
             gamePlayersToRender,
@@ -441,6 +452,7 @@ public class Battle : MonoBehaviour
             now - eventsBuffer.deltaInterpolationTime
         );
         UpdateMyself(gamePlayersLast, gameStateLast.ServerTimestamp, now, gameStateLast);
+        // }
     }
 
     private void ExecuteSkillFeedback(
@@ -591,14 +603,12 @@ public class Battle : MonoBehaviour
     )
     {
         PlayerReferences playerReference = playersReferences[playerUpdate.Id];
-        playerReference.feedbackManager.ManageStateFeedbacks(
-            playerUpdate,
-            playerReference.character
-        );
-        playerReference.feedbackManager.HandlePickUpItemFeedback(
-            playerUpdate,
-            playerReference.characterFeedbacks
-        );
+        playerReference
+            .feedbackManager
+            .ManageStateFeedbacks(playerUpdate, playerReference.character);
+        playerReference
+            .feedbackManager
+            .HandlePickUpItemFeedback(playerUpdate, playerReference.characterFeedbacks);
 
         playerReference.modelAnimator.SetBool("Walking", false);
         if (!GameServerConnectionManager.Instance.GameHasEnded() && playerUpdate.Player.Health > 0)
@@ -619,9 +629,9 @@ public class Battle : MonoBehaviour
         {
             if (GameServerConnectionManager.Instance.damageDone.ContainsKey(playerUpdate.Id))
             {
-                playerReference.character.HandleHit(
-                    GameServerConnectionManager.Instance.damageDone[playerUpdate.Id]
-                );
+                playerReference
+                    .character
+                    .HandleHit(GameServerConnectionManager.Instance.damageDone[playerUpdate.Id]);
             }
             HandleSkillCooldowns(player, playerUpdate);
         }
@@ -630,7 +640,9 @@ public class Battle : MonoBehaviour
     private float GetSkillCooldownValue(string skillKey, Entity playerUpdate)
     {
         return playerUpdate
-                .Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == skillKey)
+                .Player
+                .Cooldowns
+                .FirstOrDefault(cooldown => cooldown.Key == skillKey)
                 .Value / 1000.0f;
     }
 
@@ -746,10 +758,10 @@ public class Battle : MonoBehaviour
             {
                 print(pastTime);
             }
-            return GameServerConnectionManager.Instance.eventsBuffer.playerIsMoving(
-                playerId,
-                (long)pastTime
-            );
+            return GameServerConnectionManager
+                .Instance
+                .eventsBuffer
+                .playerIsMoving(playerId, (long)pastTime);
         }
     }
 
@@ -813,8 +825,10 @@ public class Battle : MonoBehaviour
     {
         GameObject player = playersReferences[GameServerConnectionManager.Instance.playerId].player;
         clientPredictionGhost = Instantiate(player, player.transform.position, Quaternion.identity);
-        clientPredictionGhost.GetComponent<CustomCharacter>().PlayerID =
-            GameServerConnectionManager.Instance.playerId.ToString();
+        clientPredictionGhost.GetComponent<CustomCharacter>().PlayerID = GameServerConnectionManager
+            .Instance
+            .playerId
+            .ToString();
         clientPredictionGhost.GetComponent<CustomCharacter>().name =
             $"Client Prediction Ghost {GameServerConnectionManager.Instance.playerId}";
         showClientPredictionGhost = true;
@@ -898,8 +912,8 @@ public class Battle : MonoBehaviour
 
     private GameObject FindGhostPlayer(string playerId)
     {
-        return InterpolationGhosts.Find(g =>
-            g.GetComponent<CustomCharacter>().PlayerID == playerId
+        return InterpolationGhosts.Find(
+            g => g.GetComponent<CustomCharacter>().PlayerID == playerId
         );
     }
 
