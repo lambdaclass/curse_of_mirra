@@ -109,7 +109,8 @@ public class Skill : CharacterAbility
         var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
         if (
             player.Player.AvailableStamina < skillInfo.staminaCost
-            && !staminaManager.playingFeedback && !skillInfo.useCooldown
+            && !staminaManager.playingFeedback
+            && !skillInfo.useCooldown
         )
         {
             staminaManager.UnavailableStaminaFeedback();
@@ -183,9 +184,13 @@ public class Skill : CharacterAbility
         float animationDuration = nextAnimation.durationPercent * totalDuration;
         float animationStep = previousAnimationStep + 1;
         string animationStepId = skillId + "_s" + animationStep;
-
+        string speedId = skillId + "_s" + animationStep + "_speed";
         string previousAnimationStepId = skillId + "_s" + previousAnimationStep;
 
+        float animationClipDuration = nextAnimation.animation.length;
+        float animationSpeed = animationClipDuration / animationDuration;
+
+        SetSpeed(speedId, animationSpeed);
         SetAnimation(previousAnimationStepId, false);
         SetAnimation(animationStepId, true);
 
@@ -203,7 +208,7 @@ public class Skill : CharacterAbility
         }
 
         yield return new WaitForSeconds(animationDuration);
-        
+
         if (pendingAnimations.Count > 0)
         {
             StartCoroutine(
@@ -242,49 +247,74 @@ public class Skill : CharacterAbility
                 _model.transform.position.z
             );
 
-            if(destinationPosition != null && hasDestination){
-                vfxPosition = new Vector3(destinationPosition.X / 100, vfx.transform.position.y, destinationPosition.Y / 100);
+            if (destinationPosition != null && hasDestination)
+            {
+                vfxPosition = new Vector3(
+                    destinationPosition.X / 100,
+                    vfx.transform.position.y,
+                    destinationPosition.Y / 100
+                );
             }
 
-            if(hasSkillPool){
-               vfxPosition = SetPoolDiameterAndPosition(vfx);
+            if (hasSkillPool)
+            {
+                vfxPosition = SetPoolDiameterAndPosition(vfx);
             }
 
             vfxInstance = Instantiate(vfx, vfxPosition, vfx.transform.rotation);
         }
-            vfxInstance
-                .GetComponent<PinnedEffectsController>()
-                ?.Setup(this.GetComponent<PinnedEffectsManager>());
-            
-            vfxInstance.GetComponent<EffectCharacterMaterialController>()
-                ?.Setup(this.GetComponent<CharacterMaterialManager>());
+        vfxInstance
+            .GetComponent<PinnedEffectsController>()
+            ?.Setup(this.GetComponent<PinnedEffectsManager>());
+
+        vfxInstance
+            .GetComponent<EffectCharacterMaterialController>()
+            ?.Setup(this.GetComponent<CharacterMaterialManager>());
 
         Destroy(vfxInstance, duration);
     }
- 
 
-    private Vector3 SetPoolDiameterAndPosition(GameObject vfx){
+    private Vector3 SetPoolDiameterAndPosition(GameObject vfx)
+    {
         float diameter = 0;
         Vector3 vfxPosition = Vector3.zero;
-         GameServerConnectionManager.Instance.gamePools.ForEach(pool => {
-            if(pool.Pool.OwnerId == skillInfo.ownerId && !usedPools.Contains(pool.Id)){
-                vfxPosition =  Utils.transformBackendOldPositionToFrontendPosition(pool.Position);
-                diameter = Utils.TransformBackenUnitToClientUnit(pool.Radius) * 2;
+        GameServerConnectionManager
+            .Instance
+            .gamePools
+            .ForEach(pool =>
+            {
+                if (pool.Pool.OwnerId == skillInfo.ownerId && !usedPools.Contains(pool.Id))
+                {
+                    vfxPosition = Utils.transformBackendOldPositionToFrontendPosition(
+                        pool.Position
+                    );
+                    diameter = Utils.TransformBackenUnitToClientUnit(pool.Radius) * 2;
+                }
+            });
+
+        if (vfx.transform.childCount > 0)
+        {
+            if (
+                vfx.GetComponentInChildren<VisualEffect>()
+                && vfx.GetComponentInChildren<VisualEffect>().HasFloat("EffectDiameter")
+            )
+            {
+                vfx.GetComponentInChildren<VisualEffect>().SetFloat("EffectDiameter", diameter);
             }
-        });
+            if (
+                vfx.GetComponentInChildren<VisualEffect>()
+                && vfx.GetComponentInChildren<VisualEffect>().HasFloat("EffectRadius")
+            )
+            {
+                var rotation = this.GetComponent<CustomCharacter>().CharacterRotation();
+                vfx.GetComponentInChildren<VisualEffect>().transform.eulerAngles = new Vector3(
+                    0,
+                    (rotation.x * 90),
+                    0
+                );
 
-        if(vfx.transform.childCount > 0){
-            if(vfx.GetComponentInChildren<VisualEffect>() && vfx.GetComponentInChildren<VisualEffect>().HasFloat("EffectDiameter")){
-               vfx.GetComponentInChildren<VisualEffect>().SetFloat("EffectDiameter", diameter);
-            } 
-            if(vfx.GetComponentInChildren<VisualEffect>() && vfx.GetComponentInChildren<VisualEffect>().HasFloat("EffectRadius")){
-               var rotation = this.GetComponent<CharacterOrientation3D>().ForcedRotationDirection;
-               var negative = rotation.x > 0 ? 1 : -1;
-               vfx.GetComponentInChildren<VisualEffect>().transform.eulerAngles = 
-                new Vector3(0,  (rotation.x * 90), 0);
-
-               vfx.GetComponentInChildren<VisualEffect>().SetFloat("EffectRadius", diameter/2);
-            } 
+                vfx.GetComponentInChildren<VisualEffect>().SetFloat("EffectRadius", diameter / 2);
+            }
         }
 
         return vfxPosition;
@@ -303,6 +333,10 @@ public class Skill : CharacterAbility
     private void SetAnimation(string animationId, bool value)
     {
         _animator.SetBool(animationId, value);
+    }
+
+    private void SetSpeed(string speedId, float value) {
+        _animator.SetFloat(speedId, value);
     }
 
     private void ChangeCharacterState(string animation, bool blockingMovement)
@@ -369,7 +403,8 @@ public class Skill : CharacterAbility
         skillInfo.skillAreaRadius = radius;
     }
 
-    public float GetSkillAreaRadius(){
+    public float GetSkillAreaRadius()
+    {
         return skillInfo.skillAreaRadius;
     }
 
