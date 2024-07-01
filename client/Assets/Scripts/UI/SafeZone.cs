@@ -24,7 +24,7 @@ public class SafeZone : MonoBehaviour
             yield break;
         currentValue += 0.05f;
         dangerZone
-            .sharedMaterial
+            .material
             .SetFloat("_AlphaMultiplier", Mathf.Round(currentValue * 100) / 100f);
     }
 
@@ -46,6 +46,6 @@ public class SafeZone : MonoBehaviour
         float currentRadius = radius / 100;
         double value = finalVfxValue + (currentRadius) * (-finalVfxValue) / (initialPlayableRadius);
 
-        dangerZone.sharedMaterial.SetFloat("_Progress", (float)value);
+        dangerZone.material.SetFloat("_Progress", (float)value);
     }
 }
