@@ -127,6 +127,7 @@ public class CharacterFeedbacks : MonoBehaviour
             }
             ApplyDamageOverlay();
             this.healthBar.BumpOnDecrease = true;
+            this.healthBar.TextValueMultiplier = serverPlayerHealth;
         }
         if (clientHealth < serverPlayerHealth)
         {

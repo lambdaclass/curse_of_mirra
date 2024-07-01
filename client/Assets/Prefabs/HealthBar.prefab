@@ -333,11 +333,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   PercentageText: {fileID: 0}
-  PercentageTextMeshPro: {fileID: 0}
+  PercentageTextMeshPro: {fileID: 6606602912506459696}
   TextPrefix: 
   TextSuffix: 
   TextValueMultiplier: 1
-  TextFormat: '{000}'
+  TextFormat: 0
   DisplayTotal: 0
   TotalSeparator: ' / '
   DebugNewTargetValue: 0
@@ -371,6 +371,7 @@ MonoBehaviour:
   front: {fileID: 114000011583259746}
   damage: {fileID: 2700575606625810454}
   background: {fileID: 7500831656930159021}
+  healthBarMM: {fileID: 114091369736583034}
 --- !u!1 &1000011386624708
 GameObject:
   m_ObjectHideFlags: 0

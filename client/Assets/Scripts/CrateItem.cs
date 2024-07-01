@@ -40,7 +40,7 @@ public class CrateItem : MonoBehaviour
         health.InitialHealth = item.Crate.Health;
         health.MaximumHealth = item.Crate.Health;
 
-        healthBar.GetComponent<HealthBarItem>().setEnemyCrateHelthBar();
+        healthBar.GetComponent<HealthBarItem>().setEnemyCrateHealthBar(item.Crate.Health);
 
         gameObject.SetActive(true);
     }

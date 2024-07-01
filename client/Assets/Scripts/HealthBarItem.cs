@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using MoreMountains.Tools;
 
 public class HealthBarItem : MonoBehaviour
 {
@@ -18,20 +19,22 @@ public class HealthBarItem : MonoBehaviour
         damage,
         background;
 
-    public void setYourHelthBar() {
+    [SerializeField]
+    MMProgressBar healthBarMM;
+
+    public void setYourHealthBar(ulong health) {
         front.sprite = healthBarGreen;
         damage.sprite = yourLose;
         background.sprite = yourBackground;
+        healthBarMM.PercentageTextMeshPro.text = health + "";
+        healthBarMM.TextValueMultiplier = health;
     }
 
-    public void setEnemyCrateHelthBar() {
+    public void setEnemyCrateHealthBar(ulong health) {
         front.sprite = healthBarRed;
         damage.sprite = enemyLose;
         background.sprite = enemyBackground;
+        healthBarMM.PercentageTextMeshPro.text = health + "";
+        healthBarMM.TextValueMultiplier = health;
     }
-
-    public void updateHelthBar(float health) {
-
-    }
-
 }
