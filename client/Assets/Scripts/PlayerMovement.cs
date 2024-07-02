@@ -11,7 +11,6 @@ public class PlayerMovement
         public float speed;
         public long timestamp;
         public long deltaTime;
-        public bool reconciliated;
     }
 
     public List<Movement> movements = new List<Movement>();
@@ -28,6 +27,8 @@ public class PlayerMovement
         public Entity player;
         public long timestamp;
     }
+
+    public Dictionary<long, bool> timestampsRead = new Dictionary<long, bool>();
 
     public ServerInfo gameState;
 
@@ -53,7 +54,6 @@ public class PlayerMovement
             speed = player.Speed,
             timestamp = currentTimestamp,
             deltaTime = deltaTime,
-            reconciliated = false,
         };
         movements.Add(movement);
         // }
@@ -67,12 +67,14 @@ public class PlayerMovement
             index += 1;
         }
 
-        if (movements[index].reconciliated)
+        // Refactor this: ESTE DICCIONARIO CRECE AL INFINITO!! VER DE USAR UN CAMPO EN EL STRUCT MOVEMENT {
+        if (timestampsRead.ContainsKey(movements[index].timestamp))
         {
             return;
         }
 
-        movements[index] = updateMovementReconciliated(movements[index]);
+        timestampsRead[movements[index].timestamp] = true;
+        // }
 
         float distance = Vector3.Distance(
             new Vector3(movements[index].position.X, 0, movements[index].position.Y),
@@ -116,7 +118,7 @@ public class PlayerMovement
 
     public void SetForcedMovement(bool forcedMovement)
     {
-        player.Player.ForcedMovement = forcedMovement;
+        this.player.Player.ForcedMovement = forcedMovement;
     }
 
     public void SetPlayer(Entity player)
@@ -126,19 +128,19 @@ public class PlayerMovement
 
     public void SetSpeed(float speed)
     {
-        player.Speed = speed;
+        this.player.Speed = speed;
     }
 
     public void StopMovement()
     {
-        player.Direction.X = 0f;
-        player.Direction.Y = 0f;
+        this.player.Direction.X = 0f;
+        this.player.Direction.Y = 0f;
     }
 
     public void SetGameState(Entity serverPlayer, long timestamp)
     {
-        gameState.player = serverPlayer;
-        gameState.timestamp = timestamp;
+        this.gameState.player = serverPlayer;
+        this.gameState.timestamp = timestamp;
     }
 
     private void ClampIfOutOfMap()
@@ -204,11 +206,5 @@ public class PlayerMovement
                     break;
             }
         }
-    }
-
-    private Movement updateMovementReconciliated(Movement movement) {
-        Movement movementReconciliated = movement; 
-        movementReconciliated.reconciliated = true;
-        return movementReconciliated;
     }
 }
