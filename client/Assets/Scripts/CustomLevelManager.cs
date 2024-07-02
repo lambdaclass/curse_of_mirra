@@ -20,7 +20,7 @@ public class CustomLevelManager : LevelManager
     private ulong playerId;
 
     // private GameObject prefab;
-    public Camera UiCamera;
+    public CustomInputManager inputManager;
 
     public Entity playerToFollow;
 
@@ -30,7 +30,8 @@ public class CustomLevelManager : LevelManager
 
     private bool deathSplashIsShown = false;
 
-    [SerializeField] GameObject colliderPrefab;
+    [SerializeField]
+    GameObject colliderPrefab;
     EndGameManager endGameManager;
 
     protected override void Awake()
@@ -65,10 +66,13 @@ public class CustomLevelManager : LevelManager
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
         endGameManager.SetDeathSplashCharacter();
 
-        GameServerConnectionManager.Instance.obstacles.ForEach(el =>
-        {
-            GenerateColliders(el.Vertices.ToList(), el.Name);
-        });
+        GameServerConnectionManager
+            .Instance
+            .obstacles
+            .ForEach(el =>
+            {
+                GenerateColliders(el.Vertices.ToList(), el.Name);
+            });
     }
 
     private void GenerateColliders(List<Position> vertices, string name)
@@ -81,7 +85,8 @@ public class CustomLevelManager : LevelManager
             var vertice = vertices[i];
             var position = new Vector3(vertice.X / 100, 0, vertice.Y / 100);
             collider.GetComponent<LineRenderer>().SetPosition(i, position);
-        };
+        }
+        ;
     }
 
     void Update()
@@ -250,7 +255,6 @@ public class CustomLevelManager : LevelManager
 
     private void SetPlayersSkills(ulong clientPlayerId)
     {
-        CustomInputManager inputManager = UiCamera.GetComponent<CustomInputManager>();
         inputManager.Setup();
 
         List<Skill> skillList = new List<Skill>();

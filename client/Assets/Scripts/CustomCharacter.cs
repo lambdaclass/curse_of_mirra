@@ -9,6 +9,9 @@ public class CustomCharacter : Character
     [Header("Character Base")]
     [SerializeField]
     public CharacterBase characterBase;
+
+    [SerializeField]
+    GameObject modelAnchor;
     public HashSet<PlayerAction> currentActions = new HashSet<PlayerAction>();
 
     private bool isTeleporting = false;
@@ -42,11 +45,13 @@ public class CustomCharacter : Character
 
     public void RotatePlayer(Direction direction)
     {
-        CharacterOrientation3D characterOrientation = this.GetComponent<CharacterOrientation3D>();
-        characterOrientation.ForcedRotation = true;
         Vector3 movementDirection = new Vector3(direction.X, 0f, direction.Y);
-        movementDirection.Normalize();
-        characterOrientation.ForcedRotationDirection = movementDirection;
+        modelAnchor.transform.rotation = Quaternion.LookRotation(movementDirection);
+    }
+
+    public Quaternion CharacterRotation()
+    {
+        return modelAnchor.transform.rotation;
     }
 
     public void SetPlayerDead()
