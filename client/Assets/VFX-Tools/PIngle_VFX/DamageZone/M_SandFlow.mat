@@ -28,7 +28,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 3002
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -40,7 +40,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _SandTexture:
         m_Texture: {fileID: 2800000, guid: b8932ddd69c160048b5897562ea16fd0, type: 3}
-        m_Scale: {x: 20, y: 5}
+        m_Scale: {x: 38, y: 7.5}
         m_Offset: {x: 0, y: 0}
     - _SupportNoise:
         m_Texture: {fileID: 2800000, guid: bb8aff1726a3344499d97e5b7ba45e80, type: 3}
@@ -64,22 +64,22 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaMultiplier: 0.7
-    - _AlphaPower: 0.7
-    - _EdgeNoiseIntensity: 6
-    - _EdgePower: 159
-    - _Progress: 0.36875
+    - _AlphaMultiplier: 0.95
+    - _AlphaPower: 0.95
+    - _EdgeNoiseIntensity: 4.95
+    - _EdgePower: 46.45
+    - _Progress: 0.074172504
     - _QueueControl: 0
-    - _QueueOffset: 0
-    - _SkewUV: 0.4
-    - _SupportNoiseMin: 0.08
-    - _SupportNoiseMultiplier: 4
+    - _QueueOffset: 2
+    - _SkewUV: 0.44
+    - _SupportNoiseMin: -0.02
+    - _SupportNoiseMultiplier: 3.51
     - _VertexOffestSpeed: 0.48
     - _VertexOffsetDensity: 16.04
     - _VertexOffsetMultiplier: 0.1
     m_Colors:
-    - _MainColor: {r: 0.101960786, g: 0.034272697, b: 0.015686274, a: 0}
-    - _MainNoiseSpeed: {r: 0.01, g: -0.07, b: 0, a: 0}
+    - _MainColor: {r: 0.0754717, g: 0.0035103115, b: 0, a: 0}
+    - _MainNoiseSpeed: {r: 0.032, g: -0.12, b: 0, a: 0}
     - _SupportColor: {r: 0, g: 0, b: 0, a: 0}
     - _SupportNoiseSpeed: {r: -0.02, g: -0.03, b: 0, a: 0}
     - _VertexOffsetDiraction: {r: 0.01, g: 0.01, b: 0, a: 0}
