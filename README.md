@@ -52,15 +52,17 @@ Find our open source 3D models, concept art, music, lore and more in our [Curse 
 Set up your environment with the following steps:
 
 - Download the [.NET SDK](https://dotnet.microsoft.com/es-es/download/dotnet/thank-you/sdk-7.0.403-macos-arm64-installer) and [Mono](https://www.mono-project.com/download/stable/) for your operating system.
-- In Unity preferences, under "External Tools", check the following preferences:
-  - Embedded packages
-  - Local packages
-  - Registry packages
-  - Git packages
-  - Built-in packages
 - In VSCode, download the ```C# Dev Kit``` extension. 
-  
-Your code should now autocomplete.
+  - You must go to the C# extension and set the version to `v1.25.9` in order for it to work
+- In Unity preferences, under "External Tools", 
+  1. Set "Visual Studio Code" as the external script editor
+  2. check the following preferences:
+      - Embedded packages
+      - Local packages
+      - Registry packages
+      - Git packages
+      - Built-in packages
+  3.  Then click on "Regenerate project files"
 
 ## Project and Unity Setup
 - Open a terminal and clone the project:
