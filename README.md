@@ -57,12 +57,12 @@ Set up your environment with the following steps:
 - In Unity preferences, under "External Tools", 
   1. Set "Visual Studio Code" as the external script editor
   2. check the following preferences:
-    - Embedded packages
-    - Local packages
-    - Registry packages
-    - Git packages
-    - Built-in packages
-  Then click on "Regenerate project files"
+      - Embedded packages
+      - Local packages
+      - Registry packages
+      - Git packages
+      - Built-in packages
+  3.  Then click on "Regenerate project files"
 
 ## Project and Unity Setup
 - Open a terminal and clone the project:
