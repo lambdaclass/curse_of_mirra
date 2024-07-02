@@ -11,6 +11,7 @@ public class PlayerMovement
         public float speed;
         public long timestamp;
         public long deltaTime;
+        public bool reconciliated;
     }
 
     public List<Movement> movements = new List<Movement>();
@@ -44,6 +45,7 @@ public class PlayerMovement
 
         lastTimestamp = now;
 
+        // Refactor this: ESTE VECTOR CRECE AL INFINITO!! BORRAR LAS VIEJAS {
         Movement movement = new Movement
         {
             position = new Position { X = player.Position.X, Y = player.Position.Y },
@@ -51,13 +53,27 @@ public class PlayerMovement
             speed = player.Speed,
             timestamp = currentTimestamp,
             deltaTime = deltaTime,
+            reconciliated = false,
         };
         movements.Add(movement);
+        // }
     }
 
     public void ReconciliatePlayer(float reconciliationDistance)
     {
         int index = 0;
+        while (movements[index].timestamp < gameState.timestamp && index < movements.Count - 1)
+        {
+            index += 1;
+        }
+
+        if (movements[index].reconciliated)
+        {
+            return;
+        }
+
+        movements[index] = updateMovementReconciliated(movements[index]);
+
         float distance = Vector3.Distance(
             new Vector3(movements[index].position.X, 0, movements[index].position.Y),
             new Vector3(gameState.player.Position.X, 0, gameState.player.Position.Y)
@@ -121,7 +137,6 @@ public class PlayerMovement
 
     public void SetGameState(Entity serverPlayer, long timestamp)
     {
-        movements.RemoveAll(movement => movement.timestamp < timestamp);
         gameState.player = serverPlayer;
         gameState.timestamp = timestamp;
     }
@@ -189,5 +204,11 @@ public class PlayerMovement
                     break;
             }
         }
+    }
+
+    private Movement updateMovementReconciliated(Movement movement) {
+        Movement movementReconciliated = movement; 
+        movementReconciliated.reconciliated = true;
+        return movementReconciliated;
     }
 }
