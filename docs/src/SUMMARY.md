@@ -15,4 +15,5 @@
   - [How to create projectiles](./how_to_create_projectiles.md)
 - [Client Player feedbacks](./client_feedbacks.md)
   - [How to add new Feedbacks](./how_to_add_feedbacks.md)
+- [How to add new characters](./how_to_add_new_character.md)
 - [How to add documentation](./add_documentation.md)
