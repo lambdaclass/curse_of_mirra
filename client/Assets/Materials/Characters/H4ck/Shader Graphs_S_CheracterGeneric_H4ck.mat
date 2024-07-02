@@ -51,6 +51,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: 715439a80cf9343efbb9ede81a9d8561, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _LavaMaskTexture:
+        m_Texture: {fileID: 2800000, guid: 8bccc276ef0680344bfac00df0873e8d, type: 3}
+        m_Scale: {x: 3, y: 3}
+        m_Offset: {x: 0, y: 0}
+    - _LavaTexture:
+        m_Texture: {fileID: 2800000, guid: d055b37dff2169b4cafa3c05c83be60b, type: 3}
+        m_Scale: {x: 3, y: 3}
+        m_Offset: {x: 0, y: 0}
     - _MainTexture:
         m_Texture: {fileID: 2800000, guid: c50a4d31ffe044e6fbaf6b1b01936318, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -99,6 +107,8 @@ Material:
     - _FresnelPower: 10
     - _FresnelValue: 3
     - _ISTRANSPARENT: 0
+    - _LavaAmount: 0.5
+    - _LavaSoftFactor: 0.15
     - _LinkDetailsWithBase: 1
     - _MetalicChannelID: 2
     - _Metallic: 0.585
@@ -115,6 +125,7 @@ Material:
     - _TexWorldScale: 1
     - _USEEMISIVEANIMATION: 0
     - _USEFRESNEL: 1
+    - _USE_LAVA: 0
     - _UVBase: 2.68
     - _UVDetail: 1.719
     - _WorldMapping: 0
@@ -127,5 +138,6 @@ Material:
     - _EmissiveNoiseSpeed: {r: 1, g: 1, b: 0, a: 0}
     - _FresnelColor: {r: 2.594569, g: 0, b: 4.867145, a: 0}
     - _FresnelColorPulse: {r: 0.6156863, g: 0.0627451, b: 0.87058824, a: 0}
+    - _LavaColor: {r: 2.9960785, g: 1.1294118, b: 0.5176471, a: 0}
     - _TintColor: {r: 4.867144, g: 4.867144, b: 4.867144, a: 1}
   m_BuildTextureStacks: []
