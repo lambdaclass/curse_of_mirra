@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 5394743331870881788}
   - component: {fileID: 7485565586957169245}
   - component: {fileID: 7916785240983848783}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: CanvasHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -472,10 +472,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5394743331870881788}
     m_Modifications:
+    - target: {fileID: 88852961442653856, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1428990921056839056, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
         type: 3}
       propertyPath: m_Name
       value: CrateCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 1428990921056839056, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2950851517647107188, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
         type: 3}
@@ -496,6 +506,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3164839219215374238, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3164839224369075340, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3164839224853288806, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373301182641885161, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8206914607531316031, guid: 3a5c1f3d33e3140dfb9af9e5f6c57089,
         type: 3}

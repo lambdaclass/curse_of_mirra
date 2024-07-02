@@ -3,6 +3,7 @@
 - [Message Protocol](./message_protocol.md)
 - [Game Settings](./game_settings.md)
 - [Data Fileguides](./data_fileguides.md)
+- [Build Settings](./build_settings.md)
 - [Android Build](./android_builds.md)
 - [IOS Build](./ios_builds.md)
 - [Fluid gameplay in an online environment](./fluid_gameplay.md)
